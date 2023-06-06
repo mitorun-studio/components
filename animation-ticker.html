@@ -1,0 +1,225 @@
+<!doctype html><!-- Файл animation-ticker.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Бегущая строка – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+/* Общие стили для бегущих строк: */
+.ticker {
+	max-width: 600px;
+	height: 100px;
+	font-weight: 700;
+	font-size: 40px;
+	line-height: 100px;
+	text-transform: uppercase;
+	color: hsl(0, 0%, 40%);
+	background-color: hsl(202, 20%, 92%);
+	border: 2px solid hsl(0, 0%, 40%);
+	overflow: hidden;
+}
+
+.ticker p {
+	/*width: 100%;*/
+	white-space: nowrap;
+	background-color: hsl(0, 0%, 96%);
+	border: 1px dashed hsl(0, 0%, 65%);
+}
+
+.ticker:hover div {
+	animation-play-state: paused;
+}
+
+/*------------- Строка №1 --------------*/
+.ticker-1 p {
+	animation: ticker-1 4s linear infinite;
+}
+
+@keyframes ticker-1 {
+	/*0% {transform: translateX(100%);}*/
+	100% {transform: translateX(-100%);}
+}
+
+/*------------- Строка №2 --------------*/
+.ticker-2 {
+	position: relative;
+}
+
+.ticker-2 p {
+	position: absolute;
+	top: 0;
+	left: 0;
+	animation: ticker-2 4s linear infinite alternate;
+}
+
+@keyframes ticker-2 {
+	to {transform: translateX(-450px);}
+}
+
+/*------------- Строка №3 --------------*/
+.ticker-3 {
+	max-width: 660px;/* этой шириной и шириной самих текстов (размер шрифта) подбирается нужные числа чтобы анимация получилась какбы непрерывной */
+}
+
+.ticker-3 div {
+	display: flex;
+	width: 200%;
+	animation: ticker-3 4s linear infinite;
+}
+
+.ticker-3 p {
+	width: 100%;
+	white-space: nowrap;
+}
+
+@keyframes ticker-3 {
+	0% {transform: translateX(0%);}
+	100% {transform: translateX(-50%);}
+}
+
+/*------------- Строка №4 --------------*/
+.ticker-4 {
+	max-width: 660px;/* этой шириной и шириной самих текстов (размер шрифта) подбирается нужные числа чтобы анимация получилась какбы непрерывной */
+	height: auto;
+}
+
+.ticker-4 div {
+	display: flex;
+	width: 200%;
+	animation: ticker-4 4s linear infinite;
+}
+
+.ticker-4 span {
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+}
+
+.ticker-4 img {
+	width: 20%;
+}
+
+@keyframes ticker-4 {
+	0% {transform: translateX(0%);}
+	100% {transform: translateX(-50%);}
+}
+
+/*------------- Строка №5: --------------*/
+.ticker-5 {
+	width: 100%;
+	padding: 12px 0;
+	background: rgb(255, 242, 208);
+}
+
+.ticker-5 p {
+	/*text-indent: -1000px;*/
+	background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="100px" width="160px"><text x="0" y="15" fill="red" font-weight="700" font-size="20" line-height="100px">Бегущая строка</text></svg>');
+	/*background-repeat: repeat;*/
+	animation: ticker-5 2s linear infinite;
+}
+
+@keyframes ticker-5 {
+	100% {
+		background-position-x: -160px;
+	}
+}
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Анимация Бегущая строка</h1>
+		<p>Бегущая строка, run row, running line, ticker.</p>
+		<hr>
+
+
+		<h2>Бегущая строка №1</h2>
+		<p>Работает на <code>transform: translate</code>.</p>
+		<p>Строка начинает бежать из правого края, пробегает полность и продолжает повторять этот бег справа налево.</p>
+		<div class="ticker ticker-1">
+			<p>Бегущая бесконечная строка</p>
+		</div>
+		<hr>
+
+
+
+
+		<h2>Бегущая строка №2</h2>
+		<p>Работает на <code>transform: translate</code>.</p>
+		<p>Анимация в строке доходит до конца текста и возвращается назад</p>
+		<div class="ticker ticker-2">
+			<p>Бегущая бесконечная строка</p>
+		</div>
+		<hr>
+
+
+
+
+		<h2>Бегущая строка №3</h2>
+		<p>Работает на <code>transform: translate</code>.</p>
+		<p>Бегущий элемент дублируется два раза. Второй аналогичный элемент создает непрерывность анимации, когда после конца первой строки в кадр попадает начало второй.</p>
+		<p>Этот вариант не адаптивный - при уменьшении ширины внешнего элемента анимация рушится. Нужно отредактировать его так, чтобы внешний элемент мог адаптироваться (<code>max-width: 100%;</code>), а внутренние были с фиксированными размерами.</p>
+		<p>Думаю что второй элемент нужно скрывать (<code>aria-hidden="true"</code>). Надо попробовать вторую строку сделать псевдоэлементом чтобы не повторять разметку в HTML!</p>
+		<div class="ticker ticker-3">
+			<div>
+				<p>Бегущая бесконечная строка</p>
+				<p aria-hidden="true">Бегущая бесконечная строка</p>
+			</div>
+		</div>
+		<hr>
+
+
+
+
+		<h2>Бегущая строка №4</h2>
+		<p>Механизм аналогичен варианту №3. Но тут высота зависит от ширины (уменьшается вместе с ней), поэтому весь элемент адаптивный.</p>
+		<div class="ticker ticker-4">
+			<div>
+				<span>
+					<img width="200" height="200" src="https://picsum.photos/200/200?random=1" alt="">
+					<img width="200" height="200" src="https://picsum.photos/200/200?random=2" alt="">
+					<img width="200" height="200" src="https://picsum.photos/200/200?random=3" alt="">
+					<img width="200" height="200" src="https://picsum.photos/200/200?random=4" alt="">
+				</span>
+
+				<span aria-hidden="true">
+					<img width="200" height="200" src="https://picsum.photos/200/200?random=1" alt="">
+					<img width="200" height="200" src="https://picsum.photos/200/200?random=2" alt="">
+					<img width="200" height="200" src="https://picsum.photos/200/200?random=3" alt="">
+					<img width="200" height="200" src="https://picsum.photos/200/200?random=4" alt="">
+				</span>
+			</div>
+		</div>
+		<hr>
+
+
+
+
+		<h2>Бегущая строка №5</h2>
+		<p>Работает на <code>background-position</code></p>
+		<p>Это интересный редкий способ, выглядит вполне работоспособным.</p>
+		<div class="ticker-5">
+			<p>Бегущая строка</p>
+		</div>
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

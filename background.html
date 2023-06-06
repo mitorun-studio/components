@@ -1,0 +1,149 @@
+<!doctype html><!-- Файл background.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Бэкграунд – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+.image-set {
+	width: 600px;
+	height: 400px;
+	background-image:
+	linear-gradient(to top, black, transparent 70%),
+	image-set(
+		url('img/picture-600x600@2x.avif') type=('image/avif') 2x,
+		url('img/picture-300x300@1x.avif') type=('image/avif') 1x,
+		url('img/picture-600x600@2x.webp') type=('image/webp') 2x,
+		url('img/picture-300x300@1x.webp') type=('image/webp') 1x,
+		url('img/picture-600x600@2x.jpg') 2x,
+		url('img/picture-300x300@1x.jpg') 1x
+	);
+	background-size: cover;
+}
+
+.section-inverse {
+	padding-block: 40px;
+	background-color: grey;
+	color: var(--white);
+}
+
+.bg-fluid {
+	/*background-color: grey;
+	border-style: solid;
+	border-image-source: linear-gradient(grey, grey);
+	border-image-slice: 1;
+	border-image-width: 100%;
+	border-image-outset: 0 100vw 0 100vw;
+	border-image-repeat: stretch;*/
+
+	/*общее свойство: border-image: source | slice | width | outset | repeat;*/
+	background-color: grey;
+	border-style: solid;
+	border-image: linear-gradient(grey, grey) 1/100%/0 100vw 0 100vw;
+}
+
+.bg-fluid-2 {
+	background-color: var(--color);
+	box-shadow: 0 0 0 100vmax var(--color);
+	clip-path: inset(0 -100vmax);
+}
+
+section.container {
+	overflow: hidden;
+}
+
+.codefield4 {
+	position: relative;
+	padding: 20px 0;
+	background: hsl(0, 0%, 88%);
+}
+
+.codefield4::before {
+	content: '';
+	position: absolute;
+	left: -50vw;
+	right: -50vw;
+	top: 0;
+	bottom: 0;
+	z-index: -1;
+	background: hsl(0, 0%, 88%);
+}
+
+.ins-plus {
+	color: green;
+	text-decoration: none;
+}
+
+.ins-plus::before {
+	content: '+';
+	margin-left: -20px;
+}
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Компоненты</h1>
+		<hr>
+
+		<h2>Фон с image-set</h2>
+
+		<div class="image-set"></div>
+		<hr>
+
+
+
+
+		<h2>Растянуть фон контейнера до конца экрана</h2>
+
+		<p class="bg-fluid section-inverse">Этот параграф находится внутри контейнера, а его фон до краев экрана сделан хитрым способом. Этот мой способ, с помощью <code>border-image</code>.</p>
+		<br>
+
+		<p class="bg-fluid-2 section-inverse">Этот параграф находится внутри контейнера, а его фон до краев экрана сделан хитрым способом. Этот способ от Kevin Powell, с помощью <code>box-shadow и clip-path</code>.</p>
+		<p>Есть минус: на сафари при загрузке на секунду весь сайт закрывает тенью от этого блока!</p>
+		<br>
+		<hr><br>
+
+
+
+
+
+		<div class="template-grid">
+			<div class="template-card">
+				<p>Описание примера</p>
+				<!-- пример -->
+			</div>
+		</div>
+
+
+	</main>
+
+
+	<section class="container">
+		<h2>Фон на всю ширину окна с псевдоэлементом с<code>position: absolute;</code></h2>
+		<pre class="codefield4"><code>.menu {
+display: flex;
+flex-wrap: wrap;
+<ins class="ins-plus">	justify-content: flex-end;</ins>
+}</code></pre>
+	</section>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

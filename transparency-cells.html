@@ -1,0 +1,83 @@
+<!doctype html><!-- Файл transparency-cells.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Клеточки для слоя прозрачности – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+.conic-gradient-in-bg {
+	width: 300px;
+	height: 200px;
+	background-image: conic-gradient(#ddd 25%, #ffffff00 25% 50%, #ddd 50% 75%, #ffffff00 75%);
+	background-size: 40px 40px;
+}
+
+.svg-in-bg {
+	width: 300px;
+	height: 200px;
+	background: linear-gradient(112deg, hsl(39, 100%, 50%), transparent 70%), url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"%3E%3Cpath d="M1 2V0h1v1H0v1" fill="%23ddd"/%3E%3C/svg%3E') 0 / 50px;
+	/*background: linear-gradient(112deg, hsl(39, 100%, 50%), transparent 70%), url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path d="M1 2V0h1v1H0v1" fill-opacity=".13"/></svg>') 0 / 50px;*/
+	/*background-size: 30px 30px;*/
+}
+
+.base64-in-bg {
+	width: 300px;
+	height: 200px;
+	background: linear-gradient(112deg, hsl(240, 100%, 50%), transparent 70%), url('data:image/webp;base64,UklGRigAAABXRUJQVlA4TBsAAAAvT8ATAAVhtpG/5KnsX4GL6P8ExI79C9zYvwAA') 0 0 / 40px;/* черные клетки с 13% непрозрачности, тут и в примерах ниже с webp! или url(img/transparency-cells.png) */
+	/*background-size: 30px 30px;*/
+}
+
+/* transparency-cells-grey-80x80_MIN.webp:
+background-image: url('data:image/webp;base64,UklGRioAAABXRUJQVlA4TB0AAAAvT8ATEAVBto3yiA9Ugc/1cM//BDR2ZP8Ct7F/AQA='); */
+
+/* transparency-cells-transparent-80x80_MIN.webp:
+background-image: url('data:image/webp;base64,UklGRiwAAABXRUJQVlA4TCAAAAAvT8ATEA8wcHM0TA/5DniIBZP5S8fQF9H/qApcAFVdAA=='); */
+
+/* transparency-cells-white-grey-80x80_MIN.webp:
+background-image: url('data:image/webp;base64,UklGRi4AAABXRUJQVlA4TCIAAAAvT8ATAA/w7/9////7f/7jAWLBZP7SMfRF9D9AVReqAhcA'); */
+
+/* transparency-cells-white-transparent-80x80_MIN.webp:
+background-image: url('data:image/webp;base64,UklGRigAAABXRUJQVlA4TBsAAAAvT8ATAAVhtpG/5KnsX4GL6P8ExI79C9zYvwAA'); */
+
+/*background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADMSURBVHgB7duxEYAwEANBw9Cja3SVQA+XfLBbwo1SXe9vDXbOWZPdi0TASMBIwEjASMBIwEjASMBIwEjASMBIwEjASMBIwEjASMBIwEjASMBIwEjASMBIwEjASMBIwEjASMBIwEjASMBIwEjASMBIwEjASMDomf7D2HuvySwwEjASMBIwEjASMBIwEjASMBIwEjASMBIwEjASMBIwEjASMBIwEjASMBIwEjASMBIwEjASMBIwEjASMBIwEjASMBIwEjASMBIwEjASMPoALIkJma2bAW8AAAAASUVORK5CYII='); это вариант минифицированной картинки 80x80.png с белыми и серыми клетками */
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Фоны</h1>
+		<hr>
+
+		<h2>Клетки фоном с conic-gradient</h2>
+		<div class="conic-gradient-in-bg"></div>
+
+
+		<h2>Клетки SVG (url) в background</h2>
+		<div class="svg-in-bg"></div>
+
+
+		<h2>Клетки base64 (WebP) в background</h2>
+		<div class="base64-in-bg"></div>
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

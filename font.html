@@ -1,0 +1,216 @@
+<!doctype html><!-- Файл font.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Шрифт и текст – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+.font-vw {
+	font-size: 5vw;
+	border: 2px dashed green;
+}
+
+.font-vw-clamp {
+	font-size: clamp(16px, calc(16px + 4vw), 60px);
+	border: 2px dashed orange;
+}
+
+.font-vw-media {
+	font-size: calc(14px + 4vw);
+	border: 2px dashed violet;
+}
+
+@media (min-width: 1024px) {
+	.font-vw-media {
+		font-size: 60px;
+	}
+}
+
+.font-vw-calc-fls {
+	font-size: calc(24px + (40 - 24) * ((100vw - 320px) / (1280 - 320)));
+	border: 2px dashed rgb(243, 154, 53);
+}
+
+/* Текст в SVG: */
+.font-svg {
+	width: 100%;
+	max-height: 300rem;
+	font-size: 26px;
+	vertical-align: top;
+	background-color: hsl(89, 100%, 95%);
+}
+
+.font-svg text {
+	fill: black;
+	/*text-anchor: middle;*/
+	/*dominant-baseline: middle;*/
+}
+
+
+
+/*---------------------------------------------
+---- Вываливание текста с text-overflow: ------
+---------------------------------------------*/
+
+.text-div {
+	display: inline-block;
+	width: 80px;
+	margin-right: 100px;
+	padding: 10px;
+	border: 4px solid hsl(0, 62%, 73%);
+}
+
+.t-d-1 {
+	text-overflow: clip;/* default */
+	overflow: hidden;
+}
+
+.t-d-2 {
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.t-d-3 {
+	text-overflow: fade;/* пока не поддерживается браузерами */
+	overflow: hidden;
+}
+
+
+
+
+/*-----------------------------------------------------
+-------------- Адаптивная формула ФПЖ: ----------------
+-----------------------------------------------------*/
+
+.adaptive-block {
+	margin-bottom: 40px;
+	padding: 50px;
+	background-color: hsl(180, 69%, 90%);
+	border: 2px solid hsl(180, 53%, 64%);
+}
+
+.adaptive-block-title {
+	margin-bottom: 0 0 20px 0;
+	font-size: 30px;
+	line-height: 1.3;
+}
+
+.adaptive-block-text {
+	font-size: 16px;
+	line-height: 1.5;
+}
+
+@media (max-width: 1140px) {
+	.adaptive-block {
+		margin-bottom: calc(20px + (40 - 20) * ((100vw - 320px) / (1140 - 320)));
+		padding: calc(20px + (50 - 20) * ((100vw - 320px) / (1140 - 320)));
+	}
+
+	.adaptive-block-title {
+		margin-bottom: calc(10px + (20 - 10) * ((100vw - 320px) / (1140 - 320)));
+		font-size: calc(20px + (30 - 20) * ((100vw - 320px) / (1140 - 320)));
+	}
+
+	.adaptive-block-text {
+		font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1140 - 320)));
+	}
+}
+
+/* Адаптивная формула для сайта без контейнера: */
+.adaptive-block-2 {
+	margin-bottom: calc(20px + (70 - 20) * ((100vw - 320px) / (1920 - 320)));
+	padding: calc(20px + (80 - 20) * ((100vw - 320px) / (1920 - 320)));
+	background-color: hsl(304, 75%, 92%);
+	border: 2px solid hsl(303, 43%, 63%);
+}
+
+.adaptive-block-title-2 {
+	margin-bottom: calc(10px + (30 - 10) * ((100vw - 320px) / (1920 - 320)));
+	font-size: calc(20px + (40 - 20) * ((100vw - 320px) / (1920 - 320)));
+	line-height: 1.3;
+}
+
+.adaptive-block-text-2 {
+	font-size: calc(14px + (21 - 14) * ((100vw - 320px) / (1920 - 320)));
+	line-height: 1.5;
+}
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Шрифты и тексты</h1>
+		<hr>
+
+		<h2>Адаптивный размер шрифта</h2>
+
+		<p class="font-vw">Это шрифт с размерами в vw: <code>font-size: 5vw;</code></p>
+		<hr>
+
+
+		<p class="font-vw-clamp">Это шрифт с размерами в vw и ограничениями min/max с помощью clamp(): <code>font-size: clamp(16px, calc(16px + 3vw), 32px);</code></p>
+		<hr>
+
+
+		<p class="font-vw-media">Это шрифт с размерами в vw и ограничением в @media: <code>font-size: calc(16px + 1.5vw);</code></p>
+		<hr>
+
+
+		<p class="font-vw-calc-fls">Это формула для адаптивного шрифта от ФПЖ (Е.Андриканич): <code>font-size: calc(24px + (40 - 24) * ((100vw - 320px) / (1280 - 320)));</code>.</p>
+		<p>Тут 24px – это наш минимальный размер шрифта на ширине 320px, 1280px – это ширина макета (максимальная ширина контейнера?), а 40-24=16 – это разница между 40px (это размер шрифта в макете при 1280px контейнере) и минимальными 24px. Эту же формулу можно применять и для адаптивных отступов и размеров элементов!</p>
+		<hr>
+
+
+		<svg class="font-svg" viewBox="0 0 300 40">
+			<text x="0" y="30">Это шрифт в SVG</text>
+		</svg>
+		<hr>
+
+
+
+
+		<h2>Вываливание текста с text-overflow</h2>
+		<p>text-overflow работает только если для блока задано overflow: auto, scroll или hidden.</p><br>
+		<div class="text-div">Текст, выходящий за рамки.</div>
+		<div class="text-div t-d-1">Текст, выходящий за рамки.</div>
+		<div class="text-div t-d-2">Текст, выходящий за рамки.</div>
+		<div class="text-div t-d-3">Текст, выходящий за рамки.</div>
+		<hr>
+
+
+
+		<h2>Адаптивная формула для всех размеров</h2>
+		<p>Формула <a target="_blank" href="https://youtu.be/eaOAY0vIB4U">ФПЖ (Е.Андриканич)</a> для создания адаптивных размеров: для шрифтов, отступов, размеров элементов: <br><code>font-size: calc(24px + (50 - 24) * ((100vw - 320px) / (1920 - 320)));</code>.</p>
+
+		<div class="adaptive-block">
+			<p class="adaptive-block-title">Пример адаптивного блока в контейнере</p>
+			<p class="adaptive-block-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt dignissimos deleniti architecto accusamus velit dolor et ut corrupti molestiae tempore earum esse, vitae, voluptate quidem. Perspiciatis similique omnis corporis laudantium!</p>
+		</div>
+
+
+		<div class="adaptive-block-2">
+			<p class="adaptive-block-title-2">Пример адаптивного блока вне контейнера</p>
+			<p class="adaptive-block-text-2">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt dignissimos deleniti architecto accusamus velit dolor et ut corrupti molestiae tempore earum esse, vitae, voluptate quidem. Perspiciatis similique omnis corporis laudantium!</p>
+		</div>
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

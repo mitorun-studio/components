@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="70" height="50" viewBox="0 0 98 70">
+<path d="M49 2S20 2 12 4c-4 1-7 5-8 9-2 8-2 22-2 22s0 14 2 22c1 4 4 8 8 9 8 2 37 2 37 2s29 0 37-2c4-1 7-5 8-9 2-8 2-22 2-22s0-14-2-22c-1-4-4-8-8-9-8-2-37-2-37-2z" fill="#212121" fill-opacity="0.7">
+<animate begin="mouseenter" end="mouseout" attributeName="fill" values="#ff0000" fill="remove"/>
+<animate begin="mouseenter" end="mouseout" attributeName="fill-opacity" values="1" fill="remove"/>
+</path>
+<path d="M64 35L39 21v28l25-14z" fill="#fff"/>
+</svg>

@@ -1,0 +1,182 @@
+<!doctype html><!-- Файл shadow.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Тени простые – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+.box {
+	display: inline-block;
+	width: 200px;
+	height: 200px;
+	margin: 0 40px 60px 0;
+	background-color: hsl(0, 0%, 100%);
+	border-radius: 16px;
+}
+
+.shadow-1 {
+	box-shadow: 4px 24px 60px hsla(203, 23%, 62%, 0.25);
+}
+
+.shadow-1b {
+	background-color: hsl(288, 55%, 53%);
+	box-shadow: 4px 24px 60px hsla(203, 23%, 62%, 0.2), 4px 24px 40px hsla(288, 23%, 62%, 0.2);
+}
+
+/* Космическая тень: */
+.gallery {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 80px;
+	margin-bottom: 80px;
+}
+
+.gallery > * {
+	position: relative;
+	background-color: hsla(0, 0%, 100%, 1);
+	/*box-shadow: 0 0 20rem 1rem hsla(210, 88%, 22%, 0.15);*/
+}
+
+.card1 {
+	width: 150px;
+	height: 250px;
+}
+
+.card2 {
+	width: 200px;
+	height: 200px;
+}
+
+.card3 {
+	width: 250px;
+	height: 150px;
+}
+
+.shadow-cosmic-1::before {
+	content: '';
+	position: absolute;
+	top: -40%;
+	right: -40%;/* min-content ? */
+	bottom: -40%;
+	left: -40%;
+	z-index: -1;
+	background: radial-gradient(20% 50% at 50% 50%, hsla(210, 100%, 36%, 0.3) 67%, hsla(210, 100%, 36%, 0.08) 83%, hsla(210, 100%, 36%, 0) 94%);
+	transform: rotate(28deg);
+}
+
+.shadow-cosmic-2::before {
+	content: '';
+	position: absolute;
+	top: -40%;
+	right: -40%;/* min-content ? */
+	bottom: -40%;
+	left: -40%;
+	z-index: -1;
+	background: radial-gradient(25% 50% at 50% 50%, hsla(210, 100%, 36%, 0.2) 70%, hsla(210, 100%, 36%, 0.08) 85%, hsla(210, 100%, 36%, 0) 95%);
+	transform: rotate(30deg);
+}
+
+.shadow-cosmic-2::after {
+	content: '';
+	position: absolute;
+	top: -10%;
+	right: -10%;/* min-content ? */
+	bottom: -10%;
+	left: -10%;
+	z-index: -1;
+	background: radial-gradient(50% 50% at 50% 50%, hsla(210, 100%, 36%, 0.08) 85%, hsla(210, 100%, 36%, 0) 99%);
+}
+
+.shadow-cosmic-3::before {
+	content: '';
+	position: absolute;
+	top: -12px;
+	right: -12px;/* min-content ? */
+	bottom: -12px;
+	left: -12px;
+	z-index: -1;
+	background: hsla(210, 88%, 44%, 0.15);
+	border-radius: 30px;
+	filter: blur(16px);
+	transform:  skew(-12deg, -16deg);
+	transition: 0.8s 0.1s;
+}
+
+.shadow-cosmic-3:hover::before {
+	top: -18px;
+	right: -18px;/* min-content ? */
+	bottom: -18px;
+	left: -18px;
+	background: hsla(210, 86%, 52%, 0.3);
+	filter: blur(18px);
+	transform:  skew(-15deg, -20deg);
+	transition: 0.8s;
+}
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+		<section>
+
+			<h1>Тени</h1>
+			<hr>
+
+			<h2>Тень №1</h2>
+			<p>Это тень из поста инстаграм под названием "идеальная тень". Там советуют, чтобы тень зависела от цвета фона, цвета элемента (повторяла его цвета, если это градиент). На практике можно попробовать накладывать две тени: цвета фона и цвета элемента, или в одном слое выбрать промежуточный цвет.</p>
+			<br>
+
+			<div class="box shadow-1"></div>
+			<div class="box shadow-1b"></div>
+
+		</section>
+		<hr>
+
+
+
+
+		<section>
+			<h2>Космическая тень</h2>
+			<br>
+
+			<div class="gallery">
+				<article class="card1 shadow-cosmic-1"></article>
+				<article class="card2 shadow-cosmic-1"></article>
+				<article class="card3 shadow-cosmic-1"></article>
+			</div>
+
+			<div class="gallery">
+				<article class="card1 shadow-cosmic-2"></article>
+				<article class="card2 shadow-cosmic-2"></article>
+				<article class="card3 shadow-cosmic-2"></article>
+			</div>
+
+			<div class="gallery">
+				<article class="card1 shadow-cosmic-3"></article>
+				<article class="card2 shadow-cosmic-3"></article>
+				<article class="card3 shadow-cosmic-3"></article>
+			</div>
+		</section>
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

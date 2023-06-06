@@ -1,0 +1,263 @@
+<!doctype html><!-- Файл gallery-advanced.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Продвинутые галереи – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+.gallery {
+	--s: 150px; /* control the size */
+	--g: 13px;  /* control the gap */
+	display: grid;
+	margin: calc(var(--s) + var(--g));
+}
+
+.gallery > img {
+	grid-area: 1/1;
+	width: var(--s);
+	aspect-ratio: 1.15;
+	object-fit: cover;
+	clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+	transform: translate(var(--_x,0),var(--_y,0)) scale(var(--_t,1));
+	cursor: pointer;
+	transition: 0.2s linear;
+}
+.gallery > img:hover {
+	z-index: 1;
+	--_t: 1.2;
+}
+
+.gallery > img:nth-child(1) {--_y: calc(-100% - var(--g))}
+.gallery > img:nth-child(7) {--_y: calc( 100% + var(--g))}
+.gallery > img:nth-child(3),
+.gallery > img:nth-child(5) {--_x: calc(-75% - 0.87*var(--g))}
+.gallery > img:nth-child(4),
+.gallery > img:nth-child(6) {--_x: calc( 75% + 0.87*var(--g))}
+.gallery > img:nth-child(3),
+.gallery > img:nth-child(4) {--_y: calc(-50% - 0.5*var(--g))}
+.gallery > img:nth-child(5),
+.gallery > img:nth-child(6) {--_y: calc( 50% + 0.5*var(--g))}
+
+/*-------------------------------------------
+---- Галерея с раскрывающимся контентом: ----
+-------------------------------------------*/
+
+ul[class] {
+	margin: 0;
+	padding: 0;
+}
+
+ul[class] li {
+	list-style: none;
+}
+
+ul[class] li > * {
+	margin: 20px;
+}
+
+:focus {
+	box-shadow: 0 0 0 5px rebeccapurple;
+	outline: 0;
+}
+
+/* [1] 'auto-fit' grid columns, so no media queries required. */
+/* [2] 'dense' packing fills in holes earlier in the grid. */
+.grid {
+	display: grid;
+	gap: 20px;
+	grid-auto-flow: dense; /* [2] */
+	grid-template-columns: repeat(auto-fit, 400px); /* [1] */
+	justify-content: center;
+}
+
+.grid > * {
+	align-items: flex-start;
+	background: #eee;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+/* [3] Make fullwidth card span all grid columns. */
+.fullwidth {
+	grid-column: 1 / -1;
+}
+
+.is-hidden {
+	display: none;
+}
+
+.fullwidth,
+.is-selected {
+	background: wheat;
+}
+
+
+
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Продвинутые галереи</h1>
+		<hr>
+
+
+		<h2>Honeycomb image gallery</h2>
+
+		<div class="gallery">
+			<img src="https://picsum.photos/id/1040/300/300" alt="a house on a mountain">
+			<img src="https://picsum.photos/id/106/300/300" alt="sime pink flowers">
+			<img src="https://picsum.photos/id/136/300/300" alt="big rocks with some trees">
+			<img src="https://picsum.photos/id/1039/300/300" alt="a waterfall, a lot of tree and a great view from the sky">
+			<img src="https://picsum.photos/id/110/300/300" alt="a cool landscape">
+			<img src="https://picsum.photos/id/1047/300/300" alt="inside a town between two big buildings">
+			<img src="https://picsum.photos/id/1057/300/300" alt="a great view of the sea above the mountain">
+		</div>
+		<hr>
+
+
+		<h2>Карточки с раскрывающимися блоками</h2>
+		<p>Код полностью взят из примера в статье. Карточки содержат кнопки, которые раскрывают други блоки галереи на всю ширину. Кнопки и доступность сделаны с помощью скриптов.</p>
+
+		<ul class="grid">
+			<li>
+				<p>1</p>
+			</li>
+			<li>
+				<p>2</p>
+				<button type="button" data-quick-view>Quick view</button>
+			</li>
+			<li class="fullwidth is-hidden" id="quickview-01">
+				<button type="button" data-close>Close 2</button>
+				<p>fullwidth 2</p>
+				<p>This grid item needs to stretch the full width of the page, and force other grid items to reflow around it, whilst remaining "visually connected" to the preceeding grid item.</p>
+				<p>Test <a href="#">inline link</a>.</p>
+			</li>
+			<li>
+				<p>3</p>
+			</li>
+			<li>
+				<p>4</p>
+				<button type="button" data-quick-view>Quick view</button>
+			</li>
+			<li class="fullwidth is-hidden" id="quickview-04">
+				<button type="button" data-close>Close 4</button>
+				<p>fullwidth 4</p>
+				<p>This grid item needs to stretch the full width of the page, and force other grid items to reflow around it, whilst remaining "visually connected" to the preceeding grid item.</p>
+				<p>Test <a href="#">inline link</a>.</p>
+			</li>
+			<li>
+				<p>5</p>
+				<button type="button" data-quick-view>Quick view</button>
+			</li>
+			<li class="fullwidth is-hidden" id="quickview-05">
+				<button type="button" data-close>Close 5</button>
+				<p>fullwidth 5</p>
+				<p>This grid item needs to stretch the full width of the page, and force other grid items to reflow around it, whilst remaining "visually connected" to the preceeding grid item.</p>
+				<p>Test <a href="#">inline link</a>.</p>
+			</li>
+			<li>
+				<p>6</p>
+			</li>
+			<li>
+				<p>7</p>
+			</li>
+			<li>
+				<p>8</p>
+			</li>
+		</ul>
+
+		<script>
+const quickViewButtons = document.querySelectorAll('[data-quick-view]');
+const closeButtons = document.querySelectorAll('[data-close]');
+const fullwidthCards = document.querySelectorAll('.fullwidth');
+let toggle; // Quick view <button>.
+let toggleParent; // <li>.
+let fullwidth; // Fullwidth card to be "injected".
+
+const openQuickView = (toggle, toggleParent, fullwidth) => {
+	toggle.setAttribute('aria-expanded', 'true');
+	toggleParent.classList.toggle('is-selected');
+	fullwidth.classList.toggle('is-hidden');
+	// Make fullwidth card keyboard focusable.
+	fullwidth.setAttribute('tabIndex', '0');
+};
+
+const closeQuickView = (toggle, toggleParent, fullwidth) => {
+	toggle.setAttribute('aria-expanded', 'false');
+	toggleParent.classList.toggle('is-selected');
+	fullwidth.classList.toggle('is-hidden');
+	fullwidth.removeAttribute('tabIndex');
+};
+
+quickViewButtons.forEach(quickView => {
+	// Add appropriate ARIA attributes for "toggle" behaviour.
+	fullwidth = quickView.parentElement.nextElementSibling;
+	quickView.setAttribute('aria-expanded', 'false');
+	quickView.setAttribute('aria-controls', fullwidth.id);
+
+	quickView.addEventListener('click', (e) => {
+		toggle = e.target;
+		toggleParent = toggle.parentElement;
+		fullwidth = toggleParent.nextElementSibling;
+
+		// Open (or close) fullwidth card.
+		if (toggle.getAttribute('aria-expanded') === 'false') {
+			// Do we have another fullwidth card already open? If so, close it.
+			fullwidthCards.forEach(fullwidthOpen => {
+				if (!fullwidthOpen.classList.contains('is-hidden')) {
+					toggleParentOpen =
+						fullwidthOpen.previousElementSibling;
+					toggleOpen = toggleParentOpen.querySelector(
+						'[data-quick-view]'
+					);
+
+					closeQuickView(toggleOpen, toggleParentOpen, fullwidthOpen);
+				}
+			});
+
+			openQuickView(toggle, toggleParent, fullwidth);
+		} else {
+			closeQuickView(toggle, toggleParent, fullwidth);
+		}
+	});
+});
+
+closeButtons.forEach(close => {
+	close.addEventListener('click', (e) => {
+		fullwidth = e.target.parentElement;
+		toggleParent = e.target.parentElement.previousElementSibling;
+		toggle = toggleParent.querySelector('[data-quick-view]');
+
+		closeQuickView(toggle, toggleParent, fullwidth);
+		toggle.focus(); // Return keyboard focus to "toggle" button.
+	});
+});
+		</script>
+
+
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

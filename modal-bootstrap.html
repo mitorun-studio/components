@@ -1,0 +1,189 @@
+<!doctype html><!-- Файл modal-bootstrap.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Модальное окно Bootstrap – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Создание модальных окон (модал, попап, всплывающее окно, диалог, всплывашка, modal, dialog, popup).">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+/*---------------------------------------------------
+------------ Модал Bootstrap: -----------------------
+---------------------------------------------------*/
+
+.modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1055;
+	display: none;
+	width: 100%;
+	height: 100%;
+	/*height: calc(100% - var(--margin-m) * 2); для скролла в модале */
+	overflow-x: hidden;
+	overflow-y: auto;/* эти два оверфлоу на случай если в модале много контента (больше чем помещается на страницу) и для беспроблемной анимации */
+	outline: 0;
+}
+
+.modal-dialog {
+	position: relative;
+	display: grid;
+	place-items: center;
+	width: auto;
+	max-width: 500px;
+	min-height: calc(100% - var(--container-padding) * 2);/* это ставится когда модал расположен по центру окна */
+	margin: var(--container-padding);/* это отступы модала до краев экрана на мобилках! */
+	/*backdrop-filter: blur(3px);*/
+	pointer-events: none;
+	scale: 0.8;/* для анимации появления */
+	/*translate: 0 -40px; другая анимация появления */
+	transition: scale 0.3s ease-out;
+}
+
+@media (min-width: 576px) {
+	.modal-dialog {
+		margin: var(--container-padding) auto;/* это отступы если располагать модал сверху экрана, а не по середине */
+	}
+}
+
+/* Анимация проявления модала: */
+.fade {
+	transition: opacity 0.2s linear;
+}
+
+.fade:not(.show) {
+	opacity: 0;
+}
+
+/* этот класс добавляется скриптом для анимации проявления окна: */
+.modal.show .modal-dialog {
+	/*transform: none; с этим свойством LightningCSS портит вёрстку */
+	scale: 1;
+}
+
+/* этот класс добавляется скриптом когда кликаешь по оверлею в режиме статичного фона: */
+.modal.modal-static .modal-dialog {
+	/*transform: scale(1.02);*/
+	scale: 1.02;
+}
+
+.modal-backdrop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1050;
+	width: 100vw;
+	height: 100vh;
+	background-color: hsl(0, 0%, 0%);
+}
+
+.modal-backdrop.fade {
+	opacity: 0;
+}
+
+.modal-backdrop.show {
+	opacity: 0.5;
+}
+
+/* Оформление внутреннего контента модала: */
+
+.modal-content {
+	position: relative;
+	width: 100%;
+	max-height: 100%;/* для скролла в модале */
+	padding: var(--margin-s);
+	background-color: var(--bg);
+	background-clip: padding-box;
+	border: 1px solid hsla(0, 0%, 0%, 0.1);
+	border-radius: var(--border-radius-m);
+	outline: 0;
+	overscroll-behavior-y: contain;/* это убирает цепочку прокрутки у body! */
+	overflow-y: auto;
+	/*overflow: hidden; для скролла в модале */
+	pointer-events: auto;
+}
+
+.btn-close {
+	width: 48px;
+	height: 48px;
+	background: content-box url('img/sprite.svg#cross') 50% / 26px no-repeat grey;
+	border: none;
+	-webkit-tap-highlight-color: hsla(0, 0%, 0%, 0);
+	/*-webkit-mask-image: url('/img/sprite.svg#cross');
+	mask-image: url('/img/sprite.svg#cross');
+	-webkit-mask-position: center;
+	mask-position: center;
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+	-webkit-mask-size: 24px;
+	mask-size: 24px;
+	background-color: var(--color);*/
+}
+
+.modal-content .btn-close {
+	position: absolute;
+	top: var(--margin-s);
+	right: var(--margin-s);
+}
+
+.modal-title {
+	padding-right: 50px;
+}
+
+/*.modal__text {}*/
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Модал Bootstrap Modal</h1>
+
+
+		<p><a rel="noopener" target="_blank" href="https://getbootstrap.com/docs/5.1/components/modal/">Документация Bootstrap - Modal</a></p>
+		<p>Функции модала: закрытие по оверлею (можно отключить), блокируется скролл у body, НЕ поддерживается модал в модале. Доступность: атрибут <code>role="dialog"</code> автоматически добавляется скриптом, название модала берется из заголовка модала с <code>aria-labelledby="modalLabel"</code></p>
+		<p>Настройка модала:</p>
+		<ul>
+			<li>Менять вид анимации появления/убирания модала легко со свойствами: <code>.modal-dialog {transform: scale(.8);/*или translate(0, -30px) */}</code>. Анимация состоит из проявления оверлея с помощью класса <code>.fade</code> и появления окна модала <code>.modal-dialog</code>.</li>
+			<li>Чтобы модал не закрывался кликом по оверлею нужно добавить атрибуты <code>data-bs-backdrop="static" data-bs-keyboard="false"</code> в .modal (режим Static backdrop). А с <code>data-bs-focus="false"</code> не будет ставиться фокус на модал при открытии.</li>
+		</ul>
+
+		<!-- Кнопка запуска модала: -->
+		<button class="button" type="button" data-bs-toggle="modal" data-bs-target="#modal-1">Модал</button>
+
+		<!-- Modal: -->
+		<div class="modal fade" id="modal-1" tabindex="-1" aria-hidden="true" aria-labelledby="modal-1-label">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Закрыть диалог"></button>
+
+					<p class="h3 modal__title" id="modal-1-label">Заголовок модала</p>
+
+					<p class="modal__text">Текст модала</p>
+				</div>
+			</div>
+		</div>
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+	<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>-->
+	<script defer src="bootstrap/bootstrap.min.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!doctype html><!-- Файл gsap-parallax.html -->
+<html lang="ru">
+
+<head>
+	<meta name="robots" content="none">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Спецэффект параллакса | Mitorun Studio–</title>
+	<meta name="description" content="Описание компонента">
+
+	<meta name="author" content="Oleg Mitorun">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="../img/favicon.svg">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+	<style>
+:root {
+	--font-family: 'Roboto', 'system-ui', '-apple-system', 'Segoe UI', 'Helvetica Neue', 'Arial', 'Noto Sans', sans-serif;/* font-family для обычного текста */
+	--font-family-heading: 'Roboto', 'system-ui', '-apple-system', 'Segoe UI', 'Helvetica Neue', 'Arial', 'Noto Sans', sans-serif;/* font-family для заголовков */
+	--font-family-mono: 'SFMono-Regular', 'ui-monospace', 'Menlo', 'Monaco', 'PT Mono', 'Consolas', 'Liberation Mono', 'Courier New', monospace;/* font-family для моноширинного шрифта (для кода) */
+	--font-size-xl: 22px;
+	--font-size-l: 19px;
+	--font-size-m: 16px;
+	--font-size-s: 14px;
+	--font-size-xs: 12px;
+	--line-height-m: 1.5;/* базовый текст body */
+	--line-height-s: 1.35;/* по-плотней текст, заголовки h2-h4 */
+	--line-height-xs: 1.2;/* плотный текст, заголовок h1 */
+	--container-padding: 12px;/* это боковые паддинги для мобилки (или 14px, или 19rem) */
+
+	--color: hsl(0, 0%, 0%);/* базовый цвет текста ("черный" для светлой темы и наоборот). Раньше было --color: hsl(0, 0%, 0%); Примеры: hsl(var(--color)), hsl(var(--color) / 0.65) */
+	--bg: hsl(0, 0%, 100%);/* базовый цвет фона ("белый" для светлой темы и наоборот) */
+	--grey: hsl(0, 0%, 50%);/* черный полупрозрачный цвет текста ("серый" для светлой темы и наоборот). Было --color-transparent */
+	--grey-lightest: hsl(0, 0%, 96%);/* оч-светлый серый цвет (для светлого фона) */
+	--color-main: hsl(210, 95%, 40%);/* #0566c7 было hsl(210, 60%, 47%); главный цвет (для акцента на важных элементах) */
+	tab-size: 2;
+}
+
+@media (min-width: 576px) {
+	:root {
+		--container-padding: 40px;
+	}
+}
+
+*,
+::after,
+::before {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+
+	/*outline: 1px solid hsla(0, 100%, 50%, 0.3);
+	outline-offset: 0; это для тестирования границ элементов (переполнение) */
+}
+
+body {
+	min-height: 100vh;
+	color: var(--color, black);
+	font: 400 var(--font-size-m, 16px)/var(--line-height-m, 1.5) var(--font-family, sans-serif);
+	background: var(--bg, white);
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 1em 0;
+	font-family: var(--font-family-heading, --font-family, sans-serif);
+}
+
+p:not([class]), .p {
+	margin-bottom: 1em;
+}
+
+ul[class]:not(.list),
+ol[class]:not(.list) {
+	list-style: none;
+}
+
+hr {
+	margin: 40px 0;
+}
+
+code {
+	background-color: hsl(0, 0%, 91%);
+}
+
+img {
+	display: block;
+	/* это избавляет от пустой строки под картинкой, равной line-height. У этого способа есть минус когда нам не нужно чтобы картинка была блочной. Еще один способ - это задать родителю картинки display: flex; */
+	max-width: 100%;
+	/* или width: 100%; */
+	height: auto;
+	/* или max-height: 100%; нужна ли эта строка? */
+	object-fit: contain;
+	/*image-rendering: pixelated; убирает сглаживание растровых картинок при масштабировании, делая четкие пиксельные картинки */
+}
+
+.container {
+	max-width: calc(1140px + 2 * var(--container-padding, 14px));
+	margin-right: auto;
+	margin-left: auto;
+	padding-right: var(--container-padding, 14px);
+	padding-left: var(--container-padding, 14px);
+
+	/*background: content-box hsla(39, 100%, 50%, 0.05);
+	outline: 1px dashed hsla(39, 100%, 50%, 0.4); это для тестирования */
+}
+
+/*---------------------------------------------------
+---------- Ниже код самих компонентов: --------------
+---------------------------------------------------*/
+
+/* Простой параллакс фонового элемента: */
+
+.parallax-trigger {
+	position: relative;
+	width: 80%;
+	/*padding-top: 200px;
+	padding-bottom: 200px;*/
+	background-color: hsla(0, 0%, 0%, 0.03);
+	padding: 40px;
+	border: 1px solid black;
+}
+
+.parallax-bg {
+	position: absolute;
+	top: -100px;
+	right: -150px;
+	font-weight: 900;
+	font-size: 70px;
+	color: hsla(0, 0%, 0%, 0.07);
+	filter: blur(2px);
+}
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main>
+		<section class="section">
+			<div class="container">
+
+				<h1>Спецэффекты параллакса при скролле</h1>
+				<hr>
+				<div style="width: 100%; height: 60vh; background: hsl(162, 99%, 98%);"></div>
+
+
+				<div class="parallax-trigger">
+					<h2 class="parallax-fg">Это параллакс №1 foreground</h2>
+					<p>Только посмотри на это - элемент на фоне будто находится дальше от экрана, а заголовок наоборот ближе!</p>
+
+					<p class="parallax-bg" aria-hidden="true">Это параллакс №2 background</p>
+				</div>
+
+			</div>
+		</section>
+	</main>
+
+	<div style="height: 100vh;"></div>
+
+
+	<script>
+
+/* Это параллакс №1 foreground: */
+gsap.to(".parallax-fg", {
+	yPercent: -400,
+	ease: "none",
+	scrollTrigger: {
+		trigger: ".parallax-trigger",
+		// start: "top bottom", // the default values
+		// end: "bottom top",
+		scrub: true
+	},
+});
+
+
+/* Это параллакс №2 background: */
+gsap.to(".parallax-bg", {
+	yPercent: 200,
+	ease: "none",
+	scrollTrigger: {
+		trigger: ".parallax-trigger",
+		// start: "top bottom", // the default values
+		// end: "bottom top",
+		scrub: true
+	},
+});
+
+	</script>
+
+</body>
+
+</html>

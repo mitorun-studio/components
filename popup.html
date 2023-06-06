@@ -1,0 +1,1107 @@
+<!doctype html><!-- Файл popup.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Всплывающие сообщения – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Различные всплывающие сообщения: попап, тултип, алерт (оповещение).">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+.button {
+	display: inline-block;/* Это чтобы на кнопку подействовали маржины и размеры */
+	min-width: 80px;
+	min-height: 32px;
+	/*margin: 0 0 40px;*/
+	padding: 10px 20px;
+	color: white;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 1;
+	/*font: 500 var(--font-size-m, 16rem)/1 var(--font-family, sans-serif);
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+	text-decoration: none;*/
+	text-align: center;
+	background-color: steelblue;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: 0.3s 0.1s;
+}
+
+/*--- Раскрывающийся контент с Bootstrap Collapse: ---*/
+
+/* Это скрывает раскрывающийся контент когда нет класса .show: */
+.collapse:not(.show) {
+	display: none;
+}
+
+/* Этот класс добавляется скриптом бутстрапа ВО ВРЕМЯ АНИМАЦИИ, для раскрывающегося по высоте (вертикально) контента: */
+.collapsing {
+	height: 0;
+	overflow: hidden;
+	transition: 0.35s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+	.collapsing {
+		transition: none;
+	}
+}
+/* Стили если раскрытие происходит горизонтально: */
+.collapsing.collapse-horizontal {
+	width: 0;
+	height: auto;
+}
+
+
+
+
+
+/*-------- Попап Bootstrap Alert: ----------*/
+.alert {
+	position: relative;
+	padding: 16px 16px;
+	margin-bottom: 16px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+
+.alert-success {
+	/* Цвета для успеха: */
+	color: hsl(152, 69%, 19%);
+	background-color: hsl(153, 31%, 86%);
+	border-color: hsl(153, 31%, 79%);
+
+	/* Цвета для опасности -danger:
+	color: hsl(355, 61%, 32%);
+	background-color: hsl(355, 70%, 91%);
+	border-color: hsl(354, 72%, 86%); */
+
+	/* Цвета для предупреждений -warning:
+	color: hsl(45, 94%, 21%);
+	background-color: hsl(46, 100%, 90%);
+	border-color: hsl(45, 100%, 85%); */
+}
+
+.alert-success .alert-link {
+	color: hsl(152, 69%, 15%);/* зеленый для успеха */
+	/*color: hsl(355, 61%, 26%); красный для опасности */
+	/*color: hsl(45, 95%, 16%); желтый для предупреждений */
+}
+
+/* Добавление кнопки-крестика для закрытия: */
+.alert-dismissible {
+	padding-right: 48px;
+}
+
+.alert-dismissible .btn-close {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 2;
+	padding: 20px 16px;
+}
+
+
+
+
+/*-----------------------------------------------
+--- Раскрывающийся список Bootstrap Dropdown: ---
+-----------------------------------------------*/
+
+/* Механизм раскрытия Dropdown: */
+.dropdown-menu.show {
+	display: block;
+}
+
+.dropdown {
+	position: relative;
+}
+
+/* Класс для добавления стрелки выпадающего списка: */
+.dropdown-toggle {
+	white-space: nowrap;
+}
+
+.dropdown-toggle::after {
+	content: '';
+	display: inline-block;
+	margin-left: 0.255em;
+	vertical-align: 0.255em;
+	border-top: 0.3em solid;
+	border-right: 0.3em solid transparent;
+	border-bottom: 0;
+	border-left: 0.3em solid transparent;
+}
+
+/*.dropdown-toggle:empty::after {
+	margin-left: 0;
+} это убирает отступ если элемент пустой, я вручную это могу сделать */
+
+.dropdown-menu {
+	position: absolute;
+	z-index: 1000;
+	display: none;
+	min-width: 160px;
+	padding: 8px 0;
+	text-align: left;
+	list-style: none;
+	background-color: hsl(0, 0%, 100%);
+	background-clip: padding-box;
+	border: 1px solid hsla(0, 0%, 0%, 0.15);
+	border-radius: 4px;
+}
+
+.dropdown-menu[data-bs-popper] {
+	top: 100%;
+	left: 0;
+	margin-top: 2px;
+}
+
+/* Это для использования дропдаун в навигационном меню: */
+.navbar-nav .dropdown-menu {
+	position: static;
+}
+
+
+/* Ниже стили для самостоятельного расположения
+выпадающего списка: слева, справа от кнопки и т.д.:
+.dropdown-menu-start {
+	--bs-position: start;
+}
+.dropdown-menu-start[data-bs-popper] {
+	right: auto;
+	left: 0;
+}
+
+.dropdown-menu-end {
+	--bs-position: end;
+}
+.dropdown-menu-end[data-bs-popper] {
+	right: 0;
+	left: auto;
+}
+
+@media (min-width: 576px) {
+	.dropdown-menu-sm-start {
+		--bs-position: start;
+	}
+	.dropdown-menu-sm-start[data-bs-popper] {
+		right: auto;
+		left: 0;
+	}
+
+	.dropdown-menu-sm-end {
+		--bs-position: end;
+	}
+	.dropdown-menu-sm-end[data-bs-popper] {
+		right: 0;
+		left: auto;
+	}
+}
+@media (min-width: 768px) {
+	.dropdown-menu-md-start {
+		--bs-position: start;
+	}
+	.dropdown-menu-md-start[data-bs-popper] {
+		right: auto;
+		left: 0;
+	}
+
+	.dropdown-menu-md-end {
+		--bs-position: end;
+	}
+	.dropdown-menu-md-end[data-bs-popper] {
+		right: 0;
+		left: auto;
+	}
+}
+@media (min-width: 992px) {
+	.dropdown-menu-lg-start {
+		--bs-position: start;
+	}
+	.dropdown-menu-lg-start[data-bs-popper] {
+		right: auto;
+		left: 0;
+	}
+
+	.dropdown-menu-lg-end {
+		--bs-position: end;
+	}
+	.dropdown-menu-lg-end[data-bs-popper] {
+		right: 0;
+		left: auto;
+	}
+}
+@media (min-width: 1200px) {
+	.dropdown-menu-xl-start {
+		--bs-position: start;
+	}
+	.dropdown-menu-xl-start[data-bs-popper] {
+		right: auto;
+		left: 0;
+	}
+
+	.dropdown-menu-xl-end {
+		--bs-position: end;
+	}
+	.dropdown-menu-xl-end[data-bs-popper] {
+		right: 0;
+		left: auto;
+	}
+}
+@media (min-width: 1400px) {
+	.dropdown-menu-xxl-start {
+		--bs-position: start;
+	}
+	.dropdown-menu-xxl-start[data-bs-popper] {
+		right: auto;
+		left: 0;
+	}
+	.dropdown-menu-xxl-end {
+		--bs-position: end;
+	}
+	.dropdown-menu-xxl-end[data-bs-popper] {
+		right: 0;
+		left: auto;
+	}
+}*/
+
+
+/* .dropup для выпадани меню наверх:
+.dropup .dropdown-menu[data-bs-popper] {
+	top: auto;
+	bottom: 100%;
+	margin-top: 0;
+	margin-bottom: 2px;
+}
+.dropup .dropdown-toggle::after {
+	content: '';
+	display: inline-block;
+	margin-left: 0.255em;
+	vertical-align: 0.255em;
+	border-top: 0;
+	border-right: 0.3em solid transparent;
+	border-bottom: 0.3em solid;
+	border-left: 0.3em solid transparent;
+}
+.dropup .dropdown-toggle:empty::after {
+	margin-left: 0;
+}*/
+
+
+/* .dropend для выпаданию меню на право:
+.dropend .dropdown-menu[data-bs-popper] {
+	top: 0;
+	right: auto;
+	left: 100%;
+	margin-top: 0;
+	margin-left: 2px;
+}
+.dropend .dropdown-toggle::after {
+	content: '';
+	display: inline-block;
+	margin-left: 0.255em;
+	vertical-align: 0.255em;
+	border-top: 0.3em solid transparent;
+	border-right: 0;
+	border-bottom: 0.3em solid transparent;
+	border-left: 0.3em solid;
+}
+.dropend .dropdown-toggle:empty::after {
+	margin-left: 0;
+}
+.dropend .dropdown-toggle::after {
+	vertical-align: 0;
+}*/
+
+
+/* .dropstart для выпадания меню на лево:
+.dropstart .dropdown-menu[data-bs-popper] {
+	top: 0;
+	right: 100%;
+	left: auto;
+	margin-top: 0;
+	margin-right: 2px;
+}
+.dropstart .dropdown-toggle::after {
+	content: '';
+	display: inline-block;
+	margin-left: 0.255em;
+	vertical-align: 0.255em;
+}
+.dropstart .dropdown-toggle::after {
+	display: none;
+}
+.dropstart .dropdown-toggle::before {
+	content: '';
+	display: inline-block;
+	margin-right: 0.255em;
+	vertical-align: 0.255em;
+	border-top: 0.3em solid transparent;
+	border-right: 0.3em solid;
+	border-bottom: 0.3em solid transparent;
+}
+.dropstart .dropdown-toggle:empty::after {
+	margin-left: 0;
+}
+.dropstart .dropdown-toggle::before {
+	vertical-align: 0;
+}*/
+
+
+.dropdown-item {
+	display: block;
+	width: 100%;
+	padding: 4px 16px;
+	clear: both;
+	color: hsl(210, 11%, 15%);
+	font-weight: 400;
+	text-align: inherit;
+	text-decoration: none;
+	white-space: nowrap;
+	background-color: transparent;
+	border: 0;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+	color: hsl(214, 10%, 13%);
+	background-color: hsl(210, 16%, 93%);
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+	color: hsl(0, 0%, 100%);
+	text-decoration: none;
+	background-color: hsl(216, 98%, 52%);
+}
+
+.dropdown-item.disabled,
+.dropdown-item:disabled {
+	color: hsl(210, 11%, 71%);
+	pointer-events: none;
+	background-color: transparent;
+}
+
+/* Это некликабельный элемент в Dropdown: */
+.dropdown-item-text {
+	display: block;
+	padding: 0.25rem 1rem;
+	color: hsl(210, 11%, 15%);
+}
+
+/* Это дивайдер (разграничительная линия) в Dropdown: */
+.dropdown-divider {
+	height: 0;
+	margin: 8px 0;
+	overflow: hidden;
+	border: 0;
+	border-top: 1px solid hsla(0, 0%, 0%, 0.15);
+}
+
+/* Конец компонента Bootstrap Dropdown */
+
+
+
+
+/*------------------------------------------------
+--- Раскрывающиеся панели Bootstrap Offcanvas: ---
+------------------------------------------------*/
+
+.offcanvas {
+	position: fixed;
+	bottom: 0;
+	z-index: 1045;
+	display: flex;
+	flex-direction: column;
+	max-width: 100%;
+	visibility: hidden;
+	background-color: hsl(0, 0%, 100%);
+	background-clip: padding-box;
+	outline: 0;
+	transition: transform 0.3s ease-in-out;
+
+	/* Расположение панели слева: */
+	top: 0;
+	left: 0;
+	width: 400px;
+	border-right: 1px solid hsla(0, 0%, 0%, 0.2);
+	transform: translateX(-100%);
+
+	/* Расположение панели справа:
+	top: 0;
+	right: 0;
+	width: 400px;
+	border-left: 1px solid hsla(0, 0%, 0%, 0.2);
+	transform: translateX(100%);*/
+
+	/* Расположение панели сверху:
+	top: 0;
+	right: 0;
+	left: 0;
+	height: 30vh;
+	max-height: 100%;
+	border-bottom: 1px solid hsla(0, 0%, 0%, 0.2);
+	transform: translateY(-100%);*/
+
+	/* Расположение панели снизу:
+	right: 0;
+	left: 0;
+	height: 30vh;
+	max-height: 100%;
+	border-top: 1px solid hsla(0, 0%, 0%, 0.2);
+	transform: translateY(100%);*/
+}
+@media (prefers-reduced-motion: reduce) {
+	.offcanvas {
+		transition: none;
+	}
+}
+
+/* Классы бутстрапа для указания расположения панели:
+.offcanvas-start
+.offcanvas-end
+.offcanvas-top
+.offcanvas-bottom*/
+
+/* Анимация и оверлей Bootstrap Offcanvas: */
+.offcanvas.show {
+	transform: none;
+}/* это показывает панель */
+
+.offcanvas-backdrop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1040;
+	width: 100vw;
+	height: 100vh;
+	background-color: hsl(0, 0%, 0%);
+}
+
+.offcanvas-backdrop.fade {
+	opacity: 0;
+}
+
+.offcanvas-backdrop.show {
+	opacity: 0.5;
+}
+
+/* внутренний контент Bootstrap Offcanvas: */
+.offcanvas-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 16px;
+}
+.offcanvas-header .btn-close {
+	padding: 8px;
+	margin-top: -8px;
+	margin-right: -8px;
+	margin-bottom: -8px;
+}
+
+.offcanvas-title {
+	margin-bottom: 0;
+	line-height: 1.5;
+}
+
+.offcanvas-body {
+	flex-grow: 1;
+	padding: 16px;
+	overflow-y: auto;
+}
+
+.button {
+	margin-left: 40px;
+}
+
+/* Конец компонента Bootstrap Offcanvas */
+
+
+
+
+/*------------------------------------------------
+----------- Всплывашка Bootstrap Toast: ----------
+------------------------------------------------*/
+
+.toast-container {
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	z-index: 11;
+	padding: 16px;
+}
+
+/* Стили для создания нескольких тостов в одной обертке .toast-container:
+.toast-container {
+	width: max-content;
+	max-width: 100%;
+	pointer-events: none;
+}
+
+.toast-container > :not(:last-child) {
+	margin-bottom: 12px;
+}*/
+
+.toast {
+	width: 350px;
+	max-width: 100%;
+	font-size: 14px;
+	pointer-events: auto;
+	background-color: hsla(0, 0%, 100%, 0.85);
+	background-clip: padding-box;
+	border: 1px solid hsla(0, 0%, 0%, 0.1);
+	box-shadow: 0 8px 16px hsla(0, 0%, 0%, 0.15);
+	border-radius: 4px;
+}
+
+.toast.showing {
+	opacity: 0;
+}
+
+.toast:not(.show) {
+	display: none;
+}
+
+.toast-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 8px 12px;
+	color: hsl(208, 7%, 46%);
+	background-color: hsla(0, 0%, 100%, 0.85);
+	background-clip: padding-box;
+	border-bottom: 1px solid hsla(0, 0%, 0%, 0.05);
+	border-top-left-radius: calc(4px - 1px);
+	border-top-right-radius: calc(4px - 1px);
+}
+
+.toast-header .btn-close {
+	margin-right: -6px;
+	margin-left: 12px;
+}
+
+.toast-body {
+	padding: 12px;
+	word-wrap: break-word;
+}
+
+
+
+/*------------------------------------------------
+------------ Тултип Bootstrap Popover: -----------
+------------------------------------------------*/
+
+.popover {
+	position: absolute;
+	top: 0;
+	left: 0 /* rtl:ignore */;
+	z-index: 1070;
+	display: block;
+	max-width: 276px;
+	font-family: var(--bs-font-sans-serif);
+	font-style: normal;
+	font-weight: 400;
+	line-height: 1.5;
+	text-align: left;
+	text-decoration: none;
+	text-shadow: none;
+	text-transform: none;
+	letter-spacing: normal;
+	word-break: normal;
+	word-spacing: normal;
+	white-space: normal;
+	line-break: auto;
+	font-size: 0.875rem;
+	word-wrap: break-word;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 0.3rem;
+}
+.popover .popover-arrow {
+	position: absolute;
+	display: block;
+	width: 1rem;
+	height: 0.5rem;
+}
+.popover .popover-arrow::before, .popover .popover-arrow::after {
+	position: absolute;
+	display: block;
+	content: "";
+	border-color: transparent;
+	border-style: solid;
+}
+
+.bs-popover-top > .popover-arrow, .bs-popover-auto[data-popper-placement^=top] > .popover-arrow {
+	bottom: calc(-0.5rem - 1px);
+}
+.bs-popover-top > .popover-arrow::before, .bs-popover-auto[data-popper-placement^=top] > .popover-arrow::before {
+	bottom: 0;
+	border-width: 0.5rem 0.5rem 0;
+	border-top-color: rgba(0, 0, 0, 0.25);
+}
+.bs-popover-top > .popover-arrow::after, .bs-popover-auto[data-popper-placement^=top] > .popover-arrow::after {
+	bottom: 1px;
+	border-width: 0.5rem 0.5rem 0;
+	border-top-color: #fff;
+}
+
+.bs-popover-end > .popover-arrow, .bs-popover-auto[data-popper-placement^=right] > .popover-arrow {
+	left: calc(-0.5rem - 1px);
+	width: 0.5rem;
+	height: 1rem;
+}
+.bs-popover-end > .popover-arrow::before, .bs-popover-auto[data-popper-placement^=right] > .popover-arrow::before {
+	left: 0;
+	border-width: 0.5rem 0.5rem 0.5rem 0;
+	border-right-color: rgba(0, 0, 0, 0.25);
+}
+.bs-popover-end > .popover-arrow::after, .bs-popover-auto[data-popper-placement^=right] > .popover-arrow::after {
+	left: 1px;
+	border-width: 0.5rem 0.5rem 0.5rem 0;
+	border-right-color: #fff;
+}
+
+.bs-popover-bottom > .popover-arrow, .bs-popover-auto[data-popper-placement^=bottom] > .popover-arrow {
+	top: calc(-0.5rem - 1px);
+}
+.bs-popover-bottom > .popover-arrow::before, .bs-popover-auto[data-popper-placement^=bottom] > .popover-arrow::before {
+	top: 0;
+	border-width: 0 0.5rem 0.5rem 0.5rem;
+	border-bottom-color: rgba(0, 0, 0, 0.25);
+}
+.bs-popover-bottom > .popover-arrow::after, .bs-popover-auto[data-popper-placement^=bottom] > .popover-arrow::after {
+	top: 1px;
+	border-width: 0 0.5rem 0.5rem 0.5rem;
+	border-bottom-color: #fff;
+}
+.bs-popover-bottom .popover-header::before, .bs-popover-auto[data-popper-placement^=bottom] .popover-header::before {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	display: block;
+	width: 1rem;
+	margin-left: -0.5rem;
+	content: '';
+	border-bottom: 1px solid #f0f0f0;
+}
+
+.bs-popover-start > .popover-arrow, .bs-popover-auto[data-popper-placement^=left] > .popover-arrow {
+	right: calc(-0.5rem - 1px);
+	width: 0.5rem;
+	height: 1rem;
+}
+.bs-popover-start > .popover-arrow::before, .bs-popover-auto[data-popper-placement^=left] > .popover-arrow::before {
+	right: 0;
+	border-width: 0.5rem 0 0.5rem 0.5rem;
+	border-left-color: rgba(0, 0, 0, 0.25);
+}
+.bs-popover-start > .popover-arrow::after, .bs-popover-auto[data-popper-placement^=left] > .popover-arrow::after {
+	right: 1px;
+	border-width: 0.5rem 0 0.5rem 0.5rem;
+	border-left-color: #fff;
+}
+
+.popover-header {
+	padding: 0.5rem 1rem;
+	margin-bottom: 0;
+	font-size: 1rem;
+	background-color: #f0f0f0;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+	border-top-left-radius: calc(0.3rem - 1px);
+	border-top-right-radius: calc(0.3rem - 1px);
+}
+.popover-header:empty {
+	display: none;
+}
+
+.popover-body {
+	padding: 1rem 1rem;
+	color: #212529;
+}
+
+
+
+
+/*---------------------------------------------
+------------- Bootstrap Tooltip: --------------
+---------------------------------------------*/
+
+.tooltip {
+	position: absolute;
+	z-index: 1080;
+	display: block;
+	margin: 0;
+	font-size: 14px;
+	font-family: sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 1.5;
+	text-align: left;
+	text-decoration: none;
+	text-shadow: none;
+	text-transform: none;
+	letter-spacing: normal;
+	word-break: normal;
+	word-spacing: normal;
+	white-space: normal;
+	line-break: auto;
+	word-wrap: break-word;
+	opacity: 0;
+}
+.tooltip.show {
+	opacity: 0.9;
+}
+.tooltip .tooltip-arrow {
+	position: absolute;
+	display: block;
+	width: 12.8px;
+	height: 6.4px;
+}
+.tooltip .tooltip-arrow::before {
+	position: absolute;
+	content: '';
+	border-color: transparent;
+	border-style: solid;
+}
+
+.bs-tooltip-top, .bs-tooltip-auto[data-popper-placement^=top] {
+	padding: 6.4px 0;
+}
+.bs-tooltip-top .tooltip-arrow, .bs-tooltip-auto[data-popper-placement^=top] .tooltip-arrow {
+	bottom: 0;
+}
+.bs-tooltip-top .tooltip-arrow::before, .bs-tooltip-auto[data-popper-placement^=top] .tooltip-arrow::before {
+	top: -1px;
+	border-width: 6.4px 6.4px 0;
+	border-top-color: #000;
+}
+
+.bs-tooltip-end, .bs-tooltip-auto[data-popper-placement^=right] {
+	padding: 0 6.4px;
+}
+.bs-tooltip-end .tooltip-arrow, .bs-tooltip-auto[data-popper-placement^=right] .tooltip-arrow {
+	left: 0;
+	width: 6.4px;
+	height: 12.8px;
+}
+.bs-tooltip-end .tooltip-arrow::before, .bs-tooltip-auto[data-popper-placement^=right] .tooltip-arrow::before {
+	right: -1px;
+	border-width: 6.4px 6.4px 6.4px 0;
+	border-right-color: #000;
+}
+
+.bs-tooltip-bottom, .bs-tooltip-auto[data-popper-placement^=bottom] {
+	padding: 6.4px 0;
+}
+.bs-tooltip-bottom .tooltip-arrow, .bs-tooltip-auto[data-popper-placement^=bottom] .tooltip-arrow {
+	top: 0;
+}
+.bs-tooltip-bottom .tooltip-arrow::before, .bs-tooltip-auto[data-popper-placement^=bottom] .tooltip-arrow::before {
+	bottom: -1px;
+	border-width: 0 6.4px 6.4px;
+	border-bottom-color: #000;
+}
+
+.bs-tooltip-start, .bs-tooltip-auto[data-popper-placement^=left] {
+	padding: 0 6.4px;
+}
+.bs-tooltip-start .tooltip-arrow, .bs-tooltip-auto[data-popper-placement^=left] .tooltip-arrow {
+	right: 0;
+	width: 6.4px;
+	height: 12.8px;
+}
+.bs-tooltip-start .tooltip-arrow::before, .bs-tooltip-auto[data-popper-placement^=left] .tooltip-arrow::before {
+	left: -1px;
+	border-width: 6.4px 0 6.4px 6.4px;
+	border-left-color: #000;
+}
+
+.tooltip-inner {
+	max-width: 200px;
+	padding: 4px 8px;
+	color: #fff;
+	text-align: center;
+	background-color: #000;
+	border-radius: 4px;
+}
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+				<h1>Компоненты</h1>
+				<p>Различные всплывающие сообщения: попап, тултип, алерт (оповещение), popup, tooltip, alert, offcanvas, toast. С использованием JS и без него.</p>
+				<hr>
+
+
+
+
+				<h2>Раскрывающийся контент с JS Bootstrap Collapse</h2>
+				<p>Этот скрипт и соответствующие стили позволяют делать раскрывающийся контент, который появляется и изчезает при нажатии на кнопку(-и). Например бургер-меню, попапы и т.п.</p>
+				<p>Для управляющей кнопки нужно задать атрибуты <code>data-bs-toggle="collapse"</code> и <code>data-bs-target="#collapseElement"</code> (это id или class раскрывающегося элемента(-ов)!). А для самого раскрывающегося элемента нужно добавить класс <code>.collapse</code> для его скрытия и идентификатор или класс по которому с ним будет связана кнопка. Для создания группы спойлеров дополнительно можно добавить атрибуты <code>data-bs-parent="#selector"</code> (подробнее в компоненте спойлер Bootstrap Accordion</p>
+				<p>Класс <code>.collapse</code> скрывает элемент с <code>display: none;</code>, класс <code>.collapsing</code> добавляется скриптом во время анимации(!), класс <code>.collapse.show</code> показывает скрытый элемент.</p>
+				<p>Свернутый контент имеет высоту 0px, а при открытии ему добавляется высота с применением анимации.</p>
+				<p>Анимация раскрытия может стать дерганной если элемент (и его потомки?) содержит маржины и паддинги, так как они не анимируются и появляются мгновенно!</p>
+				<p>Добавление для элемента класса <code>collapse show</code> сделает контент видимым при загрузке страницы, при нажатии на кнопку его также можно закрыть. Но тогда нужно для управляющей кнопки поставить атрибут <code>aria-expanded="true"</code>!</p>
+				<p>По умолчанию стили написаны для вертикального раскрытия контента. Чтобы сделать раскрытие по горизонтали надо добавить класс <code>.collapse-horizontal</code> и установить ширину для дочернего элемента! Такую горизонтальную раскрывашку можно спозиционировать и сделать раскрывающееся боковое меню.</p>
+				<p>Можно создавать мульти-всплывашки и мультикнопки для них! Пример в документации бутстрапа.</p>
+
+				<button class="button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Кнопка с data-bs-target</button>
+
+				<div class="collapse" id="collapseExample">
+					<div class="card card-body">
+						Некоторый заполнитель для компонента свертывания. Эта панель по умолчанию скрыта, но открывается, когда пользователь активирует соответствующий триггер.
+					</div>
+				</div>
+
+				<div class="collapse collapse-horizontal" id="collapseExample">
+					<div class="card card-body" style="width: 300px;">
+						This is some placeholder content for a horizontal collapse. It's hidden by default and shown when triggered.
+					</div>
+				</div>
+				<hr>
+
+
+
+
+				<h2>Всплывающее сообщение с JS Bootstrap Alert</h2>
+
+				<div id="liveAlertPlaceholder"></div>
+				<button class="button" id="liveAlertBtn" type="button" >Показать оповещение</button>
+				<button class="button" type="button" data-bs-dismiss="alert" data-bs-target="#liveAlertPlaceholder">Закрыть оповещение</button>
+				<script>
+					/* Скрипт для появления Алерта при нажатии на кнопку: */
+					var alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+					var alertTrigger = document.getElementById('liveAlertBtn')
+					function alert(message, type) {
+						var wrapper = document.createElement('div')
+						wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible fade show" role="alert">' + message + '<button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Закрыть">X</button></div>'
+						alertPlaceholder.append(wrapper)
+					}
+					if (alertTrigger) {
+						alertTrigger.addEventListener('click', function () {
+							alert('Отлично, вы успешно открыли оповещение!', 'success')
+						})
+					}
+				</script>
+				<br><br>
+
+				<p class="alert alert-success" role="alert">
+					Это простое оповещение об успешном завершении задачи с<a href="#" class="alert-link">примером ссылки</a>.
+				</p>
+				<br>
+
+				<p>Можно отдельно создать алерт-сообщение, которое можно закрыть (но не открыть):</p>
+				<div class="alert alert-success alert-dismissible fade show" role="alert">
+					Не забудьте подписаться и поставить лайк этому видео!
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+				<hr>
+
+
+
+
+				<h2>Раскрывающиеся боковые панели с JS Bootstrap Offcanvas</h2>
+				<p>Bootstrap Offcanvas очень похож визуально и функционально на Bootstrap Modal, но это отдельные плагины (хотя и с общими стилями).</p>
+				<p>По умолчанию при открытии Offcanvas появляется оверлей и отключается прокрутка body. Это можно отключить с помощью атрибутов <code>data-bs-scroll="true" data-bs-backdrop="false"</code> для .offcanvas . Можно убрать возможность закрывать Offcanvas с помощью Esc атрибутом <code>data-bs-keyboard="false"</code></p>
+				<p>Нельзя использовать margin (, padding?) и/или translate для элемента .offcanvas из-за особенностей обработки анимации.</p>
+				<p>Доступность: скрипт автоматически добавляет атрибут <code>role="dialog"</code>.</p>
+
+
+				<button class="button" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas">Кнопка открытия с data-bs-target</button>
+				<button class="button" type="button" data-bs-dismiss="offcanvas" data-bs-target="#offcanvas" aria-label="Close">Кнопка закрытия</button>
+
+				<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+					<div class="offcanvas-header">
+						<h5 class="offcanvas-title" id="offcanvasLabel">Offcanvas</h5>
+						<button class="btn-close text-reset" type="button" data-bs-dismiss="offcanvas" aria-label="Close">X</button>
+					</div>
+					<div class="offcanvas-body">
+						<p class>
+							Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
+						</p>
+					</div>
+				</div>
+				<hr>
+
+
+
+
+				<h2>Выпадающие списки с JS Bootstrap Dropdown</h2>
+
+				<p>Dropdown основаны на сторонней библиотеке <a target="_blank" href="https://popper.js.org/">Popper</a>, которая обеспечивает динамическое позиционирование выпадашки. Библиотека Popper содержится (только) в <code>bootstrap.bundle.min.js</code>!</p>
+				<p>Popper вроде как не используется в выпадашках в навигационном меню Navbar! Поэтому если использовать дропдаун только там, то не нужно подключать Popper JS (полный файл bootstrap.bundle.min.js).</p>
+				<p>Доступность: работает управление с клавиатуры (перемещение стрелками и выход с Esc). Для выпадашек нужно самостоятельно добавлять подходящие ариа-роли (например role="menu").</p>
+				<p>Управлять отступом между раскрытым списком и кнопкой можно с помощью атрибутов <code>data-bs-offset="10,20"</code> и <code>data-bs-reference="parent"</code> для кнопки раскрытия.</p>
+				<p>Методы закрытия раскрытого списка настраиваются атрибутами для кнопки: <code>data-bs-auto-close="true"</code> – значение по умолчанию (закрывается от клика по кнопке, по списку, вне всего дропдауна и Esc), <code>data-bs-auto-close="inside"</code> – не закрывается кликом вне дропдауна, <code>data-bs-auto-close="outside"</code> – не закрывается от клика внутри списка, <code>data-bs-auto-close="false"</code> – закрывается только от клика по кнопке.</p>
+				<p>Есть и другие настройки с помощью дата-атрибутов (или в JS) в документации. По умолчанию включено динамическое позиционирование Popper <code>data-bs-display="dynamic"</code>, его можно отключить с помощью значения "static".</p>
+
+
+				<div class="dropdown">
+					<button class="button dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Кнопка Dropdown</button>
+
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+						<li><a class="dropdown-item" href="#">Менюшка</a></li>
+						<li><a class="dropdown-item active" href="#">Активная менюшка</a></li>
+						<li>
+							<hr class="dropdown-divider">
+						</li>
+						<li><span class="dropdown-item-text" href="#">Самая последняя менюшка, которая не кликается</span></li>
+					</ul>
+				</div>
+				<hr>
+
+
+
+
+				<h2>Всплывающие сообщения с JS Bootstrap Toast</h2>
+
+				<p><a target="_blank" href="https://getbootstrap.com/docs/5.1/components/toasts/">Документация.</a> Тосты — это легкие уведомления, имитирующие push-уведомления, популярные в мобильных и настольных операционных системах.</p>
+				<p>Popover по умолчанию отключены из-за соображений производительности, их нужно активировать вручную! Вот один из способов инициализировать ВСЕ поповеры на странице по их дата-атрибуту: <code>var toastTrigger = document.getElementById('liveToastBtn')
+				var toastLiveExample = document.getElementById('liveToast')
+				if (toastTrigger) {
+				toastTrigger.addEventListener('click', function () {
+				var toast = new bootstrap.Toast(toastLiveExample)
+				toast.show()
+				})
+				}</code></p>
+				<p>Как работает: в скрытом состоянии скрипт добавляет к .toast классы .fade.hide . При открытии на миг добавляется класс .showing, а после этой анимации класс .show . Повторный клик по кноке закроет тост?</p>
+				<p>Настройки: Тосты по умолчанию будут автоматически скрываться через (5с?), изменить время скрытия можно атрибутом <code>data-bs-delay="10000"</code>? для отключения автоскрытия прописать <code>autohide: false</code>. Выключить анимацию с <code>data-bs-animation="false"</code>.</p>
+
+				<button type="button" class="button" id="liveToastBtn">Показать Toast</button>
+				<button class="button" type="button" data-bs-dismiss="toast" data-bs-target="#liveToast" aria-label="Close">Закрыть Toast</button>
+
+				<div class="toast-container">
+					<div class="toast" id="liveToast" data-bs-delay="7000" role="alert" aria-live="assertive" aria-atomic="true">
+						<div class="toast-header">
+							<strong class="me-auto">Bootstrap</strong>
+							<small>2 секунды назад</small>
+							<button class="btn-close" type="button" data-bs-dismiss="toast" aria-label="Close">X</button>
+						</div>
+						<p class="toast-body">
+							Приветики! Это сообщение-toast.
+						</p>
+					</div>
+				</div>
+
+				<script>
+var toastTrigger = document.getElementById('liveToastBtn')
+var toastLiveExample = document.getElementById('liveToast')
+if (toastTrigger) {
+	toastTrigger.addEventListener('click', function () {
+		var toast = new bootstrap.Toast(toastLiveExample)
+		toast.show()
+	})
+}
+				</script>
+				<hr>
+
+
+
+
+
+
+				<h2 style="color: red;">Тултип с JS Bootstrap Popover (НЕ РАБОТАЕТ!)</h2>
+
+				<p>Этот пример не работает у меня тут, но работает в чистом файле с подключенными стилями бутстрапа. Видмо какие-то стили нужно мне добавить чтобы заработало.</p>
+				<p>Popover основаны на сторонней библиотеке <a target="_blank" href="https://popper.js.org/">Popper</a>, которая обеспечивает динамическое позиционирование выпадашки. Библиотека Popper содержится только в <code>bootstrap.bundle.min.js</code>!</p>
+				<p>Popover по умолчанию отключены из-за соображений производительности, их нужно активировать вручную! Вот один из способов инициализировать ВСЕ поповеры на странице по их дата-атрибуту: <code>var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+				var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+				return new bootstrap.Popover(popoverTriggerEl)
+				})</code> . Этот код должен находиться внизу страницы, перед закрывающим /body .</p>
+
+				<button class="button" type="button" data-bs-toggle="popover" title="Popover title" data-bs-content="And here's some amazing content. It's very engaging. Right?">Нажать для включения Popover</button>
+
+				<script>
+					/* Это инициализация всех Bootstrap Popover на странице по их дата-атрибуту: */
+					var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+					var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+						return new bootstrap.Popover(popoverTriggerEl)
+					})
+				</script>
+
+				<!--Пример из чего состоит Popover:
+				<div class="popover fade show bs-popover-end" role="tooltip" id style data-popper-placement="right">
+					<div class="popover-arrow" style></div>
+					<h3 class="popover-header">Всплывающее название</h3>
+					<div class="popover-body">
+						<p>А вот и потрясающий контент.</p>
+						<p>Это очень увлекательно.</p>
+						<p>Правильно?</p>
+					</div>
+				</div>-->
+				<hr>
+
+
+
+
+
+
+				<h2 style="color: red;">Всплывающая подсказка с JS Bootstrap Tooltip (НЕ РАБОТАЕТ!)</h2>
+
+				<p>Этот пример не работает у меня тут, но работает в чистом файле с подключенными стилями бутстрапа. Видмо какие-то стили нужно мне добавить чтобы заработало.</p>
+				<p>Tooltip основаны на сторонней библиотеке <a target="_blank" href="https://popper.js.org/">Popper</a>, которая обеспечивает динамическое позиционирование выпадашки. Библиотека Popper содержится только в <code>bootstrap.bundle.min.js</code>!</p>
+				<p>Popover по умолчанию отключены из-за соображений производительности, их нужно активировать вручную! Вот один из способов инициализировать ВСЕ поповеры на странице по их дата-атрибуту: <code>var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+				var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+				return new bootstrap.Tooltip(tooltipTriggerEl)
+				})</code>. Этот код должен находиться внизу страницы, перед закрывающим /body .</p>
+				<p></p>
+
+				<button class="button" id="tooltipExample" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">Tooltip on top</button>
+
+				<button class="button" type="button" data-bs-toggle="tooltip" data-bs-placement="right" title="Tooltip on right">Tooltip on right</button>
+
+				<button class="button" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tooltip on bottom">Tooltip on bottom</button>
+
+				<button class="button" type="button" data-bs-toggle="tooltip" data-bs-placement="left" title="Tooltip on left">Tooltip on left</button>
+
+				<button class="button" type="button" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Tooltip</em> <u>with</u> <b>HTML</b>">Tooltip with HTML</button>
+
+				<script>
+					/* Это инициализация всех Bootstrap Tooltip на странице по их дата-атрибуту: */
+					var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+					var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+						return new bootstrap.Tooltip(tooltipTriggerEl)
+					})
+
+					/*var exampleEl = document.getElementById('tooltipExample')
+					var tooltip = new bootstrap.Tooltip(exampleEl, options)*/
+				</script>
+
+				<!-- Элемент тултипа, он генерируется скриптом:
+				<div class="tooltip bs-tooltip-top" role="tooltip">
+					<div class="tooltip-arrow"></div>
+					<div class="tooltip-inner">Some tooltip text!</div>
+				</div>-->
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+	<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>-->
+	<!--<script defer src="bootstrap.min.js"></script>-->
+	<script defer src="bootstrap/bootstrap.bundle.min.js"></script>
+
+
+
+</body>
+</html>

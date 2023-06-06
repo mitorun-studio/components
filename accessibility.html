@@ -1,0 +1,67 @@
+<!doctype html><!-- Файл accessibility.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Доступность – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+.skiplink {
+	position: absolute;
+	top: -100%;
+	left: -100%;
+	/*z-index: 1500;*/
+	height: 48px;
+	padding: 0 28px;
+	line-height: 48px;
+	text-decoration: none;
+	color: #fff;
+	border-radius: 4px;
+	background: #04c;
+	opacity: 0;
+	transition: 0.2s linear;
+}
+
+.skiplink:focus {
+	left: 0;
+	top: 0;
+	/*outline: 0;*/
+	opacity: 1;
+}
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Компоненты для доступности</h1>
+		<hr>
+
+		<h2>Перейти к мейну</h2>
+		<p>Skip Link. Эта ссылка не видна визуально. Когда пользователь нажимает Tab, то этот элемент получает первым фокус и становится видимым вверху-слева страницы. Нажав на него пользователь сразу перейдет на основной контент страницы main, минуя долгий хедер с множеством ссылок и интерактивных элементов. Еще скиплинк можно применять на страницах товаров, чтобы пропустить большие фильтры или галерею.</p>
+
+		<a class="skiplink" href="#main" tabindex="0">Перейти к содержимому</a>
+		<main id="main"></main>
+
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

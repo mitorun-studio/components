@@ -1,0 +1,844 @@
+<!doctype html><!-- Файл form.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Формы связи – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+/*------------------------------------------------
+---------- Компонент Кнопка: ---------------------
+------------------------------------------------*/
+
+.button {
+	position: relative;
+	display: inline-grid;
+	grid-template-columns: auto;/* или max-content */
+	grid-auto-columns: auto;
+	grid-auto-flow: column;
+	place-items: center;
+	place-content: center;
+	column-gap: calc(var(--padding-form) / 2);
+	width: fit-content;
+	padding: var(--padding-form) calc(var(--padding-form) * 2);
+	font-weight: var(--font-weight-form);
+	font-size: var(--font-size-form);
+	line-height: var(--line-height-form);
+	text-align: center;
+	text-decoration: none;
+	/*text-transform: uppercase;
+	letter-spacing: 0.03em;*/
+	color: var(--white);
+	background-color: var(--color-main);
+	border: 1px solid var(--color-main);
+	border-radius: var(--border-radius);
+	/*box-shadow: var(--shadow);*/
+	/*overflow: hidden;*/
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	-webkit-tap-highlight-color: transparent;
+	cursor: pointer;
+	/*user-select: none; чтобы не выделялся контент кнопки */
+	transition: 0.25s;
+}
+
+.button--icon::after {
+	content: '';
+	width: 24px;
+	height: 24px;
+	/*background-image: url('/img/sprite.svg#arrow-simple-dark');*/
+	background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" fill="none" stroke="%23fff" stroke-width=".6"%3E%3Cpath d="M7 4H0 M5 2L7 4L5 6"/%3E%3C/svg%3E') 50% / 100% no-repeat;
+}
+
+.button--2 {
+	color: var(--color-main);
+	background: transparent;
+	/*border: 2px solid currentColor;*/
+	/*box-shadow: none;*/
+}
+
+.button--s {
+	padding: 8px 16px;
+	font-size: var(--font-size-s);
+}
+
+@media (max-width: 449.98px) {
+	.button {
+		width: 100%;
+	}
+}
+
+.button--center {
+	position: relative;
+	left: 50%;
+	translate: -50%;
+}
+
+.button:not([disabled]):hover {
+	filter: brightness(115%);
+}
+
+.button--2:not([disabled]):hover {
+	box-shadow: inset 0 0 0 1px var(--color-main);
+}
+
+.button--icon:not([disabled]):hover {
+	column-gap: calc(var(--padding-form) / 2 + 16px);
+	padding: var(--padding-form) calc(var(--padding-form) * 2 - 8px);
+}
+
+.button:active {
+	filter: brightness(95%) !important;
+}
+
+.button--wide {
+	width: 100%;
+	max-width: 600px;
+}
+
+.disabled,
+button:disabled,
+input[disabled],
+input[aria-disabled=true],
+fieldset[disabled] {
+	transform: none;
+	opacity: 0.6;/* это делает отключенные кнопки полупрозрачными */
+	filter: grayscale(0.8);/* это делает отключенные кнопки серенькими */
+}
+/*-------- Конец компонента Кнопка. ------------*/
+
+
+
+/*------------------------------------------------
+---------- Компонент Форма связи: ----------------
+------------------------------------------------*/
+
+.form {
+	display: grid;
+	gap: var(--margin-s);
+	width: min(400px, 100%);
+	/*margin-left: auto;
+	margin-right: auto;*/
+	padding: var(--margin-s);
+	background-color: hsla(0, 0%, 0%, 0.05);
+	/*accent-color: var(--color-main); эксперимент с новым свойством */
+}
+
+.form__title {
+	margin-bottom: 4px;
+	font-weight: var(--font-weight-l);
+	font-size: var(--font-size-l);
+	line-height: var(--line-height-xs);
+}
+
+
+
+
+/*-------- Стили для текстовых инпутов: --------*/
+
+.form__item {
+	display: grid;
+	gap: var(--margin-xs);
+	/*align-items: center; это было у Kevin Powell */
+}
+
+.form__label {
+	display: block;
+	width: fit-content;/* это чтобы кликабельная область лейблов не была больше самого текста. */
+	line-height: 1;
+	pointer-events: none;/* хорошо ли так делать? */
+}
+
+.form__label.required::after {
+	content: ' *';
+}
+
+.form__input {
+	display: block;/* убирает отступ-строку под textarea! */
+	width: 100%;
+	/*min-height: 40px;*/
+	padding: var(--padding-form) calc(var(--padding-form) * 1.2);
+	font-weight: var(--font-weight-form);
+	font-size: var(--font-size-form);
+	line-height: var(--line-height-form);
+	background-color: var(--bg);
+	background-clip: padding-box;/* зачем? */
+	border: var(--border);
+	border-radius: var(--border-radius);
+	/*box-shadow: var(--border-shadow);*/
+	resize: none;/* или vertical; это для textarea */
+}
+
+.form__input::placeholder {
+	color: var(--grey);
+}
+
+.form__input:focus {
+	outline-offset: 4px;
+}
+
+.form__hint {
+	font-size: var(--font-size-s);
+	line-height: 1;
+	color: var(--grey);
+}
+
+
+
+
+/*--- Стили для чекбоксов и радиокнопок: -------*/
+
+.form__fieldset {
+	display: grid;
+	gap: var(--margin-xs);
+	border: none;
+}
+
+legend.form__title {
+	margin-bottom: var(--margin-xs);
+}
+
+.form__item-point {
+	display: grid;
+	grid-template-columns: auto;
+	grid-auto-columns: auto;
+	grid-auto-flow: column;
+	/*align-items: center;*/
+	gap: var(--margin-xs);
+	width: fit-content;/* это чтобы кликабельная область лейблов не была больше самого текста. */
+	font-size: var(--font-size-m);
+	cursor: pointer;
+	transition: 0.13s linear;
+}
+
+.form__item-point:not([disabled]):hover {
+	color: var(--color-main);
+}
+
+.form__label-point {
+	display: block;
+	width: fit-content;/* это чтобы кликабельная область лейблов не была больше самого текста. */
+	line-height: 1;
+}
+
+.form__input-point {
+	position: relative;
+	display: inline-block;
+	width: 2em;
+	/*height: 22px;*/
+	aspect-ratio: 1/1;
+	margin-top: -0.4em;
+	/*vertical-align: -2px;*/
+	/*vertical-align: text-bottom;*/
+	background: var(--bg);/* #fff нужно для iOS, иначе фон станет черным. */
+	border: 2px solid currentColor;
+	/*border-radius: 10%;*/
+	/*box-shadow: var(--border-shadow);*/
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+.form__input-point::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	display: block;
+	/*margin: auto;
+	overflow: hidden;
+	visibility: hidden; это другой вариант появления галки */
+	scale: 0;
+	transform-origin: center;
+	transition: scale 0.16s ease-in;
+}
+
+/*-------- Стили чекбокса: ---------------------*/
+
+.form__input-point[type=checkbox]::before {
+	/*или:
+	content: '✔';
+	или:
+	content: '';
+	width: 45%;
+	height: 70%;
+	border-right: 3px solid currentColor;
+	border-bottom: 3px solid currentColor;
+	transform: rotate(45deg) translateY(-8%) translateX(-4%);*/
+	background: url('img/sprite.svg#checkbox') 50% / 85% no-repeat;
+	background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" fill="none" stroke="%23000" stroke-width="1.2"%3E%3Cpath d="M1.2 3.3L3.3 6L6.8 2"/%3E%3C/svg%3E');
+}
+
+/*-------- Стили радиокнопки: ------------------*/
+
+.form__input-point[type=radio] {
+	border-radius: 99px;
+}
+
+.form__input-point[type=radio]::before {
+	padding: 16%;
+	background: content-box currentColor;
+	border-radius: 99px;
+}
+
+.form__input-point:checked::before {
+	scale: 1;
+	transition: scale 0.2s cubic-bezier(0.25, 0.25, 0.56, 1.8);
+}
+
+/*.form__input-point[type=checkbox]:focus-visible,
+.form__input-point[type=radio]:focus-visible {
+	outline: 2px solid;
+	outline-offset: 2px;
+}*/
+
+
+
+
+/*------------------------------------------------
+---------- Валидация текстовых полей: ------------
+------------------------------------------------*/
+
+/* Добавление иконок к валидации инпутов: */
+.form__input,
+.form__validation {
+	grid-area: 2 / 1 / 3 / 2;
+	align-self: center;
+	justify-self: end;
+}
+
+/* Псевдоклассы :user-(in)valid пока не работают в браузерах, ниже воссоздан их функционал с псевдоклассом :invalid
+.form__input:required:user-valid {
+	background-color: var(--bg-success, hsla(120, 100%, 25%, 0.1));
+	border-color: var(--color-success, green);
+}
+
+.form__input:required:user-invalid {
+	background-color: var(--bg-danger, hsla(0, 100%, 50%, 0.1));
+	border-color: var(--color-danger, red);
+}
+
+.form__item:required:has(:user-invalid:not(:focus)) {
+	animation: shake 0.7s;
+}*/
+
+/*.form__input:required:valid + .form__validation::before {
+	content: '✓';
+	color: var(--color-success, green);
+}*/
+
+
+
+/* Способ воссоздать функционал псевдокласса :user-invalid:
+Для хорошей работы этого способа нужно что-то записать в плейсхолдер! */
+
+/* autoprefixer: off */
+.form__input:invalid:not(:placeholder-shown):not(:focus) {
+	/*background-color: var(--bg-danger, hsla(0, 100%, 50%, 0.1));*/
+	border-color: var(--color-danger, red);
+	/*box-shadow: inset 0 0 0 1px var(--color-danger, red);*/
+}
+
+.form__input:invalid:not(placeholder-shown):not(:focus) + .form__validation::before {
+	content: '!';
+	display: grid;
+	place-content: center;
+	width: 1.2em;
+	height: 1.2em;
+	margin: 0 calc(var(--padding-form) * 1.2);
+	color: var(--white);
+	background-color: var(--color-danger, red);
+	border-radius: 99px;
+	opacity: 0.6;
+	pointer-events: none;
+
+	/*-webkit-mask: url('img/sprite.svg#cross') center / contain no-repeat;
+	mask: url('img/sprite.svg#cross') center / contain no-repeat;*/
+}
+
+.form__input:invalid:placeholder-shown + .form__validation::before,
+.form__input:valid:placeholder-shown + .form__validation::before {
+	visibility: hidden;
+}
+
+
+
+
+/*--- Анимация тряски невалидного инпута: ------*/
+
+.form__item:has(:invalid:not(:focus)) {
+	animation: shake 0.65s;
+}
+
+.form__item:has(:placeholder-shown:not(:focus)) {
+	animation: none;
+}
+/* autoprefixer: on */
+
+@keyframes shake {
+	0%, 100% {
+		translate: 0;
+	}
+	20%, 40%, 60%, 80% {
+		translate: -4px;
+	}
+	10%, 30%, 50%, 70%, 90% {
+		translate: 4px;
+	}
+}
+
+/* Стили для кнопки, когда форма невалидна: */
+.form:invalid [type="submit"] {
+	opacity: 0.7;
+}
+
+/* Валидация чекбоксов и радиокнопок:
+Сейчас вроде не стоит использовать пока нет :user-invalid
+[type="checkbox"]:user-invalid {
+	outline: 2px solid red;
+	outline-offset: 2px;
+}*/
+
+/*------------------------------------------------
+---------- Отключенная форма и инпуты: -----------
+------------------------------------------------*/
+
+[disabled],
+.disabled,
+.form [disabled],
+input[disabled],
+input[aria-disabled=true] {
+	opacity: 0.55;
+}
+
+/*------------------------------------------------
+---------- Валидация всей формы: -----------------
+------------------------------------------------*/
+
+/* Валидация всей формы:
+Вроде не советуется использовать, так как плохая доступность для скринридеров
+.form:invalid button {
+	opacity: 0.5;
+	pointer-events: none;
+}*/
+
+
+
+
+/*------------------------------------------------
+-- Сообщения об успешной или неудачной отправке: -
+------------------------------------------------*/
+
+.form__success,
+.form__failure {
+	display: none;
+	padding: var(--padding-form-s);
+	font-size: var(--font-size-form-s);
+	color: var(--white);
+	background-color: var(--color-success, green);
+	border: 1px solid var(--color-success, green);
+	border-radius: var(--border-radius-l);
+
+	/*height: 0;
+	opacity: 0;
+	transition: 0.5s linear;*/
+}
+
+.form__failure {
+	color: var(--color-danger, red);
+	background-color: var(--bg-danger, hsla(0, 100%, 50%, 0.1));
+	border-color: var(--color-danger, red);
+}
+
+.form__success.active,
+.form__failure.active {
+	display: block;
+
+	/*height: auto;
+	opacity: 1;*/
+}
+
+
+
+/*-------- Конец основы компонента формы. ------*/
+
+
+
+
+/*-------------------------------------------
+-- Другие варианты стилизации чек и радио: --
+-------------------------------------------*/
+
+/*.form__input-point[type=checkbox]:checked::before {
+	background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" fill="none" stroke="%23000" stroke-width="1.2"%3E%3Cpath d="M1.2 3.3L3.3 6L6.8 2"/%3E%3C/svg%3E');
+	background-repeat: no-repeat;
+	background: content-box url('/img/sprite.svg#chekbox') 50% 50% / 100% 100% no-repeat grey;
+}*/
+
+/*.form__input-point[type=checkbox]:checked:hover {
+	background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" fill="none" stroke="royalblue" stroke-width="1.2"%3E%3Cpath d="M1.2 3.3L3.3 6L6.8 2"/%3E%3C/svg%3E');
+}*/
+
+/* Вариант чекбоксов с заливкой:
+.form__input-point[type=checkbox]:checked::before {
+	border-right: 3px solid white;
+	border-bottom: 3px solid white;
+}
+
+.form__input-point[type=checkbox]:checked {
+	background-color: currentColor;
+}*/
+
+/* Чекбоксы с тремя состояниями (с JS):
+.form__input-point[type=checkbox]:indeterminate::before,
+.form__input-point[type=checkbox][aria-checked=mixed]::before {
+	width: 40%;
+	height: 0;
+	border: 2rem solid currentColor;
+}*/
+
+/* Вариант стилей чекбоксов и радио от веб.дев:
+Для него в HTML инпут и лейбл должны стоять рядом!*/
+/*input[type="radio"],
+input[type="checkbox"] {
+	position: absolute;
+	opacity: 0;
+}
+
+input[type="radio"] + label::before {
+	content: '';
+	width: 1em;
+	height: 1em;
+	border: 1px solid black;
+	display: inline-block;
+	border-radius: 50%;
+	margin-inline-end: 0.5em;
+}
+
+input[type="radio"]:checked + label::before {
+	background: black;
+}*/
+
+
+
+
+
+
+
+
+/*------------------------------------------------
+---------- Форма №2 нестандартная: ---------------
+- лейблы на инпутах, отъезжают вверх при фокусе --
+------------------------------------------------*/
+
+/*--- Эти стили только дополняют базовые, их нужно объединять! ---*/
+
+/*.form--2 {}*/
+
+.form--2 .form__item {
+	position: relative;
+	display: block;
+}
+
+.form--2 .form__label {
+	position: absolute;
+	top: var(--padding-form);
+	left: calc(var(--padding-form) * 1.2);
+	/*z-index: -1;  без этой команды названия полей label закрывают форму input и там не получается кликать по ней */
+	color: var(--grey);
+	pointer-events: none;
+	transition: 0.35s ease-in-out;
+}
+
+.form--2 .form__input {
+	/*position: relative;
+	z-index: 4; это моя доработка кода, убирает проблемы наложения фона form-03, input и label. Но из-за этого индекса форма налезает на модалки и хедер! */
+	/*padding: calc(var(--padding-form) + 6px) calc(var(--padding-form) * 1.2) calc(var(--padding-form) - 6px); это вариант сместить текст инпута, когда лейбл поднимается в пределах инпута, а не выше него */
+}
+
+/* autoprefixer: off */
+.form--2 .form__input:focus ~ .form__label,
+.form--2 .form__input:not(:placeholder-shown) ~ .form__label {
+	/*top: -18px;*/
+	top: calc(-1.4 * var(--padding-form));
+	/*left: 0;*/
+	/*font-weight: 500;*/
+	font-size: var(--font-size-s);
+	color: var(--color);
+}
+/* autoprefixer: on */
+/* Анимация сдвига лейбла при фокусе не работала из-за автопрефиксера: он добавляет селектор который ломает вёрстку ".form-input:not(:placeholder-shown)~.form__label" */
+
+.form--2 .form__input:focus ~ .form__label {
+	color: var(--color-main);
+}
+
+.form--2 .form__input:focus {
+	border-color: var(--color-main);
+	outline: none;
+	/*box-shadow: inset 0 0 0 1px var(--color-main);*/
+}
+
+
+
+
+/*------------------------------------------------
+---------- Форма №3 нестандартная: ---------------
+--- лейблы на инпутах, исчезают при фокусе -------
+------------------------------------------------*/
+
+/*--- Эти стили только дополняют базовые, их нужно объединять! ---*/
+
+/*.form--3 {}*/
+
+.form--3 .form__item {
+	position: relative;
+	display: block;/* нужно удалить grid у базового кода */
+}
+
+.form--3 .form__label {
+	position: absolute;
+	top: 0;
+	left: 0;
+	/*z-index: -1;  без этой команды названия полей label закрывают форму input и там не получается кликать по ней */
+	padding: var(--padding-form) calc(var(--padding-form) * 1.2) var(--padding-form);
+	color: var(--grey);
+	pointer-events: none;
+	transition: 0.25s ease-in-out;
+}
+
+.form--3 .form__input {
+	/*position: relative;
+	z-index: 4; это моя доработка кода, убирает проблемы наложения фона form-03, input и label. Но из-за этого индекса форма налезает на модалки и хедер! */
+	/*padding: calc(var(--padding-form) + 6px) calc(var(--padding-form) * 1.2) calc(var(--padding-form) - 6px); это вариант сместить текст инпута, когда лейбл поднимается в пределах инпута, а не выше него */
+}
+
+/* autoprefixer: off */
+.form--3 .form__input:focus ~ .form__label,
+.form--3 .form__input:not(:placeholder-shown) ~ .form__label {
+	color: transparent;
+}
+/* autoprefixer: on */
+/* Анимация сдвига лейбла при фокусе не работала из-за автопрефиксера: он добавляет селектор который ломает вёрстку ".form-input:not(:placeholder-shown)~.form__label" */
+
+.form--3 .form__input:focus ~ .form__label {
+	color: transparent;
+}
+
+.form--3 .form__input:focus {
+	border-color: var(--color-main);
+	outline: none;
+	/*box-shadow: inset 0 0 0 1px var(--color-main);*/
+}
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Формы связи</h1>
+		<hr>
+		<p>Правила компонента:</p>
+		<ul>
+			<li>Форма без классов, только с тегами, не должна иметь своих стилей оформления. Или ей можно задать базовые отступы, чтобы нормально смотрелись дефолтные элементы.</li>
+			<li>Для кастомных стилей назначаются "базовые" классы .form, .form__title, .form__label, .form__input, .form__item-point . Различать типы инпутов можно по атрибуту type[].</li>
+			<li>Другие темы оформления форм включаются простым добавлением класса для тега <code>&lt;form&gt;</code>, а в стилях этот класс подписывается перед каждым селектором. При добавлении компонента с темой на сайт можно объединить базовые классы формы с классами темы.</li>
+			<li>Для добавления стилей встроенной валидации нужно после текстового инпута поставить тег <code>&lt;span class="form__validation" aria-hidden="true"&gt;&lt;/span&gt;</code> и добавить стили для валидации инпута и значка form__validation, и у инпута должен быть плейсхолдер (хотя бы пробел туда поставить). Эти стили валидации настроены показывать только невалидные (invalid) поля для обязательных (required) инпутов, причем они работают только если пользователь что-то ввел, то есть заменил плейсхолдер на свой текст. Чтобы показывалась валидация не всех обязательных инпутов (например в тех инпутах где нет плейсхолдера!) - можно для стилей валидации сделать отдельный класс .validity .</li>
+		</ul>
+
+		<p>Что нужно сделать:<br>
+			- Для всплывающих сообщений об успешной/неуспешной отправке сообщений нужно сделать плавную анимацию появления. Хотя бы как у элемента details, а лучше как это сделано в бутстрапе с задержкой появления(?).<br>
+			- В будущем можно переделать цветовые стили инпутов с accent-color.
+		</p>
+
+		<h2>Темы форм</h2>
+		<p>Для включения темы нужно добавить заглавному классу <code>.form</code> дополнительный класс темы.</p>
+		<p><b>Тема mitorun.studio</b> - для включения добавить класс <code>.theme-mitorun</code> или <code>.form-mitorun</code>.</p>
+		<hr>
+		<p>Инпут-ловушка, валидатор жалуется на ариа-атрибуты, видимо стоит удалить их из компонента.</p>
+
+
+
+
+		<h2>Базовая форма №1</h2>
+
+		<form class="form" action="#" method="POST" enctype="multipart/form-data"><!-- Подключение другого PHP-конфига: data-php="mail-2.php" -->
+			<h3 class="form__title">Написать на почту</h3>
+
+
+			<!-- Инпут-приманка (ловушка для ботов): -->
+			<div style="display: none;">
+				<label style="display: none;" hidden>Оставьте это поле пустым</label>
+				<input name="honeypot" style="display: none;" type="text" autocomplete="off" tabindex="-1" hidden>
+			</div>
+
+
+			<!--Текстовые поля ввода:-->
+			<div class="form__item">
+				<label class="form__label" for="name">Ваше имя</label>
+				<input class="form__input" id="name" type="text" name="name" placeholder="Иван" autocomplete="off" minlength="2" maxlength="50"><!--title="Введите ваше имя"-->
+				<span class="form__validation" aria-hidden="true"></span>
+				<p class="form__hint">Напишите ваше имя</p>
+			</div>
+
+
+			<div class="form__item">
+				<label class="form__label required" for="email">Ваш емейл</label>
+				<input class="form__input" id="email" type="email" name="email" placeholder="email@example.com" autocomplete="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,13}" required><!--title="Введите действующий емейл"-->
+				<span class="form__validation" aria-hidden="true"></span>
+				<p class="form__hint">Ваш действующий емейл</p>
+			</div>
+
+
+			<div class="form__item">
+				<label class="form__label required" for="tel">Ваш телефон</label>
+				<input class="form__input" id="tel" type="tel" name="tel" placeholder="+7 123 456 78 90" autocomplete="tel" pattern="[0-9\+\(\)\s\-]{6,22}" required><!--title="Включая код страны (+7)" data-tel-input-->
+				<span class="form__validation" aria-hidden="true"></span>
+				<p class="form__hint">Ваш телефон и код страны</p>
+				<p class="form__hint">Ваш телефон и код страны</p>
+			</div>
+
+
+			<div class="form__item">
+				<label class="form__label required" for="message">Ваше сообщение</label>
+				<textarea class="form__input" id="message" name="message" rows="4" placeholder="Напишите нам" autocomplete="off" minlength="6" maxlength="1500" spellcheck="true" required></textarea><!--title="Сообщение должно содержать от 6 до 1500 символов"-->
+				<span class="form__validation" aria-hidden="true"></span>
+				<p class="form__hint">Напишите что-нибудь</p>
+			</div>
+
+
+
+
+			<!--Чекбоксы:-->
+			<div class="form__item-point">
+				<input class="form__input-point" id="agreement" type="checkbox" name="agreement" value="true" required>
+				<label class="form__label-point required" for="agreement">Даю согласие на обработку персональных данных в соответствии с условиями <a target="_blank" href="#">Пользовательского соглашения</a>.</label>
+			</div>
+
+			<!--<label class="form__item-point form__label required" for="agreement" title="Это согласие обязательно для отправки формы">
+				<input class="form__input-point" id="agreement" type="checkbox" name="agreement" required>
+				Даю согласие на обработку персональных данных в соответствии с условиями
+			</label>-->
+
+
+			<fieldset class="form__fieldset">
+				<legend class="form__title">Чекбоксы:</legend>
+
+				<div class="form__item-point form__label">
+					<input class="form__input-point" id="checkbox-1" type="checkbox" checked>
+					<label class="form__label-point" for="checkbox-1">Чекбокс №1 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint assumenda eaque nihil praesentium quia incidunt nulla vero, optio doloribus molestias illum aut perspiciatis atque dicta neque voluptate autem obcaecati. Totam.</label>
+				</div>
+
+				<div class="form__item-point form__label">
+					<input class="form__input-point" id="checkbox-2" type="checkbox">
+					<label class="form__label-point" for="checkbox-2">Чекбокс №2 Lorem ipsum dolor, sit amet consectetur adipisicing elit.</label>
+				</div>
+
+				<div class="form__item-point form__label">
+					<input class="form__input-point" id="checkbox-3" type="checkbox">
+					<label class="form__label-point" for="checkbox-3">Чекбокс №3</label>
+				</div>
+			</fieldset>
+
+
+			<!--Радиокнопки:-->
+			<fieldset class="form__fieldset">
+				<legend class="form__title">Радиокнопки:</legend>
+
+				<label class="form__item-point form__label-point" for="radio-1">
+					<input class="form__input-point" id="radio-1" type="radio" name="radio" value="radio-1" checked>
+					Радиокнопка №1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Est libero eligendi facere officia laboriosam sequi laudantium deserunt quo earum repellat. Consequatur, officiis? Placeat facere tempore totam odio ab magnam nihil.
+				</label>
+
+				<label class="form__item-point form__label-point" for="radio-2">
+					<input class="form__input-point" id="radio-2" type="radio" name="radio" value="radio-2">
+					Радиокнопка №2
+				</label>
+			</fieldset>
+
+
+			<!--Кнопка отправки формы:-->
+			<button class="button button--wide" type="submit">Кнопка</button>
+
+
+			<!--Сообщения об успешной или неудачной отправке:-->
+			<p class="form__success active" aria-live="polite">Сообщение отправлено.</p>
+			<p class="form__failure active" aria-live="polite">Ошибка! Сообщение не отправлено.</p>
+		</form>
+		<hr>
+
+
+
+
+		<h2>Форма №2: лейблы на инпутах и отъезжают вверх при фокусе (нестандартная разметка HTML)</h2>
+
+		<p>Особенность этой формы: label должен идти после input, а в плейсхолдере должен стоять пробел чтобы подпись анимировалась и отъезжала наверх, это из-за особенности хитрых селекторов!</p>
+		<p>Для стилизации этой формы надо взять обычные стили базовой формы и дополнить их уникальными стилями для <code>.form--2</code>. Ещё нюанс в том, что для <code>form__item</code> убирается <code>display: grid;</code>, поэтому для валидации уже не стоит использовать отдельный элемент <code>.form__validation</code> для иконки (!), который в базовой форме располагается с помощью гридов.</p>
+
+
+		<form class="form form--2" action="#" method="POST" enctype="multipart/form-data">
+			<p class="form__title">Написать на почту</p>
+
+
+			<!-- Инпут-приманка (ловушка для ботов): -->
+			<div style="display: none;">
+				<label for="honeypot" style="display: none;" hidden>Оставьте это поле пустым</label>
+				<input id="honeypot" style="display: none;" type="text" autocomplete="off" tabindex="-1" hidden>
+			</div>
+
+
+			<div class="form__item">
+				<input class="form__input" id="text" type="text" name="text" placeholder=" " autocomplete="off" required>
+				<label class="form__label required" for="text">Имя</label>
+				<!--<span class="form__validation" aria-hidden="true"></span>-->
+				<!--<p class="form__hint">Ваш действующий емейл</p>-->
+			</div>
+
+
+			<div class="form__item">
+				<input class="form__input" id="email" type="email" name="email" placeholder=" " autocomplete="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,13}" required>
+				<label class="form__label required" for="email">Емейл</label>
+				<!--<span class="form__validation" aria-hidden="true"></span>-->
+				<!--<p class="form__hint">Ваш действующий емейл</p>-->
+			</div>
+
+
+			<div class="form__item">
+				<textarea class="form__input" id="message" name="message" rows="5" placeholder=" " autocomplete="off" minlength="6" maxlength="1500" spellcheck="true" required></textarea>
+				<label class="form__label required" for="message">Сообщение</label>
+				<!--<span class="form__validation" aria-hidden="true"></span>-->
+				<!--<p class="form__hint">Напишите что-нибудь</p>-->
+			</div>
+
+
+			<button class="button button--wide" type="submit">Кнопка</button>
+
+
+			<p class="form__success active" aria-live="polite">Сообщение отправлено.</p>
+			<p class="form__failure active" aria-live="polite">Ошибка! Сообщение не отправлено.</p>
+		</form>
+		<hr>
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

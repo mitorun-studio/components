@@ -1,0 +1,138 @@
+<!doctype html><!-- Файл form-2.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Формы #2 – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+/* Переключатели (тумблеры): */
+.switch {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	width: 100px;
+}
+
+.switch-input {
+	width: 44px;
+	height: 24px;
+	background: #eee;
+	border: 2px solid black;
+	border-radius: 12px;
+	-webkit-appearance: none;
+	appearance: none;
+	transition: 0.4s;
+}
+
+.switch-input::before {
+	content: '';
+	position: absolute;
+	top: 4.3px;
+	left: 13px;
+	width: 16px;
+	height: 16px;
+	background-color: black;
+	border-radius: 9px;
+	transition: 0.4s;
+}
+
+.switch-input:checked {
+	background-color: #ffaa00;
+	transition: 0.4s;
+}
+
+.switch-input:checked::before {
+	left: 33px;
+	transition: 0.4s;
+}
+
+.switch-label {
+	position: relative;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+}
+
+.switch-label span {
+	position: absolute;
+}
+
+.switch-input ~ .switch-label .on,
+.switch-input:checked ~ .switch-label .off {
+	opacity: 0;
+}
+
+.switch-input ~ .switch-label .off,
+.switch-input:checked ~ .switch-label .on {
+	opacity: 1;
+}
+
+.switch-input:focus {
+	outline: 1px dotted black;
+}
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Стилизация необычных элементов форм</h1>
+		<hr>
+
+		<h2>Переключатели (тумблеры)</h2>
+
+		<div class="switch">
+			<input class="switch-input" id="power" type="checkbox" name="power">
+			<label class="switch-label" for="power"><span class="on">On</span> <span class="off">Off</span></label>
+		</div>
+		<hr>
+
+
+
+
+		<h2>Оформление рейнджей</h2>
+
+		<h3>Скрипт для вывода значения рейнджа</h3>
+
+		<div>
+			<label for="price">Выберите число:</label>
+			<input type="range" id="range" name="range" min="0" max="1000" step="10" value="500">
+			<output class="range-output" for="range">500</output>
+
+			<script>
+// Скрипт для вывода значения input type[range] от MDN:
+const range = document.querySelector('#range');
+const output = document.querySelector('.range-output');
+
+output.textContent = range.value;
+
+range.addEventListener('input', function () {
+	output.textContent = range.value;
+});
+			</script>
+		</div>
+
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

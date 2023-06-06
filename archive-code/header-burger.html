@@ -1,0 +1,612 @@
+<!doctype html><!-- Файл "header-burger.html" -->
+<html lang="ru">
+
+<head>
+	<meta name="robots" content="none">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Бургер-меню | Mitorun Studio–</title>
+	<meta name="description" content="Раскрывающееся меню-бургер от Mitorun Studio.">
+	<meta name="author" content="Oleg Mitorun">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Jost:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+	<style>
+:root {
+	--font-family: 'IBM Plex Sans', 'Jost', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', sans-serif;/* font-family для обычного текста */
+	--font-family-heading: 'Jost', 'Futura', 'IBM Plex Sans', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', sans-serif;/* font-family для заголовков */
+	--font-family-mono: 'SFMono-Regular', 'ui-monospace', 'Menlo', 'Monaco', 'PT Mono', 'Consolas', 'Liberation Mono', 'Courier New', monospace;/* font-family для моноширинного шрифта (для кода) */
+	--font-size-xl: 22px;
+	--font-size-l: 19px;
+	--font-size-m: 16px;
+	--font-size-s: 14px;
+	--font-size-xs: 12px;
+	--line-height-m: 1.5;/* базовый текст body */
+	--line-height-s: 1.35;/* по-плотней текст, заголовки h2-h4 */
+	--line-height-xs: 1.2;/* плотный текст, заголовок h1 */
+	--container-padding: 14px;/* это боковые паддинги для мобилки (или 14px, или 19px) */
+
+	--color: hsl(0, 0%, 0%);/* базовый цвет текста ("черный" для светлой темы и наоборот). Раньше было --color: hsl(0, 0%, 0%); Примеры: hsl(var(--color)), hsl(var(--color) / 0.65) */
+	--bg: hsl(0, 0%, 100%);/* базовый цвет фона ("белый" для светлой темы и наоборот) */
+	--color-grey: hsla(0, 0%, 0%, .6);/* черный полупрозрачный цвет текста ("серый" для светлой темы и наоборот). Было --color-transparent */
+	--color-grey-light: hsla(0, 0%, 0%, .2);/* черный полупрозрачный цвет текста ("светло-серый" для светлой темы и наоборот) */
+	--color-main: hsl(210, 95%, 40%);/* #0566c7 было hsl(210, 60%, 47%); главный цвет (для акцента на важных элементах) */
+	tab-size: 2;
+}
+
+*,
+::after,
+::before {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+
+	/*outline: 1px solid hsla(0, 100%, 50%, 0.3);
+	outline-offset: 0; это для тестирования границ элементов (переполнение) */
+}
+
+html {
+	font-size: 1px;/* это задает базовый размер шрифта в 1px для смартфонов до 575px */
+}
+
+body {
+	min-height: 100vh;
+	color: var(--color, hsl(0, 0%, 0%));
+	font: 400 var(--font-size-m, 16px)/var(--line-height-m, 1.5) var(--font-family, sans-serif);
+	background: var(--bg, hsl(0, 0%, 100%));
+}
+
+h1, h2, h3, h4, h5, h6, p, hr {
+	margin: 1em 0;
+}
+
+img {
+	display: block;
+	/* это избавляет от пустой строки под картинкой, равной line-height. У этого способа есть минус когда нам не нужно чтобы картинка была блочной. Еще один способ - это задать родителю картинки display: flex; */
+	max-width: 100%;
+	/* или width: 100%; */
+	height: auto;
+	/* или max-height: 100%; нужна ли эта строка? */
+	object-fit: contain;
+	/*image-rendering: pixelated; убирает сглаживание растровых картинок при масштабировании, делая четкие пиксельные картинки */
+}
+
+.container {
+	max-width: calc(1000px + 2 * var(--container-padding, 14px));/* было 480px или 1236px или 1300px */
+	margin-right: auto;
+	margin-left: auto;
+	padding-right: var(--container-padding, 14px);
+	padding-left: var(--container-padding, 14px);
+
+	/*background: content-box hsla(39, 100%, 50%, 0.2);
+	outline: 2px dashed hsla(39, 100%, 50%, 0.4); это для тестирования */
+}
+
+/*-------------------------------------------------------------
+---------------- Ниже код самих компонентов -------------------
+-------------------------------------------------------------*/
+
+/* Хедера с бургер-меню митостудии: */
+.header {
+	/*position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	z-index: 4; это чтобы зафиксировать хедер при скролле, или position: relative если нужно будет позиционировать другие объекты */
+	/*width: 100%; это вроде не нужно */
+	/*background: var(--main-color-lightest);  было rgba(255,255,255,.7); При изменении фона нужно повторить его для субменю и для наведения на менюшки, если они есть */
+	box-shadow: 0 1px 6px hsla(0, 0%, 0%, 0.2);
+
+	/*background: content-box hsla(130, 100%, 30%, 0.07);
+	outline: 2px dashed hsla(130, 100%, 30%, 0.3); это для тестирования */
+}
+
+/* Ниже оформление первой (видимой) строки хедера: */
+.header-wrap {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;/* надо или нет? */
+	/*height: 90px; это задает основную высоту "видимому" хедеру */
+	padding: 12px 0;/* это задает итоговую высоту хедеру совместно с высотой лого и меню */
+	/*overflow: auto;  это для горизонтального скролла в мобильной версии, потом удалить если будет меню-бургер! */
+
+	/*background: content-box hsla(56, 100%, 50%, 0.07);
+	outline: 2px dashed hsla(56, 100%, 50%, 0.4); это для тестирования */
+}/* потом можно переделать на гридах */
+
+.logo {
+	width: 72px;
+	height: 36px;
+	/*transition: .3s .2s;*/
+}
+
+/*.logo:hover {
+	transform: scale(1.1);
+	transition: .4s;
+	outline: none;
+}*/
+
+/* Внешний вид кнопки меню: */
+.header__button {
+	position: relative;
+	/*z-index: 1; это надо или нет? */
+	/*display: inline-block;  это вроде у button по умолчанию?! */
+	width: 44px;
+	height: 44px;
+	margin-right: -9px;
+	border: none;/* или 0; или transparent; ? */
+	background-color: transparent;/*transparent;*/
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;/*  или rgba(0,0,0,0); это вообще убирает синий фон в хроме при нажатии на кнопку! */
+	/*touch-action: auto; это возвращает стандартное поведение, что синий фон появляется только на полсекунды при клике и изчезает, но на мобилках возвращаетсяи задержка 300мс после клика */
+}
+
+.header__button:focus {
+	outline: 0;
+}/* это было на Веб-стандартах. Вероятно мне нужно создать альтернативу аутлайну, так как могут быть сценарии где будет бургер-меню при работе с клавиатуры */
+
+.header__button-line,
+.header__button-line::after,
+.header__button-line::before {
+	position: absolute;
+	display: block;
+	width: 22px;
+	height: 2px;
+	/*border-radius: 1px; это можно добавить если дизайн поменяется на закругленный */
+	background: var(--color, #000);
+}
+
+.header__button-line {
+	top: 50%;
+	left: 11px;
+	transform: translateY(-50%);/* это для смещения элемента на пол его высоты, в сочетании с top:50% это распологает элемент ровно по центру родителя */
+	transition: transform 0.3s linear;
+}
+
+.header__button-line::before {
+	content: '';
+	top: -7px;
+	/*left: 0;*/
+	transition: top 0.3s 0.2s linear;
+}
+
+.header__button-line::after {
+	content: '';
+	bottom: -7px;
+	/*left: 0;*/
+	transition: bottom 0.3s 0.2s linear, transform 0.3s linear;
+}
+
+/* Ниже анимация бургера при клике: */
+.header__button[aria-expanded="true"] .header__button-line {
+	transform: rotate(45deg);
+	transition: transform 0.3s 0.2s linear;
+}
+
+.header__button[aria-expanded="true"] .header__button-line::before {
+	top: 0;
+	opacity: 0;
+	transition: top 0.3s linear, opacity 0.3s 0.2s linear;
+}
+
+.header__button[aria-expanded="true"] .header__button-line::after {
+	bottom: 0;
+	transform: rotate(90deg);
+	/* или простое (-90deg) */
+	transition: bottom 0.3s linear, transform 0.3s 0.2s linear;
+}
+
+.menu {
+	/*position: relative;  пока не нужно */
+	list-style: none;
+	/*display: grid;
+	grid-template-columns: auto;
+	place-items: center;
+	align-content: center;*/
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+	height: 0;/* это скрывает меню, у FilamentGroup было max-height: 0; */
+	/*min-height: 0;*/
+	/*margin: 0;  это надо или нет? */
+	/*visibility: hidden;  это для скрытия и/или анимации меню у FilamentGroup */
+	overflow: hidden;
+	opacity: 0;
+	/*transform: translateY(-8px);  это для анимации раскрытия у FilamentGroup, нужно дорабатывать */
+	/*opacity: 0;  это для скрытия и/или анимации меню у FilamentGroup */
+	will-change: height;/* это экспериментальное свойство, оно оповещает браузер что будет смещение объекта, у FilamentGroup */
+	transition: height .6s, opacity .4s;/* было transition: max-height .2s ease-out; у FilamentGroup */
+
+	/*background: content-box hsla(106, 100%, 45%, 0.05);
+	outline: 2px dashed hsla(106, 100%, 45%, 0.4); это для тестирования */
+}
+
+/* Ниже код для раскрытия области меню: */
+/*.menu.menu-active*/
+.menu[aria-hidden="false"] {
+	/*transform: translateY(0);  это для анимации раскрытия, нужно дорабатывать */
+	/*opacity: 1;  это раскрывает меню и/или для анимации у FilamentGroup */
+	/*min-height: 180px;  с этой высотой отлично выглядят отступы между менюшками, но ломается анимация */
+	height: 280px;
+	/* это раскрывает меню и для анимации у FilamentGroup. Метод имеет минус: при добавлении-удалении менюшек нужно вручную менять тут высоту области меню. height: auto; и max-height: 500px; универсальнее, но тогда нужно придумать как задать отступы сверху и снизу области меню, видимо гридами (паддинги ломают анимацию). Подходит height: calc(auto + 30px), но у меня меню тут не открывалось. */
+	/*height: auto;  это раскрывает меню и для анимации у FilamentGroup */
+	/*padding: 15px 0; с паддингами ломается плавность анимации! */
+	/*visibility: visible;  это раскрывает меню и/или для анимации у FilamentGroup */
+	opacity: 1;
+	transition: height .6s, opacity .6s .2s;
+}
+
+.menu__link {
+	/*display: flex;  это старый код чтобы кликабельная область менюшек растянулась по всей высоте хедера и чтобы заработала высота хедера 80px */
+	/*align-items: center;*/
+	/*max-width: 220px;  это профилактика от слишком длинного названия менюшки */
+	/*height: 90px;  это задает запасную высоту хедеру в 90px и растягивает менюшки */
+	padding: 21px 24px;/* было padding: 0 28px; */
+	font: 500 18px/1.2 var(--font-family, sans-serif);
+	/*letter-spacing: 1px;*/
+	color: #000;
+	/*text-transform: uppercase;  оставить или нет? */
+	white-space: nowrap;
+	transition: .4s .2s;
+
+	/*background: content-box hsla(295, 100%, 50%, 0.07);
+	outline: 2px dashed hsla(295, 100%, 50%, 0.4); это для тестирования */
+}
+
+/*.menu__link:hover,
+.menu__link:focus {
+	transition: .4s;
+}*/
+
+.menu__link[aria-current='page'] {
+	font-weight: 700;
+}
+
+
+
+
+
+
+
+
+
+/* Хедер с бургер-меню с отдельным меню-модалом: */
+
+.header-2 {
+	box-shadow: 0 1px 6px hsla(0, 0%, 0%, 0.2);
+
+	/*background: content-box hsla(130, 100%, 30%, 0.07);
+	outline: 2px dashed hsla(130, 100%, 30%, 0.3); это для тестирования */
+}
+
+.header-2-wrap {
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+	align-items: center;
+	gap: 48px;
+	/*display: flex;
+	justify-content: space-between;
+	align-items: center; надо или нет? */
+	padding: 12px 0;/* это задает итоговую высоту хедеру совместно с высотой лого и меню */
+
+	/*background: content-box hsla(56, 100%, 50%, 0.07);
+	outline: 2px dashed hsla(56, 100%, 50%, 0.4); это для тестирования */
+}
+
+.form-search {
+	display: none;
+}
+
+.menu-2 {
+	display: none;
+}
+
+.menu-2-btn {
+	position: relative;
+	/*z-index: 6; пробую сделать кнопку выше чем раскрывающееся бургер-меню */
+	/*display: inline-block;  это вроде у button по умолчанию?! */
+	width: 44px;
+	height: 44px;
+	margin-right: -9px;
+	border: none;/* или 0; или transparent; ? */
+	background-color: rgb(185, 245, 230);/*transparent;*/
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;/*  или rgba(0,0,0,0); это вообще убирает синий фон в хроме при нажатии на кнопку! */
+	/*touch-action: auto; это возвращает стандартное поведение, что синий фон появляется только на полсекунды при клике и изчезает, но на мобилках возвращаетсяи задержка 300мс после клика */
+}
+
+/* Ниже код для раскрытия области меню: */
+/*.menu.menu-active*/
+.menu-2[aria-hidden="false"] {
+	height: 280px;
+	opacity: 1;
+	transition: height .6s, opacity .6s .2s;
+}
+
+.menu-2-link {
+	padding: 21px 0;/* было padding: 0 28px; */
+	font: 500 18px/1.2 var(--font-family, sans-serif);
+	/*letter-spacing: 1px;*/
+	color: #000;
+	/*text-transform: uppercase;  оставить или нет? */
+	white-space: nowrap;
+	transition: .4s .2s;
+
+	/*background: content-box hsla(295, 100%, 50%, 0.07);
+	outline: 2px dashed hsla(295, 100%, 50%, 0.4); это для тестирования */
+}
+
+.form-search {
+	justify-self: end;
+}
+
+.menu-2-burger {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 5;
+	display: grid;
+	place-items: center;
+	place-content: center;
+	gap: 30px;
+	width: 100%;/* это нужно или нет? */
+	background: rgb(250, 218, 246);
+	overflow-y: auto;
+	overflow-x: hidden;
+	transform: translateX(0);
+	transition: transform 200ms 0s;
+	transition-property: transform, visibility;
+}
+
+.btn-2-burger {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+}
+
+.form-search-2 {
+	display: flex;
+}
+
+@media (min-width: 1024px) {
+	.menu-2 {
+		/*position: relative;  пока не нужно */
+		list-style: none;
+		/*display: grid;
+		grid-template-columns: auto;
+		place-items: center;
+		align-content: center;*/
+		display: flex;
+		align-items: center;
+		gap: 20px;
+
+		/*background: content-box hsla(106, 100%, 45%, 0.05);
+		outline: 2px dashed hsla(106, 100%, 45%, 0.4); это для тестирования */
+	}
+
+	.form-search {
+		display: flex;
+	}
+
+	.menu-2-btn {
+		display: none;
+	}
+
+	.menu-2-burger {
+		display: none;
+	}
+}
+
+/*-------------------------------------------------------------
+----------------------- Адаптив -------------------------------
+-------------------------------------------------------------*/
+
+@media (min-width: 576px) {
+	:root {
+		--container-padding: 40px;
+	}
+
+	html {
+		font-size: 1.1px;/* это задает базовый размер шрифта в 1px! */
+	}
+}
+
+@media (min-width: 1024px) {
+	html {
+		font-size: 1.2px;/* это задает базовый размер шрифта в 1px! */
+	}
+
+	.header {
+		/*position: fixed;
+		top: 0;
+		right: 0;
+		left: 0;
+		z-index: 4; это надо или нет? */
+		background: hsl(0, 0%, 100%);
+		/*backdrop-filter: blur(4px); это размытие (блюр) фона хедера */
+	}
+
+	.header .container {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;/* нужно или нет? */
+		/*height: 90px; это задает основную высоту "видимому" хедеру */
+	}
+
+	.header__button {
+		display: none;
+	}
+
+	.menu {
+		flex-direction: row;
+		height: auto;/* это чтобы меню раскрылось! */
+		opacity: 1;
+	}
+
+	.menu__link {
+		font-size: 16px;
+	}
+
+	.main {
+		margin-top: 100px;
+	}
+}
+	</style>
+</head>
+
+
+<body>
+
+	<header class="header">
+		<div class="container">
+
+			<div class="header-wrap">
+				<a class="logo" href="/" aria-current="page">
+					<img src="svg/logo.svg" width="80" height="40" alt="Логотип">
+				</a>
+
+				<button class="header__button" type="button" aria-expanded="false" aria-controls="menu" title="Меню" aria-label="Меню">
+					<span class="header__button-line"></span>
+				</button>
+				<!--aria-expanded="false" используется в скриптах для раскрытия и смены false/true, id="nav-toggle" для слушателя! можно aria-controls="navigation-content"?!-->
+			</div>
+
+			<nav aria-hidden="true" aria-labelledby="nav-toggle">
+				<!-- aria-hidden="true/false" открывает и закрывает меню!, id="nav-content" для слушателя, можно aria-labelledby="navigation-toggle"?! -->
+				<ul class="menu">
+					<li><a class="menu__link" href="/" aria-current="page">Главная</a></li>
+					<li><a class="menu__link" href="/services/">Услуги</a></li>
+					<li><a class="menu__link" href="/portfolio/">Портфолио</a></li>
+					<li><a class="menu__link" href="/kontakty/">Контакты</a></li>
+				</ul>
+			</nav>
+
+		</div>
+	</header>
+
+
+	<main class="main">
+		<section class="section">
+			<div class="container">
+
+				<h1>Бургер-меню</h1>
+				<hr>
+
+				<h2>Компонент №0</h2>
+
+			</div>
+		</section>
+	</main>
+	<hr>
+
+
+
+	<header class="header-2">
+		<div class="container">
+
+			<div class="header-2-wrap">
+				<a class="logo" href="/" aria-current="page">
+					<img src="svg/logo.svg" width="80" height="40" alt="Логотип">
+				</a>
+
+
+				<form class="form-search" target="_blank" method="get" action="https://www.google.com/search">
+					<label class="vh" for="search">Site search</label>
+					<input id="search" name="q" type="search" placeholder="Site search" title="Search for:">
+					<input type="hidden" name="sitesearch" value="mitorun.studio/raboty/code-bullet/bullet/">
+					<button type="submit" value="Search" title="Search">
+						<svg width="24px" height="24px" viewBox="0 0 24 24" aria-label="Start search">
+							<path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+						</svg>
+					</button>
+				</form>
+
+
+				<nav>
+					<ul class="menu-2">
+						<li><a class="menu-2-link" href="/" aria-current="page">Главная</a></li>
+						<li><a class="menu-2-link" href="/services/">Услуги</a></li>
+						<li><a class="menu-2-link" href="/portfolio/">Портфолио</a></li>
+						<li><a class="menu-2-link" href="/kontakty/">Контакты</a></li>
+					</ul>
+				</nav>
+
+
+				<button class="menu-2-btn" type="button" aria-expanded="false" aria-controls="menu">Меню</button>
+			</div>
+
+
+			<!--<nav class="menu-2-burger" aria-hidden="true" aria-labelledby="nav-toggle">
+				<button class="menu-2-btn btn-2-burger" type="button" aria-expanded="true" aria-controls="menu">Меню</button>
+
+				<form class="form-search-2" target="_blank" method="get" action="https://www.google.com/search">
+					<label class="vh" for="search">Site search</label>
+					<input id="search" name="q" type="search" placeholder="Site search" title="Search for:">
+					<input type="hidden" name="sitesearch" value="mitorun.studio/raboty/code-bullet/bullet/">
+					<button type="submit" value="Search" title="Search">
+						<svg width="24px" height="24px" viewBox="0 0 24 24" aria-label="Start search">
+							<path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+						</svg>
+					</button>
+				</form>
+
+
+				<ul class="menu-22">
+					<li><a class="menu-22-link" href="/" aria-current="page">Главная</a></li>
+					<li><a class="menu-22-link" href="/services/">Услуги</a></li>
+					<li><a class="menu-22-link" href="/portfolio/">Портфолио</a></li>
+					<li><a class="menu-22-link" href="/kontakty/">Контакты</a></li>
+				</ul>
+			</nav>-->
+
+		</div>
+	</header>
+
+	<p>В моем скрипте бургера есть косяк если сделаны два варианта меню (для десктопа и отдельно раскрывающееся) - если открыть меню и увеличивать ширину экрана, то открытое меню не уберется, а при брейкпоинте появится другое меню для десктопа.</p>
+
+
+
+
+
+
+	<div style="height: 100vh;"></div>
+
+	<script>
+	/* Ниже новый код для раскрывающегося навигационного меню (бургер): */
+
+	const menubtn = document.querySelector('.header__button')/* получение элемента кнопки меню */
+	const menu = document.querySelector('.menu')/* получение элемента меню */
+
+	const show = () => {
+		menubtn.setAttribute('aria-expanded', true)
+		menu.setAttribute('aria-hidden', false)
+	}
+
+	const hide = () => {
+		menubtn.setAttribute('aria-expanded', false)
+		menu.setAttribute('aria-hidden', true)
+	}
+
+	menubtn.addEventListener('click', event => {
+		event.stopPropagation()
+		JSON.parse(menubtn.getAttribute('aria-expanded')) ? hide() : show()
+	})
+
+	const handleClosure = event => !menu.contains(event.target) && hide()
+
+	window.addEventListener('click', handleClosure)
+	window.addEventListener('focusin', handleClosure)
+
+	/* Конец кода раскрывающегося меню-бургера */
+	</script>
+
+</body>
+
+</html>

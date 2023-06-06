@@ -1,0 +1,292 @@
+<!doctype html><!-- Файл animation-scroll.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Анимации по скроллу – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+/* Scroll-trigger script №1: */
+.intro-text {
+	width: 0ch;
+	margin: 0 auto;
+	color: transparent;
+	font-size: 3em;
+	text-align: center;
+	white-space: nowrap;
+	background-image: linear-gradient(155deg, #fb7419, #bc1429, #319197);
+	background-clip: text;
+	-webkit-background-clip: text;
+	overflow: hidden;
+}
+
+.intro-text.scroll-on {
+	animation: typeIn 2s steps(32) forwards;
+}
+
+@keyframes typeIn {
+	to {width: 32ch;}
+}
+
+.box {
+	width: 200px;
+	height: 200px;
+	margin: 50em 0 50em calc(50% - 100px);
+	color: hsl(0, 0%, 100%);
+	font-weight: 700;
+	text-align: center;
+	line-height: 200px;
+	background-color: hsl(173, 36%, 55%);
+}
+
+.scroll-triggered {
+	opacity: 0;
+	transition: transform 0.4s cubic-bezier(0.19, 0.75, 0.5, 1), opacity 0.5s cubic-bezier(0.19, 0.75, 0.5, 1);
+}
+
+.scroll-triggered.left {
+	opacity: 0;
+	transform: translateX(-200px);
+}
+
+.scroll-triggered.right {
+	background-color: hsl(244, 86%, 59%);
+	opacity: 0;
+	transform: translateX(200px);
+}
+
+.scroll-triggered.top {
+	background-color: hsl(285, 29%, 21%);
+	opacity: 0;
+	transform: translateY(-200px) rotate(360deg);
+}
+
+.scroll-triggered.bottom {
+	background: hsl(56, 75%, 72%);
+	opacity: 0.4;
+	transform: translateY(200px) scaleX(3);
+}
+
+/* Это запись анимации у донора. */
+.scroll-triggered.scroll-on {
+	transform: translateX(0);
+	opacity: 1;
+}
+
+.loader {
+	text-align: center;
+}
+
+
+
+
+/* Скрипт MaxGraph для фиксирования хедера по скроллу: */
+.header {
+	background-color: #b5ebdf;
+	transition: 0.5s;
+}
+
+/* этот класс добавляется скриптом при прокрутке: */
+.header.fixed {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 4;
+	width: 100%;/* или right: 0; */
+	animation: upDown 0.6s;
+	transition: 0.6s;
+}
+
+@keyframes upDown {
+	from {
+		opacity: 0;
+		transform: translateY(-100%);
+	}
+}
+
+/* Секция, от положения нее будет зависеть появление хедера по скроллу: */
+.header-trigger {
+	min-height: 800px;
+}
+
+.header-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	padding-top: 36px;
+	padding-bottom: 36px;
+}
+
+.nav-list {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 30px;
+}
+
+
+	</style>
+</head>
+
+
+<body>
+
+	<header class="header">
+		<div class="container header-container">
+			<a class="logo">Логотип</a>
+			<nav class="nav">
+				<ul class="nav-list">
+					<li><a class="nav-link" href="#">Главная</a></li>
+					<li><a class="nav-link" href="#">Услуги</a></li>
+					<li><a class="nav-link" href="#">О нас</a></li>
+					<li><a class="nav-link" href="#">Контакты</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+
+	<main>
+		<section class="section header-trigger">
+			<div class="container">
+
+				<h1>Анимации по скроллу</h1>
+				<p>Scroll trigger (scroll-triggered) animation.</p>
+				<p>С помощью Scroll-trigger можно не только анимировать появление элементов, но и делать ленивую загрузку для тяжелых элементов (картинок или блока с комментариями).</p>
+				<hr>
+
+				<h2>Scroll-trigger script №1</h2>
+				<p>Скрипт взят из <a class="link" rel="noopener" target="_blank" href="https://css-tricks.com/scroll-triggered-animation-vanilla-javascript/">этой статьи</a>. Этот скрипт вероятно современный, выложен в авторитетном издании, можно смело применять.</p>
+				<p>Как это работает: В скрипте создается функция <code>scrollTrigger</code>, которую можно применить к разным элементам. Когда целевой элемент (а как его назначить?) входит в (нужную?) область просмотра ему добавляется класс <code>.scroll-on</code>. В CSS анимируется селектор <code>.element.scroll-on</code>.</p>
+				<p>Чтобы не было горизонтального скролла от смещения элементов - нужно для оболочки анимируемых элементов задать <code>.overflow-hidden {overflow: hidden;}</code>.</p>
+				<p>Минус в том, что если убрать скрипт, то будет беда с элементами (они будут прозрачными и сдвинутыми). Надо сделать так код, чтобы только при наличии скрипта элементы получали изменяющие стили (прозрачность и трансформ). Например можно эти стили сдвига назначить с медиазапросом "только когда работают скрипты"! <code>@media (scripting: none | initial-only | enabled) {}</code></p>
+				<hr>
+
+
+
+
+				<h2>Скрипт фикс-хедера от MaxGraph</h2>
+				<p>Скрипт взят из <a class="link" rel="noopener" target="_blank" href="https://youtu.be/ol08qHSVUvw">этого ролика</a>. Этот скрипт работает, но к его качеству и современности нет доверия!</p>
+				<p>Появление хедера на середине раздела. Сначала хедер статичный. При прокрутке до определенного блока хедеру присваивается класс ".fixed" и он появляется, прилипает к верху. Я анимировал появление хедера, но не знаю можно ли анимировать его изчезание когда скроллить обратно наверх - если нельзя, то в этом минус скрипта.</p>
+
+
+
+
+				<div class="scroll-container">
+					<h2 class="intro-text">Прокрутите вниз примеры анимации</h2>
+
+					<div class="box scroll-triggered left">Я пришел слева</div>
+
+					<div class="box scroll-triggered right">Я пришел справа</div>
+
+					<div class="box scroll-triggered top">Я пришел наверх с поворотом</div>
+
+					<h1 class="loader">Привет</h1>
+
+					<div class="box scroll-triggered bottom">Я пришел увеличивающимся снизу</div>
+				</div>
+
+
+
+			</div>
+		</section>
+
+
+
+
+		</div>
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+	<script>
+// Scroll-trigger script №1:
+function scrollTrigger(selector, options = {}) {
+	let els = document.querySelectorAll(selector)
+	els = Array.from(els)
+	els.forEach(el => {
+		addObserver(el, options)
+	})
+}
+
+function addObserver(el, options) {
+	if (!('IntersectionObserver' in window)) {
+		if (options.cb) {
+			options.cb(el)
+		} else {
+			entry.target.classList.add('scroll-on')
+		}
+		return
+	}
+	let observer = new IntersectionObserver((entries, observer) => {
+		// this takes a callback function which receives two arguments: the elemts list and the observer instance
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				if (options.cb) {
+					options.cb(el)
+				} else {
+					entry.target.classList.add('scroll-on')
+				}
+				observer.unobserve(entry.target)
+			}
+		})
+	}, options)
+	observer.observe(el)
+}
+
+// Примеры использования:
+scrollTrigger('.intro-text')
+
+scrollTrigger('.scroll-triggered', {
+	rootMargin: '-10%',
+})
+
+scrollTrigger('.loader', {
+	rootMargin: '-200px',
+	cb: function (el) {
+		el.innerText = 'Loading...'
+		setTimeout(() => {
+			el.innerText = 'Task Complete!'
+		}, 1000)
+	}
+})
+	</script>
+
+
+	<script>
+/* Скрипт MaxGraph для фиксирования хедера по скроллу: */
+document.addEventListener('DOMContentLoaded', () => {
+	const header = document.querySelector('.header');/* Ищем наш хедер */
+	const headerTrigger = document.querySelector('.header-trigger');/* Ищем блок относительно которого будет появляться хедер */
+
+	const headerFixed = () => {
+		let scrollTop = window.scrollY;
+		let headerTriggerCenter = headerTrigger.offsetHeight / 2;/* указываем что событие наступит когда скролл дойдет до середины блока .hero , тут можно удалить деление высоты на два " / 2" и тогда будет браться вся высота блока. */
+
+		if (scrollTop >= headerTriggerCenter) {
+			header.classList.add('fixed')
+			headerTrigger.style.marginTop = `${header.offsetHeight}px`;
+		} else {
+			header.classList.remove('fixed')
+			headerTrigger.style.marginTop = `0px`;
+		}/* это говорит что когда скролл ниже "headerTriggerCenter", то хедеру добавляется класс ".fixed", а когда скролл выше - класс убирается обратно. А также для headerTrigger добавляется/удаляется margin-top равный высоте хедера, чтобы не было рывка из-за того что хедер изчезает со своего места и макет сдвигается на размер его высоты. */
+	};
+
+	headerFixed();
+	window.addEventListener('scroll', () => {headerFixed();});
+});
+	</script>
+
+
+</body>
+</html>

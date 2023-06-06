@@ -1,0 +1,59 @@
+<!doctype html><!-- Файл animation-text.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Анимации текста с JS – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+
+	</style>
+</head>
+
+
+<body onload="setTimeout( m_line, 200 );">
+
+
+	<main class="container">
+
+		<h1>Анимации текста с JS</h1>
+		<hr>
+
+		<h2>Печатающийся текст №1</h2>
+		<p>Это пример из кодепена. Для его работы нужен атрибут онлоад для боди и скрипт.</p>
+		<form name="form">
+			<input type="text" size="30" name="ctc">
+		</form>
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+	<script>
+/* Печатающийся текст №1: */
+var line = "бегущая строка на яваскрипт",
+	speed = 300, i = 0;
+function m_line() {
+	if (i++ < line.length) {
+		document.form.ctc.value = line.substring(0, i);
+	} else {
+		document.form.ctc.value = " ";
+		i = 0;
+	}
+	setTimeout(m_line, speed);
+}
+	</script>
+
+
+</body>
+</html>

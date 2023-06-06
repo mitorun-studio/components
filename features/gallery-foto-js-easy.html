@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Карточки | Проект 1</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: 'Muli', sans-serif;
+  background: #666;
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.slide {
+  position: relative;
+  flex: 1;
+  height: 80vh;
+  margin: 10px;
+  color: #fff;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: .5s ease-in-out;
+}
+
+.slide h3 {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  margin: 0;
+  font-size: 24px;
+  text-shadow: 0 .2em 3em #000;
+  opacity: 0;
+}
+
+.slide.active {
+  flex: 10;
+}
+
+.slide.active h3 {
+  opacity: 1;
+  transition: opacity .3s ease-in .4s;
+}
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="slide active" style="background-image: url('https://picsum.photos/1000/1000');">
+      <h3>Card 1</h3>
+    </div>
+
+    <div class="slide" style="background-image: url('https://picsum.photos/1100/1100');">
+      <h3>Card 2</h3>
+    </div>
+
+    <div class="slide" style="background-image: url('https://picsum.photos/1200/1200');">
+      <h3>Card 3</h3>
+    </div>
+
+    <div class="slide" style="background-image: url('https://picsum.photos/1300/1300');">
+      <h3>Card 4</h3>
+    </div>
+
+    <div class="slide" style="background-image: url('https://picsum.photos/1400/1400');">
+      <h3>Card 5</h3>
+    </div>
+
+  </div>
+
+  <script>
+    /* Ниже скрипт для слайдера. По клику на карточку слайдера он добавляет ей класс .active и убирает этот класс у остальных карточек. */
+const slides = document.querySelectorAll('.slide')
+
+/*slides[0].classList.add('active') это задает вначале активным первый слайд, вместо этого можно просто в html приписать класс .active для первого слайда */
+
+for (const slide of slides) {
+  slide.addEventListener('click', () => {
+    clearActiveClasses()
+    slide.classList.add('active')
+  })
+}
+
+function clearActiveClasses() {
+  slides.forEach((slide) => {
+    slide.classList.remove('active')
+  })
+}
+  </script>
+
+</body>
+
+</html>

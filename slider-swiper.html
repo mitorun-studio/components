@@ -1,0 +1,743 @@
+<!doctype html><!-- Файл slider-swiper.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Слайдер Swiper – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<link rel="stylesheet" href="components.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+/*------------------------------------------------
+---------- Компонент слайдер Swiper: -------------
+------------------------------------------------*/
+
+.swiper {
+	position: relative;
+	z-index: 1;/* Fix of Webkit flickering */
+	display: block;
+	/*width: 100%; или auto; */
+	/*height: auto; или фикс 300px */
+	max-height: 700px;/* для профилактики */
+	margin-right: auto;
+	margin-left: auto;
+	padding: 0;
+	list-style: none;
+	overflow: hidden;
+	touch-action: pan-y;
+}
+
+.swiper-wrapper {
+	position: relative;
+	z-index: 1;
+	box-sizing: content-box;
+	display: flex;
+	width: 100%;
+	height: 100%;
+	/*transform: translate3d(0px, 0, 0);*/
+	transition-property: transform;
+	/*transition-timing-function: var(--swiper-wrapper-transition-timing-function, initial);*/
+}
+
+/* Кнопки листания предыдущий/следующий слайд: */
+
+.swiper-button-prev,
+.swiper-button-next {
+	position: absolute;
+	top: calc(50% - 24px);
+	z-index: 10;
+	/*display: grid;
+	place-content: center;*/
+	width: 48px;
+	height: 48px;
+	/*aspect-ratio: 1/1;*/
+	background-color: transparent;
+	border: 0;
+	/*border-radius: 99px;*/
+	-webkit-appearance: none;
+	appearance: none;
+	cursor: pointer;
+}
+
+.swiper-button-prev {
+	right: auto;
+	left: var(--margin-s);
+}
+
+.swiper-button-next {
+	right: var(--margin-s);
+	left: auto;
+}
+
+.swiper-button-prev.swiper-button-disabled,
+.swiper-button-next.swiper-button-disabled {
+	opacity: 0.35;
+	cursor: auto;
+	pointer-events: none;
+}
+
+.swiper-button-prev.swiper-button-hidden,
+.swiper-button-next.swiper-button-hidden {
+	opacity: 0;
+	cursor: auto;
+	pointer-events: none;
+}
+
+.swiper-navigation-disabled .swiper-button-prev,
+.swiper-navigation-disabled .swiper-button-next {
+	display: none !important;
+}
+
+.swiper-button-lock {
+	display: none;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: url('./img/sprite.svg#arrow-simple') 50% / 24px 24px no-repeat;
+	background-color: red;
+	transition: 0.17s linear;
+}
+
+.swiper-button-prev::after {
+	rotate: 180deg;
+}
+
+
+/* Пагинация слайдов (Bullets): */
+
+.swiper-pagination {
+	position: absolute;
+	/*top: auto;*/
+	bottom: var(--margin-s);
+	left: 0;
+	z-index: 10;
+	width: 100%;
+	text-align: center;
+	/*transform: translate3d(0, 0, 0);*/
+	transition: opacity 0.15s linear;
+}
+
+.swiper-pagination.swiper-pagination-hidden {
+	opacity: 0;
+}
+
+.swiper-pagination-disabled>.swiper-pagination,
+.swiper-pagination.swiper-pagination-disabled {
+	display: none !important;
+}
+
+/* Сами точки-буллеты: */
+
+.swiper-pagination-bullet {
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	/*aspect-ratio: 1/1;*/
+	margin: 0 5px;
+	background-color: var(--white);
+	border: 1px solid var(--color-main);
+	border-radius: 9px;
+	/*box-shadow: var(--box-shadow);*/
+	opacity: 1;
+	transition: 0.15s linear;
+}
+
+.swiper-pagination-clickable .swiper-pagination-bullet {
+	cursor: pointer;
+}
+
+.swiper-pagination-bullet:only-child {
+	display: none !important;
+}
+
+.swiper-pagination-bullet-active {
+	background-color: var(--color-main);
+	opacity: 1;
+}
+
+.swiper-pagination-bullet:hover {
+	scale: 1.2;
+}
+
+/* a11y */
+.swiper .swiper-notification {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1000;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.swiper-slide {
+	position: relative;
+	flex-shrink: 0;
+	display: block;
+	width: 100%;
+	height: auto;/* это надо чтобы все слайды были одной высоты!!! */
+	transition-property: transform;
+}
+
+/* Конец базовых стилей слайдера swiper. */
+
+
+
+/*----------------------------------------
+----- Кастомное оформление слайдеров: ----
+----------------------------------------*/
+
+/*.gallery {}*/
+
+.gallery__card {
+	/*display: grid;
+	place-content: center;*/
+	min-height: 100px;
+	background-color: hsl(142, 49%, 83%);
+}
+
+/*------------------------------------------------
+--- Уникальные стили Swiper №2: ------------------
+------------------------------------------------*/
+
+/*.swiper-multi {}*/
+
+.multi__card {
+	width: 300px;
+	margin-right: var(--margin-s);
+	background-color: coral;
+}
+
+@media (width >= 1040px) {
+	.multi__card {
+		width: calc((100% - var(--margin-s) * 2) / 3);
+	}
+}
+
+
+/*------------------------------------------------
+--- Уникальные стили Swiper №3: ------------------
+------------------------------------------------*/
+
+.swiper-box--custom {
+	position: relative;
+	padding: 0 64px 40px;
+	/*background-color: hsla(120, 77%, 75%, 0.1);*/
+	overflow: hidden;
+}
+
+.swiper-box--custom .swiper-button-prev {
+	left: 0;
+}
+
+.swiper-box--custom .swiper-button-next {
+	right: 0;
+}
+
+.swiper-box--custom .swiper-pagination {
+	bottom: 0;
+}
+
+.swiper--custom .swiper-slide {
+	width: 300px;
+	margin-right: var(--margin-s);
+}
+
+@media (width >= 1040px) {
+	.swiper--custom .swiper-slide {
+		width: calc((100% - var(--margin-s) * 2) / 3);
+	}
+}
+
+
+
+/*------------------------------------------------
+--- Фоновое размытие крайних слайдов: ------------
+------------------------------------------------*/
+
+.swiper-box--custom::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: 5;
+	pointer-events: none;
+}
+
+.swiper-box--custom::before {
+	background-image: linear-gradient(to right, coral, transparent 64px, transparent calc(100% - 64px), coral);
+}
+
+/* Способ с двумя псевдоэлементами:
+.swiper-box--custom::before,
+.swiper-box--custom::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	z-index: 5;
+	width: 64px;
+	pointer-events: none;
+}
+
+.swiper-box--custom::before {
+	left: 0;
+	background-image: linear-gradient(to right, coral, transparent);
+}
+
+.swiper-box--custom::after {
+	right: 0;
+	background-image: linear-gradient(to left, coral, transparent);
+}*/
+
+.swiper--custom {
+	overflow: visible;
+}
+
+
+
+
+/*------------------------------------------------
+---------- Активный слайд по центру centered: ----
+------------------------------------------------*/
+
+.swiper-centered > .swiper-wrapper::before {
+	content: '';
+	flex-shrink: 0;
+	order: 9999;
+	width: var(--swiper-centered-offset-after);
+	height: 100%;
+	min-height: 1px;
+}
+
+.swiper-centered > .swiper-wrapper > .swiper-slide {
+	scroll-snap-align: center center;
+	scroll-snap-stop: always;
+}
+
+.swiper-centered > .swiper-wrapper > .swiper-slide:first-child {
+	margin-inline-start: var(--swiper-centered-offset-before);
+}
+
+
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Слайдеры Swiper</h1>
+
+		<h2>Слайдер Swiper №1 базовый:</h2>
+
+		<p>Тут используются базовая разметка HTML и CSS из документации. Если на странице несколько таких одинаковых слайдеров, то достаточно инициализировать их только один раз. Минус в том, что не вынести кнопки управления за слайдер, для этого ниже создал второй тип разметки HTML и стилей.</p>
+		<p>Между слайдами можно добавить отступы, добавив в скрипт <code>spaceBetween: 30,</code>. Не работают свои стили отступа <code>.swiper-slide {margin-right: 30px;}</code> - при этом начало слайдов будет съезжать.</p>
+
+
+		<!-- Слайдер Swiper №1 базовый: -->
+		<div class="swiper swiper-base">
+			<ul class="swiper-wrapper gallery">
+				<li class="swiper-slide gallery__card">
+					<p class="gallery__title">Слайд №1</p>
+					<p class="gallery__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+				</li>
+
+				<li class="swiper-slide gallery__card">
+					<p class="gallery__title">Слайд №2</p>
+					<p class="gallery__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem inventore corporis, aspernatur fugiat necessitatibus autem ex eum!</p>
+				</li>
+
+				<li class="swiper-slide gallery__card">
+					<p class="gallery__title">Слайд №3</p>
+					<p class="gallery__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem inventore corporis, aspernatur fugiat necessitatibus autem ex eum! Earum voluptas quas natus corporis distinctio aperiam, amet expedita numquam illum, rerum voluptatem.</p>
+				</li>
+
+				<li class="swiper-slide gallery__card">
+					<p class="gallery__title">Слайд №4</p>
+					<p class="gallery__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem inventore corporis, aspernatur fugiat necessitatibus autem ex eum! Earum voluptas quas natus corporis distinctio aperiam, amet expedita numquam illum, rerum voluptatem. Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+				</li>
+
+				<li class="swiper-slide gallery__card">
+					<p class="gallery__title">Слайд №5</p>
+					<p class="gallery__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem inventore corporis, aspernatur fugiat necessitatibus autem ex eum! Earum voluptas quas natus corporis distinctio aperiam, amet expedita numquam illum, rerum voluptatem.</p>
+				</li>
+
+				<li class="swiper-slide gallery__card">
+					<p class="gallery__title">Слайд №6</p>
+					<p class="gallery__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+				</li>
+
+				<li class="swiper-slide gallery__card">
+					<p class="gallery__title">Слайд №7</p>
+					<p class="gallery__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem inventore corporis, aspernatur fugiat necessitatibus autem ex eum!</p>
+				</li>
+
+				<li class="swiper-slide gallery__card">
+					<p class="gallery__title">Слайд №8</p>
+					<p class="gallery__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem inventore corporis, aspernatur fugiat necessitatibus autem ex eum! Earum voluptas quas natus corporis distinctio aperiam, amet expedita numquam illum, rerum voluptatem.</p>
+				</li>
+
+				<li class="swiper-slide gallery__card">
+					<p class="gallery__title">Слайд №9</p>
+					<p class="gallery__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem inventore corporis, aspernatur fugiat necessitatibus autem ex eum! Earum voluptas quas natus corporis distinctio aperiam, amet expedita numquam illum, rerum voluptatem. Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+				</li>
+
+				<li class="swiper-slide gallery__card">
+					<p class="gallery__title">Слайд №10</p>
+					<p class="gallery__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem inventore corporis, aspernatur fugiat necessitatibus autem ex eum! Earum voluptas quas natus corporis distinctio aperiam, amet expedita numquam illum, rerum voluptatem.</p>
+				</li>
+			</ul>
+
+
+			<button class="swiper-button-prev" type="button" aria-label="Предыдущий слайд"></button>
+			<button class="swiper-button-next" type="button" aria-label="Следующий слайд"></button>
+
+
+			<div class="swiper-pagination"></div>
+		</div>
+		<br>
+
+
+		<h2>Слайдер Swiper №2 мультислайды</h2>
+		<p></p>
+
+		<!-- Слайдер Swiper №2 несколько слайдов: -->
+		<div class="swiper swiper-multi">
+			<ul class="swiper-wrapper multi">
+				<li class="swiper-slide multi__card">
+					<p class="multi__title">Слайд №1</p>
+					<p class="multi__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+				</li>
+
+				<li class="swiper-slide multi__card">
+					<p class="multi__title">Слайд №2</p>
+					<p class="multi__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem inventore corporis, aspernatur fugiat necessitatibus autem ex eum!</p>
+				</li>
+
+				<li class="swiper-slide multi__card">
+					<p class="multi__title">Слайд №3</p>
+					<p class="multi__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem inventore corporis, aspernatur fugiat necessitatibus autem ex eum! Earum voluptas quas natus corporis distinctio aperiam, amet expedita numquam illum, rerum voluptatem.</p>
+				</li>
+
+				<li class="swiper-slide multi__card">
+					<p class="multi__title">Слайд №4</p>
+					<p class="multi__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem inventore corporis, aspernatur fugiat necessitatibus autem ex eum! Earum voluptas quas natus corporis distinctio aperiam, amet expedita numquam illum, rerum voluptatem. Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+				</li>
+
+				<li class="swiper-slide multi__card">
+					<p class="multi__title">Слайд №5</p>
+					<p class="multi__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem inventore corporis, aspernatur fugiat necessitatibus autem ex eum! Earum voluptas quas natus corporis distinctio aperiam, amet expedita numquam illum, rerum voluptatem.</p>
+				</li>
+
+				<li class="swiper-slide multi__card">
+					<p class="multi__title">Слайд №6</p>
+					<p class="multi__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+				</li>
+
+				<li class="swiper-slide multi__card">
+					<p class="multi__title">Слайд №7</p>
+					<p class="multi__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem inventore corporis, aspernatur fugiat necessitatibus autem ex eum!</p>
+				</li>
+
+				<li class="swiper-slide multi__card">
+					<p class="multi__title">Слайд №8</p>
+					<p class="multi__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem inventore corporis, aspernatur fugiat necessitatibus autem ex eum! Earum voluptas quas natus corporis distinctio aperiam, amet expedita numquam illum, rerum voluptatem.</p>
+				</li>
+
+				<li class="swiper-slide multi__card">
+					<p class="multi__title">Слайд №9</p>
+					<p class="multi__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem inventore corporis, aspernatur fugiat necessitatibus autem ex eum! Earum voluptas quas natus corporis distinctio aperiam, amet expedita numquam illum, rerum voluptatem. Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+				</li>
+
+				<li class="swiper-slide multi__card">
+					<p class="multi__title">Слайд №10</p>
+					<p class="multi__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem inventore corporis, aspernatur fugiat necessitatibus autem ex eum! Earum voluptas quas natus corporis distinctio aperiam, amet expedita numquam illum, rerum voluptatem.</p>
+				</li>
+			</ul>
+
+
+			<button class="swiper-button-prev" type="button" aria-label="Предыдущий слайд"></button>
+			<button class="swiper-button-next" type="button" aria-label="Следующий слайд"></button>
+
+
+			<div class="swiper-pagination"></div>
+		</div>
+		<br><hr><br>
+
+
+
+
+		<h2>Слайдер Swiper №3 кастомные кнопки:</h2>
+		<p>Это моя доработка кода слайдера чтобы можно было выносить кнопки управления за слайдер (след./пред. и пагинацию). Минусы в том, что используется другой код и что такие слайдеры нужно инициализировать каждый по отдельности из-за кнопок вне слайдера и давать этим кнопкам всегда разные классы (или идентификаторы).</p>
+
+		<!-- Слайдер Swiper №3: -->
+		<div class="swiper-box swiper-box--custom">
+			<div class="swiper swiper-custom">
+				<ul class="swiper-wrapper">
+					<li class="swiper-slide swiper__card">
+						<p class="swiper__title">Слайд №1</p>
+						<p class="swiper__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+					</li>
+
+					<li class="swiper-slide swiper__card">
+						<p class="swiper__title">Слайд №2</p>
+						<p class="swiper__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem inventore corporis, aspernatur fugiat necessitatibus autem ex eum!</p>
+					</li>
+
+					<li class="swiper-slide swiper__card">
+						<p class="swiper__title">Слайд №3</p>
+						<p class="swiper__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem inventore corporis, aspernatur fugiat necessitatibus autem ex eum! Earum voluptas quas natus corporis distinctio aperiam, amet expedita numquam illum, rerum voluptatem.</p>
+					</li>
+
+					<li class="swiper-slide swiper__card">
+						<p class="swiper__title">Слайд №4</p>
+						<p class="swiper__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem inventore corporis, aspernatur fugiat necessitatibus autem ex eum! Earum voluptas quas natus corporis distinctio aperiam, amet expedita numquam illum, rerum voluptatem. Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+					</li>
+
+					<li class="swiper-slide swiper__card">
+						<p class="swiper__title">Слайд №5</p>
+						<p class="swiper__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem inventore corporis, aspernatur fugiat necessitatibus autem ex eum! Earum voluptas quas natus corporis distinctio aperiam, amet expedita numquam illum, rerum voluptatem.</p>
+					</li>
+
+					<li class="swiper-slide swiper__card">
+						<p class="swiper__title">Слайд №6</p>
+						<p class="swiper__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+					</li>
+
+					<li class="swiper-slide swiper__card">
+						<p class="swiper__title">Слайд №7</p>
+						<p class="swiper__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem inventore corporis, aspernatur fugiat necessitatibus autem ex eum!</p>
+					</li>
+
+					<li class="swiper-slide swiper__card">
+						<p class="swiper__title">Слайд №8</p>
+						<p class="swiper__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem inventore corporis, aspernatur fugiat necessitatibus autem ex eum! Earum voluptas quas natus corporis distinctio aperiam, amet expedita numquam illum, rerum voluptatem.</p>
+					</li>
+
+					<li class="swiper-slide swiper__card">
+						<p class="swiper__title">Слайд №9</p>
+						<p class="swiper__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem inventore corporis, aspernatur fugiat necessitatibus autem ex eum! Earum voluptas quas natus corporis distinctio aperiam, amet expedita numquam illum, rerum voluptatem. Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+					</li>
+
+					<li class="swiper-slide swiper__card">
+						<p class="swiper__title">Слайд №10</p>
+						<p class="swiper__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem inventore corporis, aspernatur fugiat necessitatibus autem ex eum! Earum voluptas quas natus corporis distinctio aperiam, amet expedita numquam illum, rerum voluptatem.</p>
+					</li>
+				</ul>
+
+				<!-- Скроллбар:-->
+				<!--<div class="swiper-scrollbar"></div>-->
+			</div>
+
+
+			<!-- Кнопки вперед/назад: -->
+			<button class="swiper-button-prev swiper-prev-custom" type="button" aria-label="Предыдущий слайд"></button>
+			<button class="swiper-button-next swiper-next-custom" type="button" aria-label="Следующий слайд"></button>
+
+
+			<!-- Пагинация: -->
+			<div class="swiper-pagination swiper-pagination-custom"></div>
+		</div>
+		<br><hr><br>
+
+
+
+
+
+
+		<h2>Описание слайдера:</h2>
+
+		<p>Официальный сайт <a class="link" rel="noopener" target="_blank" href="https://swiperjs.com/">https://swiperjs.com/</a></p>
+		<p>Демо-примеры слайдеров <a class="link" rel="noopener" target="_blank" href="https://swiperjs.com/demos">https://swiperjs.com/demos</a></p>
+		<p>Свайпер состоит из файла скриптов, структуры HTML и файла стилей. Стили небольшие и их удобнее заменить своими чтобы легче кастомизировать. Для подключения (каждого) слайдера его нужно инициализировать в скрипте!</p>
+		<p>Вопрос: надо узнать как можно отключать автопрокрутку слайдов при ховере на слайдер (по умолчанию выключение только при взаимодействии со слайдером)?</p>
+		<p>Вопрос: надо узнать как делать кастомные кнопки пагинации. Например миниатюры фоток там показывать.</p>
+		<p>Можно сделать так, чтобы кнопки управления слайдером были полупрозрачными или вообще изчезали, а при ховере на сам слайдер - появлялись. Только на мобилке надо дать понять что тут слайдер.</p>
+		<p>Если нужно добавить функционала или настроить свои стили - то лучше добавлять только нужные стили из css-файла свайпера или смотреть код в примерах на сайте! Не стоит использовать весь CSS-файл со стилями от производителя, в нем слишком сложно будет ориентироваться и настраивать под себя.</p>
+		<p>Если нужно добавить функционала или настроить свои стили - то лучше добавлять только нужные стили из css-файла свайпера или смотреть код в примерах на сайте! Не стоит использовать весь CSS-файл со стилями от производителя, в нем слишком сложно будет ориентироваться и настраивать под себя.</p>
+
+		<p><b>Возможности свайпера:</b><br>
+			- Есть режим <code>.swiper-css-mode</code>, в котором смена слайдов происходит не трансформом и флексами, а с помощью свойств scroll-snap. Не знаю лучше или хуже такой метод, пока буду использовать обычный.<br>
+			- Отступ между слайдами можно задать или в скрипте (в px) или самому задать <code>.swiper-slide {margin-right: var(--margin-s);}</code>.<br>
+			- Чтобы вынести кнопки управления вне рамки слайдера нужно: задать для .swiper <code>padding: 0 0 36px; overflow: hidden visible;</code>, для .swiper-pagination задать <code>bottom: 0;</code>, а кнопки листания удалить на мобилке и добавить сбоку только когда container-padding становится большим.</p>
+		<br>
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+
+
+	<script src="swiper/swiper-bundle.min.js"></script>
+
+
+
+
+	<!-- Инициализация и настройка слайдера Swiper: -->
+	<script>
+// Инициализация и настройка слайдера Swiper:
+const swiper = new Swiper('.swiper-base', {
+	// Включение кнопок навигации след./пред.:
+	navigation: {
+		nextEl: '.swiper-button-next',
+		prevEl: '.swiper-button-prev',
+	},
+
+	// Включение пагинации:
+	pagination: {
+		el: '.swiper-pagination',
+		clickable: true,// кликабельная пагинация
+	},
+
+	slidesPerView: 'auto',
+	keyboard: true,// Управление с клавиатуры.
+	loop: true,// Зацикленная прокрутка.
+	grabCursor: true,// Сделать курсор grab на свайпере.
+});
+
+
+
+
+// Инициализация и настройка слайдера Swiper:
+const swiperMulti = new Swiper('.swiper-multi', {
+	// Включение кнопок навигации след./пред.:
+	navigation: {
+		nextEl: '.swiper-button-next',
+		prevEl: '.swiper-button-prev',
+	},
+
+	// Включение пагинации:
+	pagination: {
+		el: '.swiper-pagination',
+		clickable: true,// кликабельная пагинация
+	},
+
+	slidesPerView: "auto",
+	keyboard: true,// Управление с клавиатуры.
+	loop: true,// Зацикленная прокрутка.
+	grabCursor: true,// Сделать курсор grab на свайпере.
+});
+
+
+
+
+// Инициализация и настройка слайдера Swiper:
+const swiperCustomBtn = new Swiper('.swiper-custom', {
+	// Включение кнопок навигации след./пред.:
+	navigation: {
+		nextEl: '.swiper-next-custom',
+		prevEl: '.swiper-prev-custom',
+	},
+
+	// Включение пагинации:
+	pagination: {
+		el: '.swiper-pagination-custom',
+		clickable: true,// кликабельная пагинация
+	},
+
+	slidesPerView: 'auto',
+	keyboard: true,// Управление с клавиатуры.
+	loop: true,// Зацикленная прокрутка.
+	grabCursor: true,// Сделать курсор grab на свайпере.
+});
+
+
+
+
+// Все настройки слайдера Swiper:
+const swiperFull = new Swiper('.swiper-full', {
+	// Включение кнопок навигации след./пред.:
+	navigation: {
+		nextEl: '.swiper-2-button-next',
+		prevEl: '.swiper-2-button-prev',
+	},
+
+	// Включение пагинации:
+	pagination: {
+		el: '.swiper-2-pagination',
+		clickable: true,// кликабельная пагинация
+		//type: "fraction",// пагинация в виде "1/7".
+		//renderBullet: function (index, className) {
+		//	return '<button class="' + className + '" type="button">' + (index + 1) + '</button>';
+		//},//кастомные кнопки пагинации
+	},
+
+	// Включение скроллбара:
+	//scrollbar: {el: '.swiper-scrollbar',},
+
+	// Настройка слайдов:
+	//slidesPerView: 'auto',// Количество видимых слайдов на экране: 1 (default) | 3 | auto. Можно задать свою ширину слайдам, чтобы была видна часть следующего слайда.
+	//spaceBetween: 16,// Отступ между слайдами в px.
+	breakpoints: {
+		320: {slidesPerView: 1, spaceBetween: 16},
+		480: {slidesPerView: 2, spaceBetween: 20},
+		992: {slidesPerView: 3, spaceBetween: 24}
+	},
+	//breakpointsBase: 'container',// Отталкиваться от ширины контейнера (бета), по умолчанию 'window'.
+	//speed: 300,// Скорость смены слайдов, default 300ms.
+
+	// Опциональные настройки:
+	keyboard: true,// Управление с клавиатуры.
+	loop: true,// Зацикленная прокрутка.
+	grabCursor: true,// Сделать курсор grab на свайпере.
+	//longSwipes: false,// Отключить длинные свайпы.
+	//autoplay: {
+	//	delay: 2000,
+	//	disableOnInteraction: true,
+	//},// Включение автопролистывания.
+	//mousewheel: true,
+	//direction: 'vertical',// Вертикальное расположение слайдов и пагинации.
+	//grid: { rows: 2, },// Несколько рядов слайдов. Слайдам нужно задать высоту .swiper-slide {height: calc((100% - 30px) / 2);
+	//centeredSlides: true,// Чтобы слайд был по центру.
+	//freeMode: true,// Отключение привязок к краям/центру слайдов.
+
+	//effect: 'fade',// Эффекты перехода между слайдами: 'slide' | 'fade' | 'cube' | 'coverflow' | 'flip' | 'creative' | 'cards' . Ниже настройки некоторых эффектов:
+	//cubeEffect: {
+	//	shadow: true,
+	//	slideShadows: true,
+	//	shadowOffset: 20,
+	//	shadowScale: 0.94,
+	//},
+	//coverflowEffect: {
+	//	rotate: 50,
+	//	stretch: 0,
+	//	depth: 100,
+	//	modifier: 1,
+	//	slideShadows: true,
+	//},
+	//creativeEffect: {
+	//	prev: {
+	//		shadow: true,
+	//		translate: [0, 0, -400],
+	//	},
+	//	next: {
+	//		translate: ['100%', 0, 0]
+	//	}
+	//},
+});
+
+
+	</script>
+
+
+
+
+
+</body>
+</html>

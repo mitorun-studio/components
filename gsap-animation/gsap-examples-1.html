@@ -1,0 +1,301 @@
+<!doctype html><!-- Файл "gsap.html" -->
+<html lang="ru">
+
+<head>
+	<meta name="robots" content="none">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>GSAP примеры 1 | Mitorun Studio–</title>
+	<meta name="description" content="Описание компонента">
+
+	<meta name="author" content="Oleg Mitorun">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/Flip.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollToPlugin.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/Draggable.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/EaselPlugin.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/MotionPathPlugin.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/PixiPlugin.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/TextPlugin.min.js"></script>
+	<style>
+:root {
+	--font-family: 'Roboto', 'system-ui', '-apple-system', 'Segoe UI', 'Helvetica Neue', 'Arial', 'Noto Sans', sans-serif;/* font-family для обычного текста */
+	--font-family-heading: 'Roboto', 'system-ui', '-apple-system', 'Segoe UI', 'Helvetica Neue', 'Arial', 'Noto Sans', sans-serif;/* font-family для заголовков */
+	--font-family-mono: 'SFMono-Regular', 'ui-monospace', 'Menlo', 'Monaco', 'PT Mono', 'Consolas', 'Liberation Mono', 'Courier New', monospace;/* font-family для моноширинного шрифта (для кода) */
+	--font-size-xl: 22px;
+	--font-size-l: 19px;
+	--font-size-m: 16px;
+	--font-size-s: 14px;
+	--font-size-xs: 12px;
+	--line-height-m: 1.5;/* базовый текст body */
+	--line-height-s: 1.35;/* по-плотней текст, заголовки h2-h4 */
+	--line-height-xs: 1.2;/* плотный текст, заголовок h1 */
+	--container-padding: 12px;/* это боковые паддинги для мобилки (или 14px, или 19rem) */
+
+	--color: hsl(0, 0%, 0%);/* базовый цвет текста ("черный" для светлой темы и наоборот). Раньше было --color: hsl(0, 0%, 0%); Примеры: hsl(var(--color)), hsl(var(--color) / 0.65) */
+	--bg: hsl(0, 0%, 100%);/* базовый цвет фона ("белый" для светлой темы и наоборот) */
+	--grey: hsl(0, 0%, 50%);/* черный полупрозрачный цвет текста ("серый" для светлой темы и наоборот). Было --color-transparent */
+	--grey-lightest: hsl(0, 0%, 96%);/* оч-светлый серый цвет (для светлого фона) */
+	--color-main: hsl(210, 95%, 40%);/* #0566c7 было hsl(210, 60%, 47%); главный цвет (для акцента на важных элементах) */
+	tab-size: 2;
+}
+
+@media (min-width: 576px) {
+	:root {
+		--container-padding: 40px;
+	}
+}
+
+*,
+::after,
+::before {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+
+	/*outline: 1px solid hsla(0, 100%, 50%, 0.3);
+	outline-offset: 0; это для тестирования границ элементов (переполнение) */
+}
+
+body {
+	min-height: 100vh;
+	color: var(--color, black);
+	font: 400 var(--font-size-m, 16px)/var(--line-height-m, 1.5) var(--font-family, sans-serif);
+	background: var(--bg, white);
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 1em 0;
+	font-family: var(--font-family-heading, --font-family, sans-serif);
+}
+
+p:not([class]), .p {
+	margin-bottom: 1em;
+}
+
+ul[class]:not(.list),
+ol[class]:not(.list) {
+	list-style: none;
+}
+
+hr {
+	margin: 40px 0;
+}
+
+code {
+	background-color: hsl(0, 0%, 91%);
+}
+
+img {
+	display: block;
+	/* это избавляет от пустой строки под картинкой, равной line-height. У этого способа есть минус когда нам не нужно чтобы картинка была блочной. Еще один способ - это задать родителю картинки display: flex; */
+	max-width: 100%;
+	/* или width: 100%; */
+	height: auto;
+	/* или max-height: 100%; нужна ли эта строка? */
+	object-fit: contain;
+	/*image-rendering: pixelated; убирает сглаживание растровых картинок при масштабировании, делая четкие пиксельные картинки */
+}
+
+.container {
+	max-width: calc(1140px + 2 * var(--container-padding, 14px));
+	margin-right: auto;
+	margin-left: auto;
+	padding-right: var(--container-padding, 14px);
+	padding-left: var(--container-padding, 14px);
+
+	/*background: content-box hsla(39, 100%, 50%, 0.05);
+	outline: 1px dashed hsla(39, 100%, 50%, 0.4); это для тестирования */
+}
+
+button {
+	display: inline-block;
+	min-width: 80px;
+	min-height: 32px;
+	margin: 10px;
+	padding: 10px 20px;
+	color: var(--white, hsl(0, 0%, 100%));
+	font-weight: 600;
+	font-size: var(--font-size-m, 16px);
+	line-height: 1;
+	text-align: center;
+	background-color: var(--color, hsl(0, 0%, 18%));/* или none; */
+	border: 0;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+/*---------------------------------------------------
+---------- Ниже код самих компонентов: --------------
+---------------------------------------------------*/
+
+
+
+/*---------- Кнопки управления анимацией: ---------*/
+
+.btn-animation {
+	padding: 16px;
+	background-color: hsl(175, 71%, 93%);
+}
+
+.box {
+	width: 100px;
+	height: 100px;
+	margin: 10px;
+	background-color: grey;
+	border-radius: 6px;
+}
+
+.green, .green2, .green3, .green4, .green5, .green6, .green7 {
+	background-color: green;
+}
+
+.orange, .orange2, .orange3, .orange4, .orange5, .orange6, .orange7 {
+	background-color: orange;
+}
+
+.grey, .grey2, .grey3, .grey4, .grey5, .grey6, .grey7 {
+	background-color: grey;
+}
+
+.pink, .pink2, .pink3, .pink4, .pink5, .pink6, .pink7 {
+	background-color: pink;
+}
+
+/*-------- Вывод текста при событиях анимации: -------*/
+
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main>
+		<section class="section">
+			<div class="container">
+
+				<h1>GSAP EXP</h1>
+				<hr>
+
+
+				<h2>№1 Кнопки управления анимацией</h2>
+				<div class="btn-animation">
+					<button id="play">play()</button>
+					<button id="pause">pause()</button>
+					<button id="resume">resume()</button>
+					<button id="reverse">reverse()</button>
+					<button id="restart">restart()</button>
+				</div>
+
+				<div class="box grey"></div>
+				<hr>
+
+
+
+
+				<h2>№2 Вывод текста при событиях анимации</h2>
+
+				<div class="box green2"></div>
+				<div class="box orange2"></div>
+				<div id="output2"></div>
+				<hr>
+
+
+
+
+				<h2>№3 Использование TimeLine для мультианимации</h2>
+
+				<div class="box green3"></div>
+				<div class="box orange3"></div>
+				<div class="box grey3"></div>
+				<div class="box pink3"></div>
+				<hr>
+
+
+
+			</div>
+		</section>
+
+		</div>
+	</main>
+
+	<div style="height: 100vh;"></div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+
+
+	<script>
+/* Кнопки управления анимацией: */
+var tween = gsap.to(".grey", {duration: 4, x: 750, rotation: 360, ease: "none", paused: true});
+
+document.querySelector("#play").onclick = () => tween.play();
+document.querySelector("#pause").onclick = () => tween.pause();
+document.querySelector("#resume").onclick = () => tween.resume();
+document.querySelector("#reverse").onclick = () => tween.reverse();
+document.querySelector("#restart").onclick = () => tween.restart();
+
+
+
+
+/* Вывод текста при событиях анимации: */
+var output = document.querySelector("#output2");
+
+gsap.to(".green2", {
+	duration: 3,
+	x: 300,
+	rotation: 360,
+	onStart: showMessage,
+	onStartParams: ["Зеленый квадрат начал движение"],
+	onComplete: showMessage,
+	onCompleteParams: ["Зеленый квадрат закончил движение"],
+	delay: 2
+});
+gsap.to(".orange2", {
+	duration: 3,
+	x: 300,
+	rotation: 360,
+	onStart: showMessage,
+	onStartParams: ["Оранжевый квадрат пустился в пляс"],
+	onComplete: showMessage,
+	onCompleteParams: ["Оранжевый квадрат наплясался"],
+	delay: 6
+});
+
+function showMessage(message) {
+	output.innerHTML += message + "</br>";
+}
+
+
+
+
+/* №3 Использование TimeLine для мультианимации: */
+// Создание таймлайна, повторить 3 раза с паузами 1с между итерациями:
+var tl = gsap.timeline({repeat: 3, repeatDelay: 1});
+
+tl.to(".green3", {duration: 1, x: 200})
+	// начать через 0.5с после окончания предыдущей анимации:
+	.to(".orange3", {duration: 1, x: 200, scale: 0.2}, "+=0.5")
+	// добавить метку в конце:
+	.addLabel("greyAndPink")
+	// запустить обе эти анимации одновременно, на метке "greyAndPink":
+	.to(".grey3", {duration: 1, x: 200, scale: 2, y: 20}, "greyAndPink")
+	.to(".pink3", {duration: 1, x: 200, rotation: 360}, "greyAndPink");
+
+
+
+
+
+	</script>
+
+</body>
+
+</html>

@@ -1,0 +1,473 @@
+<!doctype html><!-- Файл sprite.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="none">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>SVG спрайты – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+/*--------- Спрайт №0 (SVG-stack, SVG-стеки): -----------*/
+
+.sprite-svg {
+	display: block;
+	width: 150px;
+	height: 150px;
+	/*color: darkslateblue;*/
+	background-color: wheat;
+	fill: black;
+}
+
+.sprite-svg:hover,
+.sprite-svg:hover * {
+	color: gold;
+	background-color: lightgreen;
+	fill: blue;
+	stroke: violet;
+}
+
+.sprite-svg:active,
+.sprite-svg:active * {
+	color: transparent;
+	background-color: plum;
+	background-image: url('img/sprite.svg#arrow');
+	fill: transparent;
+	stroke: transparent;
+}
+
+.sprite-img {
+	display: block;
+	width: 150px;
+	height: 150px;
+	background-color: wheat;
+}
+
+.sprite-img:hover {
+	background-color: lightgreen;
+}
+
+.sprite-img:active {
+	background-color: plum;
+}
+
+.sprite-bg {
+	width: 150px;
+	height: 150px;
+	background-color: wheat;
+	background-image: url('img/sprite.svg#plus');
+	/*background: padding-box wheat url('img/sprite.svg#plus') 50% / 16px no-repeat;*/
+}
+
+.sprite-bg:hover {
+	background-color: lightgreen;
+	background-image: url('img/sprite.svg#checkbox');
+}
+
+.sprite-bg:active {
+	background-color: plum;
+	background-image: url('img/sprite.svg#arrow');
+}
+
+/*.sprite-pseudo-content {
+	width: 150px;
+	height: 150px;
+}*/
+
+.sprite-pseudo-content::before {
+	content: url('img/sprite.svg#plus');
+	display: block;
+	width: 150px;
+	height: 150px;
+	background-color: wheat;
+}
+
+.sprite-pseudo-content:hover::before {
+	content: url('img/sprite.svg#checkbox');
+	background-color: lightgreen;
+}
+
+.sprite-pseudo-content:active::before {
+	content: url('img/sprite.svg#arrow');
+	background-color: plum;
+}
+
+/*.sprite-pseudo-bg {
+	width: 150px;
+	height: 150px;
+}*/
+
+.sprite-pseudo-bg::before {
+	content: '';
+	display: block;
+	width: 150px;
+	height: 150px;
+	background-image: url('img/sprite.svg#plus');
+	/* или background: wheat url('img/sprite.svg#plus') 50% / 100% no-repeat; */
+}
+
+.sprite-pseudo-bg:hover::before {
+	background-color: lightgreen;
+	background-image: url('img/sprite.svg#checkbox');
+}
+
+.sprite-pseudo-bg:active::before {
+	background-color: plum;
+	background-image: url('img/sprite.svg#arrow');
+}
+
+.sprite-embed {
+	display: block;
+	width: 150px;
+	height: 150px;
+	background-color: wheat;
+}
+
+.sprite-embed:hover,
+.sprite-embed:hover * {
+	color: gold;
+	fill: blue;
+	stroke: violet;
+}
+
+.sprite-iframe {
+	display: block;
+	width: 150px;
+	height: 150px;
+	background-color: wheat;
+}
+
+.sprite-iframe:hover,
+.sprite-iframe:hover * {
+	color: gold;
+	fill: blue;
+	stroke: violet;
+}
+
+.sprite-mask {
+	width: 150px;
+	height: 150px;
+
+	background-color: wheat;
+	/*mask: url('img/sprite.svg#arrow') center / cover no-repeat;*/
+	-webkit-mask-image: url('img/sprite.svg#plus');
+	mask-image: url('img/sprite.svg#plus');
+	-webkit-mask-size: 150px;
+	mask-size: 150px;
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+	-webkit-mask-position: center;
+	mask-position: center;
+}
+
+.sprite-mask:hover {
+	background-color: lightgreen;
+}
+
+.sprite-mask:active {
+	background-color: plum;
+	-webkit-mask-image: url(img/sprite.svg#checkbox);
+	mask-image: url(img/sprite.svg#checkbox);
+}
+
+.sprite-mask-pseudo {
+	background-color: lightblue;
+}
+
+.sprite-mask-pseudo::before {
+	content: '';
+	display: inline-block;
+	width: 150px;
+	height: 150px;
+	background-color: wheat;
+	/*mask: url('img/sprite.svg#arrow') center / cover no-repeat;*/
+	-webkit-mask-image: url('img/sprite.svg#plus');
+	mask-image: url('img/sprite.svg#plus');
+	-webkit-mask-size: 150px;
+	mask-size: 150px;
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+	-webkit-mask-position: center;
+	mask-position: center;
+}
+
+.sprite-mask-pseudo:hover::before {
+	background-color: lightgreen;
+}
+
+.sprite-mask-pseudo:active::before {
+	background-color: plum;
+	-webkit-mask-image: url(img/sprite.svg#checkbox);
+	mask-image: url(img/sprite.svg#checkbox);
+}
+
+.sprite-clip-path {
+	width: 150px;
+	height: 150px;
+	background-color: wheat;
+	color: coral;
+	clip-path: url(img/sprite.svg#plus);
+}
+
+.sprite-clip-path:hover {
+	color: red;
+	background-color: lightgreen;
+	clip-path: url(img/sprite.svg#checkbox);
+}
+
+
+
+
+
+/*------- Спрайт №1 (обычный со сменой позиции): ------*/
+
+.sprite-1-bg {
+	width: 200px;
+	height: 200px;
+	background-color: hsl(53, 100%, 98%);
+	background-image: url(svg/sprite-1.svg);
+	background-size: cover;
+	background-position: 0 0;
+}
+
+.sprite-1-bg:hover {
+	background-position: 50% 0;
+}
+
+.sprite-1-bg:active {
+	background-position: 100% 0;
+}
+
+.sprite-1-img {
+	width: 200px;
+	height: 200px;
+	background-color: hsl(210, 78%, 96%);
+	object-fit: cover;
+	object-position: 0 0;
+}
+
+.sprite-1-img:hover {
+	object-position: 50% 0;
+}
+
+.sprite-1-img:active {
+	object-position: 100% 0;
+}
+
+/*------- Спрайты №2 (SVG-спрайты c symbol): ------*/
+
+.sprite-2 {
+	display: block;
+	width: 200px;
+	height: 200px;
+	color: gold;
+	background-color: hsl(333, 69%, 97%);
+}
+
+.sprite-2:hover {
+	color: tomato;
+}
+
+/*------- Спрайт №3 (SVG-фрагменты, с view): --------*/
+
+.sprite-3-bg {
+	width: 200px;
+	height: 200px;
+	background-image: url(svg/sprite-3.svg#account3);
+}
+
+.sprite-3-img {
+	width: 200px;
+	height: 200px;
+}
+
+/*------- Спрайт №3-2 (SVG-фрагменты, без view): --------*/
+
+.sprite-3-2-bg {
+	width: 200px;
+	height: 200px;
+	background-image: url('svg/sprite-3.svg#svgView(viewBox(48, 0, 24, 24))');
+}
+
+.sprite-3-2-img {
+	width: 200px;
+	height: 200px;
+}
+
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>SVG спрайты</h1>
+		<p>Какие есть требования к спрайтам:</p>
+		<ul>
+			<li>Несложно создавать вручную. SVG-иконки для спрайта должны иметь те же точки, что и отдельные иконки. Один файл спрайта для всех иконок и фигур сайта (в идеале чтобы отдельные иконки могли быть сделаны с разными размерами вьюбокса, например 9x9px или 96x96px).</li>
+			<li>Возможность перекрашивать в CSS (менять цвет заливки и обводки).</li>
+			<li>Легкое использование с минимумом кода. Чтобы для вставки каждой иконки спрайта не нужно было прописывать стопку свойств ее положения, размера и цвета.</li>
+			<li>Можно использовать и в HTML (контентный img?) и в CSS фоном. И SVG и растровые картинки.</li>
+		</ul>
+		<hr>
+
+
+
+
+		<h2>Спрайт №0 (SVG-stack, SVG-стеки)</h2>
+		<p>Это выглядит самым универсальным способом. Его особенности:</p>
+		<ul>
+			<li>Легко создавать спрайт вручную - просто вставлять внутрь спрайта SVG-файлы отдельных иконок. Также легко эти отдельные иконки вынуть из спрайта и отредактировать. Минус только в том, что просто так не видно что лежит в файле спрайта, пока его не подключишь.</li>
+			<li>Спрайт можно подключать для фона (CSS background), для контента (HTML img), для svg use (HTML svg), а также в HTML embed и HTML iframe.</li>
+			<li>Менять картинку при ховере можно при подключении как фон. Для остальных способов если и можно, то сложно (пока не знаю как). Например для HTML svg-use можно при ховере сделать цвет прозрачным и добавить фоном другую картинку!</li>
+			<li>Менять цвет заливки и обводки элементов SVG картинки можно вроде только в варианте HTML svg-use.</li>
+		</ul>
+
+		<div class="template-grid">
+			<div class="template-card">
+				<p>Картинка в HTML в <code>svg</code></p>
+				<p>Можно менять цвета заливки и обводки (всех отдельных фигур в SVG). Можно чтобы цвета SVG зависели от цвета элемента currentColor.<br>
+				Минусы: не работает SVG SMIL анимация, мусорится разметка в HTML, надо скрывать элемент от скринридеров, повторять код для каждого элемента (плохо для повторяющихся элементов).</p>
+				<svg class="sprite-svg">
+					<use href="img/sprite.svg#plus"></use>
+				</svg>
+			</div>
+
+
+			<div class="template-card">
+				<p>Контентная картинка в HTML в <code>img</code></p>
+				<p>Можно менять картинку (например в темной теме, при адаптиве или при ховере) в самом HTML в теге picture!</p>
+				<img class="sprite-img" src="img/sprite.svg#plus" alt="">
+			</div>
+
+
+			<div class="template-card">
+				<p>Картинка в CSS в <code>background-image</code></p>
+				<p>Можно легко менять картинку сменой ссылки. Гибко настраивается размер, расположение, повторение картинки. Отлично подходит для повторяющихся иконок типа маркера галочки у списка.</p>
+				<div class="sprite-bg"></div>
+			</div>
+
+
+			<div class="template-card">
+				<p>Картинка в CSS в псевдоэлементе <code>::before (content)</code></p>
+				<div class="sprite-pseudo-content"></div>
+			</div>
+
+
+			<div class="template-card">
+				<p>Картинка в CSS в псевдоэлементе <code>::before (background)</code></p>
+				<div class="sprite-pseudo-bg"></div>
+			</div>
+
+
+			<div class="template-card">
+				<p>Картинка в HTML в <code>embed</code></p>
+				<embed class="sprite-embed" src="img/sprite.svg#plus" width="150" height="150">
+			</div>
+
+
+			<div class="template-card">
+				<p>Картинка и HTML в <code>iframe</code></p>
+				<iframe class="sprite-iframe" src="img/sprite.svg#plus" width="150px" height="150px"></iframe>
+			</div>
+
+
+			<div class="template-card">
+				<p>Картинка в CSS в <code>mask-image</code></p>
+				<p>Главный плюс что можно менять цвет иконки (ее заливки) не меняя изображение в фоне.<br>
+				Минусы: для картинки нужно создавать отдельный элемент (не получится использовать в фоне другого элемента), можно назначать только один цвет или градиент, неполная поддержка в браузерах(?).</p>
+				<div class="sprite-mask"></div>
+			</div>
+
+
+			<div class="template-card">
+				<p>Картинка с <code>mask-image</code> псевдоэлементом (эксперимент!)</p>
+				<p>Способ вроде хорошо работает</p>
+				<div class="sprite-mask-pseudo">Элемент</div>
+			</div>
+
+
+			<div class="template-card">
+				<p><code>clip-path: url()</code> (эксперимент!)</p>
+				<p>Этот способ почему-то не работает.</p>
+				<div class="sprite-clip-path"></div>
+			</div>
+		</div>
+		<hr>
+
+
+
+
+		<h2>Спрайт №1 (обычный со сменой позиции)</h2>
+		<p>Это (простейший?) спрайт, он создается объединением по горизонтали квадратных картинок (SVG-иконок). Далее его можно использовать для контентных картинок или фоновых, меняя положение вывода картинки.</p>
+		<p>Этот способ рабочий, можно применять когда нужно только выводить разные картинки, особенно подходит для растра. Но нельзя менять цвета SVG внутри такого спрайта.</p>
+
+		<div class="sprite-1-bg"></div>
+		<img class="sprite-1-img" width="200" height="200" src="svg/sprite-1.svg" alt="">
+		<hr>
+
+
+
+
+		<h2>Спрайты №2 (SVG-спрайты c symbol)</h2>
+		<p>В этом способе спрайт создается более сложным способом с тегами <code>&lt;symbol&gt;</code>. Спрайт можно использовать только в HTML, в теге <code>&lt;svg&gt;</code>. Его можно перекрашивать (указывая <code>fill="currentcolor"</code>).</p>
+
+		<svg class="sprite-2">
+			<use href="svg/sprite-2.svg#favorite2"></use>
+		</svg>
+		<hr>
+
+
+
+
+		<h2>Спрайт №3 (SVG-фрагменты, с view)</h2>
+		<p>Это симбиоз способов №1 и №2. Спрайт создается сложным способом с тегами <code>&lt;view&gt;</code> и атрибутами <code>transform="translate()"</code>. Его можно использовать в img или фоне, очень легко - просто прописывая id (этим он лучше способа №1).</p>
+		<p>Минусы: Нельзя перекрашивать. Сложно создавать спрайт. (Нельзя менять img-картинку при наведении?)</p>
+
+		<div class="sprite-3-bg"></div>
+		<img class="sprite-3-img" src="svg/sprite-3.svg#favorite3" alt="">
+		<hr>
+
+
+
+
+		<h2>Спрайт №3-2 (SVG-фрагменты, без view)</h2>
+		<p>Этот способ аналогичен №3, но тут нет тега <code>&lt;view&gt;</code> и ID, а вместо ID сразу пишется местоположение вьюбокса в ссылке!</p>
+		<p>Имеет все те же недостатки и плюсы, как и в способе №3.</p>
+
+		<div class="sprite-3-2-bg"></div>
+		<img class="sprite-3-2-img" src="svg/sprite-3.svg#svgView(viewBox(0, 0, 24, 24))" alt="">
+		<hr>
+
+
+
+
+		<svg width="300" height="300" viewBox="0 0 98 98" fill="none" stroke="currentcolor" aria-hidden="true">
+			<path d="M17 58L33 42L49 58L65 42L81 58M17 58C22 73 34 82 49 82C64 82 76 73 81 58M17 58C11 37 27 16 49 16C71 16 87 37 81 58">
+				<animate begin="mouseenter" dur=".8s" restart="whenNotActive" keyTimes="0; 0.5; 0.73; 0.9; 1" attributeName="d" values="
+				M17 58L33 42L49 58L65 42L81 58M17 58C22 73 34 82 49 82C64 82 76 73 81 58M17 58C11 37 27 16 49 16C71 16 87 37 81 58;
+				M6 55L29 45L49 55L69 45L93 55M6 55C11 63 27 70 49 70C71 70 87 63 92 55M6 55C-3 41 21 28 49 28C77 28 101 41 92 55;
+				M17 58L33 42L49 58L65 42L81 58M17 58C22 73 34 82 49 82C64 82 76 73 81 58M17 58C11 37 27 16 49 16C71 16 87 37 81 58;
+				M22 60L35 40L49 60L63 40L76 60M22 60C26 75 37 85 49 85C61 85 72 75 76 60M22 60C17 37 30 13 49 13C68 13 81 37 76 60;
+				M17 58L33 42L49 58L65 42L81 58M17 58C22 73 34 82 49 82C64 82 76 73 81 58M17 58C11 37 27 16 49 16C71 16 87 37 81 58;"/>
+			</path>
+		</svg>
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

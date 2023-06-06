@@ -1,0 +1,135 @@
+<!doctype html><!-- Файл lightbox.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Lightbox – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+.gallery-lightbox {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+	gap: var(--margin-s);
+}
+
+.gallery-lightbox * {
+	border-radius: 10px;
+}
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Полноэкранные галереи Lightbox</h1>
+		<hr>
+
+		<h2>Fullscreen Lightbox (fslightbox.js)</h2>
+
+		<p>Возможно самая популярная из таких библиотек для создания полноэкранных галерей (в модалах) <a target="_blank" href="https://fslightbox.com/">https://fslightbox.com/</a>.</p>
+		<p>Внутри лайтбокса могут показываться картинки, локальные видео HTML, ролики youtube. Другие пользовательские элементы можно показывать указывая в них идентификатор и ссылаясь на него в ссылке лайтбокса!</p>
+		<p>Можно изменить внешний вид элемента показываемого в лайтбоксе с помощью атрибута data-class="" <code><a data-fslightbox="lightbox" data-class="fslightbox-source" href="#vimeo">Image</a></code></p>
+		<br><br>
+
+		<div class="gallery-lightbox">
+			<a data-fslightbox="gallery-1" data-type="image" href="img/example-woman.jpg" data-alt="Подпись к картинке">
+				<img src="img/example-woman.jpg" alt="Подпись к картинке">
+			</a>
+
+			<a class="img" data-fslightbox="gallery-1" href="https://picsum.photos/300/200?random=2">
+				<img src="img/example-woman-2.jpg" alt="Подпись к картинке">
+			</a>
+
+			<a data-fslightbox="gallery-1" href="https://picsum.photos/30/20?random=3">
+				<img src="img/example-woman-3.jpg" alt="Подпись к картинке">
+			</a>
+
+			<!--Локальное видео HTML:-->
+			<a data-fslightbox="gallery-1" href="fls/inka.mp4">
+				HTML video
+			</a>
+
+			<!--Ссылка на элемент HTML video:-->
+			<a data-fslightbox="gallery-1" href="#html-video">
+				HTML video link
+			</a>
+
+			<!--Ссылка на iframe видео на странице:-->
+			<a data-fslightbox="gallery-1" href="#youtube">
+				<img src="img/example-woman-4.jpg" alt="Подпись к картинке">
+			</a>
+
+			<!--Видео на Youtube:-->
+			<a data-fslightbox="gallery-1" data-type="youtube" href="https://www.youtube.com/watch?v=3nQNiWdeH2Q">
+				<img src="img/example-woman-5.jpg" alt="Подпись к картинке">
+			</a>
+		</div>
+		<br><br>
+
+
+		<p>Это пользовательское видео HTML, которое открывается в лайтбоксе через ссылку на айдишник:</p>
+		<video id="html-video" controls width="250">
+			<source src="fls/inka.webm" type="video/webm">
+			<source src="fls/inka.mp4" type="video/mp4">
+			Download the
+			<a href="fls/inka.webm">WEBM</a>
+			or
+			<a href="fls/inka.mp4">MP4</a>
+			video.
+		</video>
+		<br><br>
+
+
+		<p>Это пользовательское видео с ютуба в iframe, которое открывается в лайтбоксе через ссылку на айдишник:</p>
+		<iframe id="youtube" width="560" height="315" src="https://www.youtube-nocookie.com/embed/bpOSxM0rNPM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		<br><hr><br>
+
+
+
+
+		<div class="gallery-lightbox">
+			<a data-fslightbox="gallery-2" data-type="image" href="img/example-woman.jpg">
+				<img src="img/example-kid.jpg">
+			</a>
+
+			<a class="img" data-fslightbox="gallery-2" href="https://picsum.photos/300/200?random=20">
+				<img src="img/example-kid-1.jpg">
+			</a>
+
+			<a data-fslightbox="gallery-2" href="https://picsum.photos/300/200?random=30">
+				<img src="img/example-kid-2.jpg">
+			</a>
+
+			<a data-fslightbox="gallery-2" href="https://picsum.photos/300/200?random=40">
+				<img src="img/example-kid-3.jpg">
+			</a>
+
+			<a data-fslightbox="gallery-2" href="https://picsum.photos/300/200?random=50">
+				<img src="img/example-man.jpg">
+			</a>
+		</div>
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+	<script defer src="fslightbox/fslightbox.js"></script>
+
+
+</body>
+</html>

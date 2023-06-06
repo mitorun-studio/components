@@ -1,0 +1,814 @@
+<!doctype html><!-- Файл figures.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Фигуры в CSS – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+div {
+	display: grid;
+	place-items: center;
+}
+
+.flex {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 100px;
+	margin-bottom: 150px;
+}
+
+/* Фигуры с border-radius: */
+.square {
+	width: 200px;
+	height: 200px;
+	background: tomato;
+}
+
+.rectangle {
+	width: 300px;
+	height: 150px;
+	background: limegreen;
+}
+
+.circle {
+	width: 200px;
+	height: 200px;
+	background: lightskyblue;
+	border-radius: 50%;
+}
+
+.oval {
+	width: 300px;
+	height: 150px;
+	background: burlywood;
+	border-radius: 50%;
+}
+
+.egg {
+	width: 160px;
+	height: 200px;
+	background: #ffc000;
+	/*border-radius: 63px 63px 63px 63px / 108px 108px 72px 72px;*/
+	border-radius: 50% / 60% 60% 40% 40%;
+}
+
+.semicircle {
+	width: 100px;
+	height: 200px;
+	background: darksalmon;
+	border-radius: 0 100px 100px 0;
+}
+
+.rectangle-br {
+	width: 400px;
+	height: 200px;
+	background: cornflowerblue;
+	border-radius: 20px;
+}
+
+.rectangle-cite {
+	width: 400px;
+	height: 200px;
+	background: lightsalmon;
+	border-radius: 28px 28px 0 28px;
+}
+
+.border-radius-1 {
+	width: 400px;
+	height: 200px;
+	background: lightseagreen;
+	border-radius: 999px 20px 40px 0;
+}
+
+.border-radius-2 {
+	width: 400px;
+	height: 200px;
+	background: lightpink;
+	border-radius: 70% 10px 70% 0px;
+}
+
+.border-radius-3 {
+	width: 400px;
+	height: 200px;
+	background: orange;
+	border-radius: 50% 10% / 25%;
+}
+
+
+/* Фигуры с финтами border: */
+
+.triangle-easy {
+	width: 0;
+	height: 0;
+	border-right: 90px solid transparent;
+	border-bottom: 90px solid deepskyblue;
+}
+
+.triangle-up {
+	width: 0;
+	height: 0;
+	border-right: 50px solid transparent;
+	border-left: 50px solid transparent;
+	border-bottom: 100px solid blue;
+	/* меняя толщины бордера можно управлять размерами и соотношением сторон треугольника */
+	/* или border: solid transparent;
+	border-bottom-color: blue;
+	border-width: 0 50px 100px;*/
+	/* или border: 50px solid transparent;
+	border-top: none;
+	border-bottom: 100px solid blue;*/
+}
+
+.triangle-down {
+	width: 0;
+	height: 0;
+	border-right: 50px solid transparent;
+	border-left: 50px solid transparent;
+	border-top: 100px solid blue;
+	/* меняя толщины бордера можно управлять размерами и соотношением сторон треугольника */
+}
+
+.triangle-right {
+	width: 0;
+	height: 0;
+	border-top: 50px solid transparent;
+	border-bottom: 50px solid transparent;
+	border-left: 100px solid blue;
+	/* меняя толщины бордера можно управлять размерами и соотношением сторон треугольника */
+}
+
+.triangle-left {
+	width: 0;
+	height: 0;
+	border-top: 50px solid transparent;
+	border-bottom: 50px solid transparent;
+	border-right: 100px solid blue;
+	/* меняя толщины бордера можно управлять размерами и соотношением сторон треугольника */
+}
+
+.trapeze {
+	width: 300px;
+	border-left: 30px solid transparent;
+	border-right: 30px solid transparent;
+	border-bottom: 100px solid orange;
+	/* или border-width: 50px 18px 0;
+	border-style: solid;
+	border-color: #277bab transparent;*/
+}
+
+.flag {
+	width: 150px;
+	height: 0;
+	/* это можно убрать если внутри дива будет пусто */
+	border: 50px solid orangered;
+	border-right-color: transparent;
+}
+
+/* Фигуры с помощью box-shadow: */
+
+.two-circle {
+	width: 100px;
+	height: 100px;
+	background: darkorchid;
+	border-radius: 50%;
+	box-shadow: 0 120px 0 0 darkorchid;
+}
+
+.two-circle2 {
+	width: 80px;
+	height: 80px;
+	background: hsl(212, 67%, 77%);
+	border-radius: 50%;
+	box-shadow: 60px 110px 10px 30px hsl(212, 49%, 50%);
+}
+
+.moon {
+	width: 200px;
+	height: 200px;
+	margin-left: 80px;
+	border-radius: 50%;
+	background: none;
+	box-shadow: -50px 50px 0 15px gold;
+}
+
+
+
+/* Фигуры с помощью gradient: */
+
+.parallelogram {
+	width: 400px;
+	height: 150px;
+	background-image: linear-gradient(75deg, transparent 20%, turquoise 20%, teal 80%, transparent 80%);
+}
+
+.two-gradient {
+	width: 400px;
+	height: 150px;
+	background-image: linear-gradient(75deg, transparent 20%, teal 20%, teal 80%, transparent 80%), linear-gradient(-75deg, transparent 30%, teal 20%, teal 80%, transparent 60%);
+}
+
+.oblique-edge {
+	width: 400px;
+	height: 150px;
+	background-image: linear-gradient(175deg, transparent 20%, lightgreen 20%);
+}
+
+.complex-c-gradient {
+	width: 200px;
+	height: 200px;
+	background: conic-gradient(#cecece 0deg 45deg, #bdbdbd 45deg 135deg, #cecece 135deg 225deg, #e7e7e7 225deg 315deg, #cecece 315deg 360deg);
+}
+
+
+
+/* Фигуры с помощью transform: */
+
+.rhomb {
+	width: 150px;
+	height: 150px;
+	background: orange;
+	transform: rotate(45deg);
+	/*transform-origin: 50% 50% 0; это смещение центра поворота */
+}
+
+.parallelogram2 {
+	width: 300px;
+	height: 150px;
+	background: orange;
+	transform: skew(15deg);
+}
+
+.diamond {
+	width: 180px;
+	height: 150px;
+	background: orange;
+	transform: rotate(61deg) skew(33deg);
+	/*transform-origin: 50% 50% 0; это смещение центра поворота */
+}
+
+.transform-trapeze {
+	width: 200px;
+	height: 100px;
+	background: lavender;
+	/*transform: rotateX(60deg);*/
+	/*perspective: 400px;*/
+	transform: perspective(6px) rotateX(2deg);
+	transform-origin: 50% 50%;
+}
+
+.transform-trapeze-2 {
+	width: 200px;
+	height: 100px;
+	background: lavender;
+	/*transform: rotateX(60deg);*/
+	/*perspective: 400px;*/
+	transform: perspective(6px) rotateX(2deg);
+	transform-origin: 80% 70%;
+}
+
+.transform-trapeze-3 {
+	width: 200px;
+	height: 100px;
+	background: aquamarine;
+	/*transform: rotateX(60deg);*/
+	/*perspective: 400px;*/
+	/*transform: perspective(6px) rotateX(2deg) rotate(45deg);*/
+	transform: skew(30deg, -10deg) rotate(0deg);
+	/*transform-origin: 80% 70%;*/
+}
+
+
+/* Фигуры с вырезом clip-path: */
+
+.block-angle {
+	display: inline-block;
+	padding: 16px 48px 16px 24px;
+	background-color: lightseagreen;
+	clip-path: polygon(0% 0%, calc(100% - 32px) 0%, 100% 50%, calc(100% - 32px) 100%, 0% 100%);
+	/* это основное свойство, задающее форму фигуре */
+}
+
+.block-chevron {
+	display: inline-block;
+	padding: 10px 32px;
+	background-color: lightcoral;
+	clip-path: polygon(0% 0%, calc(100% - 20px) 0%, 100% 50%, calc(100% - 20px) 100%, 0% 100%, 20px 50%);
+	/* это основное свойство, задающее форму фигуре */
+}
+
+.block-bevel {
+	display: inline-block;
+	padding: 10px 28px;
+	background-color: deepskyblue;
+	clip-path: polygon(12px 0%, calc(100% - 12px) 0%, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0% calc(100% - 12px), 0% 12px);
+	/* это основное свойство, задающее форму фигуре */
+}
+
+.semicircle2 {
+	width: 150px;
+	height: 150px;
+	shape-outside: circle(50% at 30%);
+	clip-path: circle(50% at 0%);
+	background: darkgoldenrod;
+}
+
+.oblique-edges {
+	width: auto;
+	max-width: 100%;
+	height: auto;
+	padding: 40px 60px;
+	background: linear-gradient(150deg, hotpink 5%, steelblue, teal 110%);
+	clip-path: polygon(6% 0%, 94% 0%, 100% 30%, 94% 100%, 6% 100%, 0% 65%);
+	/*hyphens: auto; было у донора */
+}
+
+
+/* Сложносоставные фигуры */
+
+.arrow {
+	position: relative;
+	width: 150px;
+	height: 50px;
+	background: green;
+}
+
+.arrow::after {
+	content: '';
+	position: absolute;
+	top: -35px;
+	right: -59px;
+	/*width: 0;
+	height: 0;*/
+	border-top: 60px solid transparent;
+	border-bottom: 60px solid transparent;
+	border-left: 60px solid green;
+}
+
+.arrow-round {
+	position: relative;
+	width: 150px;
+	height: 150px;
+	/*background: none;*/
+	border: 25px solid teal;
+	border-right-color: transparent;
+	border-radius: 50%;
+}
+
+.arrow-round::after {
+	content: '';
+	display: block;
+	position: absolute;
+	top: -31px;
+	left: 60px;
+	width: 0;
+	height: 0;
+	border: 60px solid transparent;
+	border-bottom-color: teal;
+	border-top: 0;
+	border-right: 0;
+}
+
+/* Размеры звезды неточные!!! */
+.star {
+	position: relative;
+	width: 0;
+	height: 0;
+	border-right: 100px solid transparent;
+	border-bottom: 70px solid rgb(230, 36, 94);
+	border-left: 100px solid transparent;
+	transform: rotate(35deg);
+}
+
+.star::before {
+	content: '';
+	position: absolute;
+	top: -45px;
+	left: -65px;
+	border-bottom: 80px solid darkmagenta;
+	border-left: 30px solid transparent;
+	border-right: 30px solid transparent;
+	transform: rotate(-35deg);
+}
+
+.star::after {
+	content: '';
+	position: absolute;
+	top: 5px;
+	left: -108px;
+	border-right: 100px solid transparent;
+	border-bottom: 70px solid darkred;
+	border-left: 100px solid transparent;
+	transform: rotate(-70deg);
+}
+
+/* Размеры шестиконечной звезды неточные!!! */
+.star-six {
+	position: relative;
+	width: 0;
+	height: 0;
+	border-left: 60px solid transparent;
+	border-right: 60px solid transparent;
+	border-bottom: 100px solid #de34f7;
+}
+
+.star-six::after {
+	content: '';
+	position: absolute;
+	top: 33px;
+	left: -60px;
+	border-left: 60px solid transparent;
+	border-right: 60px solid transparent;
+	border-top: 100px solid #de34f7;
+}
+
+/* Размеры пентагона неточные!!! */
+.pentagon {
+	position: relative;
+	width: 90px;
+	/* было 54px у донора */
+	border-left: 18px solid transparent;
+	border-right: 18px solid transparent;
+	border-top: 50px solid #277bab;
+	/* или border-width: 50px 18px 0;
+	border-style: solid;
+	border-color: #277bab transparent;*/
+}
+
+.pentagon::before {
+	content: '';
+	position: absolute;
+	top: -85px;
+	left: -18px;
+	/*width: 0;*/
+	border-left: 45px solid transparent;
+	border-right: 45px solid transparent;
+	border-bottom: 35px solid #277bab;
+	/* или border-width: 0 45px 35px;
+	border-style: solid;
+	border-color: transparent transparent #277bab;*/
+}
+
+/* Размеры шестиугольника неточные!!! */
+.hexagon {
+	position: relative;
+	width: 100px;
+	height: 60px;
+	background: #fc5e5e;
+}
+
+.hexagon::before {
+	content: '';
+	position: absolute;
+	top: -30px;
+	/*left: 0;
+	width: 0;
+	height: 0;*/
+	border-left: 50px solid transparent;
+	border-right: 50px solid transparent;
+	border-bottom: 30px solid #fc5e5e;
+}
+
+.hexagon::after {
+	content: '';
+	position: absolute;
+	bottom: -30px;
+	/*left: 0;
+	width: 0;
+	height: 0;*/
+	border-left: 50px solid transparent;
+	border-right: 50px solid transparent;
+	border-top: 30px solid #fc5e5e;
+}
+
+.heart {
+	position: relative;
+	width: 100px;
+	height: 100px;
+	/*margin: 40px;*/
+	background: pink;
+	border-radius: 50%;
+	box-shadow: 80px 0 0 0 pink;
+}
+
+.heart::before {
+	content: '';
+	position: absolute;
+	left: 40%;
+	top: 40%;
+	width: 100%;
+	height: 100%;
+	background: pink;
+	transform: rotate(45deg);
+}
+
+.complex-borders {
+	width: 0;
+	height: 0;
+	border: 100px solid hsl(0, 0%, 70%);
+	border-right-color: hsl(0, 0%, 50%);
+	border-left-color: hsl(0, 0%, 80%);
+	/* или border-top: 100px solid hsl(0, 0%, 70%);
+	border-right: 100px solid hsl(0, 0%, 50%);
+	border-bottom: 100px solid hsl(0, 0%, 70%);
+	border-left: 100px solid hsl(0, 0%, 80%);*/
+}
+
+.infinity {
+	/*position: relative;*/
+	width: calc(200px - 20px);
+	height: calc(200px - 20px);
+	/*background: none; было у донора */
+	transform: rotate(45deg);
+}
+
+.infinity::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100px;
+	height: 100px;
+	/*background: none; было у донора */
+	border: 20px solid orangered;
+	border-radius: 100% 0 100% 100%;
+}
+
+.infinity::after {
+	content: '';
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 100px;
+	height: 100px;
+	/*background: none; было у донора */
+	border: 20px solid orangered;
+	border-radius: 100% 100% 100% 0;
+}
+
+.infinity2 {
+	position: relative;
+	width: 100px;
+	/*calc(200px - 1em);*/
+	height: 100px;
+	/*calc(200px - 1em);*/
+	/*background: none;*/
+	border: 1em solid orangered;
+	border-radius: 100% 0 100% 100%;
+	transform: rotate(45deg);
+}
+
+.infinity2::after {
+	content: '';
+	position: absolute;
+	left: 66px;
+	top: -100px;
+	width: 100px;
+	height: 100px;
+	border: 1em solid orangered;
+	border-radius: 100% 100% 100% 0;
+}
+
+.smile {
+	/*position: relative;*/
+	width: 150px;
+	height: 150px;
+	/*background: none;*/
+	border: 20px solid teal;
+	border-color: transparent transparent teal teal;
+	border-radius: 50%;
+	transform: rotate(-45deg);
+}
+
+.smile::before {
+	content: '';
+	position: absolute;
+	left: 40px;
+	top: -19px;
+	width: 36px;
+	height: 36px;
+	background: teal;
+	border-radius: 50%;
+	box-shadow: 50px 50px 0 teal;
+}
+
+.yin-yang {
+	/*display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center; было у донора */
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+	background: linear-gradient(90deg, white 50%, black 50%);
+	/*border: 5px solid black;*/
+	box-shadow: 0 0 16px rgba(0, 0, 0, 0.4);
+}
+
+.yin-yang::before,
+.yin-yang::after {
+	content: '';
+	width: 100px;
+	height: 100px;
+	background: hsl(0, 0%, 0%);
+	border: 35px solid hsl(0, 0%, 100%);
+	border-radius: 50%;
+}
+
+.yin-yang::after {
+	background: hsl(0, 0%, 100%);
+	border-color: hsl(0, 0%, 0%);
+}
+
+.gradient-pattern-grid {
+	width: 100%;
+	height: 500px;
+	background: linear-gradient(135deg,#1f005c, #5b0060, #870160, #ac255e, #ca485c, #e16b5c, #f39060, #ffb56b);
+}
+
+.gradient-pattern {
+	--m: 4; /* number of columns */
+	--n: 5; /* number of rows */
+	--size: 40px; /* size of the cubes */
+	--gap :10px;  /* gap between cubes */
+
+	margin: auto;
+	aspect-ratio: var(--m)/var(--n);
+	width: calc(var(--m)*(1.353*var(--size) + var(--gap)));
+	background:
+		conic-gradient(from -90deg at var(--size) calc(0.353*var(--size)),
+			#249FAB 135deg,#81C5A3 0 270deg,#26609D 0); /* update the colors here */
+	-webkit-mask:
+		linear-gradient(to bottom right,
+			 #0000 calc(0.25*var(--size)),#000 0 calc(100% - calc(0.25*var(--size)) - 1.414*var(--gap)),#0000 0),
+		conic-gradient(from -90deg at right var(--gap) bottom var(--gap),#000 90deg,#0000 0);
+					mask:
+		linear-gradient(to bottom right,
+			 #0000 calc(0.25*var(--size)),#000 0 calc(100% - calc(0.25*var(--size)) - 1.414*var(--gap)),#0000 0),
+		conic-gradient(from -90deg at right var(--gap) bottom var(--gap),#000 90deg,#0000 0);
+	background-size:   calc(100%/var(--m)) calc(100%/var(--n));
+	-webkit-mask-size: calc(100%/var(--m)) calc(100%/var(--n));
+					mask-size: calc(100%/var(--m)) calc(100%/var(--n));
+	-webkit-mask-composite: source-in;
+					mask-composite: intersect;
+}
+
+
+
+
+
+
+
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Фигуры в CSS</h1>
+
+		<p><a target="_blank" href="http://nicolasgallagher.com/pure-css-gui-icons/demo/">Коллекция иконок</a> Nicolas Gallagher на HTML+CSS.</p>
+		<p>Статья про фигуры на <a href="https://css-tricks.com/the-shapes-of-css/">CSS-tricks</a> и <a href="http://css.yoksel.ru/css-figury/">Yoksel</a>.</p>
+		<p>Мне надо нарисовать сердечко двумя прямоугольниками, бриллиант с двумя треугольниками и гранями с коническим градиентом.</p>
+		<hr>
+
+
+
+
+		<h2>Фигуры с <code>border-radius</code></h2>
+
+		<div class="flex">
+			<div class="square">Квадрат</div>
+			<div class="rectangle">Прямоугольник</div>
+			<div class="circle">Круг</div>
+			<div class="oval">Овал</div>
+			<div class="egg">Яйцо</div>
+			<div class="semicircle">Полукруг</div>
+			<div class="rectangle-br">Прямоугольник с закруглениями</div>
+			<div class="rectangle-cite">Прямоугольник с одним прямым углом</div>
+			<div class="border-radius-1">Необычные углы №1</div>
+			<div class="border-radius-2">Необычные углы №2</div>
+			<div class="border-radius-3">Необычные углы №3</div>
+		</div>
+		<hr>
+
+
+
+
+		<h2>Фигуры с <code>border</code></h2>
+
+		<div class="flex">
+			<div class="triangle-easy">Треугольник неровный</div>
+			<div class="triangle-up">Треугольник вверх</div>
+			<div class="triangle-down">Треугольник вниз</div>
+			<div class="triangle-right">Треугольник вправо</div>
+			<div class="triangle-left">Треугольник влево</div>
+			<div class="trapeze">Трапеция</div>
+			<div class="flag">Флаг</div>
+		</div>
+		<hr>
+
+
+
+
+		<h2>Фигуры с помощью <code>box-shadow</code></h2>
+
+		<div class="flex">
+			<div class="two-circle">Два круга</div>
+			<div class="two-circle2">Два круга</div>
+			<div class="moon">Луна</div>
+		</div>
+		<hr>
+
+
+
+
+		<h2>Фигуры с помощью <code>gradient</code></h2>
+
+		<div class="flex">
+			<div class="parallelogram">Параллелограм</div>
+			<div class="two-gradient">Два л-градиента</div>
+			<div class="oblique-edge">Кривая секция</div>
+			<div class="complex-c-gradient">4 стороны коническим градиентом</div>
+		</div>
+		<hr>
+
+
+
+
+		<h2>Фигуры с помощью <code>transform</code></h2>
+
+		<div class="flex">
+			<div class="rhomb">Ромб</div>
+			<div class="parallelogram2">Параллелограм</div>
+			<div class="diamond">Ромб вытянутый</div>
+			<div class="transform-trapeze">Трапеция</div>
+			<div class="transform-trapeze-2">Кривая трапеция</div>
+			<div class="transform-trapeze-3">Кривая-кривая трапеция</div>
+		</div>
+		<hr>
+
+
+
+
+		<h2>Фигуры с вырезом <code>clip-path</code></h2>
+
+		<div class="flex">
+			<div class="block-angle">Треугольный угол</div>
+			<div class="block-chevron">Два треугольных угла</div>
+			<div class="block-bevel">Скошенные углы</div>
+			<div class="semicircle2">Полукруг</div>
+			<div class="oblique-edges">Косые края</div>
+		</div>
+		<hr>
+
+
+
+
+		<h2>Сложносоставные фигуры</h2>
+
+		<div class="flex">
+			<div class="arrow">Стрелка</div>
+			<div class="arrow-round">Круглая стрелка</div>
+			<div class="star">Звезда</div>
+			<div class="star-six">Звезда шестиконечная</div>
+			<div class="pentagon">Пятиугольник</div>
+			<div class="hexagon">Шестиугольник</div>
+			<div class="heart">Сердечко</div>
+			<div class="complex-borders">4 стороны бордерами</div>
+			<div class="infinity">Бесконечность</div>
+			<div class="infinity2">Бесконечность2</div>
+			<div class="smile">Улыбка</div>
+			<div class="yin-yang"></div>
+		</div>
+		<hr>
+
+
+
+
+		<h2>Навороченные примеры</h2>
+		<div class="gradient-pattern-grid">
+			<div class="gradient-pattern"></div>
+		</div>
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

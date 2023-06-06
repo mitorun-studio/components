@@ -1,0 +1,299 @@
+<!doctype html><!-- Файл color-scheme-apple.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Изменение цветовой схемы сайта – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<!-- Ниже метатеги которые добавляются для создания темной темы: -->
+	<!--<link rel="stylesheet" href="styles/index.css">-->
+
+	<style>
+:root {
+	color-scheme: light dark;
+}
+
+.color-scheme-toggle {
+	font: 400 12px/1.33 sans-serif;
+	border: 1px solid #0071e3;
+	border-radius: 12px;
+	display: inline-flex;
+	padding: 1px;
+}
+
+input[type="radio"] {
+	position: absolute;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(0px 0px 99.9% 99.9%);
+	overflow: hidden;
+	height: 1px;
+	width: 1px;
+	padding: 0;
+	border: 0;
+	appearance: none;
+}
+
+.text {
+	display: inline-block;
+	padding: 1px 6px;
+	min-width: 42px;
+	border: 1px solid transparent;
+	border-radius: 12px;
+	text-align: center;
+	color: #0071e3;
+}
+
+input[type="radio"]:checked + .text {
+	color: #fff;
+	background: #0071e3;
+	border-color: #0071e3;
+}
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Компоненты</h1>
+		<hr>
+
+
+		<div class="color-scheme-toggle" role="radiogroup" tabindex="0" aria-label="Select a color scheme preference">
+			<label data-color-scheme-option="light">
+				<!--<input type="radio" value="light" onchange="window.setPreferredColorScheme(event.target.value)">-->
+				<input type="radio" value="light">
+				<div class="text">Light</div>
+			</label>
+
+			<label data-color-scheme-option="dark">
+				<!--<input type="radio" value="dark" onchange="window.setPreferredColorScheme(event.target.value)">-->
+				<input type="radio" value="dark">
+				<div class="text">Dark</div>
+			</label>
+
+			<label data-color-scheme-option="auto">
+				<!--<input type="radio" value="auto" onchange="window.setPreferredColorScheme(event.target.value)">-->
+				<input type="radio" value="auto" checked>
+				<div class="text">Auto</div>
+			</label>
+		</div>
+
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+	<!--<script src="/color-scheme-toggle.js"></script> Это было у донора -->
+	<script>
+		/* Это скрипт для переключения светлой/темной темы на сайте https://developer.apple.com/ */
+
+		((window, undefined) => {
+
+			function onDidChangeSystemColorScheme() {
+				AppStore.state.systemColorScheme = prefersColorSchemeMediaQueryList.matches ?
+					ColorScheme.dark.value :
+					ColorScheme.light.value;
+				if (AppStore.state.preferredColorScheme === ColorScheme.auto.value) {
+					setPreferredColorScheme(ColorScheme.auto.value);
+				}
+			}
+
+			function setPreferredColorScheme(
+				colorSchemeValue) {
+				AppStore.setPreferredColorScheme(colorSchemeValue);
+				Array.from(optionInputs).map((option) => {
+					option.checked = !!(option.value === colorSchemeValue);
+				});
+
+				const prefersDark = !!(
+					colorSchemeValue === ColorScheme.dark.value ||
+					(colorSchemeValue === ColorScheme.auto.value &&
+						AppStore.state.systemColorScheme === ColorScheme.dark.value)
+				);
+
+				if (prefersDark) {
+					ColorSchemeDarkHead.map((node) => {
+						(node.parentElement === null && document.head.appendChild(node));
+					});
+					document.body.dataset.colorScheme = ColorScheme.dark.value;
+				}
+				else {
+					ColorSchemeDarkHead.map((node) => {
+						(node.parentElement && node.parentElement.removeChild(node));
+					});
+					document.body.dataset.colorScheme = ColorScheme.light.value;
+				}
+			}
+
+			// const DarkModeCssClass = 'dmf';
+
+			const ColorScheme = {
+				auto: {
+					value: 'auto',
+				},
+				light: {
+					value: 'light',
+				},
+				dark: {
+					value: 'dark',
+				},
+			};
+
+			const ColorSchemeLocales = {
+				en: {
+					toggleAriaLabel: 'Select a color scheme preference',
+					auto: 'Auto',
+					light: 'Light',
+					dark: 'Dark',
+				},
+				zh_CN: {
+					toggleAriaLabel: 'Select a color scheme preference',
+					auto: 'и‡ЄеЉЁ',
+					light: 'жµ…и‰І',
+					dark: 'ж·±и‰І',
+				},
+				ja_JP: {
+					toggleAriaLabel: 'Select a color scheme preference',
+					auto: 'и‡Єе‹•',
+					light: 'гѓ©г‚¤гѓ€',
+					dark: 'гѓЂгѓјг‚Ї',
+				},
+				ko_KR: {
+					toggleAriaLabel: 'Select a color scheme preference',
+					auto: 'мћђлЏ™',
+					light: 'лќјмќґнЉё',
+					dark: 'л‹¤нЃ¬',
+				},
+				it_IT: {
+					toggleAriaLabel: 'Select a color scheme preference',
+					auto: 'Automatico',
+					light: 'Chiaro',
+					dark: 'Scuro',
+				},
+				fr_FR: {
+					toggleAriaLabel: 'Select a color scheme preference',
+					auto: 'Automatique',
+					light: 'Clair',
+					dark: 'Sombre',
+				},
+				de_DE: {
+					toggleAriaLabel: 'Select a color scheme preference',
+					auto: 'Automatisch',
+					light: 'Hell',
+					dark: 'Dunkel',
+				},
+				pt_BR: {
+					toggleAriaLabel: 'Select a color scheme preference',
+					auto: 'AutomГЎtica',
+					light: 'Clara',
+					dark: 'Escura',
+				},
+				es_lamr: {
+					toggleAriaLabel: 'Select a color scheme preference',
+					auto: 'AutomГЎtico',
+					light: 'Claro',
+					dark: 'Obscuro',
+				},
+			};
+
+			const htmlLangAttribute = document.body.parentElement.lang;
+
+			const localeKey = htmlLangAttribute
+				.replace('en_US', 'en')
+				.replace('en-US', 'en')
+				.replace('-', '_');
+
+			const Locale = ColorSchemeLocales[localeKey];
+
+			const ColorSchemeToggleRadioGroup = document
+				.querySelector('.color-scheme-toggle');
+
+			const ColorSchemeToggleRadioLabels = ColorSchemeToggleRadioGroup
+				.querySelectorAll('.text');
+
+			const ColorSchemeDarkHead = Array.from(
+				document.head.querySelectorAll('[data-color-scheme="dark"]')
+			);
+
+			ColorSchemeDarkHead.map((node) => node.media = '');
+
+			ColorSchemeToggleRadioGroup
+				.setAttribute('aria-label', Locale.toggleAriaLabel);
+
+			Array.from(ColorSchemeToggleRadioLabels).map((label) => {
+				label.textContent = Locale[label.parentElement.dataset.colorSchemeOption];
+			});
+
+			const optionInputs = Array.from(
+				window.document.querySelectorAll('label[data-color-scheme-option] > input[type="radio"]')
+			);
+
+			const supportsAutoColorScheme = (typeof window.matchMedia !== 'undefined') && [
+				ColorScheme.light.value,
+				ColorScheme.dark.value,
+				'no-preference',
+			].some(scheme => window.matchMedia(`(prefers-color-scheme: ${scheme})`).matches);
+
+			const defaultColorScheme = supportsAutoColorScheme ?
+				ColorScheme.auto :
+				ColorScheme.light;
+
+			const AppStore = {
+				state: {
+					preferredColorScheme: window.Settings.preferredColorScheme || defaultColorScheme.value,
+					supportsAutoColorScheme,
+					systemColorScheme: ColorScheme.light.value,
+				},
+				setPreferredColorScheme(value) {
+					this.state.preferredColorScheme = value;
+					window.Settings.preferredColorScheme = value;
+				},
+				setSystemColorScheme(value) {
+					this.state.systemColorScheme = value;
+				},
+			};
+
+			const prefersColorSchemeMediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
+
+			if (supportsAutoColorScheme) {
+				AppStore.state.systemColorScheme = prefersColorSchemeMediaQueryList.matches ?
+					ColorScheme.dark.value :
+					ColorScheme.light.value;
+			}
+
+			try {
+				prefersColorSchemeMediaQueryList
+					.addEventListener('change', onDidChangeSystemColorScheme);
+			}
+			catch (e) {
+				prefersColorSchemeMediaQueryList
+					.addListener(onDidChangeSystemColorScheme);
+			}
+
+			if (supportsAutoColorScheme === false) {
+				window.document.body
+					.setAttribute('data-supports-auto-color-scheme', false);
+			}
+			setPreferredColorScheme(AppStore.state.preferredColorScheme);
+			window.setPreferredColorScheme = setPreferredColorScheme;
+		})(window);
+
+	</script>
+
+</body>
+</html>

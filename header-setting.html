@@ -1,0 +1,144 @@
+<!doctype html><!-- Файл header-settings.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Компонент – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+.header {
+	display: flex;
+	align-items: center;
+	height: 100px;/* это задает начальную высоту хедеру! */
+	background-color: hsl(43, 82%, 93%);
+	border: 2px dashed hsl(41, 69%, 59%);
+}
+
+.header-grid {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+.nav {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 34px;
+	text-decoration: none;
+	color: inherit;
+}
+
+.header__brand,
+.nav-link {
+	text-decoration: none;
+	font-weight: 700;
+	color: inherit;
+}
+
+/*-----------------------------------------------------------
+-- Уменьшение высоты хедера при скролле ".header-reduced": --
+-----------------------------------------------------------*/
+
+.header-reduced {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	transition: 0.5s ease;
+}
+
+.header-reduced.scrolled {
+	height: 60px;
+}
+
+/*-----------------------------------------------------------
+-- Появление хедера при скролле наверх ".header-upscroll": --
+-----------------------------------------------------------*/
+
+.header-upscroll {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	transition: 0.5s ease;
+}
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<header class="header header-upscroll">
+		<div class="container header-grid">
+			<a class="header__brand" href="/">LOGO</a>
+
+			<nav class="nav">
+				<a href="#" class="nav-link">Главная</a>
+				<a href="#" class="nav-link">Услуги</a>
+				<a href="#" class="nav-link">Блог</a>
+				<a href="#" class="nav-link">Контакты</a>
+			</nav>
+		</div>
+	</header>
+
+
+	<main class="container" style="padding-top: 120px;">
+
+		<h1>Разные настройки вида хедера</h1>
+		<hr>
+
+		<h2>Уменьшение высоты хедера при скролле ".header-reduced"</h2>
+		<p>Нужно назначить хедеру класс ".header-reduced" и добавить стили и скрипт для этого класса.</p>
+
+
+		<h2>Появление хедера при скролле наверх ".header-upscroll"</h2>
+		<p>Нужно назначить хедеру класс ".header-upscroll" и добавить стили и скрипт для этого класса.</p>
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+	<script>
+/* Уменьшение высоты хедера при скролле ".header-reduced": */
+ScrollTrigger.create({
+	start: 'top -140',
+	end: 99999,
+	toggleClass: {
+		className: 'scrolled',
+		targets: '.header-reduced'
+	}
+});
+
+
+/* Появление хедера при скролле наверх ".header-upscroll": */
+const showAnim = gsap.from('.header-upscroll', {
+	yPercent: -100,
+	paused: true,
+	duration: 0.2
+}).progress(1);
+
+ScrollTrigger.create({
+	start: "top top-=400",
+	end: 99999,
+	onUpdate: (self) => {
+		self.direction === -1 ? showAnim.play() : showAnim.reverse()
+	}
+});
+
+	</script>
+
+</body>
+</html>

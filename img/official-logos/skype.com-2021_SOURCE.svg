@@ -1,0 +1,10 @@
+<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" version="1.1" style="width: 20px; height: 20px;"> 
+<defs> 
+<linearGradient id="skypeLogoGrad" x1="49%" y1="100%" x2="51%" y2="0%"> 
+<stop offset="0%" style="stop-color:#0078D4; stop-opacity:1"></stop> 
+<stop offset="100%" style="stop-color: #00bcf2;stop-opacity:1"></stop> 
+</linearGradient> 
+</defs> 
+<text text-anchor="middle" x="10" y="20" fill="url(#skypeLogoGrad)" class="icon iconActive x-hidden-focus"></text> 
+</svg>
+<!--Сама иконка вероятно в спрайте-->

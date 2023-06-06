@@ -1,0 +1,96 @@
+<!doctype html><!-- Файл neumorphism.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Неоморфизм – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Neumorphism">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+.neumorphism {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: var(--margin-m);
+
+	padding: 40px;
+	background-color: hsl(240, 11%, 95%);
+}
+
+.neumorphism > div {
+	display: grid;
+	place-content: center;
+	width: 300px;
+	height: 200px;
+	font-weight: var(--font-weight-xl);
+	color: hsl(240, 14%, 44%);
+	border-radius: 30px;
+}
+
+.neu-1 {
+	background-color: hsl(240, 11%, 95%);
+	box-shadow: -10px -10px 21px hsl(0, 0%, 100%),
+							10px 10px 21px hsl(240, 4%, 83%);
+}
+
+.neu-2 {
+	background-color: hsl(240, 11%, 95%);
+	box-shadow: -8px -8px 24px 0 hsl(0, 0%, 100%),
+							8px 8px 24px 0 hsla(240, 12%, 72%, 0.4);
+}
+
+.neu-3 {
+	background-color: hsl(240, 11%, 95%);
+	box-shadow: -8px -8px 24px 0 hsl(0, 0%, 100%),
+							8px 8px 24px 0 hsla(240, 12%, 72%, 0.4),
+							inset -8px -8px 8px 0 hsla(240, 12%, 72%, 0.25),
+							inset 8px 8px 8px 0 hsl(0, 0%, 100%);
+}
+
+.neu-4 {
+	background-color: hsl(240, 11%, 95%);
+	box-shadow: inset -8px -8px 8px 0 hsla(0, 0%, 100%, 0.7),
+							inset 8px 8px 8px 0 hsla(240, 12%, 72%, 0.2);
+}
+
+
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+			<h1>Неоморфизм</h1>
+			<hr>
+
+			<h2>Пример №1</h2>
+
+			<div class="neumorphism">
+				<div class="neu-1">Обычный блок</div>
+
+				<div class="neu-2">Обычный блок</div>
+
+				<div class="neu-3">Выпуклый блок</div>
+
+				<div class="neu-4">Вогнутый блок</div>
+			</div>
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

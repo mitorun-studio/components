@@ -1,0 +1,88 @@
+<!doctype html><!-- Файл animation-interesting.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Интересные анимации – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+/*------------------------------------------------
+--- Изменение соседних элементов на ховер: -------
+------------------------------------------------*/
+.blocks {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--margin-s);
+	width: fit-content;
+	pointer-events: none;
+}
+
+.blocks__item {
+	width: 150px;
+	height: 150px;
+	background-color: hsl(276, 75%, 78%);
+	pointer-events: auto;
+	transition: 0.3s linear;
+}
+
+.blocks__item:hover {
+	scale: 1.05;
+}
+
+.blocks:hover > :not(:hover) {
+	opacity: 0.7;
+	filter: blur(3px);
+	scale: 0.99;
+}
+
+/*Другой вариант сделать то же самое, но тут больше кода:
+.blocks:hover > * {
+	opacity: 0.7;
+	filter: blur(3px);
+	scale: 0.99;
+}
+
+.blocks:hover > .blocks__item:hover {
+	opacity: 1;
+	filter: blur(0px);
+	scale: 1.05;
+}*/
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Компоненты</h1>
+		<hr><br>
+
+		<h2>Изменение соседних элементов на ховер</h2>
+
+		<div class="blocks">
+			<div class="blocks__item"></div>
+			<div class="blocks__item"></div>
+			<div class="blocks__item"></div>
+			<div class="blocks__item"></div>
+		</div>
+
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

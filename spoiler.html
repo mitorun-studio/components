@@ -1,0 +1,357 @@
+<!doctype html><!-- Файл spoiler-js.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Спойлер (с JS) – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+/*--------------------------------------------
+------ Спойлер Bootstrap Accordion: ----------
+--------------------------------------------*/
+
+/*.accordion {}*/
+
+@media (width < 576px) {
+	.accordion {
+		margin-right: calc(-1 * var(--container-padding) - 1px);
+		margin-left: calc(-1 * var(--container-padding) - 1px);
+		border-radius: 0;
+	}
+}
+
+/*.accordion__item {}*/
+
+.accordion__item:not(:last-child) {
+	border-bottom: 1px solid var(--grey);
+}
+
+/*.accordion__header {}*/
+
+.accordion__button {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	align-items: center;
+	gap: var(--margin-s);
+	width: 100%;
+	min-height: 30px;
+	padding: 22px var(--container-padding) 21px;
+	font-weight: var(--font-weight-l);
+	font-size: var(--font-size-l);
+	line-height: var(--line-height-xs);
+	text-align: left;
+	background-color: transparent;
+	border: 0;
+	border-radius: 0;
+	overflow-anchor: none;
+	transition: 0.25s ease-in-out;
+}
+
+/* Иконка плюсика-крестика: */
+.accordion__button::after {
+	content: '';
+	display: block;
+	width: 24px;
+	height: 24px;
+	aspect-ratio: 1/1;
+	background-image: url('./img/sprite.svg#plus');
+	background-color: var(--grey-light);
+	transition: 0.25s;
+}
+
+.accordion__button:hover,
+.accordion__button:focus {
+	z-index: 2;
+	background-color: var(--grey-lightest);
+}
+
+/* Стили summary когда спойлер раскрыт: */
+.accordion__button:not(.collapsed) {
+	color: var(--color-main);
+	background-color: hsl(215, 100%, 95%);/*var(--color-main-lightest);*/
+}
+
+.accordion__button:not(.collapsed)::after {
+	/*transform: rotate(45deg);*/
+	rotate: 45deg;
+}
+
+/* Это базовые классы для анимации схлопывания в бутстрапе!!!
+Они добавляются скриптом, их не удалять!!! */
+.accordion .collapse:not(.show) {
+	display: none;
+}
+
+.accordion .collapsing {
+	height: 0;
+	overflow: hidden;
+	transition: height 0.35s ease;
+
+	/* Для анимации по горизонтали:
+	width: 0;
+	height: auto;
+	transition: width 0.35s ease;*/
+}
+
+.accordion__body {
+	padding: 10px var(--container-padding) 16px;
+	background-color: transparent;
+}
+
+/* Конец стилей спойлера Accordion. */
+
+
+
+
+
+
+
+/* Тема оформления спойлера Bootstrap Default: */
+
+.bootstrap-default .accordion__item {
+	border: 1px solid hsla(0, 0%, 0%, 0.125);
+}
+
+.bootstrap-default .accordion__item:first-of-type {
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+}
+
+.bootstrap-default .accordion__item:first-of-type .accordion__button {
+	border-top-left-radius: calc(4px - 1px);
+	border-top-right-radius: calc(4px - 1px);
+}
+
+.bootstrap-default .accordion__item:not(:first-of-type) {
+	border-top: 0;
+}
+
+.bootstrap-default .accordion__item:last-of-type {
+	border-bottom-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+}
+
+.bootstrap-default .accordion__item:last-of-type .accordion__button.collapsed {
+	border-bottom-right-radius: calc(4px - 1px);
+	border-bottom-left-radius: calc(4px - 1px);
+}
+
+.bootstrap-default .accordion__item:last-of-type .accordion__collapse {
+	border-bottom-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+}
+
+.bootstrap-default .accordion__button:focus {
+	z-index: 3;
+	border-color: hsl(216, 98%, 76%);
+	outline: 0;
+	box-shadow: 0 0 0 4px hsla(216, 98%, 52%, 0.25);
+}
+
+.bootstrap-default .accordion__body {
+	background-color: transparent;
+}
+
+.bootstrap-default .accordion__button svg {
+	display: none;
+}
+
+.bootstrap-default .accordion__button {
+	position: relative;
+	display: flex;
+	align-items: center;
+	width: 100%;
+}
+
+.bootstrap-default .accordion__button::after {
+	content: '';
+	flex-shrink: 0;
+	width: 20px;
+	height: 20px;
+	margin-left: auto;
+	background-image: url('data:image/svg+xml,%3csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="%23212529"%3e%3cpath fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/%3e%3c/svg%3e');
+	background-repeat: no-repeat;
+	background-size: 20px;
+	transition: transform 0.3s ease-in-out;
+}
+
+.bootstrap-default .accordion__button:not(.collapsed)::after {
+	transform: rotate(180deg);
+}
+
+
+
+/*-------------------------------------------
+-------- Тема для спойлера №1: --------------
+-------------------------------------------*/
+
+/* Это вариант с полосами по краям тоже: */
+.accordion-1 .accordion__item {
+	background-color: white;
+	border-bottom: 1px solid hsla(0, 0%, 0%, 0.125);
+}
+
+.accordion-1 .accordion__item:first-of-type {
+	border-top: 1px solid hsla(0, 0%, 0%, 0.125);
+}
+
+.accordion-1 .accordion__button svg {
+	display: none;
+}
+
+.accordion-1 .accordion__button {
+	position: relative;
+	display: flex;
+	align-items: center;
+	width: 100%;
+}
+
+.accordion-1 .accordion__button::after {
+	content: '';
+	flex-shrink: 0;
+	width: 20px;
+	height: 20px;
+	margin-left: auto;
+	background-image: url('data:image/svg+xml,%3csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="%23212529"%3e%3cpath fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/%3e%3c/svg%3e');
+	background-repeat: no-repeat;
+	background-size: 20px;
+	transition: transform 0.3s ease-in-out;
+}
+
+.accordion-1 .accordion__button:not(.collapsed)::after {
+	transform: rotate(180deg);
+}
+
+
+
+
+/*-------------------------------------------
+-------- Тема для спойлера №2: --------------
+-------------------------------------------*/
+
+.accordion-2 {
+	counter-reset: accordion-1 0;
+}
+
+.accordion-2 .accordion__button {
+	grid-template-columns: auto 1fr auto;
+	align-items: center;
+	min-height: 70px;
+	padding: 14px 16px;
+	font-size: 18px;
+}
+
+.accordion-2 .accordion__button::before {
+	content: counter(accordion-1);/* выводит число, было '0' counter(my-numbers); */
+	counter-increment: accordion-1;/* увеличивает значение счётчика */
+	width: 1.1ch;
+	font-weight: 700;
+	font-size: 28px;
+	white-space: nowrap;
+	color: lightgrey;
+}
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h2>Спойлер Bootstrap Accordion</h2>
+		<p>Для работы анимации скрипт добавляет к <code>.accordion__collapse</code> класс <code>.collapsing</code></p>
+		<p>Спойлеры без класса <code>.show</code> будут спрятаны с помощью <code>.collapse:not(.show) {display: none;}</code></p>
+		<p><b>Управление аккордеоном:</b></p>
+		<ul>
+			<li>Чтобы спойлер был открыт при загрузке страницы (например первый) нужно для каждого <code>.accordion__collapse</code> добавить класс <code>.show</code>.</li>
+			<li>Чтобы предыдущий спойлер закрывался при открытии текущего нужно для каждого <code>.accordion__collapse</code> добавить атрибуты <code>data-bs-parent="#accordion"</code>. Соответственно если не нужно, чтобы закрывались - удалить этот тег если он есть.</li>
+			<li>В стилях буду добавлять разные темы оформления для базового спойлера. Для их применения достаточно для тега <code>.accordion</code> добавить класс темы, например <code>.accordion.default</code></li>
+			<li>Можно всем спойлерам задать один номер в идентификаторах (скопипастить только один спойлер отсюда) - тогда при клике на любой спойлер откроются они все.</li>
+			<li><b>У компонента есть разные ТЕМЫ ОФОРМЛЕНИЯ.</b> Для главного тега <code>accordion</code> нужно просто задать второй класс темы: <code>bootstrap-default</code>, <code>accordion-1</code>, <code>accordion-2</code></li>
+		</ul>
+		<br>
+
+
+		<div class="accordion accordion-2" id="accordion">
+			<div class="accordion__item">
+				<p class="accordion__header" id="heading-1">
+					<button class="accordion__button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-1" aria-expanded="false" aria-controls="collapse-1">
+						Спойлер Accordion №1
+						<!--<svg width="24" height="24" viewBox="0 0 8 8" fill="none" stroke="currentcolor" aria-hidden="true">
+							<path d="M4 1V7M1 4H7"/>
+						</svg>-->
+					</button>
+				</p>
+				<div class="accordion__collapse collapse" id="collapse-1" aria-labelledby="heading-1" data-bs-parent="#accordion">
+					<div class="accordion__body">
+						<p>Контент спойлера №2</p>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="accordion__item">
+				<p class="accordion__header" id="heading-2">
+					<button class="accordion__button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
+						Спойлер Accordion №2
+					</button>
+				</p>
+				<div class="accordion__collapse collapse" id="collapse-2" aria-labelledby="heading-2" data-bs-parent="#accordion">
+					<div class="accordion__body">
+						<p>Контент спойлера №2</p>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="accordion__item">
+				<p class="accordion__header" id="heading-3">
+					<button class="accordion__button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-3" aria-expanded="false" aria-controls="collapse-3">
+						Спойлер Accordion №3
+					</button>
+				</p>
+				<div class="accordion__collapse collapse" id="collapse-3" aria-labelledby="heading-3" data-bs-parent="#accordion">
+					<div class="accordion__body">
+						<p>Контент спойлера №3</p>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="accordion__item">
+				<p class="accordion__header" id="heading-4">
+					<button class="accordion__button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-4" aria-expanded="false" aria-controls="collapse-4">
+						Спойлер Accordion №4
+					</button>
+				</p>
+				<div class="accordion__collapse collapse" id="collapse-4" aria-labelledby="heading-4" data-bs-parent="#accordion">
+					<div class="accordion__body">
+						<p>Контент спойлера №4</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+	<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>-->
+	<script defer src="bootstrap/bootstrap.min.js"></script>
+
+
+</body>
+</html>

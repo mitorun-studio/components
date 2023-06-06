@@ -1,0 +1,188 @@
+<!doctype html><!-- Страница https://mitorun.studio/tst/text-circle-animated.html -->
+<html lang="ru">
+
+<head>
+  <meta name="robots" content="none">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <title>Текст по кругу с анимацией | Mitorun Studio</title>
+  <meta name="description" content="Описание компонента">
+  <meta name="author" content="Oleg Mitorun">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+:root {
+  --font-basic: 'IBM Plex Sans', 'Commissioner', 'Jost', system-ui, -apple-system, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;/* font-family для обычного текста */
+  --font-heading: 'Jost', 'Futura', system-ui, -apple-system, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;/* font-family для заголовков */
+  /*--font-mono: 'Consolas', 'ui-monospace', 'sfmono-regular', 'Liberation Mono', 'Menlo', monospace; font-family для моноширинного шрифта (для кода) */
+  --color: hsl(0, 0%, 0%);/* базовый цвет текста ("черный" для светлой темы и наоборот) */
+  --bg: hsl(0, 0%, 100%);/* базовый цвет фона ("белый" для светлой темы и наоборот) */
+  --main-color: hsl(210, 60%, 47%);/* главный цвет (для крупных элементов) */
+}
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: .8px;/* это задает базовый размер шрифта в 1rem для смартфонов до 575px */
+}
+
+body {
+  min-height: 100vh;
+  color: var(--color);
+  font: 400 21rem/1.5 var(--font-basic);
+  background: var(--bg);/* overflow: hidden;  это надо для профилактики?! */
+  /* word-break: break-all;
+  word-wrap: break-word; надо подумать добавить эти свойства! */
+}
+
+img {
+  display: block;/* это избавляет от пустой строки под картинкой, равной line-height. У этого способа есть минус когда нам не нужно чтобы картинка была блочной. Еще один способ - это задать родителю картинки display: flex; */
+  max-width: 100%;/* или width: 100%; */
+  height: auto;/* или max-height: 100%; нужна ли эта строка? */
+  object-fit: contain;
+  /*image-rendering: pixelated; убирает сглаживание растровых картинок при масштабировании, делая четкие пиксельные картинки */
+}
+
+.container {
+  max-width: 1236rem;
+  min-height: 100vh;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 18rem;
+  padding-left: 18rem;
+
+  /*background: content-box hsla(0, 100%, 50%, .03);
+  border: 1px dashed hsla(0, 100%, 50%, .2); это для тестирования */
+}
+
+/*-------------------------------------------------------------
+---------------- Ниже код самих компонентов -------------------
+-------------------------------------------------------------*/
+
+.circle {
+  position: relative;
+  /*display: grid;
+  place-items: center; это почему-то не так центрирует текст как flex */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+  /*background: #ccc; это тестовая строка */
+  border-radius: 50%;
+}
+
+.logo {
+  /*position: absolute; это было у донора, но зачем? */
+  width: 130px;
+  height: 130px;
+  /*background: url('https://picsum.photos/300/300');
+  background-size: cover; это у донора картинка была фоном */
+  border-radius: 50%;
+}
+
+.text {
+  position: absolute;/* попробовать сделать без этого свойства?! */
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-mono, monospace);
+  animation: rotateText 10s linear infinite;
+}
+
+@keyframes rotateText {
+  0% {transform: rotate(360deg);}
+  100% {transform: rotate(0deg);}
+}
+
+.text:hover {
+  animation-duration: 5s;
+}
+
+.text span {
+  position: absolute;
+  left: 50%;
+  font-size: 1.2em;
+  transform-origin: 0 100px;/* тут указывать половину ширины .circle */
+}
+
+
+
+/*---------------------- Адаптив ----------------------------*/
+
+@media screen and (min-width: 576px) {
+  html {
+    font-size: .9px;/* это задает базовый размер шрифта в 1rem! */
+  }
+
+  .container {
+    max-width: 1300rem;
+    padding-right: 50rem;
+    padding-left: 50rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  html {
+    font-size: 1px;/* это задает базовый размер шрифта в 1rem! */
+  }
+}
+
+@media screen and (min-width: 3500px) {
+  html {
+    font-size: 1.2px;/* это задает базовый размер шрифта в 1rem! */
+  }
+}
+  </style>
+</head>
+
+
+<body>
+
+
+  <main>
+    <div class="container">
+
+
+      <h1>Текст по кругу</h1>
+      <br><br><br><br>
+
+
+      <h2>Крутящийся текст по кругу</h2>
+      <p>Создан по ролику канала <a href="https://youtu.be/zwl3kZPZ8H8">
+        Online Tutorials</a>.</p>
+      <br><br><br><br>
+
+
+      <div class="circle">
+        <p class="text">Mitorun Studio – Web development – </p>
+        <img class="logo" width="300" height="300" src="https://picsum.photos/300/300" alt="Логотип">
+      </div>
+
+
+      <div style="height: 1440px;"></div>
+
+    </div>
+  </main>
+
+
+  <script>
+    /* В этом скрипте нужно подбирать подходящее число вместо "8.2" в "(${i * 8.2}deg)" для разной ширины текста */
+    const text = document.querySelector('.text');
+    text.innerHTML = text.innerText.split("").map(
+      (char, i) =>
+      `<span style="transform:rotate(${i * 10.22}deg)">${char}</span>`
+    ).join("")
+  </script>
+
+
+</body>
+</html>

@@ -1,0 +1,1503 @@
+<!doctype html><!-- Файл form-full.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Формы связи – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+/*------------------------------------------------
+---------- Компонент Кнопка: ---------------------
+------------------------------------------------*/
+
+.button {
+	position: relative;
+	display: inline-grid;
+	grid-template-columns: auto;/* или max-content */
+	grid-auto-columns: auto;
+	grid-auto-flow: column;
+	place-items: center;
+	place-content: center;
+	column-gap: calc(var(--padding-form) / 2);
+	width: fit-content;
+	padding: var(--padding-form) calc(var(--padding-form) * 2);
+	font-weight: var(--font-weight-form);
+	font-size: var(--font-size-form);
+	line-height: var(--line-height-form);
+	text-align: center;
+	text-decoration: none;
+	/*text-transform: uppercase;
+	letter-spacing: 0.03em;*/
+	color: var(--white);
+	background-color: var(--color-main);
+	border: 1px solid var(--color-main);
+	border-radius: var(--border-radius);
+	/*box-shadow: var(--shadow);*/
+	/*overflow: hidden;*/
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	-webkit-tap-highlight-color: transparent;
+	cursor: pointer;
+	/*user-select: none; чтобы не выделялся контент кнопки */
+	transition: 0.25s;
+}
+
+.button--icon::after {
+	content: '';
+	width: 24px;
+	height: 24px;
+	/*background-image: url('/img/sprite.svg#arrow-simple-dark');*/
+	background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" fill="none" stroke="%23fff" stroke-width=".6"%3E%3Cpath d="M7 4H0 M5 2L7 4L5 6"/%3E%3C/svg%3E') 50% / 100% no-repeat;
+}
+
+.button--2 {
+	color: var(--color-main);
+	background: transparent;
+	/*border: 2px solid currentColor;*/
+	/*box-shadow: none;*/
+}
+
+.button--s {
+	padding: 8px 16px;
+	font-size: var(--font-size-s);
+}
+
+@media (max-width: 449.98px) {
+	.button {
+		width: 100%;
+	}
+}
+
+.button--center {
+	position: relative;
+	left: 50%;
+	translate: -50%;
+}
+
+.button:not([disabled]):hover {
+	filter: brightness(115%);
+}
+
+.button--2:not([disabled]):hover {
+	box-shadow: inset 0 0 0 1px var(--color-main);
+}
+
+.button--icon:not([disabled]):hover {
+	column-gap: calc(var(--padding-form) / 2 + 16px);
+	padding: var(--padding-form) calc(var(--padding-form) * 2 - 8px);
+}
+
+.button:active {
+	filter: brightness(95%) !important;
+}
+
+.button--wide {
+	width: 100%;
+	max-width: 600px;
+}
+
+.disabled,
+button:disabled,
+input[disabled],
+input[aria-disabled=true],
+fieldset[disabled] {
+	transform: none;
+	opacity: 0.6;/* это делает отключенные кнопки полупрозрачными */
+	filter: grayscale(0.8);/* это делает отключенные кнопки серенькими */
+}
+/*-------- Конец компонента Кнопка. ------------*/
+
+
+
+/*------------------------------------------------
+---------- Компонент Форма связи: ----------------
+------------------------------------------------*/
+
+.form {
+	display: grid;
+	gap: var(--margin-s);
+	width: min(400px, 100%);
+	/*margin-left: auto;
+	margin-right: auto;*/
+	padding: var(--margin-s);
+	background-color: hsla(0, 0%, 0%, 0.05);
+	/*accent-color: var(--color-main); эксперимент с новым свойством */
+}
+
+.form__title {
+	margin-bottom: 4px;
+	font-weight: var(--font-weight-l);
+	font-size: var(--font-size-l);
+	line-height: var(--line-height-xs);
+}
+
+
+
+
+/*-------- Стили для текстовых инпутов: --------*/
+
+.form__item {
+	display: grid;
+	gap: var(--margin-xs);
+	/*align-items: center; это было у Kevin Powell */
+}
+
+.form__label {
+	display: block;
+	width: fit-content;/* это чтобы кликабельная область лейблов не была больше самого текста. */
+	line-height: 1;
+	pointer-events: none;/* хорошо ли так делать? */
+}
+
+.form__label.required::after {
+	content: ' *';
+}
+
+.form__input {
+	display: block;/* убирает отступ-строку под textarea! */
+	width: 100%;
+	/*min-height: 40px;*/
+	padding: var(--padding-form) calc(var(--padding-form) * 1.2);
+	font-weight: var(--font-weight-form);
+	font-size: var(--font-size-form);
+	line-height: var(--line-height-form);
+	background-color: var(--bg);
+	background-clip: padding-box;/* зачем? */
+	border: var(--border);
+	border-radius: var(--border-radius);
+	/*box-shadow: var(--border-shadow);*/
+	resize: none;/* или vertical; это для textarea */
+}
+
+.form__input::placeholder {
+	color: var(--grey);
+}
+
+.form__input:focus {
+	outline-offset: 4px;
+}
+
+.form__hint {
+	font-size: var(--font-size-s);
+	line-height: 1;
+	color: var(--grey);
+}
+
+
+
+
+/*--- Стили для чекбоксов и радиокнопок: -------*/
+
+.form__fieldset {
+	display: grid;
+	gap: var(--margin-xs);
+	border: none;
+}
+
+legend.form__title {
+	margin-bottom: var(--margin-xs);
+}
+
+.form__item-point {
+	display: grid;
+	grid-template-columns: auto;
+	grid-auto-columns: auto;
+	grid-auto-flow: column;
+	/*align-items: center;*/
+	gap: var(--margin-xs);
+	width: fit-content;/* это чтобы кликабельная область лейблов не была больше самого текста. */
+	font-size: var(--font-size-m);
+	cursor: pointer;
+	transition: 0.13s linear;
+}
+
+.form__item-point:not([disabled]):hover {
+	color: var(--color-main);
+}
+
+.form__label-point {
+	display: block;
+	width: fit-content;/* это чтобы кликабельная область лейблов не была больше самого текста. */
+	line-height: 1;
+}
+
+.form__input-point {
+	position: relative;
+	display: inline-block;
+	width: 2em;
+	/*height: 22px;*/
+	aspect-ratio: 1/1;
+	margin-top: -0.4em;
+	/*vertical-align: -2px;*/
+	/*vertical-align: text-bottom;*/
+	background: var(--bg);/* #fff нужно для iOS, иначе фон станет черным. */
+	border: 2px solid currentColor;
+	/*border-radius: 10%;*/
+	/*box-shadow: var(--border-shadow);*/
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+.form__input-point::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	display: block;
+	/*margin: auto;
+	overflow: hidden;
+	visibility: hidden; это другой вариант появления галки */
+	scale: 0;
+	transform-origin: center;
+	transition: scale 0.16s ease-in;
+}
+
+/*-------- Стили чекбокса: ---------------------*/
+
+.form__input-point[type=checkbox]::before {
+	/*или:
+	content: '✔';
+	или:
+	content: '';
+	width: 45%;
+	height: 70%;
+	border-right: 3px solid currentColor;
+	border-bottom: 3px solid currentColor;
+	transform: rotate(45deg) translateY(-8%) translateX(-4%);*/
+	background: url('img/sprite.svg#checkbox') 50% / 85% no-repeat;
+	background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" fill="none" stroke="%23000" stroke-width="1.2"%3E%3Cpath d="M1.2 3.3L3.3 6L6.8 2"/%3E%3C/svg%3E');
+}
+
+/*-------- Стили радиокнопки: ------------------*/
+
+.form__input-point[type=radio] {
+	border-radius: 99px;
+}
+
+.form__input-point[type=radio]::before {
+	padding: 16%;
+	background: content-box currentColor;
+	border-radius: 99px;
+}
+
+.form__input-point:checked::before {
+	scale: 1;
+	transition: scale 0.2s cubic-bezier(0.25, 0.25, 0.56, 1.8);
+}
+
+/*.form__input-point[type=checkbox]:focus-visible,
+.form__input-point[type=radio]:focus-visible {
+	outline: 2px solid;
+	outline-offset: 2px;
+}*/
+
+
+
+
+/*------------------------------------------------
+---------- Валидация текстовых полей: ------------
+------------------------------------------------*/
+
+/* Добавление иконок к валидации инпутов: */
+.form__input,
+.form__validation {
+	grid-area: 2 / 1 / 3 / 2;
+	align-self: center;
+	justify-self: end;
+}
+
+/* Псевдоклассы :user-(in)valid пока не работают в браузерах, ниже воссоздан их функционал с псевдоклассом :invalid
+.form__input:required:user-valid {
+	background-color: var(--bg-success, hsla(120, 100%, 25%, 0.1));
+	border-color: var(--color-success, green);
+}
+
+.form__input:required:user-invalid {
+	background-color: var(--bg-danger, hsla(0, 100%, 50%, 0.1));
+	border-color: var(--color-danger, red);
+}
+
+.form__item:required:has(:user-invalid:not(:focus)) {
+	animation: shake 0.7s;
+}*/
+
+/*.form__input:required:valid + .form__validation::before {
+	content: '✓';
+	color: var(--color-success, green);
+}*/
+
+
+
+/* Способ воссоздать функционал псевдокласса :user-invalid:
+Для хорошей работы этого способа нужно что-то записать в плейсхолдер! */
+
+/* autoprefixer: off */
+.form__input:invalid:not(:placeholder-shown):not(:focus) {
+	/*background-color: var(--bg-danger, hsla(0, 100%, 50%, 0.1));*/
+	border-color: var(--color-danger, red);
+	/*box-shadow: inset 0 0 0 1px var(--color-danger, red);*/
+}
+
+.form__input:invalid:not(placeholder-shown):not(:focus) + .form__validation::before {
+	content: '!';
+	display: grid;
+	place-content: center;
+	width: 1.2em;
+	height: 1.2em;
+	margin: 0 calc(var(--padding-form) * 1.2);
+	color: var(--white);
+	background-color: var(--color-danger, red);
+	border-radius: 99px;
+	opacity: 0.6;
+	pointer-events: none;
+
+	/*-webkit-mask: url('img/sprite.svg#cross') center / contain no-repeat;
+	mask: url('img/sprite.svg#cross') center / contain no-repeat;*/
+}
+
+.form__input:invalid:placeholder-shown + .form__validation::before,
+.form__input:valid:placeholder-shown + .form__validation::before {
+	visibility: hidden;
+}
+
+
+
+
+/*--- Анимация тряски невалидного инпута: ------*/
+
+.form__item:has(:invalid:not(:focus)) {
+	animation: shake 0.65s;
+}
+
+.form__item:has(:placeholder-shown:not(:focus)) {
+	animation: none;
+}
+/* autoprefixer: on */
+
+@keyframes shake {
+	0%, 100% {
+		translate: 0;
+	}
+	20%, 40%, 60%, 80% {
+		translate: -4px;
+	}
+	10%, 30%, 50%, 70%, 90% {
+		translate: 4px;
+	}
+}
+
+/* Стили для кнопки, когда форма невалидна: */
+.form:invalid [type="submit"] {
+	opacity: 0.7;
+}
+
+/* Валидация чекбоксов и радиокнопок:
+Сейчас вроде не стоит использовать пока нет :user-invalid
+[type="checkbox"]:user-invalid {
+	outline: 2px solid red;
+	outline-offset: 2px;
+}*/
+
+/*------------------------------------------------
+---------- Отключенная форма и инпуты: -----------
+------------------------------------------------*/
+
+[disabled],
+.disabled,
+.form [disabled],
+input[disabled],
+input[aria-disabled=true] {
+	opacity: 0.55;
+}
+
+/*------------------------------------------------
+---------- Валидация всей формы: -----------------
+------------------------------------------------*/
+
+/* Валидация всей формы:
+Вроде не советуется использовать, так как плохая доступность для скринридеров
+.form:invalid button {
+	opacity: 0.5;
+	pointer-events: none;
+}*/
+
+
+
+
+/*------------------------------------------------
+-- Сообщения об успешной или неудачной отправке: -
+------------------------------------------------*/
+
+.form__success,
+.form__failure {
+	display: none;
+	padding: var(--padding-form-s);
+	font-size: var(--font-size-form-s);
+	color: var(--white);
+	background-color: var(--color-success, green);
+	border: 1px solid var(--color-success, green);
+	border-radius: var(--border-radius-l);
+
+	/*height: 0;
+	opacity: 0;
+	transition: 0.5s linear;*/
+}
+
+.form__failure {
+	color: var(--color-danger, red);
+	background-color: var(--bg-danger, hsla(0, 100%, 50%, 0.1));
+	border-color: var(--color-danger, red);
+}
+
+.form__success.active,
+.form__failure.active {
+	display: block;
+
+	/*height: auto;
+	opacity: 1;*/
+}
+
+
+
+/*-------- Конец основы компонента формы. ------*/
+
+
+
+
+/*-------------------------------------------
+-- Другие варианты стилизации чек и радио: --
+-------------------------------------------*/
+
+/*.form__input-point[type=checkbox]:checked::before {
+	background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" fill="none" stroke="%23000" stroke-width="1.2"%3E%3Cpath d="M1.2 3.3L3.3 6L6.8 2"/%3E%3C/svg%3E');
+	background-repeat: no-repeat;
+	background: content-box url('/img/sprite.svg#chekbox') 50% 50% / 100% 100% no-repeat grey;
+}*/
+
+/*.form__input-point[type=checkbox]:checked:hover {
+	background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" fill="none" stroke="royalblue" stroke-width="1.2"%3E%3Cpath d="M1.2 3.3L3.3 6L6.8 2"/%3E%3C/svg%3E');
+}*/
+
+/* Вариант чекбоксов с заливкой:
+.form__input-point[type=checkbox]:checked::before {
+	border-right: 3px solid white;
+	border-bottom: 3px solid white;
+}
+
+.form__input-point[type=checkbox]:checked {
+	background-color: currentColor;
+}*/
+
+/* Чекбоксы с тремя состояниями (с JS):
+.form__input-point[type=checkbox]:indeterminate::before,
+.form__input-point[type=checkbox][aria-checked=mixed]::before {
+	width: 40%;
+	height: 0;
+	border: 2rem solid currentColor;
+}*/
+
+/* Вариант стилей чекбоксов и радио от веб.дев:
+Для него в HTML инпут и лейбл должны стоять рядом!*/
+/*input[type="radio"],
+input[type="checkbox"] {
+	position: absolute;
+	opacity: 0;
+}
+
+input[type="radio"] + label::before {
+	content: '';
+	width: 1em;
+	height: 1em;
+	border: 1px solid black;
+	display: inline-block;
+	border-radius: 50%;
+	margin-inline-end: 0.5em;
+}
+
+input[type="radio"]:checked + label::before {
+	background: black;
+}*/
+
+
+
+/*------------------------------------------------
+-- Стили для выпадающих списков (select/option): -
+------------------------------------------------*/
+
+/* Кастомная стрелка для селекта: */
+select.form__input:not([multiple]) {
+	max-width: 100%;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+	/* Создание иконки-стрелки: */
+	/*background-image: url('img/sprite.svg#arrow-simple');*/
+	background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 8 8" fill="none" stroke="%23000" stroke-width=".8"%3E%3Cpath d="M1 3L4 6L7 3"/%3E%3C/svg%3E');
+	background-repeat: no-repeat;
+	background-position: right var(--padding-form) top 50%;
+	background-size: 0.8em auto;
+	word-wrap: normal;
+}
+
+/* Стрелка селекта отдельным элементом:
+select.form__input,
+.select-icon {
+	grid-area: 2 / 1 / 3 / 2;
+	align-self: center;
+	justify-self: end;
+}
+
+.select-icon::after {
+	content: '✓';
+	position: relative;
+	z-index: 2;
+	background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+	background-repeat: no-repeat;
+	background-position: right 0.7em top 50%;
+	background-size: 0.65em auto;
+}*/
+
+select.form__input::-ms-expand {
+	display: none;
+}
+
+select.form__input:not([multiple]):hover {
+	color: var(--color-main);
+	background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 8 8" fill="none" stroke="royalblue" stroke-width=".8"%3E%3Cpath d="M1 3L4 6L7 3"/%3E%3C/svg%3E');
+	cursor: pointer;
+}
+
+.form__input optgroup[label] {
+	color: grey;
+}
+
+.form__input option {
+	font-weight: normal;
+	color: var(--color);
+}
+
+/*------------------------------------
+---- Поле поиска (type[search]): -----
+------------------------------------*/
+
+.search {
+	position: relative;
+}
+
+.form__input[type=radio] {
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+.search-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: 48px;
+	height: 100%;
+	background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" aria-hidden="true"%3E%3Cpath d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/%3E%3C/svg%3E') 50% / 32px no-repeat rgba(132, 132, 132, 0.08);
+	border: 1px solid rgba(132, 132, 132, 0.2);
+	border-radius: var(--border-radius);
+	cursor: pointer;
+}
+
+
+
+
+/*---------------------------------------------
+------------- Загрузка файлов: ----------------
+---------------------------------------------*/
+
+.form-input-file {
+	height: 0;
+	padding: 0;
+	opacity: 0;
+}
+
+.form__label-file {
+	cursor: pointer;
+}
+
+/*.form__label-file {
+	box-shadow: 1px 1px 3px #ccc;
+	background: linear-gradient(to bottom, #eee, #ccc);
+	border: 1px solid rgb(169, 169, 169);
+	border-radius: 5px;
+	text-align: center;
+	line-height: 1.5;
+}
+
+.form__label-file:hover {
+	background: linear-gradient(to bottom, #fff, #ddd);
+}
+
+.form__label-file:active {
+	box-shadow: inset 1px 1px 3px #ccc;
+}*/
+
+
+
+
+/*------------------------------------------------
+---------- Форма №2 нестандартная: ---------------
+------------------------------------------------*/
+
+/*--- Эти стили только дополняют базовые, их нужно объединять! ---*/
+
+/*.form--2 {}*/
+
+.form--2 .form__item {
+	position: relative;
+	display: block;
+}
+
+.form--2 .form__label {
+	position: absolute;
+	top: var(--padding-form);
+	left: calc(var(--padding-form) * 1.2);
+	/*z-index: -1;  без этой команды названия полей label закрывают форму input и там не получается кликать по ней */
+	color: var(--grey);
+	pointer-events: none;
+	transition: 0.35s ease-in-out;
+}
+
+.form--2 .form__input {
+	/*position: relative;
+	z-index: 4; это моя доработка кода, убирает проблемы наложения фона form-03, input и label. Но из-за этого индекса форма налезает на модалки и хедер! */
+	/*padding: calc(var(--padding-form) + 6px) calc(var(--padding-form) * 1.2) calc(var(--padding-form) - 6px); это вариант сместить текст инпута, когда лейбл поднимается в пределах инпута, а не выше него */
+}
+
+/* autoprefixer: off */
+.form--2 .form__input:focus ~ .form__label,
+.form--2 .form__input:not(:placeholder-shown) ~ .form__label {
+	/*top: -18px;*/
+	top: calc(-1.4 * var(--padding-form));
+	/*left: 0;*/
+	/*font-weight: 500;*/
+	font-size: var(--font-size-s);
+	color: var(--color);
+}
+/* autoprefixer: on */
+/* Анимация сдвига лейбла при фокусе не работала из-за автопрефиксера: он добавляет селектор который ломает вёрстку ".form-input:not(:placeholder-shown)~.form__label" */
+
+.form--2 .form__input:focus ~ .form__label {
+	color: var(--color-main);
+}
+
+.form--2 .form__input:focus {
+	border-color: var(--color-main);
+	outline: none;
+	/*box-shadow: inset 0 0 0 1px var(--color-main);*/
+}
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Формы связи: дополнительные инпуты</h1>
+		<hr>
+
+
+
+
+		<h2>Выпадающие списки (select)</h2>
+
+		<form class="form">
+			<!--Выбор опций (option):-->
+			<div class="form__item">
+				<label class="form__label" for="select">Выбор простой</label>
+				<select class="form__input" id="select" name="select">
+					<option value="unselected" selected>Не выбрано</option>
+					<option value="cheap">Дешевый</option>
+					<option value="medium">Средний</option>
+					<option value="costly">Дорогой</option>
+				</select>
+			</div>
+
+
+			<div class="form__item">
+				<label class="form__label" for="groups">Выбор с группами:</label>
+				<select class="form__input" id="groups" name="groups">
+					<optgroup label="Фрукты:">
+						<option selected></option>
+						<option>Банан</option>
+						<option>Вишня</option>
+						<option>Лемон</option>
+					</optgroup>
+					<optgroup label="Овощи:">
+						<option>Редис</option>
+						<option>Свекла</option>
+						<option>Картофель</option>
+					</optgroup>
+				</select>
+			</div>
+
+
+			<div class="form__item">
+				<label class="form__label" for="multi">Множественный выбор:</label>
+				<select class="form__input" id="multi" name="multi" multiple size="3">
+					<option>Банан</option>
+					<option>Вишня</option>
+					<option>Лемон</option>
+					<option>Редис</option>
+					<option>Свекла</option>
+					<option>Картофель</option>
+				</select>
+			</div>
+
+
+			<div class="form__item">
+				<label class="form__label" for="fruit">Выберите фрукт:</label>
+				<input class="form__input" id="fruit" type="text" name="fruit" list="suggestion">
+				<datalist id="suggestion">
+					<option>Апельсин</option>
+					<option>Банан</option>
+					<option>Вишня</option>
+					<option>Лемон</option>
+					<option>Персик</option>
+					<option>Слива</option>
+					<option>Смородина</option>
+					<option>Яблоко</option>
+				</datalist>
+			</div>
+		</form>
+		<hr>
+
+
+
+
+		<h2>Форма регистрации</h2>
+
+		<form class="form" id="form" action="" method="POST" enctype="multipart/form-data">
+			<h3 class="form__title">Регистрация</h3>
+
+
+			<div class="form__item">
+				<label class="form__label required" for="email">Ваш емейл</label>
+				<input class="form__input" id="email" type="email" name="email" placeholder="email@example.com" autocomplete="email" minlength="6" maxlength="100" required><!--title="Введите валидный емейл"-->
+			</div>
+
+
+			<div class="form__item">
+				<label class="form__label" for="password">Пароль (обязательно)</label>
+				<input class="form__input" id="password" type="password" name="password" placeholder="********" autocomplete="new-password" pattern="[a-zA-Z0-9]{8,100}" minlength="8" maxlength="100" required><!--title="Латинские буквы и цифры, минимум 8 символов"-->
+			</div>
+
+
+			<!--Кнопка отправки формы:-->
+			<button class="button" type="submit">Кнопка</button>
+
+
+			<!--Сообщения об успешной или неудачной отправке:-->
+			<p class="form__success">Сообщение отправлено.</p>
+			<p class="form__failure">Сообщение не отправлено!</p>
+		</form>
+		<hr>
+
+
+
+
+		<h2>Форма входа</h2>
+
+		<form class="form" id="form" action="" method="POST" enctype="multipart/form-data">
+			<h3 class="form__title">Вход</h3>
+
+
+			<div class="form__item">
+				<label class="form__label required" for="email">Ваш емейл</label>
+				<input class="form__input" id="email" type="email" name="email" placeholder="email@example.com" autocomplete="email" minlength="6" maxlength="100" required>
+			</div>
+
+
+			<div class="form__item">
+				<label class="form__label" for="password">Пароль (обязательно)</label>
+				<input class="form__input" id="password" type="password" name="password" placeholder="******" autocomplete="current-password" required>
+			</div>
+
+
+			<!--Кнопка отправки формы:-->
+			<button class="button" type="submit">Кнопка</button>
+
+
+			<!--Сообщения об успешной или неудачной отправке:-->
+			<p class="form__success">Сообщение отправлено.</p>
+			<p class="form__failure">Сообщение не отправлено!</p>
+		</form>
+		<hr>
+
+
+
+
+		<h2>Продвинутая форма регистрации</h2>
+		<p>Добавлена кнопка "Показать пароль", которая меняет тип инпута с пароля на обычный текст и наоборот, и выводит необходимые сообщения для доступности.</p>
+		<p>Надо улучшить этот код, сделать кнопку для показа пароля иконкой глаза и расположить или в конце инпута или правее инпута (чтобы не перекрывать иконку крестика). Важно сделать кнопку доступной. Соедините button с input type="password" использованием атрибута aria-controls.</p>
+		<form>
+			<div class="form__item">
+				<label class="form__label" for="email">Емейл</label>
+				<input class="form__input" id="email" type="email" name="email" placeholder="email@example.com" autocomplete="email" minlength="6" maxlength="100" required>
+			</div>
+
+
+			<div class="form__item">
+				<label for="form__label password">Пароль</label>
+				<input class="form__input password-field" id="password" type="password" name="password" placeholder="******" autocomplete="new-password" minlength="6" maxlength="100" required>
+				<span class="form__validation" aria-hidden="true"></span>
+				<button class="reveal-password" type="button" data-pressed="false" aria-controls="password" data-text-show="Показать пароль" data-text-hide="Скрыть пароль" hidden>Показать пароль</button>
+				<span class="vh password-announce" data-text-shown="Ваш пароль показан" data-text-hidden="Ваш пароль скрыт" aria-live="polite"></span>
+			</div>
+			<button class="button" type="submit">Сохранить</button>
+
+			<style>
+.vh {
+	position: absolute !important;
+	width: 1px !important;
+	height: 1px !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	overflow: hidden !important;
+	clip: rect(0 0 0 0) !important;
+	-webkit-clip-path: inset(50%) !important;
+	clip-path: inset(50%) !important;
+	border: 0 !important;
+	white-space: nowrap !important;
+}
+
+.has-js::-ms-reveal {
+	display: none;
+}
+
+.has-js::reveal {
+	display: none;
+}/* Это скрывает кнопку в Edge, так как там есть встроенная в браузер кнопка */
+
+.reveal-password {
+	padding: 0.2em 1em;
+	text-transform: capitalize;
+	border: none;
+	background: #555;
+	border-radius: 0;
+	display: inline-grid;
+	grid-template-columns: 1fr;
+	grid-template-rows:  1fr;
+	margin-top: 0;
+}
+
+.reveal-password::before {
+	content: attr(data-text-show);
+	grid-area: 1 / 1;
+	height: 0px;
+	visibility: hidden;
+}
+			</style>
+			<script>
+// Скрипт для работы кнопки "Показать пароль":
+const revealPassword = document.querySelector('.reveal-password');
+const passwordField = document.querySelector('.password-field');
+const passwordAnnounce = document.querySelector('.password-announce');
+
+if (revealPassword && passwordField && passwordAnnounce) {
+	revealPassword.hidden = false;
+	passwordField.classList.add('has-js');
+
+	revealPassword.addEventListener('click', (event) => {
+		let isPressed = revealPassword.getAttribute('data-pressed') === 'true';
+		if (isPressed) {
+			passwordField.type = 'password';
+			revealPassword.innerText = revealPassword.dataset.textShow;
+			passwordAnnounce.innerText = passwordAnnounce.dataset.textHidden;
+		} else {
+			passwordField.type = 'text';
+			revealPassword.innerText = revealPassword.dataset.textHide;
+			passwordAnnounce.innerText = passwordAnnounce.dataset.textShown;
+		}
+		revealPassword.setAttribute('data-pressed', String(!isPressed));
+	});
+
+}
+			</script>
+		</form>
+		<hr>
+
+
+
+
+		<h2>Навороченная форма входа</h2>
+		<form>
+			<div class="form__item">
+				<label class="form__label" for="email">Емейл</label>
+				<input class="form__input" id="email" type="email" name="email" placeholder="email@example.com" autocomplete="email" minlength="6" maxlength="100" required>
+			</div>
+
+
+			<div>
+				<label for="password">Password</label>
+				<input required minlength="8" type="password" id="password" name="password" aria-describedby="password-minlength" autocomplete="current-password" class="password-field">
+				<button type="button" hidden data-pressed="false" class="reveal-password" aria-controls="password" data-text-show="Show password" data-text-hide="Hide password">Show password</button>
+				<span data-text-shown="Your password is shown" data-text-hidden="Your password is hidden" class="visually-hidden password-announce" aria-live="polite"></span>
+				<div id="password-minlength">Eight or more characters</div>
+			</div>
+			<div><a href="/.well-known/change-password">Forgot password?</a></div>
+			<button class="submit">Sign in</button>
+		</form>
+		<hr>
+
+
+
+
+
+		<h2>Форма с адресом</h2>
+
+		<form class="form" id="form" action="" method="POST" enctype="multipart/form-data">
+			<h3 class="form__title">Заполните адрес</h3>
+
+
+			<!--Поля с адресом:-->
+			<div class="form__item">
+				<label class="form__label required" for="address-one">Address line</label>
+				<input class="form__input" id="address-one" type="text" name="address-one" autocomplete="address-line1" required>
+			</div>
+
+
+			<div class="form__item">
+				<label class="form__label" for="city">City</label>
+				<input class="form__input" id="city" type="text" name="city" autocomplete="address-level2" required>
+			</div>
+
+
+			<div class="form__item">
+				<label class="form__label" for="state">State / Province / Region (optional)</label>
+				<input class="form__input" id="state" type="text" name="state" autcomplete="address-level1">
+			</div>
+
+
+			<div class="form__item">
+				<label class="form__label" for="zip">ZIP / Postal code (optional)</label>
+				<input class="form__input" id="zip" type="text" name="zip" autocomplete="postal-code">
+			</div>
+
+
+			<div class="form__item">
+				<label class="form__label" for="country">Country</label>
+				<input class="form__input" id="country" type="text" name="country" autocomplete="country">
+			</div>
+
+
+			<!--Кнопка отправки формы:-->
+			<button class="button" type="submit">Кнопка</button>
+
+
+			<!--Сообщения об успешной или неудачной отправке:-->
+			<p class="form__success">Сообщение отправлено.</p>
+			<p class="form__failure">Сообщение не отправлено!</p>
+		</form>
+		<br>
+
+		<form class="form" id="form" action="" method="POST" enctype="multipart/form-data">
+			<div class="form__item">
+				<label for="name">Name</label>
+				<input required type="text" id="name" name="name" autocomplete="name" enterkeyhint="next">
+			</div>
+
+			<div class="form__item">
+				<label for="street-address">Street address</label>
+				<input type="text" id="street-address" name="street-address" autocomplete="street-address" required enterkeyhint="next"></input>
+			</div>
+
+			<div class="form__item">
+				<label for="postal-code">ZIP or postal code (optional)</label>
+				<input class="postal-code" id="postal-code" name="postal-code" autocomplete="postal-code" enterkeyhint="next">
+			</div>
+
+			<div class="form__item">
+				<label for="city">City</label>
+				<input required type="text" id="city" name="city" autocomplete="address-level2" enterkeyhint="next">
+			</div>
+
+			<div class="form__item">
+				<label for="country">Country or region</label>
+				<select id="country" name="country" autocomplete="country" enterkeyhint="done" required>
+					<option></option>
+					<option value="AF">Afghanistan</option>
+					<option value="AX">Åland Islands</option>
+					<option value="AL">Albania</option>
+					<option value="DZ">Algeria</option>
+					<option value="AS">American Samoa</option>
+					<option value="AD">Andorra</option>
+					<option value="AO">Angola</option>
+					<option value="AI">Anguilla</option>
+					<option value="AQ">Antarctica</option>
+					<option value="AG">Antigua &amp; Barbuda</option>
+					<option value="AR">Argentina</option>
+					<option value="AM">Armenia</option>
+					<option value="AW">Aruba</option>
+					<option value="AC">Ascension Island</option>
+					<option value="AU">Australia</option>
+					<option value="AT">Austria</option>
+					<option value="AZ">Azerbaijan</option>
+					<option value="BS">Bahamas</option>
+					<option value="BH">Bahrain</option>
+					<option value="BD">Bangladesh</option>
+					<option value="BB">Barbados</option>
+					<option value="BY">Belarus</option>
+					<option value="BE">Belgium</option>
+					<option value="BZ">Belize</option>
+					<option value="BJ">Benin</option>
+					<option value="BM">Bermuda</option>
+					<option value="BT">Bhutan</option>
+					<option value="BO">Bolivia</option>
+					<option value="BA">Bosnia &amp; Herzegovina</option>
+					<option value="BW">Botswana</option>
+					<option value="BV">Bouvet Island</option>
+					<option value="BR">Brazil</option>
+					<option value="IO">British Indian Ocean Territory</option>
+					<option value="VG">British Virgin Islands</option>
+					<option value="BN">Brunei</option>
+					<option value="BG">Bulgaria</option>
+					<option value="BF">Burkina Faso</option>
+					<option value="BI">Burundi</option>
+					<option value="KH">Cambodia</option>
+					<option value="CM">Cameroon</option>
+					<option value="CA">Canada</option>
+					<option value="CV">Cape Verde</option>
+					<option value="BQ">Caribbean Netherlands</option>
+					<option value="KY">Cayman Islands</option>
+					<option value="CF">Central African Republic</option>
+					<option value="TD">Chad</option>
+					<option value="CL">Chile</option>
+					<option value="CN">China</option>
+					<option value="CX">Christmas Island</option>
+					<option value="CC">Cocos (Keeling) Islands</option>
+					<option value="CO">Colombia</option>
+					<option value="KM">Comoros</option>
+					<option value="CG">Congo - Brazzaville</option>
+					<option value="CD">Congo - Kinshasa</option>
+					<option value="CK">Cook Islands</option>
+					<option value="CR">Costa Rica</option>
+					<option value="CI">Côte d’Ivoire</option>
+					<option value="HR">Croatia</option>
+					<option value="CW">Curaçao</option>
+					<option value="CY">Cyprus</option>
+					<option value="CZ">Czechia</option>
+					<option value="DK">Denmark</option>
+					<option value="DJ">Djibouti</option>
+					<option value="DM">Dominica</option>
+					<option value="DO">Dominican Republic</option>
+					<option value="EC">Ecuador</option>
+					<option value="EG">Egypt</option>
+					<option value="SV">El Salvador</option>
+					<option value="GQ">Equatorial Guinea</option>
+					<option value="ER">Eritrea</option>
+					<option value="EE">Estonia</option>
+					<option value="SZ">Eswatini</option>
+					<option value="ET">Ethiopia</option>
+					<option value="FK">Falkland Islands (Islas Malvinas)</option>
+					<option value="FO">Faroe Islands</option>
+					<option value="FJ">Fiji</option>
+					<option value="FI">Finland</option>
+					<option value="FR">France</option>
+					<option value="GF">French Guiana</option>
+					<option value="PF">French Polynesia</option>
+					<option value="TF">French Southern Territories</option>
+					<option value="GA">Gabon</option>
+					<option value="GM">Gambia</option>
+					<option value="GE">Georgia</option>
+					<option value="DE">Germany</option>
+					<option value="GH">Ghana</option>
+					<option value="GI">Gibraltar</option>
+					<option value="GR">Greece</option>
+					<option value="GL">Greenland</option>
+					<option value="GD">Grenada</option>
+					<option value="GP">Guadeloupe</option>
+					<option value="GU">Guam</option>
+					<option value="GT">Guatemala</option>
+					<option value="GG">Guernsey</option>
+					<option value="GN">Guinea</option>
+					<option value="GW">Guinea-Bissau</option>
+					<option value="GY">Guyana</option>
+					<option value="HT">Haiti</option>
+					<option value="HM">Heard &amp; McDonald Islands</option>
+					<option value="HN">Honduras</option>
+					<option value="HK">Hong Kong</option>
+					<option value="HU">Hungary</option>
+					<option value="IS">Iceland</option>
+					<option value="IN">India</option>
+					<option value="ID">Indonesia</option>
+					<option value="IR">Iran</option>
+					<option value="IQ">Iraq</option>
+					<option value="IE">Ireland</option>
+					<option value="IM">Isle of Man</option>
+					<option value="IL">Israel</option>
+					<option value="IT">Italy</option>
+					<option value="JM">Jamaica</option>
+					<option value="JP">Japan</option>
+					<option value="JE">Jersey</option>
+					<option value="JO">Jordan</option>
+					<option value="KZ">Kazakhstan</option>
+					<option value="KE">Kenya</option>
+					<option value="KI">Kiribati</option>
+					<option value="XK">Kosovo</option>
+					<option value="KW">Kuwait</option>
+					<option value="KG">Kyrgyzstan</option>
+					<option value="LA">Laos</option>
+					<option value="LV">Latvia</option>
+					<option value="LB">Lebanon</option>
+					<option value="LS">Lesotho</option>
+					<option value="LR">Liberia</option>
+					<option value="LY">Libya</option>
+					<option value="LI">Liechtenstein</option>
+					<option value="LT">Lithuania</option>
+					<option value="LU">Luxembourg</option>
+					<option value="MO">Macao</option>
+					<option value="MG">Madagascar</option>
+					<option value="MW">Malawi</option>
+					<option value="MY">Malaysia</option>
+					<option value="MV">Maldives</option>
+					<option value="ML">Mali</option>
+					<option value="MT">Malta</option>
+					<option value="MH">Marshall Islands</option>
+					<option value="MQ">Martinique</option>
+					<option value="MR">Mauritania</option>
+					<option value="MU">Mauritius</option>
+					<option value="YT">Mayotte</option>
+					<option value="MX">Mexico</option>
+					<option value="FM">Micronesia</option>
+					<option value="MD">Moldova</option>
+					<option value="MC">Monaco</option>
+					<option value="MN">Mongolia</option>
+					<option value="ME">Montenegro</option>
+					<option value="MS">Montserrat</option>
+					<option value="MA">Morocco</option>
+					<option value="MZ">Mozambique</option>
+					<option value="MM">Myanmar (Burma)</option>
+					<option value="NA">Namibia</option>
+					<option value="NR">Nauru</option>
+					<option value="NP">Nepal</option>
+					<option value="NL">Netherlands</option>
+					<option value="NC">New Caledonia</option>
+					<option value="NZ">New Zealand</option>
+					<option value="NI">Nicaragua</option>
+					<option value="NE">Niger</option>
+					<option value="NG">Nigeria</option>
+					<option value="NU">Niue</option>
+					<option value="NF">Norfolk Island</option>
+					<option value="KP">North Korea</option>
+					<option value="MK">North Macedonia</option>
+					<option value="MP">Northern Mariana Islands</option>
+					<option value="NO">Norway</option>
+					<option value="OM">Oman</option>
+					<option value="PK">Pakistan</option>
+					<option value="PW">Palau</option>
+					<option value="PS">Palestine</option>
+					<option value="PA">Panama</option>
+					<option value="PG">Papua New Guinea</option>
+					<option value="PY">Paraguay</option>
+					<option value="PE">Peru</option>
+					<option value="PH">Philippines</option>
+					<option value="PN">Pitcairn Islands</option>
+					<option value="PL">Poland</option>
+					<option value="PT">Portugal</option>
+					<option value="PR">Puerto Rico</option>
+					<option value="QA">Qatar</option>
+					<option value="RE">Réunion</option>
+					<option value="RO">Romania</option>
+					<option value="RU">Russia</option>
+					<option value="RW">Rwanda</option>
+					<option value="WS">Samoa</option>
+					<option value="SM">San Marino</option>
+					<option value="ST">São Tomé &amp; Príncipe</option>
+					<option value="SA">Saudi Arabia</option>
+					<option value="SN">Senegal</option>
+					<option value="RS">Serbia</option>
+					<option value="SC">Seychelles</option>
+					<option value="SL">Sierra Leone</option>
+					<option value="SG">Singapore</option>
+					<option value="SX">Sint Maarten</option>
+					<option value="SK">Slovakia</option>
+					<option value="SI">Slovenia</option>
+					<option value="SB">Solomon Islands</option>
+					<option value="SO">Somalia</option>
+					<option value="ZA">South Africa</option>
+					<option value="GS">South Georgia &amp; South Sandwich Islands</option>
+					<option value="KR">South Korea</option>
+					<option value="SS">South Sudan</option>
+					<option value="ES">Spain</option>
+					<option value="LK">Sri Lanka</option>
+					<option value="BL">St Barthélemy</option>
+					<option value="SH">St Helena</option>
+					<option value="KN">St Kitts &amp; Nevis</option>
+					<option value="LC">St Lucia</option>
+					<option value="MF">St Martin</option>
+					<option value="PM">St Pierre &amp; Miquelon</option>
+					<option value="VC">St Vincent &amp; Grenadines</option>
+					<option value="SR">Suriname</option>
+					<option value="SJ">Svalbard &amp; Jan Mayen</option>
+					<option value="SE">Sweden</option>
+					<option value="CH">Switzerland</option>
+					<option value="TW">Taiwan</option>
+					<option value="TJ">Tajikistan</option>
+					<option value="TZ">Tanzania</option>
+					<option value="TH">Thailand</option>
+					<option value="TL">Timor-Leste</option>
+					<option value="TG">Togo</option>
+					<option value="TK">Tokelau</option>
+					<option value="TO">Tonga</option>
+					<option value="TT">Trinidad &amp; Tobago</option>
+					<option value="TA">Tristan da Cunha</option>
+					<option value="TN">Tunisia</option>
+					<option value="TR">Turkey</option>
+					<option value="TM">Turkmenistan</option>
+					<option value="TC">Turks &amp; Caicos Islands</option>
+					<option value="TV">Tuvalu</option>
+					<option value="UG">Uganda</option>
+					<option value="UA">Ukraine</option>
+					<option value="AE">United Arab Emirates</option>
+					<option value="GB">United Kingdom</option>
+					<option value="US">United States</option>
+					<option value="UY">Uruguay</option>
+					<option value="UM">US Outlying Islands</option>
+					<option value="VI">US Virgin Islands</option>
+					<option value="UZ">Uzbekistan</option>
+					<option value="VU">Vanuatu</option>
+					<option value="VA">Vatican City</option>
+					<option value="VE">Venezuela</option>
+					<option value="VN">Vietnam</option>
+					<option value="WF">Wallis &amp; Futuna</option>
+					<option value="EH">Western Sahara</option>
+					<option value="YE">Yemen</option>
+					<option value="ZM">Zambia</option>
+					<option value="ZW">Zimbabwe</option>
+				</select>
+			</div>
+			<button class="button">Сохранить адрес</button>
+		</form>
+		<hr>
+
+
+
+
+		<h2>Поле поиска</h2>
+
+		<form class="search" target="_blank" method="get" action="https://www.google.com/search">
+			<label class="vh" for="search">Site search</label>
+			<input class="form__input" id="search" type="search" name="search" minlength="1" maxlength="100" autocomplete="on" placeholder="Site search" aria-label="Site search"><!--title="Search for:"-->
+			<input type="hidden" name="sitesearch" value="mitorun.studio/works/bullet/site/">
+			<button class="search-button" type="submit" value="Search" title="Start search">
+				<!--<svg width="24px" height="24px" aria-hidden="true">
+					<use href="/img/works/bullet/site/sprite.svg#search"></use>
+				</svg>-->
+			</button>
+		</form>
+		<hr><br>
+
+
+
+
+		<h2>Загрузка файлов</h2>
+
+		<form class="form" action="#" method="POST" enctype="multipart/form-data">
+			<div class="form__item">
+				<label class="form__input form__label-file" for="file">Выберите файл для загрузки</label>
+				<input class="form-input-file" id="file" type="file" name="file[]" multiple>
+				<ul id="file-list"></ul>
+			</div>
+			<div><button class="button">Отправить</button></div>
+
+			<!-- Скрипт для загрузки файлов от MDN: -->
+			<script>
+				//Скрипт для загрузки файлов от MDN:
+				const fileInput = document.querySelector('#file');
+				const fileList = document.querySelector('#file-list');
+
+				fileInput.addEventListener('change', updateFileList);
+
+				function updateFileList() {
+					while (fileList.firstChild) {
+						fileList.removeChild(fileList.firstChild);
+					}
+
+					let curFiles = fileInput.files;
+
+					if (!(curFiles.length === 0)) {
+						console.log('test');
+						for (let i = 0; i < curFiles.length; i++) {
+							const listItem = document.createElement('li');
+							listItem.textContent = 'File name: ' + curFiles[i].name + '; file size ' + returnFileSize(curFiles[i].size) + '.';
+							fileList.appendChild(listItem);
+						}
+					}
+				}
+
+				function returnFileSize(number) {
+					if (number < 1024) {
+						return number + 'bytes';
+					} else if (number >= 1024 && number < 1048576) {
+						return (number / 1024).toFixed(1) + 'KB';
+					} else if (number >= 1048576) {
+						return (number / 1048576).toFixed(1) + 'MB';
+					}
+				}
+			</script>
+
+
+			<!--Оформление загрузки файла от ФПЖ:-->
+			<div class="form-item">
+				<div class="form__label">Прикрепить файл</div>
+				<div class="file">
+					<div class="file-item">
+						<input class="form-input-file" id="file" type="file" name="file" accept=".avif, .webp, .jpg, .jpeg, .png, .gif" multiple>
+						<div class="button button-s">Выбрать</div>
+					</div>
+					<div class="file-view" id="filePreview"></div>
+				</div>
+			</div>
+		</form>
+		<hr><br>
+
+
+
+
+
+
+		<h2>Редкие инпуты</h2>
+
+		<form class="form" id="form" action="" method="POST" enctype="multipart/form-data">
+
+			<div>
+				<label for="number">Введите число <code>type="number"</code></label>
+				<input type="number" id="number" name="number" min="1" max="10" step="any">
+				<!--<input step="1 (default) | 0.01 | any">-->
+			</div>
+
+
+			<div>
+				<label for="output">Вывод результата <code>&lt;output&gt;</code></label>
+				<output class="numbers-thousand-space" id="output" name="output" for="" form="calc">30000</output>
+			</div>
+
+
+			<div>
+				<label for="output">Вывод результата (₽) <code>&lt;output&gt;</code></label>
+				<span><output class="numbers-thousand-space" id="output" name="output" for="" form="calc">30000</output>&nbsp;₽</span>
+			</div>
+
+
+			<div>
+				<label for="reset">Кнопка сброса <code>type="reset"</code></label>
+				<input type="reset" id="reset" name="reset">
+			</div>
+
+
+			<div>
+				<label for="date">Выберите дату <code>type="date"</code></label>
+				<input type="date" id="date" name="date" min="2013-06-01" max="2013-08-31" step="7">
+			</div>
+
+
+			<div>
+				<label for="datetime-local">Выберите дату и время <code>type="datetime-local"</code></label>
+				<input type="datetime-local" id="datetime-local" name="datetime-local">
+			</div>
+
+
+			<div>
+				<label for="month">Выберите месяц <code>type="month"</code></label>
+				<input type="month" id="month" name="month">
+			</div>
+
+
+			<div>
+				<label for="week">Выберите неделю <code>type="week"</code></label>
+				<input type="week" id="week" name="week">
+			</div>
+
+
+			<div>
+				<label for="time">Выберите время <code>type="time"</code></label>
+				<input type="time" id="time" name="time">
+			</div>
+
+
+			<div>
+				<label for="range">Выберите число <code>type="range"</code></label>
+				<input type="range" id="range" name="range" min="1" max="10">
+			</div>
+
+
+			<div>
+				<label for="range">Прогресс <code>&lt;progress&gt;</code></label>
+				<progress max="10" value="3">3/10</progress>
+			</div>
+
+
+			<div>
+				<label for="range">Шкала <code>&lt;meter&gt;</code></label>
+				<meter min="0" max="100" value="75" low="33" optimum="50" high="66">75</meter>
+			</div>
+
+
+			<div>
+				<label for="color">Выберите цвет <code>type="color"</code></label>
+				<input type="color" id="color" name="color">
+			</div>
+
+
+			<div>
+				<label for="url">Введите ссылку <code>type="url"</code></label>
+				<input type="url" id="url" name="url" minlength="4" maxlength="300">
+			</div>
+
+
+			<div>
+				<p>Скрытое поле для сервера <code>type="hidden"</code></p>
+				<input type="hidden" id="hidden" name="hidden" value="2022.01.15-15:03">
+			</div>
+
+
+			<div>
+				<label for="image">Кнопка с картинкой <code>type="image"</code></label>
+				<input type="image" id="image" name="image" src="https://picsum.photos/200/48" width="200" height="48" alt="Картинка">
+			</div>
+
+
+			<div>
+				<label for="submit">Кнопка отправить <code>type="submit"</code></label>
+				<input type="submit" id="submit" name="submit">
+			</div>
+
+
+			<button class="button">Сохранить</button>
+		</form>
+		<hr>
+
+
+
+
+
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

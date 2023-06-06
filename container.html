@@ -1,0 +1,277 @@
+<!doctype html><!-- Файл container.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Container – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+:root {
+	--container-padding: 14px;
+}
+
+@media (min-width: 576px) {
+	:root {
+		--container-padding: 30px;/* в бутстрапе 30px, можно 40px */
+	}
+}
+
+@media (min-width: 992px) {
+	:root {
+		--container-padding: 50px;
+	}
+}
+
+.coloring-1 {
+	margin-bottom: 40px;
+	background: content-box hsla(39, 100%, 50%, 0.2);
+	outline: 3px dashed hsla(39, 100%, 50%, 0.4);
+}
+
+.coloring-2 {
+	margin-bottom: 40px;
+	background: content-box hsla(280, 100%, 50%, 0.2);
+	outline: 3px dashed hsla(280, 100%, 50%, 0.4);
+}
+
+.coloring-3 {
+	margin-bottom: 40px;
+	background: content-box hsla(330, 100%, 50%, 0.2);
+	outline: 3px dashed hsla(330, 100%, 50%, 0.4);
+}
+
+.coloring-4 {
+	margin-bottom: 40px;
+	background: content-box hsla(120, 100%, 40%, 0.4);
+	outline: 3px dashed hsla(120, 100%, 40%, 0.7);
+}
+
+.coloring-5 {
+	margin-bottom: 40px;
+	background: content-box hsla(230, 100%, 50%, 0.3);
+	outline: 3px dashed hsla(230, 100%, 50%, 0.5);
+}
+
+/* Мой стандартный контейнер, сделанный отдельным дивом: */
+.container {
+	max-width: calc(1200px + 2 * var(--container-padding, 14px));
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: var(--container-padding, 14px);
+	padding-right: var(--container-padding, 14px);
+}
+
+/* Контейнер на всю ширину экрана 1920px: */
+.container-fluid {
+	max-width: 1920px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: var(--container-padding, 14px);
+	padding-right: var(--container-padding, 14px);
+}
+
+/* Способ ограничивать контент без отдельного контейнера:
+Ширины контейнеров как в бутстрап 5.2 */
+.container-2 {
+	padding-left: var(--container-padding, 14px);
+	padding-right: var(--container-padding, 14px);
+}
+
+@media (min-width: 576px) {
+	.container-2 {
+		padding-left: calc(50% - 270px);
+		padding-right: calc(50% - 270px);
+	}
+}
+
+@media (min-width: 768px) {
+	.container-2 {
+		padding-left: calc(50% - 360px);
+		padding-right: calc(50% - 360px);
+	}
+}
+
+@media (min-width: 992px) {
+	.container-2 {
+		padding-left: calc(50% - 480px);
+		padding-right: calc(50% - 480px);
+	}
+}
+
+@media (min-width: 1200px) {
+	.container-2 {
+		padding-left: calc(50% - 570px);
+		padding-right: calc(50% - 570px);
+	}
+}
+
+@media (min-width: 1400px) {
+	.container-2 {
+		padding-left: calc(50% - 660px);
+		padding-right: calc(50% - 660px);
+	}
+}
+
+/* Более простая и резиновая форма записи предыдущего контейнера: */
+.container-3 {
+	padding-left: var(--container-padding, 14px);
+	padding-right: var(--container-padding, 14px);
+}
+
+@media (min-width: 1300px) {
+	.container-3 {
+		padding-left: calc(50% - 1200px / 2);
+		padding-right: calc(50% - 1200px / 2);
+		/* у донора было 0 calc(50% - 570px); но тогда в расчеты влезает ширина скроллбара и в итоге контейнер становится на 17px меньше! */
+	}
+}
+
+/* Самый новый контейнер одним свойством: */
+.container-4 {
+	padding-left: max(calc(50% - 1200px / 2), var(--container-padding, 14px));
+	padding-right: max(calc(50% - 1200px / 2), var(--container-padding, 14px));
+	/*padding-inline: clamp(var(--container-padding, 14px), calc(50% - 600px) );*/
+	/*padding-left: minmax(var(--container-padding, 14px), calc(50% - 600px));
+	padding-right: minmax(var(--container-padding, 14px), calc(50% - 600px));*/
+}
+
+.container-4-fluid {
+	padding-left: max(calc(50% - 1820px / 2), var(--container-padding, 14px));
+	padding-right: max(calc(50% - 1820px / 2), var(--container-padding, 14px));
+}
+
+/* Вариант контейнера от Kevin Powell:
+Возможно что этот пример только для презентаций на ютубе */
+.container-5 {
+	/*width: min(calc(100% - var(--container-padding) * 2), 1200px);*/
+	width: min(100% - var(--container-padding) * 2, 1200px);
+	margin-inline: auto;
+}
+
+.vh {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	border: 0;
+	appearance: none;
+	clip: rect(0 0 0 0);
+	clip-path: inset(100%);
+}
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main>
+		<header class="container-new">
+			<h1>Контейнеры (ограничители контента)</h1>
+			<hr>
+		</header>
+
+
+
+
+		<section>
+			<div class="container coloring-1">
+				<h2>Контейнер №1 <code>.container</code></h2>
+				<p>Классический контейнер с отдельным дивом.</p>
+			</div>
+		</section>
+
+
+
+
+		<section>
+			<div class="container-fluid coloring-5">
+				<h2>Контейнер <code>.container-fluid</code></h2>
+				<p>Контейнер на всю ширину экрана.</p>
+			</div>
+		</section>
+
+
+
+
+		<section class="container-2 coloring-2">
+			<h2>Контейнер №2 <code>.container-2</code></h2>
+			<p>Контейнер без отдельного элемента. Имеет шаги с фикс-шириной и поведение как у бутстрапа (540px, 720px, 960px, 1140px, 1320px).</p>
+		</section>
+
+
+
+
+		<section class="container-3 coloring-3">
+			<h2>Контейнер №3 <code>.container-3</code></h2>
+			<p>Контейнер без отдельного элемента. Это упрощенная вариация с плавным изменения ширины.</p>
+			<p>Есть нюанс, что при <code>padding: 0 calc(<b>50vw</b> - 570px);</code> ширина контейнера не 1140px, а 1123px - из-за того что 17px отнимает на себя скроллбар. <b>50%</b> решило проблему</p>
+		</section>
+
+
+
+
+		<section class="container-4 coloring-4">
+			<h2>Контейнер №4 <code>.container-4</code></h2>
+			<p>Самая простая и перспективная версия контейнера! Без отдельного дива и одним свойством.</p>
+			<p>Сделано с помощью функции <code>max()</code>. Еще возможны варианты с <code>minmax()</code> и <code>clamp()</code>, но они вероятно или хуже или вообще не подходят.</p>
+		</section>
+
+
+
+
+		<section class="container-4-fluid coloring-4">
+			<h2>Контейнер №4-fluid <code>.container-4-fluid</code></h2>
+			<p>Версия контейнера №4 на всю страницу.</p>
+		</section>
+
+
+
+
+		<section class="container-5 coloring-3">
+			<h2>Контейнер №5 <code>.container-5</code></h2>
+			<p>Вариант контейнера от Kevin Powell и Стефани Эклз.</p>
+			<p>Сделано с помощью функции <code>width: min()</code>.</p>
+		</section>
+
+
+
+
+		<section class="container-6 coloring-1">
+			<h2>Контейнер №6</h2>
+			<p>Вариант контейнера на гридах с помощью свойства <code>grid-template-columns</code>.</p>
+			<pre class="codefield language-html"><code class="codefield__code">body {
+	display: grid;
+	grid-template-columns: minmax(1rem, 1fr) minmax(0, 65ch) minmax(1rem, 1fr);
+	grid-template-areas:
+	"header header header"
+	". main ."
+	". footer .";
+}</code></pre>
+		</section>
+
+
+
+
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

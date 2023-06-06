@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 8 8" fill="none" stroke="#000" stroke-width="1">
+	<path d="M1 7L7 1"/>
+	<path d="M1 1H7V7" stroke-linecap="square"/>
+
+	<!--<path id="diagonal-down-2b" d="M1 7L7 1"/>
+	<path id="diagonal-down-2a" d="M1 1V7H7" stroke-linecap="square"/>-->
+</svg>

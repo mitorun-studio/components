@@ -1,0 +1,310 @@
+<!doctype html><!-- Файл card-1.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="none">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Карточки #1 простые – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Карточки товаров, элементы галереи, инфоблокиблоки...">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+.gallery {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	gap: 26px;
+}
+
+.card {
+	display: grid;
+	grid-template-rows: 100px 50px 150px;
+	padding: 20px;
+	border: 1px solid black;
+	border-radius: 12px;
+}
+
+.card2 {
+	display: grid;
+	grid-template-rows: 100px 50px 150px;
+	padding: 20px;
+	border: 1px solid black;
+	border-radius: 12px;
+}
+
+.card3 {
+	display: grid;
+	grid-template-rows: 100px 50px 150px;
+	padding: 20px;
+	border: 1px solid black;
+	border-radius: 12px;
+}
+
+.card4 {
+	position: relative;
+	display: grid;
+	grid: 100px auto auto / 1fr;
+	gap: 10px;
+	padding: 20px;
+	border: 1px solid black;
+	border-radius: 12px;
+}
+
+.card4 img {
+	order: -1;
+	width: 100%;
+	height: 100px;
+	object-fit: cover;
+	clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 20px));
+}
+
+/* это растягивает ссылку в заголовке на всю карточку: */
+.card4 a::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.card5 {
+	position: relative;
+	display: grid;
+	grid: 100px auto auto / 1fr;
+	gap: 10px;
+	padding: 20px;
+	border: 1px solid black;
+	border-radius: 12px;
+}
+
+.card5 h3 {
+	grid-area: 2 / 1 / 3 / 2;
+}
+
+.card5 p {
+	grid-area: 3 / 1 / 4 / 2;
+}
+
+.card5 img {
+	grid-area: 1 / 1 / 2 / 2;
+	width: 100%;
+	height: 100px;
+	object-fit: cover;
+}
+
+.card5 a {
+	grid-area: 1 / 1 / -1 / -1;
+}
+
+.card6 {
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+	gap: 10px;
+	max-width: 330px;
+	padding: 120px 20px 20px;
+	background: linear-gradient(hsla(0, 0%, 100%, 0.001) 120px, hsl(0, 0%, 100%) 120px), border-box url('https://picsum.photos/300/150') 50% 0 / 100% auto no-repeat;
+	border: 1px solid black;
+	border-radius: 12px;
+}
+
+.card7 {
+	display: grid;
+	grid-template-rows: 100px auto 1fr;
+	gap: 10px;
+	justify-items: center;
+	padding: 20px;
+	border: 1px solid black;
+	border-radius: 12px;
+}
+
+.card8 {
+	display: grid;
+	grid: 100px auto auto / 1fr;
+	gap: 10px;
+	max-width: 60ch;/* это ограничивает ширину текстовых блоков если карточка сильно растянется */
+	padding: 20px;
+	border: 1px solid black;
+	border-radius: 12px;
+}
+
+.card8 img {
+	order: -1;
+	width: 100%;
+	height: 100px;
+	object-fit: cover;
+	clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 20px));
+}
+
+.card8:focus-within {
+	box-shadow: 0 0 0 5px;
+}
+
+.card9 {
+	position: relative;
+	display: grid;
+	grid: 100px auto auto / 1fr;
+	gap: 10px;
+	padding: 20px;
+	border: 1px solid black;
+	border-radius: 12px;
+}
+
+.card9 img {
+	order: -1;
+	width: 100%;
+	height: 100px;
+	object-fit: cover;
+}
+
+.card9 a::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.card9 .button {
+	padding: 12px 6px;
+	border: 1px solid;
+	border-radius: 8px;
+}
+
+.card-hover {
+	width: 200px;
+	height: 300px;
+	border: 1px solid #dbdce0;
+	border-radius: 8px;
+	box-shadow: 6px 6px 0 0 hsla(0, 0%, 0%, 0.15);
+	transition: transform 0.4s, box-shadow 0.5s;
+}
+
+.card-hover:hover {
+	box-shadow: 10px 10px 0 0 hsla(0, 0%, 0%, 0.1);
+	transform: translateY(-5px);
+}
+
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Карточки №1 простые</h1>
+		<br><br><hr><br><br>
+
+
+		<h2>Галерея с различными карточками</h2>
+
+		<p>Правила создания карточек:</p>
+		<ul>
+			<li>Нужно ли использовать элемент список для карточек? Для каких случаев точно нужен список, а для каких точно не нужен?</li>
+			<li>Если в карточке есть заголовок (обычно &lt;h3&gt;), то он должен идти первым в HTML.</li>
+			<li>Не очень правильно оборачивать всю карточку в ссылку в HTML. Если нужно всю карточку сделать кликабельной, то лучше ссылкой сделать название заголовка карточки и к ней добавить псевдоэлемент, который растянуть позиционированием на всю карточку.</li>
+			<li>Элементы внутри карточки хорошо располагать гридами. Тогда можно гибко задавать размеры элементов, их расположения (менять местами), расположить кнопку например справа и т. п.</li>
+			<li>Селекторы в карточках желательно делать такими, чтобы они не зависели от используемых элементов (h3, p, a, button...).</li>
+			<li>Для текстового содержимого карточек можно добавить для профилактики max-width: 60ch;, это ограничивает ширину текстовых блоков если карточка сильно растянется.</li>
+			<li>Для скринридеров (и поисковиков?) будет плохо, если карточки будут содержать ссылки с одинаковым текстом типа "Читать далее", "Подробнее". Например можно сделать ссылкой всю карточку, а кнопку с текстом "Подробнее" сделать чисто декоративной: &lt;span class="button" aria-hidden="true"&gt;Подробнее&lt;/span&gt;</li>
+		</ul>
+
+		<div class="gallery">
+			<div class="card">
+				<p>Карточка №1</p>
+				<p>Карточка с контейнером &lt;div&gt;, заголовком &lt;p&gt;, текстом &lt;p&gt; и картинкой &lt;img&gt;</p>
+				<img src="https://picsum.photos/300/150" alt="">
+			</div>
+
+			<article class="card2">
+				<h3>Карточка №2</h3>
+				<p>Карточка с контейнером &lt;article&gt;, заголовком &lt;h3&gt;, текстом &lt;p&gt;, картинкой &lt;img&gt; и ссылкой-кнопкой.</p>
+				<img src="https://picsum.photos/300/150" alt="">
+				<a href="#">Подробнее</a>
+			</article>
+
+			<a class="card3" href="#">
+				<h3>Карточка №3</h3>
+				<p>Карточка с контейнером-ссылкой &lt;a&gt;, заголовком &lt;h3&gt;, текстом &lt;p&gt; и картинкой &lt;img&gt;.</p>
+				<img src="https://picsum.photos/300/150" alt="">
+			</a>
+
+			<div class="card4">
+				<h3><a href="#">Карточка №4</a></h3>
+				<p>Карточка с заголовком &lt;h3&gt;, который содержит ссылку, растянутую на весь контейнер позиционированным псевдоэлементом.</p>
+				<img src="https://picsum.photos/300/150" alt="">
+			</div>
+
+			<div class="card5">
+				<h3>Карточка №5</h3>
+				<p>Экспериментальная карточка, в которой ссылка растягивается на всю карточку гридами.</p>
+				<img src="https://picsum.photos/300/150" alt="">
+				<a href="#">Ссылка</a>
+			</div>
+
+			<div class="card6">
+				<h3>Карточка №6</h3>
+				<p>Карточка с картинкой сделанной фоном у самой карточки. Есть проблема, что картинка растягивается</p>
+				<a href="#">Ссылка</a>
+			</div>
+
+			<div class="card7">
+				<svg height="100px" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+					<circle cx="5" cy="5" r="3" stroke="black"/>
+				</svg>
+				<h3>Карточка №7</h3>
+				<p>Карточка с картинкой сделанной инлайновым SVG и отцентрированными элементами.</p>
+			</div>
+
+			<div class="card8">
+				<h3><a href="#">Карточка №8</a></h3>
+				<p>Карточка со скриптом, который перехватывает клик по всей карте и направляет его по ссылке. Но если продолжить тянуть мышкой, то клик не сработает и будет выделение текста!</p>
+				<img src="https://picsum.photos/300/150" alt="">
+			</div>
+			<script>
+				const cards = document.querySelectorAll('.card8');
+					Array.prototype.forEach.call(cards, card => {
+						let down, up, link = card.querySelector('h3 a');
+						card.style.cursor = 'pointer';
+						card.onmousedown = () => down = +new Date();
+						card.onmouseup = () => {
+							up = +new Date();
+							if ((up - down) < 200) {
+								link.click();
+							}
+						}
+					});
+			</script>
+
+			<article class="card9">
+				<h3><a href="#"></a>Карточка №9</a></h3>
+				<p>Карточка с псевдокнопкой "Подробнее", которая скрывается для скринридеров.</p>
+				<img src="https://picsum.photos/300/150" alt="">
+				<span class="button" aria-hidden="true">Подробнее</span>
+			</article>
+		</div>
+		<br><hr><br>
+
+
+		<div class="gallery">
+			<div class="card-hover"></div>
+		</div>
+
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

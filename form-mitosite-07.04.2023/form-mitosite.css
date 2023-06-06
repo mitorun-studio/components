@@ -1,0 +1,916 @@
+:root {
+	--font-family: 'Inter', 'Roboto', 'system-ui', '-apple-system', 'Segoe UI', 'Helvetica Neue', 'Arial', 'Noto Sans', 'Liberation Sans', sans-serif;
+	--font-family-heading: 'Inter', 'Roboto', 'system-ui', '-apple-system', 'Segoe UI', 'Helvetica Neue', 'Arial', 'Noto Sans', sans-serif;
+	--font-family-mono: 'SFMono-Regular', 'ui-monospace', 'Menlo', 'Monaco', 'PT Mono', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
+
+	--font-size-l: 19px;
+	--font-size-m: 16px;
+	--font-size-s: 13px;
+	--font-form: 470 19px/1 var(--font-family, sans-serif);
+	--font-form-s: 470 16px/1 var(--font-family, sans-serif);
+	--font-weight-xl: 700;
+	--font-weight-l: 550;
+	--font-weight-m: 400;
+	--line-height-m: 1.5;
+	--line-height-s: 1.35;
+	--line-height-xs: 1.2;
+
+	--container-padding: 14px;
+	--padding-form: 14px;
+	--padding-form-s: 10px;
+	--margin-xl: 100px;
+	--margin-l: 60px;
+	--margin-m: 28px;
+	--margin-s: 14px;
+	--margin-xs: 7px;
+
+	--black: hsl(0, 0%, 0%);
+	--white: hsl(0, 0%, 100%);
+	--color: hsl(0, 0%, 0%);
+	--bg: hsl(0, 0%, 100%);
+	--grey: hsl(0, 0%, 44%);
+	--grey-lightest: hsla(0, 0%, 0%, 0.05);
+	--color-main: royalblue;
+
+	--border: 1px solid var(--color);
+	--border-radius: 5px;
+	tab-size: 2;
+}
+
+@media (min-width: 576px) {
+	:root {
+		--font-size-l: 20px;
+		--font-size-m: 17px;
+		--font-size-s: 14px;
+		--container-padding: 30px;
+		--margin-xl: 110px;
+		--margin-l: 70px;
+		--margin-m: 32px;
+		--margin-s: 16px;
+		--margin-xs: 8px;
+	}
+}
+
+@media (min-width: 992px) {
+	:root {
+		--font-size-l: 21px;
+		--font-size-m: 18px;
+		--font-size-s: 15px;
+		--container-padding: 50px;
+		--margin-xl: 130px;
+		--margin-l: 80px;
+		--margin-m: 36px;
+		--margin-s: 20px;
+		--margin-xs: 10px;
+	}
+}
+
+@media (min-width: 1300px) {
+	:root {
+		--font-size-l: 24px;
+		/* 23px? */
+		--font-size-m: 20px;
+		--font-size-s: 16px;
+		/* 17px? */
+		--margin-xl: 160px;
+		--margin-l: 90px;
+		--margin-m: 40px;
+		--margin-s: 24px;
+		--margin-xs: 12px;
+	}
+}
+
+*,
+::after,
+::before {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+*:focus {
+	outline-offset: 2px;
+}
+
+html {
+	height: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	html {
+		scroll-behavior: smooth;
+	}
+}
+
+body {
+	min-height: 100vh;
+	font-weight: var(--font-weight-m, 400);
+	font-size: var(--font-size-m, 16px);
+	font-family: var(--font-family, sans-serif);
+	line-height: var(--line-height-m, 1.5);
+	overflow-wrap: break-word;
+	color: var(--color, black);
+	background-color: var(--bg, white);
+	-webkit-text-size-adjust: 100%;
+	-webkit-tap-highlight-color: hsla(0, 0%, 0%, 0);
+}
+
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+	margin-bottom: 1em;
+	font-weight: var(--font-weight-xl, 700);
+	font-family: var(--font-family-heading, sans-serif);
+	line-height: var(--line-height-xs, 1.2);
+}
+
+h1,
+.h1 {
+	font-size: clamp(26px, calc(22px + 1.5vw), 40px);
+}
+
+h2,
+.h2 {
+	font-size: clamp(24px, calc(21.2px + 0.9vw), 32px);
+}
+
+h3,
+.h3 {
+	font-size: clamp(22px, calc(20.8px + 0.6vw), 28px);
+}
+
+h4,
+.h4 {
+	font-size: clamp(20px, calc(20.4px + 0.3vw), 24px);
+}
+
+h5,
+.h5 {
+	font-size: var(--font-size-l, 19px);
+}
+
+h6,
+.h6 {
+	font-size: var(--font-size-m, 16px);
+}
+
+p:not([class]):not(:last-of-type),
+.p {
+	margin-bottom: 1em;
+}
+
+.font-l {
+	font-size: var(--font-size-l, 20px);
+}
+
+.font-m {
+	font-size: var(--font-size-m, 16px);
+	line-height: var(--line-height-m, 1.5);
+}
+
+.font-s {
+	font-size: var(--font-size-s, 12px);
+}
+
+b,
+strong,
+.b,
+.bold {
+	font-weight: var(--font-weight-l, 600);
+}
+
+i,
+.i {
+	font-style: oblique;
+	/*italic*/
+}
+
+a,
+button,
+input,
+textarea,
+summary,
+optgroup,
+select,
+svg {
+	font: inherit;
+	color: inherit;
+	touch-action: manipulation;
+}
+
+a,
+a:visited {
+	text-decoration: none;
+	color: var(--color);
+}
+
+ul[class]:not(.list),
+ol[class]:not(.list) {
+	list-style: none;
+}
+
+ul:not([class]),
+ol:not([class]),
+.list {
+	margin-bottom: 0 0 1em;
+	padding-left: 30px;
+}
+
+ul:not([class]) li:not([class]),
+ol:not([class]) li:not([class]) {
+	margin-bottom: 0.5em;
+}
+
+kbd,
+code,
+pre,
+samp {
+	font-size: 1em;
+	font-family: var(--font-family-mono, monospace);
+	direction: ltr;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	word-break: break-all;
+	unicode-bidi: bidi-override;
+}
+
+kbd:not([class]),
+.kbd,
+code:not([class]),
+.code {
+	margin: 0 0.12em;
+	padding: 0.1em 0.3em;
+	background: var(--grey-lightest);
+	border-radius: 0.25em;
+}
+
+hr,
+.hr {
+	margin-block: 1em;
+	border: 0;
+	border-bottom: 1px solid grey;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	/*aspect-ratio: 3 / 2;*/
+	object-fit: contain;
+}
+
+svg {
+	display: block;
+	shape-rendering: geometricprecision;
+}
+
+/*-------------------------------------------------
+------- Основные блоки и служебные классы: --------
+-------------------------------------------------*/
+
+.container {
+	padding-left: max(calc(50% - 1200px / 2), var(--container-padding, 14px));
+	padding-right: max(calc(50% - 1200px / 2), var(--container-padding, 14px));
+}
+
+.mb-xl {
+	margin-bottom: var(--margin-xl);
+}
+
+.mb-l {
+	margin-bottom: var(--margin-l);
+}
+
+.mb-m {
+	margin-bottom: var(--margin-m);
+}
+
+.mb-s {
+	margin-bottom: var(--margin-s);
+}
+
+.mb-xs {
+	margin-bottom: var(--margin-xs);
+}
+
+.pt-l {
+	padding-top: var(--margin-l);
+}
+
+.pb-l {
+	padding-bottom: var(--margin-l);
+}
+
+.scroll {
+	overflow: auto;
+}
+
+.relative {
+	position: relative;
+}
+
+/*-------- Конец базовых стилей. ----------*/
+
+
+/*---------------------------------------------------
+---------- Ниже код самих компонентов: --------------
+---------------------------------------------------*/
+
+/*------------------------------------------------
+---------- Компонент Кнопка: ---------------------
+------------------------------------------------*/
+
+.button {
+	position: relative;
+	display: inline-grid;
+	grid-template-columns: auto;
+	/* или max-content */
+	grid-auto-columns: auto;
+	grid-auto-flow: column;
+	place-items: center;
+	place-content: center;
+	column-gap: calc(var(--padding-form) / 2);
+	width: fit-content;
+	padding: var(--padding-form) calc(var(--padding-form) * 2);
+	font: var(--font-form);
+	text-align: center;
+	text-decoration: none;
+	/*text-transform: uppercase;
+	letter-spacing: 0.03em;*/
+	color: var(--white);
+	background-color: var(--color-main);
+	border: 1px solid var(--color-main);
+	border-radius: var(--border-radius);
+	/*box-shadow: var(--shadow);*/
+	/*overflow: hidden;*/
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	-webkit-tap-highlight-color: transparent;
+	cursor: pointer;
+	/*user-select: none; чтобы не выделялся контент кнопки */
+	transition: 0.25s;
+}
+
+.button--icon::after {
+	content: '';
+	width: 24px;
+	height: 24px;
+	/*background-image: url('/img/sprite.svg#arrow-simple-dark');*/
+	background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" fill="none" stroke="%23fff" stroke-width=".6"%3E%3Cpath d="M7 4H0 M5 2L7 4L5 6"/%3E%3C/svg%3E') 50% / 100% no-repeat;
+}
+
+.button--2 {
+	color: var(--color-main);
+	background: transparent;
+	/*border: 2px solid currentColor;*/
+	/*box-shadow: none;*/
+}
+
+.button--s {
+	padding: 8px 16px;
+	font-size: var(--font-size-s);
+}
+
+@media (max-width: 449.98px) {
+	.button {
+		width: 100%;
+	}
+}
+
+.button--center {
+	position: relative;
+	left: 50%;
+	translate: -50%;
+}
+
+.button:not([disabled]):hover {
+	filter: brightness(115%);
+}
+
+.button--2:not([disabled]):hover {
+	box-shadow: inset 0 0 0 1px var(--color-main);
+}
+
+.button--icon:not([disabled]):hover {
+	column-gap: calc(var(--padding-form) / 2 + 16px);
+	padding: var(--padding-form) calc(var(--padding-form) * 2 - 8px);
+}
+
+.button:active {
+	filter: brightness(95%) !important;
+}
+
+.button--wide {
+	width: 100%;
+	max-width: 500px;
+}
+
+.disabled,
+button:disabled,
+input[disabled],
+input[aria-disabled=true],
+fieldset[disabled] {
+	transform: none;
+	opacity: 0.6;
+	/* это делает отключенные кнопки полупрозрачными */
+	filter: grayscale(0.8);
+	/* это делает отключенные кнопки серенькими */
+}
+
+/*-------- Конец компонента Кнопка. ------------*/
+
+
+
+/*------------------------------------------------
+---------- Форма связи: --------------------------
+------------------------------------------------*/
+
+.form {
+	display: grid;
+	gap: var(--margin-s);
+	width: min(400px, 100%);
+	/* или 100%; */
+	/*max-width: 500px;*/
+	padding: var(--margin-s);
+	background-color: hsla(0, 0%, 0%, 0.04);
+	/*accent-color: var(--color-main); эксперимент с новым свойством */
+}
+
+.form__title {
+	margin-bottom: 4px;
+	font-weight: var(--font-weight-l);
+	font-size: var(--font-size-l);
+	line-height: var(--line-height-xs);
+}
+
+
+
+
+/*-------- Стили для текстовых инпутов: --------*/
+
+.form__item {
+	display: grid;
+	gap: var(--margin-xs);
+	/*align-items: center; это было у Kevin Powell */
+}
+
+.form__label {
+	display: block;
+	width: fit-content;
+	/* это чтобы кликабельная область лейблов не была больше самого текста. */
+	line-height: 1;
+	/*pointer-events: none;*/
+}
+
+.form__label.required::after {
+	content: ' *';
+}
+
+.form__input {
+	display: block;
+	/* убирает отступ-строку под textarea! */
+	width: 100%;
+	/*min-height: 40px;*/
+	padding: var(--padding-form) calc(var(--padding-form) * 1.2);
+	font: var(--font-form);
+	background-color: var(--bg);
+	background-clip: padding-box;
+	/* зачем? */
+	border: var(--border);
+	border-radius: var(--border-radius);
+	resize: none;
+	/* или vertical; это для textarea */
+}
+
+.form__input:focus {
+	outline-offset: 4px;
+}
+
+.form__input::placeholder {
+	color: var(--grey);
+}
+
+.form__hint {
+	font-size: var(--font-size-s);
+	line-height: 1;
+	color: var(--grey);
+}
+
+
+
+
+/*--- Стили для чекбоксов и радиокнопок: -------*/
+
+.form__fieldset {
+	display: grid;
+	gap: var(--margin-xs);
+	border: none;
+}
+
+legend.form__title {
+	margin-bottom: var(--margin-xs);
+}
+
+.form__item-point {
+	display: grid;
+	grid-template-columns: auto;
+	grid-auto-columns: auto;
+	grid-auto-flow: column;
+	/*align-items: center;*/
+	gap: var(--margin-xs);
+	width: fit-content;
+	/* это чтобы кликабельная область лейблов не была больше самого текста. */
+	cursor: pointer;
+	transition: 0.13s linear;
+}
+
+.form__item-point:not([disabled]):hover {
+	color: royalblue;
+}
+
+.form__input-point {
+	position: relative;
+	display: inline-block;
+	width: 22px;
+	height: 22px;
+	margin-top: -2px;
+	/*vertical-align: -2px;*/
+	/*vertical-align: text-bottom;*/
+	background: var(--bg);
+	/* #fff нужно для iOS, иначе фон станет черным. */
+	border: 2px solid currentColor;
+	/*border-radius: 10%;*/
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+.form__input-point::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	display: block;
+	/*margin: auto;
+	overflow: hidden;
+	visibility: hidden; это другой вариант появления галки */
+	scale: 0;
+	transform-origin: center;
+	transition: scale 0.16s ease-in;
+}
+
+/*-------- Стили чекбокса: ---------------------*/
+
+.form__input-point[type=checkbox]::before {
+	/*или:
+	content: '✔';
+	или:
+	content: '';
+	width: 45%;
+	height: 70%;
+	border-right: 3px solid currentColor;
+	border-bottom: 3px solid currentColor;
+	transform: rotate(45deg) translateY(-8%) translateX(-4%);*/
+	background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" fill="none" stroke="%23000" stroke-width="1.2"%3E%3Cpath d="M1.2 3.3L3.3 6L6.8 2"/%3E%3C/svg%3E');
+	background-repeat: no-repeat;
+}
+
+/*-------- Стили радиокнопки: ------------------*/
+
+.form__input-point[type=radio] {
+	border-radius: 99px;
+}
+
+.form__input-point[type=radio]::before {
+	padding: 16%;
+	background: content-box currentColor;
+	border-radius: 99px;
+}
+
+.form__input-point:checked::before {
+	scale: 1;
+	transition: scale 0.2s cubic-bezier(0.25, 0.25, 0.56, 1.8);
+}
+
+/*.form__input-point[type=checkbox]:focus-visible,
+.form__input-point[type=radio]:focus-visible {
+	outline: 2px solid;
+	outline-offset: 2px;
+}*/
+
+
+
+
+/*------------------------------------------------
+---------- Валидация текстовых полей: ------------
+------------------------------------------------*/
+
+/* Псевдоклассы :user-(in)valid пока не работают в браузерах, ниже воссоздан их функционал с псевдоклассом :invalid
+.form__input:required:user-valid {
+	background-color: var(--bg-success, hsla(120, 100%, 25%, 0.1));
+	border-color: var(--color-success, green);
+}
+
+.form__input:required:user-invalid {
+	background-color: var(--bg-danger, hsla(0, 100%, 50%, 0.1));
+	border-color: var(--color-danger, red);
+}
+
+.form__item:required:has(:user-invalid:not(:focus)) {
+	animation: shake 0.7s;
+}*/
+
+/* Добавление иконок к валидации инпутов: */
+.form__input,
+.form__validation {
+	grid-area: 2 / 1 / 3 / 2;
+	align-self: center;
+	justify-self: end;
+}
+
+/*.form__input + .form__validation {
+	position: relative;
+}*/
+
+/*.form__input + .form__validation::before {
+	position: absolute;
+	right: -20px;
+	top: 5px;
+}*/
+
+/*.form__input:required:valid + .form__validation::before {
+	content: '✓';
+	color: var(--color-success, green);
+}*/
+
+.form__input:required:invalid+.form__validation::before {
+	content: '!';
+	padding: 0 calc(var(--padding-form) * 1.2);
+	color: var(--color-danger, red);
+
+	/*display: grid;
+	place-items: center;
+	width: 1.4em;
+	height: 1.4em;
+	border: 1px solid red;
+	border-radius: 99px;*/
+
+	/*content: '';
+	display: block;
+	width: 20px;
+	height: 20px;
+	padding: 0 calc(var(--padding-form) * 1.5);
+	background-image: url('img/sprite.svg#cross');*/
+	opacity: 0.8;
+
+	/*-webkit-mask: url('img/sprite.svg#cross') center / contain no-repeat;
+	mask: url('img/sprite.svg#cross') center / contain no-repeat;*/
+}
+
+/* Способ воссоздать функционал псевдокласса :user-invalid:
+Для хорошей работы этого способа нужно что-то записать в плейсхолдер! */
+.form__input:required:invalid:not(:placeholder-shown) {
+	/*background-color: var(--bg-danger, hsla(0, 100%, 50%, 0.1));*/
+	border-color: var(--color-danger, red);
+}
+
+.form__input:invalid:placeholder-shown+.form__validation::before,
+.form__input:valid:placeholder-shown+.form__validation::before {
+	visibility: hidden;
+}
+
+/*--- Анимация тряски невалидного инпута: ------*/
+
+.form__item:has(:invalid:not(:focus)) {
+	animation: shake 0.65s;
+}
+
+.form__item:has(:placeholder-shown:not(:focus)) {
+	animation: none;
+}
+
+@keyframes shake {
+
+	0%,
+	100% {
+		translate: 0;
+	}
+
+	20%,
+	40%,
+	60%,
+	80% {
+		translate: -4px;
+	}
+
+	10%,
+	30%,
+	50%,
+	70%,
+	90% {
+		translate: 4px;
+	}
+}
+
+/* Стили для кнопки, когда форма невалидна: */
+.form:invalid [type="submit"] {
+	opacity: 0.7;
+}
+
+/* Валидация чекбоксов и радиокнопок:
+Сейчас вроде не стоит использовать пока нет :user-invalid
+[type="checkbox"]:user-invalid {
+	outline: 2px solid red;
+	outline-offset: 2px;
+}*/
+
+/*------------------------------------------------
+---------- Отключенная форма и инпуты: -----------
+------------------------------------------------*/
+
+[disabled],
+.disabled,
+.form [disabled],
+input[disabled],
+input[aria-disabled=true] {
+	opacity: 0.55;
+}
+
+/*------------------------------------------------
+---------- Валидация всей формы: -----------------
+------------------------------------------------*/
+
+/* Валидация всей формы:
+Вроде не советуется использовать, так как плохая доступность для скринридеров
+.form:invalid button {
+	opacity: 0.5;
+	pointer-events: none;
+}*/
+
+
+
+
+/*------------------------------------------------
+-- Сообщения об успешной или неудачной отправке: -
+------------------------------------------------*/
+
+.form__success,
+.form__failure {
+	display: none;
+
+	/*height: 0;
+	opacity: 0;
+	transition: 0.5s linear;*/
+}
+
+.form__success.active,
+.form__failure.active {
+	display: block;
+	padding: var(--padding-form);
+	font: var(--font-form);
+	color: var(--color-success, green);
+	background-color: var(--bg-success, hsla(120, 100%, 25%, 0.1));
+	border: 1px solid var(--color-success, green);
+	border-radius: var(--border-radius);
+
+	/*height: auto;
+	opacity: 1;*/
+}
+
+.form__failure.active {
+	color: var(--color-danger, red);
+	background-color: var(--bg-danger, hsla(0, 100%, 50%, 0.1));
+	border-color: var(--color-danger, red);
+}
+
+/*-------- Конец основы компонента формы. ------*/
+
+
+
+
+/*-------------------------------------------------
+-- Стили для выпадающих списков (select/option): --
+-------------------------------------------------*/
+
+/* Кастомная стрелка для селекта: */
+select.form-input-text:not([multiple]) {
+	max-width: 100%;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+	/* Создание иконки-стрелки: */
+	/*background-image: url('img/sprite.svg#arrow-simple');*/
+	background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 8 8" fill="none" stroke="%23000" stroke-width=".8"%3E%3Cpath d="M1 3L4 6L7 3"/%3E%3C/svg%3E');
+	background-repeat: no-repeat;
+	background-position: right var(--padding-form) top 50%;
+	background-size: 0.8em auto;
+}
+
+/* Стрелка селекта отдельным элементом:
+select.form-input-text,
+.select-icon {
+	grid-area: 2 / 1 / 3 / 2;
+	align-self: center;
+	justify-self: end;
+}
+
+.select-icon::after {
+	content: '✓';
+	position: relative;
+	z-index: 2;
+	background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+	background-repeat: no-repeat;
+	background-position: right 0.7em top 50%;
+	background-size: 0.65em auto;
+}*/
+
+select.form-input-text::-ms-expand {
+	display: none;
+}
+
+select.form-input-text:not([multiple]):hover {
+	color: var(--color-main);
+	background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 8 8" fill="none" stroke="royalblue" stroke-width=".8"%3E%3Cpath d="M1 3L4 6L7 3"/%3E%3C/svg%3E');
+	cursor: pointer;
+}
+
+.form-input-text optgroup[label] {
+	color: grey;
+}
+
+.form-input-text option {
+	font-weight: normal;
+	color: var(--color);
+}
+
+/*------------------------------------
+---- Поле поиска (type[search]): -----
+------------------------------------*/
+
+.search {
+	position: relative;
+}
+
+.form-input-text[type=radio] {
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+.search-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: 48px;
+	height: 100%;
+	background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" aria-hidden="true"%3E%3Cpath d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/%3E%3C/svg%3E') 50% / 32px no-repeat rgba(132, 132, 132, 0.08);
+	border: 1px solid rgba(132, 132, 132, 0.2);
+	border-radius: var(--border-radius);
+	cursor: pointer;
+}
+
+
+
+
+/*---------------------------------------------
+------------- Загрузка файлов: ----------------
+---------------------------------------------*/
+
+.form-input-file {
+	height: 0;
+	padding: 0;
+	opacity: 0;
+}
+
+.form-label-file {
+	cursor: pointer;
+}
+
+/*.form-label-file {
+	box-shadow: 1px 1px 3px #ccc;
+	background: linear-gradient(to bottom, #eee, #ccc);
+	border: 1px solid rgb(169, 169, 169);
+	border-radius: 5px;
+	text-align: center;
+	line-height: 1.5;
+}
+
+.form-label-file:hover {
+	background: linear-gradient(to bottom, #fff, #ddd);
+}
+
+.form-label-file:active {
+	box-shadow: inset 1px 1px 3px #ccc;
+}*/

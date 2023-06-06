@@ -1,0 +1,109 @@
+<!doctype html><!-- Файл age-verify.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Верификация возраста – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Подтверждение возраста 18+">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="../_mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+.age-verify__overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 9999;
+	/*display: grid;*/
+	display: none;
+	place-content: center;
+	/*display: flex;
+	justify-content: center;
+	align-items: center;*/
+	width: 100%;
+	height: 100%;
+	background-color: hsla(0, 0%, 0%, 0.7);
+}
+
+.age-verify__modal {
+	position: relative;
+	background-color: var(--bg);
+	padding: var(--margin-m);
+	max-width: 600px;
+	text-align: center;
+}
+
+/*.age-verify__yes,
+.age-verify__no {}
+}*/
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Подтверждение возраста</h1>
+		<hr>
+
+		<h2>Подтверждение возраста №1</h2>
+
+		<div class="age-verify__overlay" style="display: none;">
+			<div class="age-verify__modal">
+				<h2>Подтверждение возраста</h2>
+				<p>Для доступа к сайту вам должно быть не менее 18 лет. Пожалуйста, подтвердите это.</p>
+				<button class="age-verify__yes button">Да, мне уже есть 18 лет</button>
+				<button class="age-verify__no button">Нет, мне еще не 18 лет</button>
+			</div>
+		</div>
+
+	</main>
+
+
+	<script>
+// Скрипт для модала подтверждения возраста age-verify:
+window.onload = function () {
+	var ageOverlay = document.querySelector('.age-verify__overlay');
+	var ageModal = document.querySelector('.age-verify__modal');
+	var ageBtnYes = document.querySelector('.age-verify__yes');
+	var ageBtnNo = document.querySelector('.age-verify__no');
+
+	var showAgeModal = function () {
+		ageOverlay.style.display = 'grid';
+		document.body.style.overflow = 'hidden';
+	}
+	var hideAgeModal = function () {
+		ageOverlay.style.display = 'none';
+		document.body.style.overflow = 'auto';
+	}
+	var confirmAge = function () {
+		localStorage.setItem('ageConfirmed', true);
+		hideAgeModal();
+	}
+	var denyAge = function () {
+		window.location.href = 'https://www.google.com/'; // заменить ссылкой на страницу для несовершеннолетних
+	}
+	if (localStorage.getItem('ageConfirmed') !== 'true') {
+		setTimeout(showAgeModal, 500); // показываем модальное окно через 0.5 секунды после загрузки страницы
+	}
+	ageBtnYes.addEventListener('click', confirmAge);
+	ageBtnNo.addEventListener('click', denyAge);
+	// если пользователь уже подтвердил возраст ранее, скрываем модальное окно
+	// if (localStorage.getItem('ageConfirmed') === 'true') {
+		// hideAgeModal();
+	// }
+};
+	</script>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

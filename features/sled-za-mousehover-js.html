@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Доска | Проект 4</title>
+  <style>
+    * {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  max-width: 400px;
+}
+
+.square {
+  width: 16px;
+  height: 16px;
+  margin: 2px;
+  background: #1d1d1d;
+  box-shadow: 0 0 2px #000;
+  transition: 1s ease;
+}
+
+.square:hover {
+  transition-duration: 0s;
+}
+  </style>
+</head>
+<body>
+<div class="container" id="board">
+</div>
+
+<script>
+
+/* Ниже скрипт для рисования линии из квадратиков следующих за курсором */
+
+const board = document.querySelector('#board')
+const colors = ['red', 'indigo', 'limegreen', 'pink', 'yellow']
+const SQUARES_NUMBER = 300
+
+for (let i = 0; i < SQUARES_NUMBER; i++) {
+  const square = document.createElement('div')/* это создает HTML-элемент div */
+  square.classList.add('square')/* это назначает класс этому диву */
+
+  square.addEventListener('mouseover', () => setColor(square))/* слушатель наведения мыши на квадратики */
+  square.addEventListener('mouseleave', () => removeColor(square))/* слушатель убирания мыши из квадратиков */
+
+  board.append(square)/* див .square добавляется в элемент board */
+}
+
+function setColor(element) {
+  const color = getRandomColor()
+  element.style.backgroundColor = color/* тут можно поставить один фиксированный цвет, например 'red', и удалить функцию создания случайного цвета */
+  element.style.boxShadow = `0 0 2px ${color}, 0 0 10px ${color}`
+}/* это функция раскраски кубиков в красный цвет вслед за наведением курсора */
+
+function removeColor(element) {
+  element.style.backgroundColor = '#1d1d1d'
+  element.style.boxShadow = `0 0 2px #000`
+}/* это функция убирает раскраску после убирания курсора из кубиков */
+
+function getRandomColor() {
+  return colors[Math.floor(Math.random() * colors.length)]
+}/* это функция для перекрашивания квадратиков в разные случайные цвета */
+</script>
+</body>
+</html>

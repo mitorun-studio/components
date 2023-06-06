@@ -1,0 +1,270 @@
+<!doctype html><!-- Файл slider-css-only.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Слайдер без JS – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+/*----------- Слайдер №1: -----------*/
+
+.slider {
+	width: 300px;
+	margin: 0 auto;
+	text-align: center;
+	overflow: hidden;
+}
+
+.slides {
+	display: flex;
+	gap: 20px;
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	/*scroll-snap-points-x: repeat(300px);
+	scroll-snap-type: mandatory;*/
+	-webkit-overflow-scrolling: touch;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.slides {
+		scroll-behavior: smooth;
+	}
+}
+
+.slides::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+.slides::-webkit-scrollbar-thumb {
+	background: black;
+	border-radius: 10px;
+}
+
+.slides::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.slides > * {
+	/*position: relative;*/
+	flex-shrink: 0;
+	width: 300px;
+	height: 300px;
+	background: hsl(0, 0%, 93%);
+	scroll-snap-align: start;
+
+	display: grid;
+	place-items: center;
+	font-size: 100px;
+}
+
+.slider-nav {
+	display: flex;
+	/*flex-wrap: wrap;*/
+	justify-content: center;
+	gap: 8px;
+}
+
+.slider-nav > * {
+	width: 24px;
+	height: 24px;
+	text-decoration: none;
+	background: rgb(208, 227, 243);
+	border-radius: 99px;
+}
+
+/*.slider-nav > a:active {
+	top: 1px;
+}*/
+
+.slider-nav > a:focus {
+	background: #000;
+}
+
+/* Don't need button navigation
+@supports (scroll-snap-type) {
+	.slider-nav > a {
+		display: none;
+	}
+}*/
+
+
+
+/*----------- Слайдер №2: -----------*/
+
+.slider-product {
+	display: grid;
+	grid: auto / auto auto;/* было auto / 5fr 1fr; */
+	gap: 10px;
+	max-width: 400px;
+	/*height: 300px; было 100vh; */
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.slider-product-pic {
+	/*display: flex; это для анимации прокрутки по горизонтали */
+	width: 300px;
+	height: 300px;
+	/*overflow-x: scroll; это добавляет полосу прокрутки */
+	overflow: hidden;
+	scroll-snap-type: y mandatory;/* или scroll-snap-type: x mandatory; для прокрутки по горизонтали */
+	/*scroll-snap-points-x: repeat(300px);
+	scroll-snap-type: mandatory;
+	-webkit-overflow-scrolling: touch;*/
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.slider-product-pic {
+		scroll-behavior: smooth;
+	}
+}
+
+.slider-product-pic img {
+	width: 300px;
+	height: 300px;
+	object-fit: contain;/* или cover ? */
+	/*background: hsl(0, 0%, 93%);*/
+	scroll-snap-align: start;
+}
+
+.slider-product-nav {
+	display: grid;
+	grid: repeat(auto-fit) / auto;
+	place-items: center;
+	gap: 6px;
+	/*overflow-x: scroll;*/
+	overflow: hidden;
+}
+
+.slider-product-nav > * {
+	display: flex;/* лучше на grid поменять */
+	width: 48px;
+	height: 48px;
+	margin: 4px;/* это чтобы было видно обводку картинок при ховере/курренте */
+	/*appearance: none;
+	cursor: pointer; это для <button> */
+	transition: 0.2s;
+}
+
+.slider-product-nav > *:hover/*, .slider-product-nav > *:hover*/ {
+	box-shadow: 0 0 0 1px hsl(0, 0%, 0%);
+}
+
+
+
+
+/*----- Слайдер-прокрутка с scroll-snap: -----*/
+
+.slider-scroll-snap {
+	display: flex;
+	justify-content: space-between;
+	gap: 20px;
+	width: 500px;
+	margin: 0 auto;
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+}
+
+.slider-scroll-snap > * {
+	flex: 0 0 300px;
+	display: grid;
+	place-items: center;
+	height: 200px;
+	font-size: 50px;
+	scroll-snap-align: start;
+}
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Слайдеры без JS</h1>
+		<hr>
+
+		<h2>Слайдер №1</h2>
+
+		<div class="slider">
+			<div class="slides">
+				<div id="slide-1">1</div>
+				<div id="slide-2">2</div>
+				<div id="slide-3">3</div>
+				<div id="slide-4">4</div>
+				<div id="slide-5">5</div>
+			</div>
+
+			<div class="slider-nav">
+				<a href="#slide-1">1</a>
+				<a href="#slide-2">2</a>
+				<a href="#slide-3">3</a>
+				<a href="#slide-4">4</a>
+				<a href="#slide-5">5</a>
+			</div>
+		</div>
+		<hr>
+
+
+
+		<h2>Слайдер №2</h2>
+
+		<div class="slider-product">
+			<div class="slider-product-pic">
+				<img id="image-1" src="img/example-woman.jpg" alt=""/>
+				<img id="image-2" src="img/example-woman-2.jpg" alt=""/>
+				<img id="image-3" src="img/example-woman-3.jpg" alt=""/>
+				<img id="image-4" src="img/example-woman-4.jpg" alt=""/>
+			</div>
+
+			<div class="slider-product-nav" aria-hidden="true">
+				<a href="#image-1" style="background: url('img/example-woman.jpg') no-repeat 50% / contain;" aria-label="фото №1"></a>
+				<a href="#image-2" style="background: url('img/example-woman-2.jpg') no-repeat 50% / contain;" aria-label="фото №2"></a>
+				<a href="#image-3" style="background: url('img/example-woman-3.jpg') no-repeat 50% / contain;" aria-label="фото №3"></a>
+				<a href="#image-4" style="background: url('img/example-woman-4.jpg') no-repeat 50% / contain;" aria-label="фото №4"></a>
+			</div>
+		</div>
+		<hr>
+
+
+
+
+		<h2>Слайдер-прокрутка с scroll-snap</h2>
+
+		<p>Подробнее про scroll-snap <a rel="noopener" target="_blank" href="https://drafts.csswg.org/css-scroll-snap-1/#intro">https://drafts.csswg.org/css-scroll-snap-1/#intro</a></p>
+		<p><code>scroll-snap-type: x | y | both none | mandatory | proximity;</code> Свойство scroll-snap-type задаётся контейнеру (.slider) и указывает направление, в котором происходит привязка прокрутки (x или y), а также строгость привязки (none, mandatory или proximity).</p>
+		<p>Указание направления: горизонтальная прокрутка — x или ключевое слово inline: вертикальная прокрутка — y или ключевое слово block; привязка в обоих направлениях — both.</p>
+		<p>Указание строгости привязки: none — нет привязки к точке; mandatory — обязательное смещение прокрутки к указанной точке; proximity — смещение происходит только в тех ситуациях, когда область видимости находится близко к точке привязки. Степень близости браузер определяет самостоятельно.</p>
+		<p><code>scroll-snap-align: start | center | end;</code> Свойство задаётся дочерним элементам и указывает точки привязки: к началу кадра, к середине, к концу.</p>
+		<p><code>scroll-snap-stop: normal (по умолчанию) | always;</code> Свойство задаётся дочерним элементам и позволяет управлять прокруткой. normal — привязка происходит только тогда, когда пользователь прекращает прокрутку, отдельные точки привязки могут быть пропущены. always — контейнер останавливается на каждой точке привязке, прежде чем пользователь сможет скроллить дальше.</p>
+		<p><code>scroll-padding: 100px 0 0 0;</code> Свойство задаётся контейнеру и устанавливает внутренний отступ. Вместо сокращённой записи можно использовать более конкретную: <code>scroll-padding-top/right/bottom/left</code>.</p>
+		<p><code>scroll-margin: 0 0 0 0;</code> Свойство задаётся дочерним элементам и устанавливает внешний отступ до позиции прокрутки. Вместо сокращённой записи можно использовать более конкретную: <code>scroll-margin-top/right/bottom/left</code>.</p>
+
+		<div class="slider-scroll-snap">
+			<div style="background-color: lavender;">Слайд №1</div>
+			<div style="background-color: lemonchiffon;">Слайд №2</div>
+			<div style="background-color: lightgreen;">Слайд №3</div>
+			<div style="background-color: lightskyblue;">Слайд №4</div>
+			<div style="background-color: lightpink;">Слайд №5</div>
+		</div>
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

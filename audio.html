@@ -1,0 +1,102 @@
+<!doctype html><!-- Файл audio.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Аудио – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style></style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Использование аудио</h1>
+		<hr>
+
+
+
+
+		<h2 class="bg-green">Аудио №1 (плей, пауза)</h2>
+		<p class="bg-green">Неплохой скрипт, где меняются классы и надпись на кнопке, в зависимости от состояния: Play, Playing, Paused, Done. При запуске элементу добавляется класс <code>playing</code> и текст самой кнопки меняется на Playing, то есть можно анимировать состояние проигрывания и назначать/убирать любые атрибуты и классы (например ариа-атрибуты)! Во время проигрывания повторный клик ставит аудио на паузу и убирается класс <code>playing</code>.</p>
+		<p>Если на странице нужно создать несколько таких кнопок с разными аудио, то для этого нужно к каждой приписать такой экземпляр скрипта и внести в скрипты изменения! Нужно поменять айдишник кнопки <code>id="audio-2"</code> и изменить ВСЕ переменные в скрипте на <code>audioButton2, playing2, player2</code>!</p>
+		<button class="button" id="audio" type="button">Play</button>
+		<script>
+	var audioButton = document.getElementById('audio');
+	var playing = false; // Текущее состояние плеера
+	var player = new Audio('fls/canyon.aac');
+
+	player.preload = "auto";
+	player.addEventListener('ended', function () { // Слушаем окончание трека
+		audioButton.innerText = "Прослушано";// Состояние Done
+		audioButton.classList.remove("playing");
+		playing = false;
+	});
+
+	audioButton.addEventListener('click', playPause); // Слушаем нажатие на кнопку
+	function playPause() {
+		if (playing) {
+			player.pause();
+			audioButton.innerText = "Продолжить";// Состояние Paused
+			audioButton.classList.remove("playing");
+		} else {
+			player.play();
+			audioButton.innerText = "Пауза";// Состояние Playing
+			audioButton.classList.add("playing");
+		}
+		playing = !playing;
+	}
+		</script>
+		<hr><br>
+
+
+
+
+		<h2>Аудио №2 (только плей!)</h2>
+		<p>Самый простой код, вообще без скрипта, только тег <code>onclick</code>. Подходит только для очень коротких звуков (например звук щелчка кнопки), так как звук нельзя остановить. Ещё минус в том, что при повторном клике запускаются новые экземпляры плеера и так можно запустить огромную какафонию пока все звуки не проиграют.</p>
+		<button class="button" type="button" onclick="new Audio('fls/canyon.aac').play()">Play</button>
+		<hr><br>
+
+
+
+
+		<h2>Аудио №3 (только плей!)</h2>
+		<p>Простой скрипт плюс <code>onclick</code>, который только запускает звук. Подходит только для очень коротких звуков (например звук щелчка кнопки), так как звук нельзя остановить. Во время проигрывания аудио при повторном нажатии на кнопку звук сбросится и начнет играть сначала.</p>
+		<button class="button" type="button" onclick="startAudio('fls/canyon.aac'); return false;">Play</button>
+		<script>
+	var audio = {};
+
+	function startAudio(url) {
+		if ("pause" in audio) audio.pause();
+		audio = new Audio(url);
+		audio.play();
+	}
+		</script>
+		<hr><br>
+
+
+
+
+
+
+
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

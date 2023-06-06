@@ -1,0 +1,100 @@
+<!doctype html><!-- Файл animation-motion.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Компонент – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+.animation-box {
+	border: 2px dashed brown;
+}
+
+/* Вариант с github.com: */
+.animation-levitation {
+	display: inline-block;
+	width: 200px;
+	height: 200px;
+	margin: 30px;
+	background-color: green;
+	pointer-events: none;
+	animation: levitation 8s ease infinite paused;
+	animation-play-state: running;
+}
+
+@keyframes levitation {
+	0%, 100% {transform: translateY(0);}
+	50% {transform: translateY(24px);}
+}
+
+/* Мой вариант из gamebeat.studio: */
+.animation-levitation-2 {
+	display: inline-block;
+	width: 200px;
+	height: 200px;
+	margin: 30px;
+	background-color: violet;
+	pointer-events: none;
+	animation: levitation-2 4s ease-in-out alternate infinite;
+}
+
+@keyframes levitation-2 {
+	0% {transform: translate(0%, 0%);}
+	100% {transform: translate(0%, 15%);}
+}
+
+/* Мой вариант из brofist.partners: */
+.animation-levitation-3 {
+	display: inline-block;
+	width: 200px;
+	height: 200px;
+	margin: 30px;
+	background-color: coral;
+	pointer-events: none;
+	animation: levitation-3 15s ease-in-out alternate infinite;
+}
+
+@keyframes levitation-3 {
+	0% {transform: translate(0%, 0%);}
+	25% {transform: translate(-6%, 14%);}
+	50% {transform: translate(6%, 6%);}
+	75% {transform: translate(-6%, 8%);}
+	100% {transform: translate(0%, 0%);}
+}
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Анимации движения</h1>
+		<hr>
+
+		<h2>Левитация</h2>
+
+		<div class="animation-box">
+			<div class="animation-levitation"></div>
+
+			<div class="animation-levitation-2"></div>
+
+			<div class="animation-levitation-3"></div>
+		</div>
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

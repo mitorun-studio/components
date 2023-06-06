@@ -1,0 +1,179 @@
+<!doctype html><!-- Страница filter.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="none">
+	<meta name="viewport" content="width=device-width, initial-scale=0.7">
+	<meta charset="utf-8">
+	<!--<link rel="preload" as="font" type="font/woff2" crossorigin href="fls/cuprum-400-700-cyrillic.woff2">
+	<link rel="preload" as="font" type="font/woff2" crossorigin href="fls/cuprum-400-700-latin.woff2">
+	<link href="https://fonts.googleapis.com/css2?family=Cuprum:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">-->
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+	<title>Фильтр карточек на JS</title>
+	<meta name="description" content="">
+	<style>
+.filter {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--margin-xs);
+	margin-bottom: var(--margin-m);
+}
+
+.filter__button {
+	padding: 12px 20px;
+	font-weight: var(--font-weight-l);
+	background: hsl(205, 80%, 95%);
+	border: 2px solid hsl(0, 0%, 0%);
+	border-radius: var(--border-radius-m);
+	/*cursor: pointer;*/
+}
+
+[data-filter].active {
+	color: hsl(0, 0%, 100%);
+	background: hsl(205, 98%, 50%);
+}
+
+[data-filter-item].hide {
+	display: none;
+}
+
+
+
+
+/* Дополнительные стили оформления: */
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+	list-style: none;
+}
+
+.gallery {
+	display: flex;
+	flex-wrap: wrap;
+	/*justify-content: center;*/
+	/*align-items: center;*/
+}
+
+.card {
+	width: 200px;
+	height: 200px;
+	margin: 5px;
+}
+
+.card img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+	</style>
+</head>
+<body>
+
+
+
+
+
+
+	<section>
+		<ul class="filter">
+			<li><button class="filter__button active" type="button" data-filter="all">All</button></li>
+			<li><button class="filter__button" type="button" data-filter="mobile">Mobile</button></li>
+			<li><button class="filter__button" type="button" data-filter="camera">Camera</button></li>
+			<li><button class="filter__button" type="button" data-filter="watch">Watch</button></li>
+			<li><button class="filter__button" type="button" data-filter="shoe">Shoe</button></li>
+			<li><button class="filter__button" type="button" data-filter="headphone">Headphone</button></li>
+		</ul>
+
+		<div class="gallery">
+			<div class="card" data-filter-item="mobile">
+				<img src="https://picsum.photos/500/500" alt="">
+			</div>
+			<div class="card" data-filter-item="camera">
+				<img src="https://picsum.photos/400/400" alt="">
+			</div>
+			<div class="card" data-filter-item="watch">
+				<img src="https://picsum.photos/300/300" alt="">
+			</div>
+			<div class="card" data-filter-item="shoe">
+				<img src="https://picsum.photos/200/200" alt="">
+			</div>
+			<div class="card" data-filter-item="headphone">
+				<img src="https://picsum.photos/100/100" alt="">
+			</div>
+
+			<div class="card" data-filter-item="mobile">
+				<img src="https://picsum.photos/500/500" alt="">
+			</div>
+			<div class="card" data-filter-item="camera">
+				<img src="https://picsum.photos/400/400" alt="">
+			</div>
+			<div class="card" data-filter-item="watch">
+				<img src="https://picsum.photos/300/300" alt="">
+			</div>
+			<div class="card" data-filter-item="shoe">
+				<img src="https://picsum.photos/200/200" alt="">
+			</div>
+
+			<div class="card" data-filter-item="mobile">
+				<img src="https://picsum.photos/500/500" alt="">
+			</div>
+			<div class="card" data-filter-item="camera">
+				<img src="https://picsum.photos/400/400" alt="">
+			</div>
+			<div class="card" data-filter-item="watch">
+				<img src="https://picsum.photos/300/300" alt="">
+			</div>
+
+			<div class="card" data-filter-item="mobile">
+				<img src="https://picsum.photos/500/500" alt="">
+			</div>
+			<div class="card" data-filter-item="camera">
+				<img src="https://picsum.photos/400/400" alt="">
+			</div>
+			<div class="card" data-filter-item="mobile">
+				<img src="https://picsum.photos/500/500" alt="">
+			</div>
+
+		</div>
+	</section>
+
+
+
+
+
+
+	<script>
+// Скрипт для фильтра выбора карточек по тегам-темам:
+
+let filterButton = document.querySelectorAll('[data-filter]');
+let filterCard = document.querySelectorAll('[data-filter-item]');
+
+filterButton.forEach((n, i) =>
+	n.addEventListener('click', () => {
+		filterButton.forEach((n) => n.classList.remove('active'));
+		n.classList.add('active');
+		let datafilter = n.getAttribute('data-filter');
+		filterCard.forEach((item) => {
+			item.classList.add('hide');
+			if (
+				item.getAttribute('data-filter-item') === datafilter ||
+				datafilter === 'all'
+			) {
+				item.classList.remove('hide');
+				item.classList.add('active');
+			}
+		});
+	})
+);
+
+	</script>
+
+
+
+</body>
+</html>

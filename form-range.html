@@ -1,0 +1,533 @@
+<!doctype html><!-- Файл form-range.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Ввод диапазона (Range) – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+/* Сброс стилей: */
+/*input[type="range"]*/
+.input-range {
+	width: 240px;
+	background: transparent;
+	-webkit-appearance: none;
+	appearance: none;
+	cursor: pointer;
+}
+
+/* Полоска (Slider Track): */
+.input-range::-webkit-slider-runnable-track {
+	height: 10px;
+	background-color: royalblue;
+	border-radius: 9px;
+}
+
+.input-range::-moz-range-track {
+	height: 10px;
+	background-color: royalblue;
+	border-radius: 9px;
+}/* почему-то нужно именно отдельно прописать селектор, а не вместе с предыдущим! */
+
+/* Ползунок (Slider Thumb): */
+.input-range::-webkit-slider-thumb {
+	width: 20px;
+	height: 30px;
+	margin-top: -10px;/* это центровка ползунка на полоске */
+	background-color: turquoise;
+	border-radius: 99px;
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+.input-range::-moz-range-thumb {
+	width: 20px;
+	height: 30px;
+	background-color: turquoise;
+	border: none;
+	border-radius: 99px;
+}
+
+/* Стили для выбранной зоны полосы (прогресса): */
+.input-range::-moz-range-progress {
+	/*position: relative;
+	z-index: 2;*/
+	height: 8px;
+	background-color: violet;
+}/* такой псевдоэлемент пока есть только для FireFox */
+
+/* Стили для фокуса: */
+.input-range:focus {
+	outline: none;
+}/* сброс дефолтного фокуса */
+
+.input-range:focus-visible::-webkit-slider-thumb {
+	/*border: 1px solid hsl(210, 90%, 20%);*/
+	outline: 3px solid darkslateblue;
+	outline-offset: 2px;
+}
+
+.input-range:focus-visible::-moz-range-thumb {
+	/*border: 1px solid hsl(210, 90%, 20%);*/
+	outline: 3px solid darkslateblue;
+	outline-offset: 2px;
+}
+
+/* Конец стилей рейнджа. */
+
+/* Неудачный эксперимент с прогрессом с помощью градиента в рамке ползунка!:
+input[type="range"]::-webkit-slider-thumb {
+	position: relative;
+	z-index: 2;
+	box-sizing: content-box;
+	padding: 15px;
+	background: padding-box hsl(189, 78%, 64%);
+	border-left: 40px solid transparent;
+	border-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 10px, red 10px, red 22px, rgba(0, 0, 0, 0) 22px) 1 100%;
+}*/
+
+
+
+
+/* Рейндж №2 с прогрессом (без JS): */
+.i-r-2 {
+	height: 30px;
+	border-radius: 99px;
+	overflow: hidden;
+}
+
+.i-r-2::-webkit-slider-thumb {
+	box-shadow: -910px 0 0 900px coral;
+}
+
+
+
+
+/* Рейндж №3 с показом результата (с JS): */
+.range-3 {
+	width: 100%;
+	max-width: 400px;
+}
+
+
+
+
+/* Рейндж №4 с показом результата (с JS): НЕДОДЕЛАНО! */
+.range-slider {
+	position: relative;
+	display: flex;
+	max-width: 290px;
+}
+
+.range-slider .slider {
+	width: 100%;
+	height: 0.4em;
+	background-color: #1f1f1f;
+	border-radius: 3px;
+	box-shadow: 3px 3px 6px #000, inset 1px 1px 1px #909090;
+	outline: none;
+	appearance: none;
+}
+
+.range-slider .slider::-webkit-slider-thumb {
+	position: relative;
+	z-index: 3;
+	width: 1.7em;
+	height: 1.7em;
+	appearance: none;
+}
+
+.range-slider .slider-thumb {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	z-index: 2;
+	width: 1.7em;
+	height: 1.7em;
+	background-color: #090909;
+	border-radius: 99px;
+	box-shadow: inset 0 1px 2px #909090;
+	transform: translate(-50%, -50%);
+}
+
+.range-slider .tooltip {
+	position: absolute;
+	top: -2em;
+	left: 50%;
+	width: 2.8em;
+	height: 2em;
+	line-height: 35px;
+	text-align: center;
+	color: #fff;
+	background-color: #090909;
+	border-radius: 3px;
+	box-shadow: 0 3px 10px #1f1f1f, inset 0 1px 2px #909090;
+	transform: translate(-50%, -50%);
+}
+
+.range-slider .progress {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	width: 50%;
+	height: 0.4em;
+	background-color: blue;
+	border-radius: 3px;
+	pointer-events: none;
+	transform: translateY(-50%);
+}
+/* ... недоделано! */
+
+
+/* Рейндж №5 с показом результата (с JS): */
+.range-5 {
+	width: 380px;
+	height: 80px;
+	padding: 0 65px 0 45px;
+	background-color: hsl(0, 0%, 85%);
+}
+
+.sliderValue-5 {
+	position: relative;
+	width: 100%;
+}
+
+.span-5 {
+	position: absolute;
+	top: -40px;
+	z-index: 2;
+	width: 45px;
+	height: 45px;
+	font-weight: 500;
+	line-height: 55px;
+	color: hsl(70, 100%, 88%);
+	/*background-color: hsl(237, 56%, 50%);*/
+	transform: translateX(-50%) scale(0);/* scale тут чтобы скрыть неактивное число */
+	transform-origin: bottom;
+	transition: 0.3s ease-in-out;
+}
+
+.span-5.show {
+	transform: translateX(-50%) scale(1);
+}
+
+.span-5::after {
+	content: '';
+	position: absolute;
+	left: 50%;
+	z-index: -1;
+	width: 45px;
+	height: 45px;
+	background-color: darkslateblue;
+	border: 3px solid grey;
+	border-radius: 50% 50% 0 50%;
+	transform: translateX(-50%) rotate(45deg);
+}
+
+.field-5 {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+
+.value-5 {
+	position: absolute;
+	font-weight: 600;
+	font-size: 18px;
+	color: darkslateblue;
+}
+
+.value-5.left {
+	left: -22px;
+}
+
+.value-5.right {
+	right: -43px;
+}
+
+.range-5-input {
+	width: 100%;
+	height: 3px;
+	background-color: #ddd;
+	border: none;
+	border-radius: 5px;
+	outline: none;
+	appearance: none;
+}
+
+
+
+
+/* Рейндж №6 с показом результата (с JS): */
+.range-6 {
+	width: 100%;
+	max-width: 500px;
+	padding: 20px 30px 40px;
+}
+
+.range-6 output {
+	display: inline-block;
+	width: 3.4ch;
+	text-align: center;
+}
+
+.range-6-input {
+	position: relative;
+	width: 100%;
+	height: 20px;
+	background: linear-gradient(90deg, coral 50%, royalblue 50%);
+	border-radius: 99px;
+	outline: none;
+	opacity: 0.85;
+	-webkit-appearance: none;
+	appearance: none;
+	cursor: pointer;
+	transition: opacity 0.2s;
+}
+
+.range-6-input:hover {
+	opacity: 1;
+}
+
+/* Полоска (Slider Track): */
+.range-6-input::-webkit-slider-runnable-track {
+	background: transparent;
+}
+
+.range-6-input::-moz-range-track {
+	background: transparent;
+}
+
+/* Ползунок (Slider Thumb): */
+.range-6-input::-webkit-slider-thumb {
+	width: 20px;
+	height: 40px;
+	background-color: turquoise;
+	border-radius: 99px;
+	appearance: none;
+}
+
+.range-6-input::-moz-range-thumb {
+	width: 20px;
+	height: 40px;
+	background-color: turquoise;
+	border: none;
+	border-radius: 99px;
+	appearance: none;
+}
+
+.range-6-input:hover::-webkit-slider-thumb,
+.range-6-input:focus::-webkit-slider-thumb {
+	background-color: violet;
+}
+
+.range-6-input:hover::-moz-range-thumb,
+.range-6-input:focus::-moz-range-thumb {
+	background-color: violet;
+}
+
+.range-6-input::before {
+	content: '1';
+	position: absolute;
+	top: 30px;
+	left: 0;
+}
+
+.range-6-input::after {
+	content: '100';
+	position: absolute;
+	top: 30px;
+	right: 0;
+}
+
+/* Стили для фокуса: */
+.range-6-input:focus {
+	outline: none;
+}/* сброс дефолтного фокуса */
+
+.range-6-input:focus-visible::-webkit-slider-thumb {
+	/*border: 1px solid hsl(210, 90%, 20%);*/
+	outline: 3px solid violet;
+	outline-offset: 2px;
+}
+
+.range-6-input:focus-visible::-moz-range-thumb {
+	/*border: 1px solid hsl(210, 90%, 20%);*/
+	outline: 3px solid violet;
+	outline-offset: 2px;
+}
+
+
+
+
+
+/*эксперименты:*/
+.module {
+	width: 50px;
+	height: 100px;
+	margin-left: 400px;
+	/*padding: 50px;*/
+	background: padding-box hsl(191, 81%, 67%);
+	box-shadow: -299px 0 0 0px coral;
+	outline: 4px solid hsl(189, 78%, 64%);
+}
+
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Ввод диапазона (Range)</h1>
+		<hr>
+
+		<h2>Рейндж №0</h2>
+		<p>Без JS, стили мультибрпаузерные и доступные. Минус в том, что нельзя так просто раскрасить другим цветом полосу прогресса (то что слева от ползунка).</p>
+		<p>Это закрывает вопрос настройки внешнего вида input range. Код делает диапазон одинаковым во всех браузерах и настраивает все элементы и фокус. Код взят из <a target="_blank" href="https://www.smashingmagazine.com/2021/12/create-custom-range-input-consistent-browsers/">этой статьи</a>.</p>
+		<p>В комментариях писали что стилизация стала проще с помощью свойства <code>accent-color</code>.</p>
+		<p>Проблема этих стилей в том, что нет разных цветов для выбранной области полоски (трека) и невыбранной! Для выбранной полосы (прогресса) есть псевдоэлемент только в Firefox <code>::-moz-range-progress</code></p><br>
+
+		<input class="input-range" id="range" type="range" name="range">
+		<br><br>
+
+
+		<fieldset>
+			<legend class="legend-range">Навороченный рейндж</legend>
+			<label class="label-range" for="calc-range">Количество точек:</label>
+			<input class="input-range" id="input-range" type="range" name="range" min="1" max="10" value="5" step="1" list="tickmarks">
+
+			<datalist id="tickmarks">
+				<option value="1" label="1"></option>
+				<option value="5"></option>
+				<option value="10" label="10"></option>
+			</datalist>
+		</fieldset>
+		<hr>
+
+
+
+
+		<h2>Рейндж №2 с прогрессом (без JS)</h2>
+
+		<input class="input-range i-r-2" id="range" type="range" name="range" min="1" max="100" value="50" step="1">
+
+
+
+
+		<h2>Рейндж №3 с показом результата (с JS)</h2>
+
+		<fieldset class="range-3">
+			<label for="output-3">Стоимость <output class="range-3-value" id="output-3" name="range-6" for="range-result-1">50</output> ₽</label>
+			<input class="input-range i-r-3" id="range-result-1" type="range" name="" min="0" max="100" value="50" onchange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)">
+
+			<script>
+				function rangeSlide(value) {
+					document.getElementById('output-3').innerHTML = value;
+				}
+			</script>
+		</fieldset>
+		<hr>
+
+
+
+
+		<h2>Рейндж №4 с показом результата (с JS)</h2>
+
+		<div class="range-slider">
+			<input class="input-range i-r-4 slider" type="range" min="0" max="100" value="50">
+			<div class="slider-thumb">
+				<div class="tooltip"></div>
+			</div>
+			<div class="progress"></div>
+		</div>
+		<p>Недоделал https://youtu.be/0oePYYXBmm0</p>
+		<hr>
+
+
+
+
+		<h2>Рейндж №5 с показом результата (с JS)</h2>
+
+		<fieldset class="range-5">
+			<div class="sliderValue-5">
+				<output class="span-5">50</output>
+			</div>
+			<div class="field-5">
+				<div class="value-5 left">0</div>
+				<input class="input-range range-5-input" type="range" min="0" max="100" value="50" step="1">
+				<div class="value-3 right">100</div>
+			</div>
+
+			<script>
+				const slideValue = document.querySelector(".span-5");
+				const inputSlider = document.querySelector(".range-5-input");
+				inputSlider.oninput = (() => {
+					let value = inputSlider.value;
+					slideValue.textContent = value;
+					slideValue.style.left = (value) + "%";
+					slideValue.classList.add("show");
+				});
+				inputSlider.onblur = (() => {
+					slideValue.classList.remove("show");
+				});
+			</script>
+		</fieldset>
+		<hr>
+
+
+
+
+		<h2>Рейндж №6 с показом результата (с JS) ЛУЧШИЙ СЕЙЧАС!</h2>
+
+		<fieldset class="range-6">
+			<legend class="legend-range">Лучший рейндж с JS тута</legend>
+			<label for="output-6">Стоимость: <output id="output-6" name="range-6" for="range-6"></output> ₽</label>
+			<input class="range-6-input" id="range-6" type="range" min="1" max="100" value="50" step="0.5">
+
+			<script>
+				var slider = document.getElementById("range-6");
+				var output = document.getElementById("output-6");
+
+				output.innerHTML = slider.value;
+
+				slider.oninput = function() {
+					output.innerHTML = this.value;
+				}
+
+				slider.addEventListener("input", function() {
+					var x = ((slider.value - slider.min) / (slider.max - slider.min) * 100);//var x = slider.value;
+					var color = `linear-gradient(90deg, coral ${x}%, royalblue ${x}%)`;
+					slider.style.background = color;
+				})
+			</script>
+		</fieldset>
+		<hr>
+
+
+
+		<p>Эксперименты:</p>
+		<div class="module"></div>
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

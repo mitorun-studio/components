@@ -1,0 +1,127 @@
+<!doctype html><!-- Файл scrollbar.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Скроллбары (полосы прокрутки) – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+/*-------------------------------------------------------------
+------------------- Скроллбар (Scrollbar) ---------------------
+-------------------------------------------------------------*/
+
+::-webkit-scrollbar {
+	/*display: none; или width: 0; height: 0; это чтобы убрать-удалить скроллбар */
+	width: 10px;
+	height: 10px;/* по умолчанию width: 17px; (Windows, Chrome) */
+	/*background: transparent; или background: var(--white); было hsl(210, 6%, 93%);*/
+	border: 1px solid black;
+}/* это весь элемент скроллбара */
+
+body::-webkit-scrollbar {
+	width: 17px;
+}
+
+/*::-webkit-scrollbar-track {
+	background: transparent;
+} это настройка для подложки полосы, но я задаю эти настройки самому скроллбару */
+
+::-webkit-scrollbar-thumb {
+	background: black;
+	/*background-clip: content-box; это позволяет сделать прозрачные отступы между ползунком и треком! */
+	/*border: 2px solid transparent; или border: 2px solid hsl(213, 6%, 93%); это создает эффект что ползунок меньше ширины всего скроллбара и находится как бы в нем */
+	/*box-shadow: inset 0 0 2px hsla(210, 73%, 4%, .1);*/
+}/* это ползунок скроллбара */
+
+::-webkit-scrollbar-thumb:hover {
+	background: grey;
+	/*background-clip: content-box; это позволяет сделать прозрачные отступы между ползунком и треком! */
+	/*transform: scale(1.1); это не работает */
+}
+
+
+/*---------------------------------------------------
+---------- Полоса прогресса скроллбара: -------------
+---------------------------------------------------*/
+
+.progress-scroll {
+	position: fixed;
+	top: 0;
+	left: 0;
+	-webkit-appearance: none;
+	appearance: none;
+	width: 100%;
+	height: 15px;
+	border: none;
+	background: transparent;
+}
+
+.progress-scroll::-webkit-progress-bar {
+	background: transparent;
+}
+
+/* Изменение цвета полосы: */
+.progress-scroll::-webkit-progress-value {
+	background: linear-gradient(to left, #db38b5,#01b3e3,#25ce7b,#fdc741,#ff6b01,#fc4236);
+	background-attachment: fixed;
+}
+
+.progress-scroll::-moz-progress-bar {
+	background: linear-gradient(to left, #db38b5,#01b3e3,#25ce7b,#fdc741,#ff6b01,#fc4236);
+	background-attachment: fixed;
+}
+/* Конец прогресс-скролла. */
+
+
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<progress class="progress-scroll" max="100" value="0"></progress>
+
+
+	<main class="container">
+
+			<h1>Скроллбары</h1>
+			<hr>
+
+
+			<h2>Скроллбар 01</h2>
+
+			<p>Надо сделать примеры блоков со скроллбарами!</p>
+			<p>scrollbar-gutter: auto | [ [ stable | always ] && both-edges? && force? ] || match-parent;</p>
+			<hr>
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+	<script>
+/* Скрипт для полосы прогресса скроллбара: */
+gsap.to('.progress-scroll', {
+	value: 100,
+	ease: 'none',
+	scrollTrigger: { scrub: 0.3 }
+});
+	</script>
+
+
+</body>
+</html>

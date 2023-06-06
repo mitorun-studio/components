@@ -1,0 +1,153 @@
+<!doctype html><!-- Файл header-burger-makeev.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Хедер с бургер-меню от Макеева – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+.header-grid {
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 80rem;
+	padding-top: 15rem;
+	padding-bottom: 15rem;
+}
+
+/*.logo {}*/
+
+.menu-button {
+	width: 48rem;
+	height: 48rem;
+	font: 700 30rem sans-serif;
+}
+
+.menu-icon-close {
+	display: none;
+}
+
+.menu-button.open .menu-icon-open {
+	display: none;
+}
+
+.menu-button.open .menu-icon-close {
+	display: block;
+}
+
+.menu-list {
+	position: absolute;
+	top: 80rem;
+	left: 0;
+	right: 0;
+	display: none;
+	padding: 30rem 18rem 30rem 50rem;
+	background: hsl(0, 0%, 100%);
+	box-shadow: 0 0 16rem 1rem hsla(0, 0%, 0%, 0.3);
+}
+
+.menu-list.open {
+	display: block;
+}
+
+@media (min-width: 737px) {
+	.menu-button {
+		display: none;
+	}
+
+	.menu-list {
+		position: static;
+		display: flex;
+		gap: 24rem;
+		padding: 0;
+		background: hsl(0, 0%, 100%);
+	}
+}
+	</style>
+</head>
+
+
+<body>
+
+	<header class="header">
+		<div class="container header-grid">
+
+			<div class="logo">LOGO</div>
+
+
+			<nav class="menu">
+				<button class="menu-button" type="button" aria-expanded="false" aria-controls="menu-list">
+					<span class="menu-icon">
+						<span class="menu-icon-open">=</span>
+						<span class="menu-icon-close">X</span>
+					</span>
+				</button>
+
+
+				<ul class="menu-list" id="menu-list">
+					<li class="menu-item">
+						<a class="menu__link" href="#">Статьи</a>
+					</li>
+					<li class="menu-item">
+						<a class="menu__link" href="#">Подкаст</a>
+					</li>
+					<li class="menu-item">
+						<a class="menu__link" href="#">Календарь</a>
+					</li>
+					<li class="menu-item">
+						<a class="menu__link" href="#">О проекте</a>
+					</li>
+					<li class="menu-item">
+						<a class="menu__link" href="#">Поддержать</a>
+					</li>
+				</ul>
+			</nav>
+
+		</div>
+	</header>
+
+
+	<main class="container">
+
+		<h1>Хедер с бургер-меню</h1>
+		<hr>
+
+
+		<h2>Хедер с бургер-меню по Макееву</h2>
+		<p>Сделано по <a href="https://youtu.be/o7A0e4PkSAQ">этому ролику</a>.</p>
+		<p>Главный минус этого скрипта и стилей в том, что меню скрывается просто display: none и это никак не анимировать.</p>
+		<p>Плюс в том, что используется очень простой скрипт для изменения атрибута и добавления/убирания классов. Этот код можно применять для других таких задач.</p>
+
+
+	</main>
+
+
+	<div style="height: 1440px;"></div>
+
+
+	<script>
+		/* Ниже скрипт для бургер-меню от Макеев2020: */
+		(() => {
+			const menuButton = document.querySelector('.menu-button');
+			const menuList = document.querySelector('.menu-list');
+
+			menuButton.addEventListener('click', () => {
+				let expanded = menuButton.getAttribute('aria-expanded') === 'true';
+				menuButton.setAttribute('aria-expanded', !expanded);
+				menuButton.classList.toggle('open');// это для добавления/убирания класса .open, можно удалить
+				menuList.classList.toggle('open');// это для добавления/убирания класса .open, можно удалить
+			});
+		})();
+	</script>
+
+
+</body>
+</html>

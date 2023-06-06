@@ -1,0 +1,76 @@
+<!doctype html><!-- Файл animation-text-no-js.html -->
+<html lang="ru">
+
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Анимации текста без JS – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+.main-h1 {
+	position: relative;
+	max-width: 700px;
+	overflow: hidden;/* это для анимации на заголовке H1 */
+}
+
+.main-h1 > span {
+	display: block;
+	font-weight: 700;
+	font-size: 40px;
+}
+
+.main-h1::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 100%;
+	width: 200%;
+	background: linear-gradient(120deg, hsla(0, 0%, 100%, 0) 8%, hsla(0, 0%, 100%, 0.5) 8%, hsla(0, 0%, 100%, 0.5) 27%, hsla(0, 0%, 100%, 0.85) 27%, hsla(0, 0%, 100%, 0.85) 46%, hsl(0, 0%, 100%) 46%);
+	animation: slideRight 2s ease-in;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	@keyframes slideRight {
+		0% {
+			transform: translateX(-100%);
+		}
+		20% {
+			transform: translateX(-100%);
+		}
+	}
+}
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Компоненты</h1>
+		<hr>
+
+		<h2 class="main-h1">
+			<span>Это анимация заголовка</span>
+			<span>при загрузке страницы</span>
+			<span>Смещается псевдоэлемент с линейным градиентом</span>
+		</h2>
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

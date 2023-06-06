@@ -1,0 +1,63 @@
+<!doctype html><!-- Файл sound.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Звуки – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+			<h1>Компоненты</h1>
+			<br><br>
+			<hr><br><br>
+
+
+			<h2>Звук 1</h2><br>
+			<button onclick="new Audio('fls/btn.aac').play()">Звук 1</button>
+			<br><br>
+			<hr><br><br>
+
+
+			<h2>Звук 2</h2><br>
+			<audio type="audio/aac" src="fls/btn.aac"></audio><button onclick="this.previousSibling.play()">Звук 2</button>
+			<br><br>
+			<hr><br><br>
+
+
+			<h2>Звук 3</h2><br>
+			<button id="sound3">Звук 3</button>
+			<audio id="sound3audio" type="audio/aac" src="fls/btn.aac"></audio>
+
+			<script>
+				document.querySelector('#sound3').addEventListener('click', fPlay, false);
+				function fPlay() {
+					document.querySelector('#sound3audio').play();
+				}
+			</script>
+
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

@@ -1,0 +1,445 @@
+<!doctype html><!-- Файл slider-before-after.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Слайдер "до-после" – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+/*--------------------------------------
+------ Слайдер "до-после": ----------
+--------------------------------------*/
+
+.before-after {
+	--before-after-position: 50%;
+	position: relative;
+	/*display: grid;
+	place-content: center;*/
+	max-width: 512px;
+	/*height: 600px;*/
+	max-height: 90vh;
+	aspect-ratio: 1/1;
+	/*overflow: hidden;*/
+}
+
+.before-after__img {
+	/*position: absolute;
+	inset: 0;*/
+	height: 100%;
+}
+
+.before-after__img--before {
+	position: absolute;
+	inset: 0;
+	width: var(--before-after-position);
+	filter: grayscale(100%);
+}
+
+.before-after__img img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: left;
+}
+
+.before-after img::selection {
+	/*appearance: none;*/
+	color: inherit;
+	background: transparent;
+}
+
+.before-after__range {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	cursor: pointer;
+}
+
+.before-after__thumb {
+	--thumb-width: 2px;
+	position: absolute;
+	inset: 0;
+	left: calc(var(--before-after-position) - var(--thumb-width) / 2);
+	width: var(--thumb-width);
+	height: 100%;
+	background-color: var(--color-main);
+	pointer-events: none;
+}
+
+.before-after__thumb::after {
+	content: '';
+	position: absolute;
+	left: calc(var(--thumb-width) / 2 - var(--margin-m) / 2);/* тут var(--margin-m) должна равняться ширине width этого псевдоэлемента! */
+	bottom: var(--margin-m);
+	width: var(--margin-m);
+	aspect-ratio: 1/1;
+	background-color: var(--color-main);
+	/*border: 1px solid var(--color);*/
+	border-radius: 99px;
+	/*box-shadow: 0 2px 14px 0 hsla(0, 0%, 0%, 0.3);*/
+}
+
+/* Стили для выделения стрелки у черты-ползунка: */
+.before-after__range:focus-visible ~ .before-after__thumb::after {
+	outline: 2px solid black;
+	outline-offset: 2px;
+}
+
+
+/*--------------------------------------
+------ Слайдер "до-после" №1: ----------
+--------------------------------------*/
+
+.slider {
+	position: relative;
+	width: 100%;
+	max-width: 512px;
+	/*border: 5px solid violet;*/
+	box-shadow: 0 0 0 5px violet;
+	/*overflow: hidden;*/
+}
+
+.before {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 2;
+	width: 50%;
+	height: 100%;
+	overflow: hidden;
+}
+
+.slider img {
+	display: block;
+	width: 100%;
+	max-width: initial;
+	height: 100%;
+	object-fit: cover;
+}
+
+.change {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	z-index: 4;
+	width: 5px;
+	height: 100%;
+	background-color: greenyellow;
+	cursor: pointer;
+}
+
+.change::after {
+	content: '';
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 40px;
+	height: 40px;
+	background-color: tomato;
+	border-radius: 99px;
+	translate: -50% -50%;
+}
+
+/*--------------------------------------
+------ Слайдер "до-после" №2: ----------
+--------------------------------------*/
+
+.wrap,
+.gallery,
+.img {
+	width: 600px;
+	height: 320px;
+}
+
+.wrap {
+	position: relative;
+	/*padding: 20px;*/
+	/*border: 2px solid black;*/
+	box-shadow: 0 0 0 2px black;
+}
+
+.gallery {
+	position: relative;
+	z-index: 1;
+	display: flex;
+}
+
+.img {
+	display: block;
+	/*width: 100%;*/
+	max-width: initial;
+	/*height: 100%;*/
+	min-width: 100%;
+	object-fit: cover;
+	cursor: pointer;
+}
+
+.gallery-resize,
+.gallery-resize::after {
+	position: absolute;
+	top: 0;
+	cursor: pointer;
+}
+
+.gallery-resize {
+	left: 0;
+	width: 150px;/*50%?*/
+	overflow: hidden;
+}
+
+/* Этот класс подставляется скриптом для анимации: */
+.tr {
+	transition: 0.3s linear;
+}
+
+.gallery-resize::after {
+	content: '';
+	position: absolute;
+	right: 0;
+	z-index: 20;
+	width: 2px;
+	height: 100%;
+	background-color: greenyellow;
+}
+
+.button-before,
+.button-after {
+	position: absolute;
+	top: 50%;
+	z-index: 100;
+	padding: 10px 20px;
+	border: 1px solid black;
+	translate: 0 -50%;
+	cursor: pointer;
+}
+
+.button-before {
+	left: -100px;
+}
+
+.button-after {
+	right: -100px;
+}
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Слайдер "до-после"</h1>
+		<hr>
+
+
+
+
+		<h2>Слайдер "до-после"</h2>
+		<p>Слайдер работает и по перетягиванию и по клику на любом участке картинок. Работает с помощью input range и содержит мизер скрипта.</p>
+		<p>Сделан по <a class="link" rel="noopener" target="_blank" href="https://youtu.be/dzqDU9efnnk">этому ролику</a>.</p>
+
+
+		<div class="before-after">
+			<div class="before-after__img before-after__img--before">
+				<img src="img/example-woman-2.jpg" alt="">
+			</div>
+
+			<div class="before-after__img">
+				<img src="img/example-woman-2.jpg" alt="">
+			</div>
+
+			<input class="before-after__range" type="range" min="0" max="100" value="50" aria-label="Сколько процентов первого изображения показывается">
+
+			<div class="before-after__thumb" aria-hidden="true"></div>
+		</div>
+
+
+		<!--Скрипт для Слайдер "до-после":-->
+		<script>
+			const container = document.querySelector('.before-after');
+			document.querySelector('.before-after__range').addEventListener('input', (e) => {
+				container.style.setProperty('--before-after-position', `${e.target.value}%`);
+			})
+		</script>
+		<br><hr><br>
+
+
+
+
+		<h2>Слайдер "до-после" №1</h2>
+		<p>Слайдер работает только перетягиванияем разделительной черты и стрелочки-псевдоэлемента на ней. Скрипт большой и сложный.</p>
+		<p>Сделан по ролику <a class="link" rel="noopener" target="_blank" href="https://youtu.be/fPEMGB6UU8c">MaxGraph</a>.</p>
+
+		<div class="slider">
+			<div class="before">
+				<img width="512" height="512" src="img/example-kid-1.jpg" alt="">
+			</div>
+
+			<div class="after">
+				<img width="512" height="512" src="img/example-woman-2.jpg" alt="">
+			</div>
+
+			<div class="change"></div>
+		</div>
+
+		<!--Скрипт для Слайдер "до-после" №1:-->
+		<script>
+const slider = document.querySelector('.slider');
+const before = document.querySelector('.before');
+const beforeImage = before.querySelector('img');
+const change = document.querySelector('.change');
+const body = document.body;
+
+let isActive = false;
+
+document.addEventListener('DOMContentLoaded', () => {
+	let width = slider.offsetWidth;
+	beforeImage.style.width = `${width}px`;
+});
+
+change.addEventListener('mousedown', () => {
+	isActive = true;
+});
+
+body.addEventListener('mouseup', () => {
+	isActive = false;
+});
+
+body.addEventListener('mouseleave', () => {
+	isActive = false;
+});
+
+const beforeAfterSlider = (x) => {
+	let shift = Math.max(0, Math.min(x, slider.offsetWidth));
+	before.style.width = `${shift}px`;
+	change.style.left = `${shift}px`;
+};
+
+const pauseEvents = (e) => {
+	e.stopPropagation();
+	e.preventDefault();
+	return false;
+};
+
+body.addEventListener('mousemove', (e) => {
+	if (!isActive) {
+		return;
+	}
+
+	let x = e.pageX;
+	x -= slider.getBoundingClientRect().left;
+	beforeAfterSlider(x);
+	pauseEvents(e);
+});
+
+change.addEventListener('touchstart', () => {
+	isActive = true;
+});
+
+body.addEventListener('touchend', () => {
+	isActive = false;
+});
+
+body.addEventListener('touchcancel', () => {
+	isActive = false;
+});
+
+body.addEventListener('touchmove', (e) => {
+	if (!isActive) {
+		return;
+	}
+
+	let x;
+
+	let i;
+	for (i = 0; i < e.changedTouches.length; i++) {
+		x = e.changedTouches[i].pageX;
+	}
+
+	x -= slider.getBoundingClientRect().left;
+
+	beforeAfterSlider(x);
+	pauseEvents(e);
+});
+		</script>
+		<br><hr><br>
+
+
+
+
+		<h2>Слайдер "до-после" №2</h2>
+		<p>Слайдер работает просто по ховеру, плюс есть отдельные кнопки которые включают одну или другую картинку (функционал тут легко удалить или настроить).</p>
+		<p>Сделан по <a class="link" rel="noopener" target="_blank" href="https://youtu.be/_FCK5LtWtcY">этому ролику</a>.</p>
+
+		<div class="wrap">
+			<button class="button button-before" type="button">Before</button>
+			<button class="button button-after" type="button">After</button>
+
+			<div class="gallery">
+				<img class="img" width="512" height="512" src="img/example-kid-1.jpg" alt="">
+
+				<div class="gallery-resize">
+					<img class="img" width="512" height="512" src="img/example-woman-2.jpg" alt="">
+				</div>
+			</div>
+		</div>
+
+		<!--Скрипт для Слайдер "до-после" №2:-->
+		<script>
+const gallery = document.querySelector('.gallery')
+const galleryResize = document.querySelector('.gallery-resize')
+
+gallery.addEventListener('mousemove', (event) => {
+	let x = event.offsetX
+	galleryResize.classList.remove('tr')
+	galleryResize.style.width = x + 'px'
+})
+
+// Код возврата ползунка на середину когда курсор уводится. Этот код можно удалить если не нужен:
+gallery.addEventListener('mouseleave', (event) => {
+	galleryResize.style.width = 50 + '%'
+	galleryResize.classList.add('tr')
+})
+
+// Код для кнопок Before и After, его можно просто удалить вместе с кнопками:
+const beforeBtn = document.querySelector('.button-before')
+const afterBtn = document.querySelector('.button-after')
+
+beforeBtn.onclick = () => {
+	galleryResize.classList.add('tr')
+	galleryResize.style.width = 10 + '%'
+}
+
+afterBtn.onclick = () => {
+	galleryResize.classList.add('tr')
+	galleryResize.style.width = 90 + '%'
+}
+		</script>
+
+
+
+
+
+
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!doctype html><!-- Файл _TEMPLATE.html -->
+<html lang="ru">
+
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Компонент – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="_mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style></style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Компоненты</h1>
+		<hr>
+
+		<!-- Экспериментальная форма feedback: -->
+		<section class="container">
+
+			<div class="form-container form__wrapper">
+				<!-- Форма обратной связи: -->
+				<form class="form" id="form" action="/form-feedback/form-feedback.php" enctype="multipart/form-data" novalidate>
+					<h3 class="form__title">Написать на почту</h3>
+
+					<!-- Имя пользователя: -->
+					<div class="form__item">
+						<label class="form__label" for="name">Ваше имя</label>
+						<input class="form__input" id="name" type="text" name="name" placeholder="Иван" autocomplete="off" minlength="2" maxlength="50" value="" title="Введите ваше имя">
+						<!--<p class="form__hint">Напишите ваше имя</p>-->
+						<div class="form__invalid"></div>
+					</div>
+
+
+					<!-- Email пользователя: -->
+					<div class="form__item">
+						<label class="form__label required" for="email">Ваш емейл</label>
+						<input class="form__input" id="email" type="email" name="email" placeholder="email@example.com" autocomplete="email" minlength="6" maxlength="100" title="Введите действующий емейл" value="" required>
+						<!--<p class="form__hint">Ваш действующий емейл</p>-->
+						<div class="form__invalid"></div>
+					</div>
+
+
+					<!-- Сообщение пользователя: -->
+					<div class="form__item">
+						<label class="form__label required" for="message">Ваше сообщение</label>
+						<textarea class="form__input" id="message" name="message" rows="5" placeholder="Напишите нам" autocomplete="off" minlength="6" maxlength="1500" spellcheck="true" title="Сообщение должно содержать от 6 до 1500 символов" required></textarea>
+						<!--<p class="form__hint">Напишите что-нибудь</p>-->
+						<div class="form__invalid"></div>
+					</div>
+
+
+					<!-- Файлы, для прикрепления к форме: -->
+					<!--<div class="form__item form-attach" data-count="5">
+						<p class="form-attach__label">Файлы (не более <span class="form-attach__count">5</span>)</p>
+						<div class="form-attach__wrapper">
+							<input type="file" name="attach[]" multiple required>
+							<div class="form-attach__description">
+								<p>Нажмите для загрузки файлов или перетащите их</p>
+								<p>PNG, JPG, GIF (до 512 Кбайт)</p>
+							</div>
+							<div class="form-attach__items"></div>
+						</div>
+						<div class="form__invalid"></div>
+					</div>-->
+
+
+					<!-- Пользовательское солашение: -->
+					<div class="form__item-point form__item">
+						<input class="form__input-point" id="agree" type="checkbox" name="agree" value="true" required>
+						<label class="form__label required" for="agree">Даю согласие на обработку персональных данных в соответствии с условиями <a target="_blank" href="#">Пользовательского соглашения</a>.</label>
+						<div class="form__invalid"></div>
+					</div>
+
+
+					<!-- Капча: -->
+					<!--<div class="form__item form-captcha">
+						<img class="form-captcha__image" src="/form-feedback/captcha/captcha.php" data-src="/form-feedback/captcha/captcha.php" width="132" height="46" alt="Капча">
+						<div class="form-captcha__refresh">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="16" height="16">
+								<path fill="currentColor" d="M440.65 12.57l4 82.77A247.16 247.16 0 0 0 255.83 8C134.73 8 33.91 94.92 12.29 209.82A12 12 0 0 0 24.09 224h49.05a12 12 0 0 0 11.67-9.26 175.91 175.91 0 0 1 317-56.94l-101.46-4.86a12 12 0 0 0-12.57 12v47.41a12 12 0 0 0 12 12H500a12 12 0 0 0 12-12V12a12 12 0 0 0-12-12h-47.37a12 12 0 0 0-11.98 12.57zM255.83 432a175.61 175.61 0 0 1-146-77.8l101.8 4.87a12 12 0 0 0 12.57-12v-47.4a12 12 0 0 0-12-12H12a12 12 0 0 0-12 12V500a12 12 0 0 0 12 12h47.35a12 12 0 0 0 12-12.6l-4.15-82.57A247.17 247.17 0 0 0 255.83 504c121.11 0 221.93-86.92 243.55-201.82a12 12 0 0 0-11.8-14.18h-49.05a12 12 0 0 0-11.67 9.26A175.86 175.86 0 0 1 255.83 432z">
+								</path>
+							</svg>
+						</div>
+						<div class="form__item form-captcha__input">
+							<label class="form__label d-none" for="captcha">Код, показанный на изображении</label>
+							<input class="form__input captcha" id="captcha" type="text" name="captcha" maxlength="6" placeholder="******" autocomplete="off" value="" required>
+							<div class="form__invalid"></div>
+						</div>
+					</div>-->
+
+
+					<!-- Сообщение об ошибке: -->
+					<div class="form-error form-error_hide">Исправьте данные и отправьте форму ещё раз.</div>
+
+					<!-- Кнопка для отправки формы на сервер: -->
+					<button class="button button--wide" type="submit">Отправить сообщение</button>
+				</form>
+
+
+				<!-- Сообщение об успешной отправке формы: -->
+				<div class="form-success form-success_hide">
+					<div class="form-success__message">Форма успешно отправлена. Нажмите <button class="form-success__btn" type="button">здесь</button>, если нужно отправить ещё одну форму.</div>
+				</div>
+			</div>
+		</section>
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+
+</html>

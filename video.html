@@ -1,0 +1,395 @@
+<!doctype html><!-- Файл video.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Вставка видео – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Компонент для вставки множества роликов с youtube, который работает легко-быстро и не тащит с ютуба тяжелый код. Сделано по ролику Макеева (12.2018).">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+/* Как сделать фоновое видео для сайта: */
+
+.background-video {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	min-width: 100%;
+	min-height: 100%;
+}
+
+.background-video-content {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	padding: 20px;
+	color: hsl(0, 0%, 95%);
+	background: hsla(0, 0%, 0%, 0.5);
+}
+
+/*--------------------- Youtube №2 --------------------------*/
+
+.gallery-video {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;
+}
+
+.video2-wrap {
+	position: relative;
+	width: 100%;
+	height: 0;
+	padding-bottom: 56.25%;/* это делает соотношение сторон 16:9 (паддинг-хак) */
+	background: hsl(0, 0%, 0%);
+}
+
+.video2 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border: none;
+}
+
+/*---------------- Youtube №3 ------------------*/
+
+.youtube {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	height: 0;
+	padding-bottom: 56.25%;
+	background-color: hsl(0, 0%, 0%);
+}
+
+.youtube-link {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.youtube-img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border: none;
+}
+
+.youtube-btn {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	z-index: 1;
+	display: none;
+	width: 68px;
+	height: 48px;
+	padding: 0;
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+	transform: translate(-50%, -50%);/* это чтобы при отсутствии скрипта изчезала кнопка */
+}
+
+.youtube-btn-button {
+	fill: hsl(0, 0%, 13%);
+	fill-opacity: 0.8;
+}
+
+.youtube-btn-arrow {
+	fill: hsl(0, 0%, 100%);
+}
+
+.youtube-btn:focus {
+	outline: none;
+}
+
+.youtube:hover .youtube-btn-button,
+.youtube-btn:focus .youtube-btn-button {
+	fill: hsl(0, 100%, 50%);
+	fill-opacity: 1;
+}
+
+/* Enabled */
+
+.yt-enabled {
+	cursor: pointer;
+}
+
+.yt-enabled .youtube-btn {
+	display: block;
+}
+
+/* Ниже Микро-версия ютуб-ролика: */
+
+.youtube-micro {
+	max-width: 500px;
+}
+
+.youtube-link-micro {
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 0;
+	padding-bottom: 56.25%;
+	background-color: hsl(0, 0%, 0%);
+}
+
+.youtube-img-micro {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.youtube-svg {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	/*z-index: 1;
+	width: 68px;
+	height: 48px;*/
+	cursor: pointer;
+	transform: translate(-50%, -50%);
+}
+
+.youtube-micro:hover .svg-yt-btn,
+.youtube-link-micro:focus .svg-yt-btn {
+	fill: hsl(0, 100%, 50%);
+	fill-opacity: 1;
+}
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+			<p>В стилях записаны стили для создания фонового видео-подложки для сайта!</p>
+			<p>Используйте CSS-свойство <code>object-position</code>, чтобы настроить расположение видео внутри элемента, а также <code>object-fit</code>, чтобы настроить размер видео относительно элемента.</p>
+
+
+			<video src="fls/inka.mp4" width="300" autoplay loop muted></video>
+
+			<video width="500" height="300" controls autoplay muted loop playsinline poster="img/example-woman-2.jpg" buffered preload="metadata">
+				<source src="fls/inka.webm" type="video/webm">
+				<source src="fls/inka.mp4" type="video/mp4">
+				<p>Ваш браузер не поддерживает встроенные видео, можете <a href="fls/inka.webm">скачать это видео</a>.</p>
+			</video>
+
+
+			<h1>Вставка роликов Youtube</h1>
+			<hr>
+
+
+
+
+
+			<iframe width="560" height="315" src="https://www.youtube.com/embed/TPh8fLeahqM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			<br><br>
+
+
+			<h2>Youtube №1 – по умолчанию</h2>
+			<p>Код для вставки от самого Youtube по умолчанию, во втором ролике поставлена галка о большей приватности
+				(изменился домен в ссылке).</p>
+			<br><br>
+			<iframe width="560" height="315" src="https://www.youtube.com/embed/4JS70KB9GS0" title="YouTube video player"
+				frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+				allowfullscreen></iframe>
+
+			<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/4JS70KB9GS0"
+				title="YouTube video player" frameborder="0"
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+				allowfullscreen></iframe>
+
+			<br><br>
+			<hr><br><br>
+
+
+
+
+			<h2>Youtube №2 – с адаптивом</h2>
+			<p>Код для вставки от самого Youtube по умолчанию. Добавление адаптива, резиновости роликов.</p>
+			<br><br>
+			<div class="gallery-video">
+				<div class="video2-wrap">
+					<iframe class="video2" width="560" height="315" src="https://www.youtube.com/embed/4JS70KB9GS0"
+						title="YouTube video player" frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen></iframe>
+				</div>
+
+				<div class="video2-wrap">
+					<iframe class="video2" width="560" height="315" src="https://www.youtube-nocookie.com/embed/4JS70KB9GS0"
+						title="YouTube video player" frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen></iframe>
+				</div>
+
+				<div class="video2-wrap">
+					<iframe class="video2" width="560" height="315" src="https://www.youtube.com/embed/4JS70KB9GS0"
+						title="YouTube video player" frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen></iframe>
+				</div>
+
+				<div class="video2-wrap">
+					<iframe class="video2" width="560" height="315" src="https://www.youtube-nocookie.com/embed/4JS70KB9GS0"
+						title="YouTube video player" frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen></iframe>
+				</div>
+			</div>
+
+			<br><br><hr><br><br>
+
+
+
+
+			<h2>Youtube №3 – код Макеева для легкой-быстрой работы</h2>
+
+			<p>Примечания:
+				- "https://i.ytimg.com/vi_webp/4JS70KB9GS0/maxresdefault.webp" - это ссылка на картинку обложки ролика. Сюда вместо "4JS70KB9GS0" нужно вставлять ID вашего конкретного ролика. "maxresdefault" - это разрешение картинки (есть меньшие разрешения). В alt хорошо будет прописать название ролика.
+			</p>
+			<p>- При клике на наш элемент ролика - скрипт будет подменять нашу картинку на iframe. Если скрипт выключен (или не сработает), то картинка обернута ссылкой на этот ролик.</p>
+			<br><br>
+
+			<div class="gallery-video">
+				<div class="youtube">
+					<a class="youtube-link" target="_blank" rel="noopener" href="https://youtu.be/4JS70KB9GS0">
+						<picture>
+							<source srcset="https://i.ytimg.com/vi_webp/4JS70KB9GS0/maxresdefault.webp" type="image/webp">
+							<img class="youtube-img" src="https://i.ytimg.com/vi/4JS70KB9GS0/maxresdefault.jpg" alt="Как вставить двадцать видео с Ютуба и не скачать слона">
+						</picture>
+					</a>
+					<button class="youtube-btn" aria-label="Запустить видео">
+						<svg width="68" height="48" viewBox="0 0 68 48">
+							<path class="youtube-btn-button" d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z">
+							</path>
+							<path class="youtube-btn-arrow" d="M 45,24 27,14 27,34"></path>
+						</svg>
+					</button>
+				</div>
+
+
+				<div class="youtube">
+					<a class="youtube-link" target="_blank" rel="noopener" href="https://youtu.be/4JS70KB9GS0">
+						<picture>
+							<source srcset="https://i.ytimg.com/vi_webp/4JS70KB9GS0/maxresdefault.webp" type="image/webp">
+							<img class="youtube-img" src="https://i.ytimg.com/vi/4JS70KB9GS0/maxresdefault.jpg" alt="Как вставить двадцать видео с Ютуба и не скачать слона">
+						</picture>
+					</a>
+					<button class="youtube-btn" aria-label="Запустить видео">
+						<svg width="70" height="50" viewBox="0 0 98 70">
+							<path class="youtube-btn-button" d="M49 2S20 2 12 4c-4 1-7 5-8 9-2 8-2 22-2 22s0 14 2 22c1 4 4 8 8 9 8 2 37 2 37 2s29 0 37-2c4-1 7-5 8-9 2-8 2-22 2-22s0-14-2-22c-1-4-4-8-8-9-8-2-37-2-37-2z" fill="#212121" fill-opacity="0.8"/>
+							<path class="youtube-btn-arrow" d="M64 35L39 21V49L64 35Z" fill="#fff"/>
+						</svg>
+					</button>
+				</div>
+			</div>
+
+			<p>Второй ролик это мини-версия: с опти-SVG, но вот не получилось удалить picture (оставить только webp) - скрипт перестает работать.</p>
+
+			<br><br><hr><br><br>
+
+
+
+
+			<h2>Youtube №4 – Оптимизация варианта №3</h2>
+
+			<p>Версия микро: с опти-SVG, без picture (только webp), без скрипта (ссылка на ютуб).</p>
+			<div class="youtube-micro">
+				<a class="youtube-link-micro" target="_blank" rel="noopener" href="https://youtu.be/4JS70KB9GS0">
+					<img class="youtube-img-micro" src="https://i.ytimg.com/vi_webp/4JS70KB9GS0/maxresdefault.webp" alt="Как вставить двадцать видео с Ютуба и не скачать слона">
+					<svg class="youtube-svg" width="70" height="50" viewBox="0 0 98 70">
+						<path class="svg-yt-btn" d="M49 2S20 2 12 4c-4 1-7 5-8 9-2 8-2 22-2 22s0 14 2 22c1 4 4 8 8 9 8 2 37 2 37 2s29 0 37-2c4-1 7-5 8-9 2-8 2-22 2-22s0-14-2-22c-1-4-4-8-8-9-8-2-37-2-37-2z" fill="#212121" fill-opacity=".7"/>
+						<path d="M64 35L39 21v28l25-14z" fill="#fff"/>
+					</svg>
+				</a>
+			</div>
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+	<script defer>
+		/* Скрипт Макеева чтобы при клике на заглушку видео вставлять код видео ютуба: */
+		function findVideos() {
+			let videos = document.querySelectorAll('.youtube');
+
+			for (let i = 0; i < videos.length; i++) {
+				setupVideo(videos[i]);
+			}
+		}
+
+		function setupVideo(video) {
+			let link = video.querySelector('.youtube-link');
+			let media = video.querySelector('.youtube-img');
+			let button = video.querySelector('.youtube-btn');
+			let id = parseMediaURL(media);
+
+			video.addEventListener('click', () => {
+				let iframe = createIframe(id);
+
+				link.remove();
+				button.remove();
+				video.appendChild(iframe);
+			});
+
+			link.removeAttribute('href');
+			video.classList.add('yt-enabled');
+		}
+
+		function parseMediaURL(media) {
+			let regexp = /https:\/\/i\.ytimg\.com\/vi\/([a-zA-Z0-9_-]+)\/maxresdefault\.jpg/i;
+			let url = media.src;
+			let match = url.match(regexp);
+
+			return match[1];
+		}
+
+		function createIframe(id) {
+			let iframe = document.createElement('iframe');
+
+			iframe.setAttribute('allowfullscreen', '');
+			iframe.setAttribute('allow', 'autoplay');
+			iframe.setAttribute('src', generateURL(id));
+			iframe.classList.add('youtube-img');
+
+			return iframe;
+		}
+
+		function generateURL(id) {
+			let query = '?rel=0&showinfo=0&autoplay=1';
+
+			return 'https://www.youtube.com/embed/' + id + query;
+		}
+
+		findVideos();
+	</script>
+
+
+</body>
+</html>

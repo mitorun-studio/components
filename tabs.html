@@ -1,0 +1,140 @@
+<!doctype html><!-- Файл tabs.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Табы (вкладки) – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+	<style>
+/*---------------------------------------------------
+------ Компонент Вкладки Bootstrap Tabs: ------------
+---------------------------------------------------*/
+
+/* В бутстрапе видимо скрипт использует классы .nav или .nav-tabs
+и без них скрипт не срабатывает! */
+.tabs /* в бутстрап это .nav-tabs */ {
+	display: flex;
+	flex-wrap: wrap;
+	border-bottom: 1px solid hsl(210, 14%, 89%);
+}
+
+.tabs-link {
+	display: block;
+	/*width: 100%;
+	height: 100%; это нужно если карточки сделаны гридами */
+	margin-bottom: -1px;
+	padding: 8px 16px;
+	color: hsl(216, 98%, 52%);
+	background: none;
+	border: 1px solid transparent;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	cursor: pointer;
+	transition: 0.15s ease-in-out;
+}
+
+.tabs-link:hover,
+.tabs-link:focus {
+	border-color: hsl(210, 16%, 93%) hsl(210, 16%, 93%) hsl(210, 14%, 89%);
+	isolation: isolate;
+}
+
+.tabs-link.active,
+.tabs-item.show .tabs-link {
+	color: hsl(210, 9%, 31%);
+	background-color: hsl(0, 0%, 100%);
+	border-color: hsl(210, 14%, 89%) hsl(210, 14%, 89%) hsl(0, 0%, 100%);
+}
+
+/*.tabs-link.disabled {
+	color: #6c757d;
+	background-color: transparent;
+	border-color: transparent;
+}
+
+.tabs .dropdown-menu {
+	margin-top: -1px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}*/
+
+/* Механизм показа/скрытия вкладок: */
+.tab-content > .tab-pane {
+	display: none;
+}
+
+.tab-content > .active {
+	display: block;
+}
+
+/* Анимация проявления вкладок:
+Это входит в "Служебные классы скриптов бутстрапа" */
+
+.fade {
+	transition: 0.15s linear;
+}
+
+.fade:not(.show) {
+	opacity: 0;
+}
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Вкладки (табы)</h1>
+		<hr>
+
+
+		<h2>Вкладки с JS Bootstrap Tabs</h2>
+		<p><a rel="noopener" target="_blank" href="https://getbootstrap.com/docs/5.1/components/navs-tabs/">Документация Bootstrap - Navs & Tabs</a></p>
+		<p>Первая открытая вкладка должна содержать классы <code>.show .active</code>.</p>
+
+
+		<ul class="tabs nav" id="tabs" role="tablist">
+			<li class="tabs-item" role="presentation">
+				<button class="tabs-link active" id="tab1btn" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="tab1" aria-selected="true">Tab-1</button>
+			</li>
+
+			<li class="tabs-item" role="presentation">
+				<button class="tabs-link" id="tab2btn" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab" aria-controls="tab2" aria-selected="false">Tab-2</button>
+			</li>
+
+			<li class="tabs-item" role="presentation">
+				<button class="tabs-link" id="tab3btn" data-bs-toggle="tab" data-bs-target="#tab3" type="button" role="tab" aria-controls="tab3" aria-selected="false">Tab-3</button>
+			</li>
+		</ul>
+
+		<div class="tab-content" id="tabsContent">
+			<div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1btn">tab1 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure, minima laudantium numquam quaerat voluptas rerum aliquid, soluta quae non nisi culpa similique earum alias deleniti aut dolores pariatur. Commodi, modi.</div>
+
+			<div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2btn">tab2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas enim beatae optio eum sit laborum, consectetur similique dolor nihil error ipsum praesentium quo fugit cupiditate a, qui porro sapiente dignissimos!</div>
+
+			<div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="tab3btn">tab3 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione voluptatum sint animi asperiores, nesciunt ex non necessitatibus molestiae odit harum, veritatis voluptatibus sed corrupti praesentium saepe consectetur, eius provident quidem?</div>
+		</div>
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+	<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>-->
+	<script defer src="bootstrap/bootstrap.min.js"></script>
+
+
+</body>
+</html>

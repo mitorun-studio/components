@@ -1,0 +1,2272 @@
+/* Сайт https://ipbro.ru/ */
+
+@font-face {
+	font-weight: 100 900;
+	font-family: 'Jost';
+	font-style: normal;
+	src: url('/fls/jost-100-900-cyrillic.woff2') format('woff2');
+	unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+@font-face {
+	font-weight: 100 900;
+	font-family: 'Jost';
+	font-style: normal;
+	src: url('/fls/jost-100-900-latin.woff2') format('woff2');
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+	--font-family: 'Jost', 'Futura', 'system-ui', '-apple-system',
+		'Segoe UI', 'Helvetica Neue', 'Arial', 'Noto Sans', 'Liberation Sans', sans-serif;
+	--font-family-heading: 'Jost', 'Futura', 'system-ui', '-apple-system', 'Segoe UI', 'Helvetica Neue', 'Arial', 'Noto Sans', sans-serif;
+	/*--font-family-mono: 'SFMono-Regular', 'ui-monospace', 'Menlo', 'Monaco', 'PT Mono', 'Consolas', 'Liberation Mono', 'Courier New', monospace;*/
+
+	--font-size-l: 19px;
+	--font-size-m: 16px;
+	--font-size-s: 13px;
+	--font-form: 440 19px/1 var(--font-family, sans-serif);
+	--font-form-s: 440 16px/1 var(--font-family, sans-serif);
+	--font-weight-xl: 700;
+	--font-weight-l: 500;
+	--font-weight-m: 400;
+	--line-height-m: 1.5;
+	--line-height-s: 1.32;
+	--line-height-xs: 1.2;
+
+	--container-padding: 14px;
+	--padding-form: 14px;
+	--padding-form-s: 10px;
+	--margin-xl: 112px;
+	--margin-l: 56px;
+	--margin-m: 28px;
+	--margin-s: 14px;
+	--margin-xs: 6px;
+
+	--black: hsl(0, 0%, 0%);
+	--white: hsl(0, 0%, 100%);
+	--color: hsl(0, 0%, 0%);
+	--bg: hsl(0, 0%, 100%);
+	--grey-dark: hsl(0, 0%, 36%);
+	--grey: hsl(0, 0%, 44%);
+	--grey-medium: hsl(0, 0%, 65%);
+	--grey-light: hsl(0, 0%, 88%);
+	--grey-lightest: hsla(0, 0%, 0%, 0.04);
+
+	--color-main-deep: hsl(120, 74%, 15%);
+	--color-main-dark: hsl(120, 85%, 23%);
+	--color-main: hsl(120, 100%, 25%);
+	--color-main-light: hsl(120, 57%, 71%);
+	--color-main-lightest: hsl(120, 90%, 95%);
+
+	--color-success: hsl(139, 100%, 19%);
+	--color-danger: hsl(2, 100%, 28%);
+	--color-warning: hsl(45, 100%, 51%);
+	--bg-success: hsla(139, 100%, 19%, 0.1);
+	--bg-danger: hsla(2, 100%, 28%, 0.1);
+	--bg-warning: hsla(45, 100%, 51%, 0.1);
+
+	--border: 1px solid var(--grey-light);
+	--border-2: 1px solid hsl(0, 0%, 80%);
+	--border-radius: 8px;
+	--shadow: 0 2px 18px 0 hsla(120, 47%, 19%, 0.1);
+	tab-size: 2;
+}
+
+@media (min-width: 1024px) {
+	:root {
+		--color: hsl(0, 0%, 17%);
+		--font-size-l: 23px;
+		--font-size-m: 19px;
+		--font-size-s: 16px;
+		--container-padding: 50px;
+		--margin-xl: 136px;
+		--margin-l: 68px;
+		--margin-m: 32px;
+		--margin-s: 16px;
+		--margin-xs: 8px;
+	}
+}
+
+*,
+::after,
+::before {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+*:focus {
+	outline-offset: 3px;
+}
+
+::-webkit-scrollbar {
+	/*display: none; или width: 0; height: 0; это чтобы убрать-удалить скроллбар */
+	width: 10px;
+	height: 10px;/* по умолчанию 17px; (Windows, Chrome) */
+	/*background-color: transparent; или background: hsl(113, 39%, 94%);*/
+	border: 1px solid var(--color-main);
+	border-radius: 99px;
+}
+
+body::-webkit-scrollbar {
+	width: 17px;
+}
+
+/*::-webkit-scrollbar-track {
+	background: transparent;
+} это настройка для подложки полосы, но я задаю эти настройки самому скроллбару */
+
+::-webkit-scrollbar-thumb {
+	background: var(--color-main);
+	/*border: 2px solid hsl(120, 39%, 94%); это создаёт эффект что ползунок меньше ширины всего скроллбара и находится как бы в нем */
+	border-radius: 99px;/* было hsl(113, 57%, 76%);*/
+	/*box-shadow: inset 0 0 1px 1px hsl(113, 52%, 71%);*/
+}/* это ползунок скроллбара */
+
+::-webkit-scrollbar-thumb:hover {
+	background: var(--color-main-light);/* было hsl(113, 61%, 71%);*/
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	min-height: 100vh;
+	font-weight: var(--font-weight-m, 400);
+	font-size: var(--font-size-m, 16px);
+	line-height: var(--line-height-m, 1.5);
+	font-family: var(--font-family, sans-serif);
+	color: var(--color, black);
+	overflow-wrap: break-word;
+	/*text-rendering: optimizeSpeed;*/
+	background-color: var(--bg, white);
+	text-rendering: optimizespeed;
+	-webkit-text-size-adjust: 100%;
+	-webkit-tap-highlight-color: hsla(0, 0%, 0%, 0);
+}
+
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+	font-weight: var(--font-weight-xl, 700);
+	line-height: var(--line-height-xs, 1.2);
+	font-family: var(--font-family-heading, sans-serif);
+}
+
+h1,
+.h1 {
+	margin-bottom: 1.2em;
+	font-size: calc(22px + 1.5vw);/* или 27px в бутстрап calc(22px + 1.5vw), max 40px */
+}
+
+h2,
+.h2 {
+	margin-bottom: 1.8em;
+	font-size: calc(21px + 0.9vw);/* или 24px в бутстрап calc(21.2px + 0.9vw), max 32px */
+	text-align: center;
+}
+
+h3,
+.h3 {
+	margin-bottom: 1.5em;
+	font-size: calc(20px + 0.6vw);/* или 21px в бутстрап calc(20.8px + 0.6vw), max 28px */
+}
+
+h4,
+.h4 {
+	margin-bottom: 1em;
+	font-size: calc(20px + 0.3vw);/* в бутстрап calc(20.4px + 0.3vw), max 24px */
+}
+
+h5,
+.h5 {
+	margin-bottom: 1em;
+	font-size: var(--font-size-m, 16px);/* в бутстрап 20px */
+}
+
+h6,
+.h6 {
+	margin-bottom: 1em;
+	font-size: var(--font-size-s, 14px);/* в бутстрап 16px */
+}
+
+/*p,
+.p {
+	margin-bottom: 1em;
+}*/
+
+b,
+strong,
+.b {
+	font-weight: var(--font-weight-l, 600);
+}
+
+i,
+.i {
+	font-style: oblique;
+}
+
+a,
+button,
+input,
+textarea,
+summary,
+optgroup,
+select,
+svg {
+	font: inherit;
+	text-transform: none;
+	color: inherit;
+	touch-action: manipulation;
+}
+
+button:not(:disabled),
+summary {
+	cursor: pointer;
+}
+
+a:not([class]) {
+	color: var(--color-main);
+}
+
+/*a:not([class]):visited {
+	color: hsl(126, 26%, 47%);
+}*/
+
+a[class],
+a:not([class]):hover/*a[class]:hover,a[class]:visited*/ {
+	text-decoration: none;
+}
+
+ul[class]:not(.list),
+ol[class]:not(.list) {
+	list-style: none;
+}
+
+ul:not([class]),
+ol:not([class]),
+.list {
+	margin-bottom: 1em;
+	padding-left: 30px;
+}
+
+ul:not([class]) li:not([class]),
+ol:not([class]) li:not([class]) {
+	margin-bottom: 0.5em;
+}
+
+kbd,
+code,
+pre,
+samp {
+	font-size: 1em;
+	font-family: var(--font-family-mono, monospace);
+	direction: ltr;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	word-break: break-all;
+	unicode-bidi: bidi-override;
+}
+
+kbd:not([class]),
+.kbd,
+code:not([class]),
+.code {
+	margin: 0 0.12em;
+	padding: 0.1em 0.3em;
+	background: var(--grey-lightest);
+	border-radius: 0.25em;
+}
+
+hr,
+.hr {
+	margin: 16px 0;
+	color: inherit;
+	border: 0;
+	border-top: 1px solid var(--grey);
+}
+
+img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	/*aspect-ratio: 3 / 2;*/
+	object-fit: contain;
+}
+
+svg {
+	display: block;
+	shape-rendering: geometricprecision;
+}
+
+noscript {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	padding: 4px 0;
+	font: 400 14px/1 var(--font-family-mono, monospace);
+	text-align: center;
+	color: var(--color-danger, red);
+	background: hsl(0, 0%, 100%);
+	/*border: 1px solid var(--color-danger, red);*/
+}
+
+
+
+
+/*------------------------------------------------
+------ Основные блоки и служебные классы: --------
+------------------------------------------------*/
+
+.container {
+	padding-right: max(calc(50% - 1180px / 2), var(--container-padding, 14px));
+	padding-left: max(calc(50% - 1180px / 2), var(--container-padding, 14px));
+}
+
+.main {
+	padding-top: 70px;/* это компенсация фикс-хедера */
+}
+
+.section {
+	padding-top: var(--margin-l);
+	padding-bottom: var(--margin-l);
+}
+
+.mb-xl {
+	margin-bottom: var(--margin-xl);
+}
+
+.mb-l {
+	margin-bottom: var(--margin-l);
+}
+
+.mb-m {
+	margin-bottom: var(--margin-m);
+}
+
+.mb-s {
+	margin-bottom: var(--margin-s);
+}
+
+.mb-xs {
+	margin-bottom: var(--margin-xs);
+}
+
+
+
+
+/*------------------------------------------------
+---------- Хедер и бургер-меню: ------------------
+------------------------------------------------*/
+
+.header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1030;
+	width: 100%;
+	background-color: var(--bg);
+	box-shadow: var(--shadow);
+
+	/*background: content-box hsla(39, 100%, 50%, 0.05);
+	outline: 2px dashed hsla(39, 100%, 50%, 0.4); это для тестирования */
+}
+
+/* Это эксперимент чтобы фикс-хедер уменьшался при скролле:
+.header-inner {
+	position: sticky;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1020;
+	height: 90px;
+}*/
+
+.header-grid {
+	display: grid;
+	grid: 70px min-content / 1fr min-content;/*было grid-template-columns: 1fr auto;*/
+	align-items: center;
+	/*min-height: 70px;*/
+	/*padding-top: 10px;
+	padding-bottom: 10px;*/
+
+	/*background: content-box hsla(39, 100%, 50%, 0.05);
+	outline: 2px dashed hsla(39, 100%, 50%, 0.4); это для тестирования */
+}
+
+@media (min-width: 1024px) {
+	.header-grid {
+		grid: 70px / min-content 1fr;
+		gap: var(--margin-m);
+	}
+}
+
+.header__brand svg {
+	display: block;
+	width: 48px;
+	height: 46px;
+	overflow: visible;
+}
+
+/* Код для раскрытия-появления области меню: */
+
+@media (max-width: 1023.98px) {
+	.navbar-collapse {
+		grid-area: 2 / 1 / 3 / 3;
+		place-self: center;
+		/*display: grid;
+		grid-template-columns: min-content;
+		place-items: center;
+		align-content: center; зачем это было? не помню */
+
+		/*gap: var(--margin-s);*/
+		/*height: 0; старое! это скрывает меню! У FilamentGroup было max-height: 0; */
+		/*opacity: 0; старое! это для анимации раскрытия, скрывает меню! */
+		/*overflow: hidden; это было у доноров, но оно обрезает фокус у менюшек. Можно вернуть если вокруг менюшек добавить отступы */
+		/*will-change: height; это экспериментальное свойство, оно оповещает браузер что будет смещение объекта, у FilamentGroup */
+		/*transition: height 0.6s, opacity 0.4s; было transition: max-height 0.2s ease-out; у FilamentGroup */
+		/*background: content-box hsla(106, 100%, 45%, 0.05);
+		outline: 2px dashed hsla(106, 100%, 45%, 0.4); это для тестирования */
+	}
+}
+
+@media (min-width: 1024px) {
+	.navbar-collapse {
+		display: grid;
+		grid-template-columns: 1fr min-content;
+		place-items: center;
+	}
+}
+
+/* Это базовые классы для анимации схлопывания в бутстрапе!!!
+Они добавляются скриптом, их не удалять!!! */
+
+.accordion .collapse:not(.show) {
+	display: none;
+}
+/* Скрытие меню когда оно не открыто скриптом (.show): */
+
+@media (max-width: 1023.98px) {
+	.collapse:not(.show) {
+		display: none;
+	}
+}
+
+/* Анимация раскрытия/закрытия меню.
+Класс .collapsing добавляет скрипт к .navbar-collapse
+Видимо это базовый стиль при использовании скрипта collapse */
+
+.collapsing {
+	height: 0;
+	/*opacity: 0;*/
+	overflow: hidden;
+	transition: height 0.45s ease;
+
+	/* Для анимации по горизонтали:
+	width: 0;
+	height: auto;
+	transition: width 0.35s ease;*/
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.collapsing {
+		transition: none;
+	}
+}
+
+
+
+.navbar-nav {
+	/*list-style: none;*/
+	/*display: grid;
+	grid-template-columns: min-content;
+	place-items: center;
+	align-content: center; это старый код */
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--margin-m);
+	align-items: center;
+
+	/*background: content-box hsla(106, 100%, 45%, 0.05);
+	outline: 2px dashed hsla(106, 100%, 45%, 0.4); это для тестирования */
+}
+
+@media (max-width: 1023.98px) {
+	.navbar-nav {
+		flex-direction: column;
+		gap: var(--margin-s);
+		padding: 20px 0;
+		font-weight: var(--font-weight-l);
+	}
+}
+
+.nav-link {
+	display: inline-block;
+	padding: 8px 0;
+	/*font-size: var(--font-size-m);*/
+	transition: 0.3s;
+}
+
+.nav-link:hover,
+.nav-link:focus,
+.header-contacts a:hover,
+.header-contacts a:focus {
+	color: var(--color-main);
+	/*border-color: var(--color-1);*/
+}
+
+@media (max-width: 1023.98px) {
+	.nav-link {
+		/*padding: 6px 4px;*/
+		font-size: var(--font-size-l);
+		/*border: 1px solid transparent;*/
+	}
+}
+
+/* Блок с контактами: */
+
+.header-contacts a {
+	display: block;
+	text-align: center;
+}
+
+@media (max-width: 1023.98px) {
+	.header-contacts {
+		padding: 0 0 32px;
+	}
+}
+
+@media (min-width: 1024px) {
+	.header-contacts a {
+		font-size: var(--font-size-s);
+	}
+}
+
+/* Внешний вид кнопки меню: */
+
+.navbar-toggler {
+	position: relative;
+	/*z-index: 1; это надо или нет? */
+	/*display: inline-block;  это вроде у button по умолчанию?! */
+	/*display: grid;
+	place-content: center;*/
+	width: 48px;
+	height: 48px;
+	margin-right: -10px;
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;/* или 0; или transparent; ? *//*transparent;*//*  или rgba(0,0,0,0); это вообще убирает синий фон в хроме при нажатии на кнопку! */
+	/*touch-action: auto; это возвращает стандартное поведение, что синий фон появляется только на полсекунды при клике и изчезает, но на мобилках возвращаетсяи задержка 300мс после клика */
+}
+
+@media (min-width: 1024px) {
+	.navbar-toggler {
+		display: none;
+	}
+}
+
+/*.navbar-toggler:focus {
+	outline: 0;
+} это было на Веб-стандартах. Вероятно мне нужно создать альтернативу аутлайну, так как могут быть сценарии где будет бургер-меню при работе с клавиатуры */
+
+.navbar-toggler-line,
+.navbar-toggler-line::after,
+.navbar-toggler-line::before {
+	content: '';
+	position: absolute;
+	display: block;
+	width: 22px;
+	height: 2px;
+	background: var(--color-main, hsl(0, 0%, 0%));
+	border-radius: 9px;
+}
+
+.navbar-toggler-line {
+	top: 50%;
+	left: 11px;
+	transform: translateY(-50%);/* это для смещения элемента на пол его высоты, в сочетании с top:50% это распологает элемент ровно по центру родителя */
+	transition: transform 0.3s linear;
+}
+
+.navbar-toggler-line::before {
+	top: -7px;
+	/*left: 0;*/
+	transition: top 0.3s 0.2s linear;
+}
+
+.navbar-toggler-line::after {
+	bottom: -7px;
+	/*left: 0;*/
+	transition: bottom 0.3s 0.2s linear, transform 0.3s linear;
+}
+
+/* Ниже анимация бургера при клике: */
+
+.navbar-toggler[aria-expanded='true'] .navbar-toggler-line {
+	transform: rotate(45deg);
+	transition: transform 0.3s 0.2s linear;
+}
+
+.navbar-toggler[aria-expanded='true'] .navbar-toggler-line::before {
+	top: 0;
+	opacity: 0;
+	transition: top 0.3s linear, opacity 0.3s 0.2s linear;
+}
+
+.navbar-toggler[aria-expanded='true'] .navbar-toggler-line::after {
+	bottom: 0;
+	transform: rotate(90deg);/* или простое (-90deg) */
+	transition: bottom 0.3s linear, transform 0.3s 0.2s linear;
+}
+
+
+
+
+/*------------------------------------------------
+---------- Первый экран: -------------------------
+------------------------------------------------*/
+
+.section-fs {
+	padding-top: 0;
+}
+
+/*.firstscreen {
+	margin-top: -2.5px; это компенсирует padding-top у section
+	background: url('img/firstscreen_a.jpg') 78% 0%/cover no-repeat;
+	box-shadow: inset 100px 40px 40px 30px #fff, inset 200px 60px 80px 60px hsla(0, 0%, 100%, 0.8), inset 300px 80px 110px 100px hsla(0, 0%, 100%, 0.5), 0 0 2px 2px #fff;
+}*/
+
+/*.firstscreen::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: radial-gradient(120% 170% at 0% 0%, hsla(0, 0%, 100%, 0.96) 45%, hsla(0, 0%, 100%, 0.7) 55%, hsla(0, 0%, 100%, 0) 65%);
+	box-shadow: inset 60px 60px 50px 10px #fff, inset 300px 200px 50px 10px #fff;
+}*/
+
+.firstscreen-grid {
+	position: relative;
+	display: flex;
+	align-items: center;
+
+	/*flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;*/
+	/*justify-content: center;
+	align-items: flex-start;
+	align-items: center; это работало когда все заголовки были обёрнуты в див */
+	min-height: 400px;
+	/*height: 95vh; было 800px
+	min-height: 600px;
+	max-height: 1000px;*/
+	margin-bottom: 36px;
+	/*background: radial-gradient(120% 170% at 0% 0%, hsla(0, 0%, 100%, 0.96) 45%, hsla(0, 0%, 100%, 0.7) 55%, hsla(0, 0%, 100%, 0) 65%);
+	box-shadow: inset 60px 60px 50px 10px #fff, 0 0 0 2px #fff;*/
+}
+
+/*.firstscreen-grid::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 2;
+	background: url('img/cloud.svg') no-repeat;
+}*/
+
+/*svg:not(:root) {
+	overflow: visible;
+}*/
+
+.svg-cloud {
+	position: absolute;
+	/*top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 2;*/
+	width: 100%;
+	height: 100%;
+	transform: scale(1.003);/* это чтобы скрыть тонкие линии между свг и картинкой внизу */
+}
+
+.firstscreen-img {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	z-index: -1;/* было 1 */
+	height: 100%;
+	/*border-left: 1px solid var(--bg);
+	box-shadow: inset 0 0 0 1px var(--bg);*/
+	object-fit: cover;
+}
+
+.firstscreen-content {
+	z-index: 3;
+	/*display: grid;
+	place-items: center start;*/
+	width: 57%;
+	/*height: 500px;*/
+	/*margin: 90px 0 0;*/
+	padding-bottom: 10px;
+	/*background-image: linear-gradient(to right, hsla(0, 0%, 100%, 1) 50%, hsla(0, 0%, 100%, 0.5) 62%, hsla(0, 0%, 100%, 0) 75%);*/
+	/*background: radial-gradient(120% 170% at 0% 0%, hsla(0, 0%, 100%, 0.96) 45%, hsla(0, 0%, 100%, 0.7) 55%, hsla(0, 0%, 100%, 0) 65%);
+	box-shadow: inset 60px 60px 50px 10px #fff, 0 0 0 2px #fff;*/
+}
+
+.firstscreen-h1 {
+	min-width: 260px;
+	margin-bottom: 15px;
+	font-weight: 500;
+	font-size: clamp(18px, calc(18px + 0.5vw), 26px);
+}
+
+.firstscreen-p {
+	min-width: 230px;
+	margin: 0 0 15px;
+	font: 700 calc(25px + 0.5vw)/1.15 var(--font-family-heading);
+}
+
+@media (min-width: 1024px) {
+	.firstscreen-p {
+		font-size: 40px;
+	}
+}
+
+.firstscreen-city {
+	margin-bottom: 27px;
+	font-size: clamp(16px, calc(16px + 0.3vw), 22px);
+}
+
+
+
+
+/*------------------------------------------------
+---------- Раздел Описание: ----------------------
+------------------------------------------------*/
+
+.anchor {
+	position: relative;
+	top: -100px;
+	display: block;
+}
+
+/* Карточки-табы с описанием услуг (преимущества): */
+/* В бутстрапе видимо скрипт использует класс .nav
+и без него скрипт не срабатывает! */
+
+.tabs /* в бутстрап это "nav nav-tabs" */ {
+	display: grid;
+	grid: auto auto / 1fr 1fr;/* было grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));*/
+	/*gap: 30px;*/
+	/*border-bottom: 1px solid hsl(210, 14%, 89%);*/
+}
+
+@media (min-width: 1024px) {
+	.tabs {
+		grid: auto / 1fr 1fr 1fr 1fr;/* было auto / repeat(auto-fit, minmax(150px, 1fr)); */
+	}
+}
+
+/* Механизм показа/скрытия вкладок: */
+
+.tab-content > .tab-pane {
+	display: none;
+}
+
+.tab-content > .active {
+	display: block;
+}
+
+/* Анимация проявления вкладок:
+Это входит в "Служебные классы скриптов бутстрапа" */
+
+.fade {
+	transition: 0.15s linear;
+}
+
+.fade:not(.show) {
+	opacity: 0;
+}
+
+/* Карточки-кнопки табов: */
+
+.tabs-item {
+	margin: 0 -1px -1px 0;/* это чтобы рамки карточек были везде по 1px */
+}
+
+.tabs-link {
+	display: grid;
+	grid: auto 1fr auto / 1fr;
+	gap: var(--margin-s);
+	width: 100%;
+	height: 100%;
+	/*padding: 24px 20px 26px;*/
+	/*margin: 0 -1px -1px 0; это чтобы рамки карточек были везде по 1px */
+	padding: 14px 12px;
+	text-align: left;
+	background-color: var(--bg);
+	border: var(--border);
+	/*border-radius: var(--border-radius);*/
+	/*box-shadow: var(--shadow);*/
+	cursor: pointer;
+	transition: 0.15s ease-in-out;
+}
+
+@media (min-width: 576px) {
+	.tabs-link {
+		padding: 20px 17px;
+	}
+}
+
+.tabs-link:hover,
+.tabs-link:focus {
+	border-color: hsl(210, 16%, 93%) hsl(210, 16%, 93%) hsl(210, 14%, 89%);
+	isolation: isolate;
+}
+
+.tabs-text {
+	margin: 0;
+	font-weight: 450;/* var(--font-weight-l); */
+	font-size: 15px;
+	line-height: var(--line-height-s);
+}
+
+.tabs-btn {
+	justify-self: end;
+	display: flex;
+	gap: 5px;
+	align-items: center;
+	padding: 4px 10px;
+	font-size: 13px;
+	color: var(--color-main);
+	border: 1px solid var(--color-main);
+	border-radius: 99px;
+}
+
+.tabs-btn::after {
+	content: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" fill="none"%3E%3Cpath d="M1 3L4 6L7 3" stroke="green" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/%3E%3C/svg%3E');
+	/*flex-shrink: 0;*/
+	width: 12px;
+	height: 12px;
+	line-height: 1;/* это чтобы стрелочка поворачивалась ровнее */
+	/*background-image: url('data:image/svg+xml,%3csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="%23212529"%3e%3cpath fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/%3e%3c/svg%3e');
+	background-repeat: no-repeat;
+	background-size: 20px;*/
+	transition: transform 0.3s ease-in-out;
+}
+
+.tabs-link.active .tabs-btn::after {
+	transform: rotate(180deg);
+}
+
+.tabs-link svg {
+	grid-area: 1 / 1 / 2 / 2;
+	width: 68px;
+	height: 68px;
+	stroke: var(--color-main);
+	stroke-width: 2.5;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.tabs-link.active,
+.tabs-item.show .tabs-link {
+	background-color: var(--bg);
+	border-color: var(--grey-light) var(--grey-light) var(--bg);
+}
+
+.tabs-link.active .tabs-btn,
+.tabs-item.show .tabs-btn {
+	background-color: var(--color-main-lightest);
+}
+
+/* Контент табов, показывающийся по клику на кнопку: */
+
+.tab-content {
+	margin-top: -1px;
+	margin-right: -1px;
+	padding: 12px;
+	border: var(--border);
+	border-color: var(--bg) var(--grey-light) var(--grey-light);
+}
+
+@media (min-width: 576px) {
+	.tab-content {
+		padding: 18px;
+	}
+}
+
+.check-list li {
+	margin-bottom: 0.5em;
+	padding-left: 26px;
+	line-height: var(--line-height-s);
+	list-style: none;
+	background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 7 7" fill="none" stroke="green" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpath d="M1 3L3 5L6 2"/%3E%3C/svg%3E') left top 2px / 20px no-repeat;
+}
+
+
+
+
+/*------------------------------------------------
+---------- Услуги: -------------------------------
+------------------------------------------------*/
+
+/* Пошаговое руководство по ипотеке: */
+
+.card-grid {
+	display: grid;
+	gap: 40px 30px;
+	/*list-style: none; Убирает исходные маркеры списка */
+	counter-reset: my-numbers 0;/* задаёт имя счётчику (обнуляем счётчик списка) */
+}
+
+@media (min-width: 576px) {
+	.card-grid {
+		grid-template-columns: 1fr 1fr;/* было repeat(auto-fit, minmax(300px, 1fr)) */
+	}
+}
+
+.card {
+	position: relative;
+	/*counter-increment: my-numbers;*/
+	/*background: linear-gradient(transparent 40px, hsl(125, 65%, 85%) 40px, hsl(125, 65%, 85%) 61px, transparent 61px); это зелёная линия для оформления */
+}
+
+.card::before {
+	content: counter(my-numbers);
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: grid;
+	place-content: center;
+	width: 60px;
+	height: 60px;
+	font: 700 32px/1 var(--font-family-heading);
+	/*text-align: center;*/
+	color: var(--color-main);
+	background-color: var(--color-main-lightest);
+	border-radius: 99px;
+	counter-increment: my-numbers;/* выводит число *//* увеличивает значение счётчика */
+}
+
+/* Стрелка для карточек:
+.card::before {
+	content: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"%3E%3Cpath d="M4 1H2L5 4L2 7H4L7 4L4 1Z" fill="%23d4f6d3"/%3E%3C/svg%3E');
+	position: absolute;
+	top: 22px;
+	left: 14px;
+	width: 50px;
+	height: 50px;
+	color: var(--color-main);
+}*/
+
+.card-title {
+	display: grid;
+	align-items: center;
+	min-height: 60px;
+	margin-bottom: 10px;
+	padding: 0 0 0 74px;
+	font-weight: var(--font-weight-l);
+	font-size: clamp(20px, calc(20px + 0.3vw), 24px);
+	line-height: var(--line-height-s);
+}
+
+/*--------- Калькулятор ипотеки: -------------------
+.calculator {
+	max-width: 600px;
+	margin-right: auto;
+	margin-left: auto;
+}
+.calc-inp,
+.calc-submit {
+	border-radius: 50px !important;
+}.percent .w-100 */
+
+
+
+
+/*------------------------------------------------
+---------- Обо мне (about): ----------------------
+------------------------------------------------*/
+
+.artgrid {
+	margin-bottom: var(--margin-l);
+}
+
+@media (min-width: 1024px) {
+	.artgrid {
+		display: grid;
+		grid-template: min-content min-content / 1fr 1fr;
+		gap: 40px;
+		/*align-items: center;
+		align-content: center;*/
+	}
+}
+
+.artgrid-img {
+	position: relative;
+}
+
+.artgrid-img::before {
+	content: '';
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: -1;
+	display: block;
+	height: 33%;
+	background-color: var(--color-main);
+	border-radius: var(--border-radius);
+}
+
+@media (min-width: 1024px) {
+	.artgrid-title {
+		align-self: end;
+		margin: 0;
+	}
+
+	.artgrid-text {
+		margin: 0;
+	}
+
+	.artgrid-img {
+		grid-area: 1 / 2 / 3 / 3;
+	}
+
+	/* это чтобы картинка была слева:
+	.agi-left {
+		grid-area: 1 / 1 / 3 / 2;
+	}*/
+}
+
+
+/* Ниже галерея для сертификатов и партнёров: */
+
+/* Горизонтальный скролл и псевдоэлементы забеления (белый туман) по краям:
+.white-mist {
+	position: relative;
+}
+
+.white-mist::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	width: 32px;
+	height: calc(100% - 17px);
+	background: linear-gradient(to right, var(--bg) 0%, hsla(0, 0%, 100%, 0.9) 18%, transparent 100%);
+	pointer-events: none;
+}
+
+.white-mist::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: 32px;
+	height: calc(100% - 17px);
+	background: linear-gradient(to left, var(--bg) 0%, hsla(0, 0%, 100%, 0.9) 18%, transparent 100%);
+	pointer-events: none;
+}
+
+.scroll {
+	margin: 0 0 80px;
+	overflow-x: auto;
+}*/
+
+
+
+.certificates-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 90px);
+	gap: var(--margin-s);
+	/*grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));*/
+	place-content: center center;
+}
+
+@media (min-width: 576px) {
+	.certificates-grid {
+		grid-template-columns: repeat(4, 100px);
+	}
+}
+
+.certificates-grid > * {
+	aspect-ratio: 3 / 4;
+	transition: 0.3s 0.1s;
+}
+
+.certificates-grid img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/*.certificate-horizon {
+	transform: rotate(-90deg);
+}*/
+
+.certificates-grid > *:hover {
+	transform: scale(1.1);
+	transition: 0.3s;
+}
+
+/* Банки-партнеры: */
+
+.partners-grid {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 30px 36px;
+	align-items: center;
+	justify-content: center;
+	padding: 20px 0 24px;
+}
+
+@media (min-width: 1024px) {
+	.partners-grid {
+		gap: 40px 56px;
+	}
+}
+
+.partners-grid > * {
+	opacity: 0.7;
+	/*transform: scale(.6);*/
+	filter: grayscale(100%);
+	transition: 0.4s;
+}
+
+.partners-grid > *:hover {
+	opacity: 1;
+	filter: none;
+	transition: 0.3s;
+}
+
+
+
+
+/*------------------------------------------------
+--------- Спойлер Bootstrap Accordion: -----------
+------------------------------------------------*/
+
+@media (max-width: 575.98px) {
+	.accordion {
+		margin-right: calc(-1 * var(--container-padding));
+		margin-left: calc(-1 * var(--container-padding));
+	}
+}
+
+.accordion-item {
+	background-color: var(--bg);
+	border-bottom: var(--border-2);
+}
+
+.accordion-item:first-of-type {
+	border-top: var(--border-2);
+}
+
+/* было без крайних полосок:
+.accordion-item:not(:last-of-type) {
+	border-bottom: var(--border-2);
+}*/
+
+/*.accordion-header {}*/
+
+.accordion-button {
+	position: relative;
+	display: flex;
+	align-items: center;
+	width: 100%;
+	padding: 16px var(--container-padding);
+	font-weight: 500;
+	font-size: 18px;
+	line-height: var(--line-height-xs);
+	text-align: left;
+	background-color: var(--bg);
+	border: 0;
+	border-radius: 0;
+	overflow-anchor: none;
+	cursor: pointer;
+	/*outline: none;*/
+	transition: 0.3s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.accordion-button {
+		transition: none;
+	}
+}
+
+.accordion-button::after {
+	content: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" fill="none"%3E%3Cpath d="M1 3L4 6L7 3" stroke="green" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/%3E%3C/svg%3E');
+	flex-shrink: 0;
+	width: 20px;
+	height: 20px;
+	margin-left: auto;
+	line-height: 1;/* это чтобы стрелочка поворачивалась ровнее */
+	/*background-image: url('data:image/svg+xml,%3csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="%23212529"%3e%3cpath fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/%3e%3c/svg%3e');
+	background-repeat: no-repeat;
+	background-size: 20px;*/
+	transition: transform 0.3s ease-in-out;
+}
+
+.accordion-button:not(.collapsed)::after {
+	transform: rotate(180deg);
+}
+
+.accordion-button:hover,
+.accordion-button:focus {
+	z-index: 2;
+	background: var(--color-main-lightest);
+}
+
+/* Стили summary когда спойлер раскрыт: */
+
+.accordion-button:not(.collapsed) {
+	color: var(--color-main);
+	background-color: var(--color-main-lightest);
+	/*box-shadow: inset 0 -1px 0 hsla(0, 0%, 0%, 0.125);*/
+}
+
+.accordion-body {
+	padding: 10px var(--container-padding) 18px;
+}
+
+.spoiler-content > * {
+	margin-top: 0;
+	margin-right: 0;
+	margin-left: 0;
+}/* это экспериментальные настройки, нужно подобрать такой код чтобы в контент спойлера можно было просто добавлять p, ul, img и они выглядели хорошо без доп-настроек */
+
+.spoiler-content > :last-child {
+	margin-bottom: 0;
+}
+
+/* Конец базовых стилей для Accordion. */
+
+
+
+
+/* Отзывы клиентов: */
+
+.review-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(292px, 1fr));
+	gap: var(--margin-m);
+	place-items: center;
+}
+
+.review {
+	display: grid;
+	grid-template: auto auto 1fr / auto 1fr;
+	gap: var(--margin-s);
+	max-width: 500px;
+	height: 100%;
+	max-height: 600px;
+	padding: var(--margin-s);
+	border-radius: var(--border-radius);
+	box-shadow: var(--shadow);
+	overflow: hidden;
+}
+
+.review-text {
+	grid-area: 3 / 1 / 4 / 3;
+	line-height: var(--line-height-s);
+}
+
+.review-name {
+	grid-area: 1 / 2 / 2 / 3;
+	align-self: end;
+	font-weight: 600;
+	font-size: 21px;
+	line-height: 1;
+}
+
+.review-link {
+	grid-area: 2 / 2 / 3 / 3;
+	line-height: 1;
+	color: hsl(214, 77%, 49%);
+}
+
+.review-img {
+	grid-area: 1 / 1 / 3 / 2;
+	width: 80px;
+	height: 80px;
+	border-radius: 99px;
+}
+
+
+
+
+/*------------------------------------------------
+---------- Контакты: -----------------------------
+------------------------------------------------*/
+
+.section.contacts {
+	position: relative;
+	padding-top: 0;
+	color: hsl(0, 0%, 100%);
+	background: hsl(120, 53%, 29%);
+}
+
+@media (min-width: 1024px) {
+	.contacts-wrap {
+		display: grid;
+		grid: 1fr / 1fr 1fr;
+		gap: 40px;
+	}
+}
+
+.svg-bg-white {
+	/*position: absolute;
+	top: -40px;
+	bottom: 0;
+	right: 0;
+	z-index: -1;*/
+	width: 100%;
+	height: 130px;
+	margin-bottom: -30px;
+}
+
+.socials {
+	/*display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 26px;*/
+	max-width: 480px;
+	margin: 0 auto 60px;
+}
+
+.socials > * {
+	display: block;
+	margin-bottom: 8px;
+	/*padding: 14px 0;  было 16px 22px */
+	font-size: 17px;
+}
+
+.socials-brand {
+	display: flex;
+	gap: 16px;
+	align-items: center;
+	margin-bottom: 22px;
+	font-weight: 500;
+	font-size: 21px;
+}
+
+.socials-brand svg {
+	width: 80px;
+	height: 80px;
+	padding: 15px 15px 16px 20px;
+	background-color: var(--bg);
+	border-radius: 99px;
+	overflow: visible;
+}
+
+.socials > a:hover {
+	/*background-color: var(--color-main-light);*/
+	text-decoration: underline;
+	text-underline-offset: 0.3em;
+	opacity: 0.9;
+	/*transition: 400ms linear;*/
+}
+
+.socials > *::before {
+	padding-right: 12px;
+	vertical-align: middle;
+}
+
+/*.icon-user::before {
+	content: url('img/icon-user.svg');
+}*/
+
+.icon-mail::before {
+	content: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 99 99" fill="none"%3E%3Ccircle cx="50" cy="50" r="44" stroke="%23fff" stroke-width="6"/%3E%3Cpath d="M32 44l14 9c3 2 5 2 8 0l14-9c3-2 4-3 4-6s-1-4-4-4H32c-3 0-4 1-4 4s1 4 4 6zm22 12c-3 2-6 1-8 0L28 44v18c0 3 1 4 4 4h36c3 0 4-1 4-4V44L54 56z" fill="%23fff"/%3E%3C/svg%3E');
+	/*content: url('img/icon-mail.svg');*/
+}
+
+.icon-phone::before {
+	content: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 99 99" fill="none"%3E%3Ccircle cx="50" cy="50" r="44" stroke="%23fff" stroke-width="6"/%3E%3Cpath d="M60 54c-3 3-3 6-6 6s-5-3-8-6-6-5-6-8 3-3 6-6-6-12-9-12-9 8-9 9c0 6 6 17 12 23s17 12 23 12c1 0 9-6 9-9s-9-12-12-9z" fill="%23fff"/%3E%3C/svg%3E');
+	/*content: url('img/icon-phone.svg');*/
+}
+
+.icon-vk::before {
+	content: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 99 99" fill="none"%3E%3Ccircle cx="50" cy="50" r="44" stroke="%23fff" stroke-width="6"/%3E%3Cpath d="M33.05 36H27.8c-1.5 0-1.8.71-1.8 1.48 0 1.35 1.8 8.13 8.28 17.09C38.64 60.67 44.76 64 50.31 64c3.33 0 3.75-.74 3.75-2v-4.63c0-1.47.3-1.77 1.38-1.77.78 0 2.1.38 5.22 3.33 3.58 3.5 4.15 5.07 6.16 5.07h5.25c1.5 0 2.25-.74 1.8-2.18-.45-1.47-2.16-3.54-4.41-6.04-1.2-1.45-3.06-2.95-3.6-3.72-.78-1-.6-1.44 0-2.3 0 0 6.39-8.83 7.05-11.87.33-1.09 0-1.89-1.6-1.89h-5.24c-.5-.02-.98.1-1.4.37-.4.26-.72.65-.88 1.1 0 0-2.7 6.37-6.46 10.53-1.23 1.2-1.8 1.59-2.46 1.59-.3 0-.8-.38-.8-1.47V37.89c0-1.3-.4-1.89-1.5-1.89H44.3c-.84 0-1.35.6-1.35 1.18 0 1.24 1.92 1.54 2.1 5.01v7.6c0 1.69-.3 1.98-.96 1.98-1.8 0-6.12-6.42-8.7-13.76-.49-1.42-1-2-2.35-2z" fill="%23fff"/%3E%3C/svg%3E');
+	/*content: url('img/icon-vk.svg');*/
+}
+
+/*.icon-map::before {
+	content: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 99 99" fill="none"%3E%3Ccircle cx="50" cy="50" r="44" stroke="%23fff" stroke-width="6"/%3E%3Cpath d="M34 42c0 12 16 32 16 32s16-20 16-32c0-9-7-16-16-16s-16 7-16 16zm6 0c0-5 4-10 10-10s10 5 10 10-4 10-10 10-10-5-10-10z" fill="%23fff"/%3E%3C/svg%3E');
+	content: url('img/icon-map.svg');
+}*/
+
+
+
+
+/*------------------------------------------------
+---------- Компонент Кнопка: ---------------------
+------------------------------------------------*/
+
+.button {
+	position: relative;
+	display: inline-grid;
+	grid-template-columns: auto;
+	/* или max-content */
+	grid-auto-columns: auto;
+	grid-auto-flow: column;
+	place-items: center;
+	place-content: center;
+	column-gap: 18px;
+	width: fit-content;
+	padding: var(--padding-form) calc(var(--padding-form) * 2);
+	font: var(--font-form);
+	text-align: center;
+	text-decoration: none;
+	/*text-transform: uppercase;
+	letter-spacing: 0.03em;*/
+	color: var(--white);
+	background-color: var(--color-main);
+	border: 1px solid var(--color-main);
+	border-radius: var(--border-radius);
+	/*box-shadow: var(--shadow);*/
+	/*box-shadow: inset 0 0 0 1px var(--color, black); это замена одному пикселю бордера! */
+	/*overflow: hidden;*/
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	-webkit-tap-highlight-color: transparent;
+	cursor: pointer;
+	/*user-select: none; чтобы не выделялся контент кнопки */
+	transition: 0.25s;
+}
+
+.button--icon::after {
+	content: '';
+	width: 24px;
+	height: 16px;
+	/*background-image: url('/img/sprite.svg#arrow-link-dark');*/
+	background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" fill="none" stroke="%23fff" stroke-width=".6"%3E%3Cpath d="M7 4H0 M5 2L7 4L5 6"/%3E%3C/svg%3E') 50% / 100% no-repeat;
+}
+
+.button--2 {
+	color: var(--color-main);
+	background: transparent;
+	/*border: 2px solid currentColor;*/
+	/*box-shadow: none;*/
+}
+
+.button--s {
+	padding: 8px 16px;
+	font-size: var(--font-size-s);
+}
+
+/*.button--icon {
+	grid-template-columns: auto auto;
+	gap: 1.2em;
+}*/
+
+@media (max-width: 449.98px) {
+	.button {
+		width: 100%;
+	}
+}
+
+.button--center {
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+/*.button:not([disabled]):hover {
+	transform: translateY(-2px);
+	opacity: 0.8;
+	transition: 0.3s;
+}
+
+.button--icon:not([disabled]):hover {
+	padding-inline: 23px;
+	gap: 24px;
+}*/
+
+/*.button:active,
+.button--2:active,
+.button--s:active,
+.button--2s:active {
+	opacity: 1;
+	transform: translateY(2px);
+}*/
+
+.button--wide {
+	width: 100%;
+	max-width: 500px;
+}
+
+.disabled,
+button:disabled,
+input[disabled],
+input[aria-disabled=true],
+fieldset[disabled] {
+	transform: none;
+	opacity: 0.6;
+	/* это делает отключенные кнопки полупрозрачными */
+	filter: grayscale(0.8);
+	/* это делает отключенные кнопки серенькими */
+}
+
+/*-------- Конец компонента Кнопка. ------------*/
+
+
+
+
+/*------------------------------------------------
+---------- Форма связи feedback: -----------------
+------------------------------------------------*/
+
+.form__wrapper {
+	position: relative;
+	margin-bottom: 60px;
+	border: 1px solid hsla(0, 0%, 0%, 0.125);
+}
+
+.form {
+	display: grid;
+	gap: var(--margin-s);
+	width: min(400px, 100%);
+	padding: var(--margin-s);
+	background-color: hsla(0, 0%, 0%, 0.04);
+	/*accent-color: var(--color-main); эксперимент с новым свойством */
+}
+
+.form__title {
+	margin-bottom: 4px;
+	font-weight: var(--font-weight-l);
+	font-size: var(--font-size-l);
+	line-height: var(--line-height-xs);
+}
+
+/*--- Стили для текстовых инпутов: -------------*/
+
+.form__item {
+	display: grid;
+	gap: var(--margin-xs);
+	/*align-items: center; это было у Kevin Powell */
+}
+
+.form__label {
+	display: block;
+	width: fit-content;/* это чтобы кликабельная область лейблов не была больше самого текста. */
+	/*font-size: var(--font-size-s, 16px);*/
+	line-height: 1;/* или var(--line-height-xs); */
+	/*pointer-events: none;*/
+}
+
+.form__label.required::after {
+	content: ' *';
+}
+
+.form__input {
+	display: block;/* убирает отступ-строку под textarea! */
+	width: 100%;
+	/*min-height: 40px;*/
+	padding: var(--padding-form) calc(var(--padding-form) * 1.2);
+	font: var(--font-form);
+	background-color: var(--bg);
+	background-clip: padding-box;
+	border: var(--border);
+	border-radius: var(--border-radius);
+	resize: none;/* или vertical; это для textarea */
+	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form__input::placeholder {
+	color: var(--grey);
+}
+
+.form__hint {
+	font-size: var(--font-size-s);
+	line-height: 1;
+	color: var(--grey);
+}
+
+
+/*--- Стили для чекбоксов и радиокнопок: -------*/
+/* Область "Пользовательское соглашение": */
+
+.form__fieldset {
+	display: grid;
+	gap: var(--margin-xs);
+	border: none;
+}
+
+legend.form__title {
+	margin-bottom: var(--margin-xs);
+}
+
+.form__item-point {
+	display: grid;
+	grid-template-columns: auto;
+	grid-auto-columns: auto;
+	grid-auto-flow: column;
+	/*align-items: center;*/
+	gap: var(--margin-xs);
+	width: fit-content;/* это чтобы кликабельная область лейблов не была больше самого текста. */
+	cursor: pointer;
+}
+
+.form__input-point {
+	/*position: relative;*/
+	display: inline-block;
+	height: 22px;
+	width: 22px;
+	margin-top: -2px;
+	/*vertical-align: text-bottom;*/
+	background-color: var(--bg);/* #fff нужно для iOS, иначе фон станет черным. */
+	border: 2px solid currentColor;
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+.form__input-point.is-invalid,
+.was-validated .form__input-point:invalid {
+	border-color: var(--color-danger, red);
+}
+
+.form__input-point {
+	width: 1em;
+	height: 1em;
+	margin-top: 0.25em;
+	vertical-align: top;
+	background-color: hsl(0, 0%, 100%);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	border: 1px solid hsla(0, 0%, 0%, 0.25);
+	border-radius: 0.25em;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	-webkit-print-color-adjust: exact;
+	color-adjust: exact;
+}
+
+
+
+.form__input-point.is-invalid ~ .form__label,
+.was-validated .form__input-point:invalid ~ .form__label {
+	color: var(--color-danger, red);
+}
+
+.form__input-point:checked[type='checkbox'] {
+	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
+}
+
+.form__input-point:checked {
+	background-color: hsl(0, 0%, 62%);
+	border-color: hsl(0, 0%, 62%);
+}
+
+.form__label {
+	margin-bottom: 0;
+}
+
+.is-invalid ~ .form__invalid,
+.is-invalid ~ .invalid-tooltip,
+.was-validated :invalid ~ .form__invalid,
+.was-validated :invalid ~ .invalid-tooltip {
+	display: block;
+}
+
+.form__invalid {
+	display: none;
+	width: 100%;
+	margin-top: 4px;
+	font-size: var(--font-size-s);
+	color: var(--color-danger, red);
+}
+
+.custom-control {
+	position: relative;
+	display: block;
+	min-height: 24px;
+	padding-left: 24px;
+}
+
+.custom-control-input {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+}
+
+.custom-form__label {
+	position: relative;
+	margin-bottom: 0;
+	vertical-align: top;
+}
+
+.custom-checkbox .custom-form__label::before {
+	border-radius: 4px;
+}
+
+.custom-form__label::before {
+	content: '';
+	position: absolute;
+	top: 4px;
+	left: -24px;
+	display: block;
+	width: 16px;
+	height: 16px;
+	background-color: hsl(0, 0%, 100%);
+	border: 1px solid hsl(210, 11%, 71%);
+	transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	pointer-events: none;
+}
+
+.custom-form__label::after {
+	content: '';
+	position: absolute;
+	top: 4px;
+	left: -24px;
+	display: block;
+	width: 16px;
+	height: 16px;
+	background: 50% / 50% 50% no-repeat;
+}
+
+.custom-checkbox .custom-control-input:checked ~ .custom-form__label::after {
+	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
+}
+
+.custom-control-input:checked ~ .custom-form__label::before {
+	color: hsl(0, 0%, 100%);
+	background-color: hsl(211, 100%, 50%);
+	border-color: hsl(211, 100%, 50%);
+}
+
+.custom-control-input:focus ~ .custom-form__label::before {
+	box-shadow: 0 0 0 3px hsla(211, 100%, 50%, 0.25);
+}
+
+.custom-control-input:focus:not(:checked) ~ .custom-form__label::before {
+	border-color: hsl(211, 100%, 75%);
+}
+
+.custom-control-input:active ~ .custom-form__label::before {
+	color: hsl(0, 0%, 100%);
+	background-color: hsl(212, 100%, 85%);
+	border-color: hsl(212, 100%, 85%);
+}
+
+
+
+
+/*------------------------------------------------
+---------- Инпуты при валидности: ----------------
+------------------------------------------------*/
+
+.form__input.is-valid {
+	padding-right: calc(1.5em + 12px);
+	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2328a745' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+	background-repeat: no-repeat;
+	background-position: center right calc(0.375em + 3px);
+	background-size: calc(0.75em + 6px) calc(0.75em + 6px);
+	border-color: var(--color-success, green);
+}
+
+textarea.form__input.is-valid {
+	padding-right: calc(1.5em + 12px);
+	background-position: top calc(0.375em + 3px) right calc(0.375em + 3px);
+}
+
+.form__input.is-valid:focus {
+	border-color: var(--color-success, green);
+	box-shadow: 0 0 0 3px var(--bg-success);
+}
+
+/*------------------------------------------------
+---------- Инпуты при невалидности: --------------
+------------------------------------------------*/
+
+.form__input.is-invalid {
+	padding-right: calc(1.5em + 12px);
+	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23dc3545' viewBox='-2 -2 7 7'%3e%3cpath stroke='%23dc3545' d='M0 0l3 3m0-3L0 3'/%3e%3ccircle r='.5'/%3e%3ccircle cx='3' r='.5'/%3e%3ccircle cy='3' r='.5'/%3e%3ccircle cx='3' cy='3' r='.5'/%3e%3c/svg%3E");
+	background-repeat: no-repeat;
+	background-position: center right calc(0.375em + 3px);
+	background-size: calc(0.75em + 6px) calc(0.75em + 6px);
+	border-color: var(--color-danger, red);
+}
+
+textarea.form__input.is-invalid {
+	padding-right: calc(1.5em + 12px);
+	background-position: top calc(0.375em + 3px) right calc(0.375em + 3px);
+}
+
+
+.form__input.is-invalid:focus {
+	border-color: var(--color-danger);
+	box-shadow: 0 0 0 3px var(--bg-danger);
+}
+
+.form__input.is-invalid ~ .form__invalid,
+.is-invalid .form__invalid {
+	display: block;
+}
+
+
+
+
+/*------------------------------------------------
+---------- Сообщения об ошибках: -----------------
+------------------------------------------------*/
+
+/*--- Сообщение об ошибке отправки формы: ------*/
+
+.form-error {
+	position: relative;
+	margin-bottom: 16px;
+	padding: 8px 16px 9px;
+	color: var(--color-danger, red);
+	background-color: var(--bg-danger);
+	border: 1px solid var(--color-danger, red);
+}
+
+.form-error_hide {
+	display: none;
+}
+
+/*------------------------------------------------
+--- Сообщение об успешной отправке формы: --------
+------------------------------------------------*/
+
+.form-success {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 9000;
+	display: flex;
+	align-items: center;
+	font-size: var(--font-size-l);
+	text-align: center;
+	background: hsla(0, 0%, 0%, 0.7);
+}
+
+.form-success_hide {
+	display: none;
+}
+
+.form-success__message {
+	position: relative;
+	padding: var(--margin-s);
+	background-color: var(--white, white);
+}
+
+.form-success__btn {
+	display: inline;
+	padding: 0;
+	font-weight: 400;
+	text-decoration: underline;
+	background-color: transparent;
+	border: none;
+}
+
+
+
+
+/*-------- Поле загрузки файлов: ---------------*/
+
+.form-attach__label {
+	margin-bottom: 8px;
+}
+
+.form-attach__wrapper {
+	position: relative;
+	min-height: 50px;
+	border: 2px dashed hsl(0, 0%, 88%);
+	border-radius: var(--border-radius);
+}
+
+.is-invalid .form-attach__wrapper {
+	border-color: var(--color-danger, red);
+}
+
+.form-attach__wrapper input {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	display: block;
+	width: 100%;
+	outline: none;
+	cursor: pointer;
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
+
+.form-attach__description {
+	padding: 16px 8px;
+	text-align: center;
+	color: hsl(0, 0%, 46%);
+}
+
+.form-attach__items {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.form-attach__item {
+	position: relative;
+	display: flex;
+	flex: 0 1 calc((100% / 4) - 8px);
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 100%;
+	margin: 4px;
+	padding: 26px 4px;
+	font-size: var(--font-size-s);
+	border: 1px solid hsl(0, 0%, 93%);
+	border-radius: var(--border-radius);
+	overflow: hidden;
+}
+
+.form-attach__image {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	margin-top: auto;
+	margin-right: auto;
+	margin-left: auto;
+	border: 1px solid hsl(0, 0%, 93%);
+}
+
+.form-attach__name {
+	max-width: 100%;
+	margin-top: auto;
+	text-align: center;
+	word-wrap: break-word;
+	color: hsl(0, 0%, 46%);
+	overflow: hidden;
+}
+
+.form-attach__size {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding: 3px 6px;
+	font-weight: 700;
+	text-align: right;
+}
+
+.form-attach__link {
+	position: absolute;
+	top: 0;
+	right: 0;
+	float: right;
+	padding: 0 6px 8px;
+	font-weight: 700;
+	font-size: var(--font-size-l);
+	line-height: 1;
+	text-shadow: 0 1px 0 hsl(0, 0%, 100%);
+	color: hsl(0, 0%, 0%);
+	cursor: pointer;
+	opacity: 0.5;
+}
+
+.form-attach__item.is-valid {
+	border-color: var(--color-success, green);
+}
+
+.form-attach__item.is-invalid {
+	border-color: var(--color-danger, red);
+}
+
+
+
+
+/*------------------------------------------------
+---------- Область капчи: ------------------------
+------------------------------------------------*/
+
+.form-captcha {
+	display: flex;
+	align-items: center;
+	margin-bottom: 32px;
+}
+
+.form-captcha__image {
+	margin-right: 8px;
+	border-radius: 4px;
+}
+
+.form-captcha__refresh {
+	margin-right: 8px;
+	padding: 8px 12px;
+	line-height: 1;
+	border: 1px solid hsl(210, 14%, 83%);
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.form-captcha__refresh:hover {
+	background-color: hsl(0, 0%, 93%);
+}
+
+.form-captcha__input {
+	position: relative;
+	flex-grow: 1;
+	margin-bottom: 0;
+}
+
+@media (max-width: 400px) {
+	.form-captcha {
+		flex-wrap: wrap;
+	}
+
+	.form-captcha__input {
+		min-width: 200px;
+		margin-top: 8px;
+	}
+}
+
+.form-captcha__input .form__invalid {
+	position: absolute;
+	bottom: -24px;
+}
+
+.d-none {
+	display: none !important;
+}
+
+/*--- Конец компонента Форма связи feedback. ---*/
+
+
+
+
+
+
+
+
+/* Старая форма связи:
+
+.form {
+	width: 100%;
+	max-width: 480px;
+	margin: 0 auto 60px;
+	color: hsl(0, 0%, 100%);
+}
+
+.form-title {
+	margin-bottom: 22px;
+	font-weight: 500;
+	font-size: 21px;
+}
+
+.form-label {
+	display: block;
+	font-size: 17px;
+}
+
+.form-input {
+	display: block;
+	width: 100%;
+	min-height: 32px;
+	margin: 4px 0 16px;
+	padding: 10px 14px;
+	font-size: 17px;
+	line-height: var(--line-height-xs);
+	color: var(--color);
+	background-color: var(--bg);
+	border: none;
+	border-radius: var(--border-radius);
+	transition: all 0.5s ease 0s;
+	resize: none;
+}
+
+.form-input:last-of-type {
+	margin-bottom: 20px;
+}
+
+.form-btn {
+	color: var(--color-main);
+	background-color: hsl(0, 0%, 100%);
+}*/
+
+
+
+
+/*------------------------------------------------
+---------- Футер (footer): -----------------------
+------------------------------------------------*/
+
+.footer {
+	padding-top: var(--margin-s);
+	padding-bottom: var(--margin-s);
+	background: var(--color-main-deep);/* было hsl(125, 63%, 18%) или var(--grey-lightest);*/
+}
+
+/*.footer-1 {
+	padding: 40px 0;
+	background: hsl(125, 40%, 28%);
+}
+
+.footer-wrap {
+	position: relative; это для позиционирования кнопки "Вверх"
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 15px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}*/
+
+.footer-2 {
+	position: relative;
+}
+
+
+
+.footer-link {
+	display: block;
+	padding: 16px 0;
+	font: 400 17px/1.3 var(--font-family);
+	color: var(--bg);
+}/* можно избавиться от этого класса? */
+
+.f-l-2 {
+	display: inline-block;
+	font-size: var(--font-size-s);
+	color: hsl(124, 67%, 86%);
+}
+
+.footer-link:hover,
+.footer-link:focus {
+	text-decoration: underline;
+	text-underline-offset: 0.3em;
+}
+
+
+/* Кнопка "Наверх": */
+
+.to-top {
+	position: absolute;
+	top: -37px;
+	right: 1px;
+	/*position: fixed;
+	right: 5%;
+	bottom: 3%;
+	z-index: 1030;*/
+	display: grid;
+	place-items: center;
+	width: 48px;
+	height: 48px;
+	background-color: var(--bg);
+	border: none;
+	border-radius: 99px;
+	box-shadow: var(--shadow);
+	cursor: pointer;
+	/*visibility: hidden;
+	opacity: 0;
+	transform: translateX(100px);*/
+	transition: 0.3s;
+}
+
+.to-top svg {
+	width: 24px;
+	height: 24px;
+	stroke: var(--color-main);
+	stroke-width: 1.3;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+/*.to-top-active {
+	visibility: visible;
+	opacity: 1;
+	transform: translateX(0);
+}*/
+
+.to-top-active:hover {
+	transform: translateY(-2px);
+}
+
+
+
+
+
+
+
+
+
+.vh,
+.vhf:not(:focus):not(:focus-within) {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	white-space: nowrap;
+	border: 0;
+	overflow: hidden;
+	-webkit-appearance: none;
+	appearance: none;
+	clip: rect(0 0 0 0);
+	-webkit-clip-path: inset(100%);
+	clip-path: inset(100%);
+	/*clip: rect(1px, 1px, 1px, 1px);*/
+	/*clip-path: inset(0px 0px 99.9% 99.9%);*/
+}
+
+
+
+
+/* Ниже описаны размеры (и иногда цвет) для базового текста. Если на сайте надо будет увеличить большинство размеров базового текста, то проще будет тут изменить размер (чем менять все классы в HTML), например .font-18 {font-size: 20px;} */
+/*.font-14 {font-size: 14px; line-height: 1.3;}*/
+/*.font-14g {font-size: 14px; color: var(--grey); line-height: 1.3;}*/
+/*.font-16 {font-size: 16px;}*/
+/*.font-16g {font-size: 16px; color: var(--grey);}*/
+/*.font-18 {font-size: 18px;}*/
+/*.font-18g {font-size: 18px; color: var(--grey);}*/
+/*.font-20 {font-size: 20px;}*/
+/*.font-20g {font-size: 20px; color: var(--grey);}*/
+/*.font-22 {font-size: 22px;}*/
+/*.font-24 {font-size: 24px;}*/
+/*.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	border: 0;
+	clip: rect(0 0 0 0);
+	-webkit-clip-path: inset(100%);
+	clip-path: inset(100%);
+} Это код для визуально-скрытых элементов html */
+/*.container {
+	max-width: 1230px;
+	margin-right: auto;
+	margin-left: auto;
+	padding-right: 15px;
+	padding-left: 15px;
+} это дублирование кода контейнера, для профилактики */

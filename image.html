@@ -1,0 +1,144 @@
+<!doctype html><!-- Файл image.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Картинки – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+/* Анимация наложения цвета: */
+
+.bg-img {
+	width: 300px;
+	height: 200px;
+	background-blend-mode: overlay;
+	background-color: hsla(61, 100%, 50%, 0.6);
+	/* photo credit: https://unsplash.com/photos/Gk7enstVtGE */
+	background-image: url('https://picsum.photos/300/200');
+	transition: background-color .2s;
+}
+
+.bg-img:hover {
+	background-color: hsla(195, 100%, 50%, 0.6);
+	transition: background-color .2s;
+}
+
+/* Картинки с фикс-соотношением сторон: */
+
+.gallery {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 20px;
+	align-items: start;
+}
+
+.gallery img {
+	display: block;
+	width: 100%;
+	aspect-ratio: 3 / 2;
+	object-fit: cover;
+}
+
+/* Галерея логотипов: */
+
+.gallery-2 {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, 140px);
+	gap: 50px;
+}
+
+
+
+.gallery-2 img {
+	display: block;
+	width: 100%;
+	aspect-ratio: 1;
+	object-fit: contain;
+}
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+			<h1>Картинки</h1>
+			<hr>
+
+			<h2>Разные способы подключения картинки</h2>
+			<p>Разные разрешения в одном теге:</p>
+			<img width="300" height="300" src="img/picture-300x300@1x.jpg" src="img/picture-600x600@6x.jpg 2x"alt="">
+			<br>
+
+			<p>Разные разрешения и разные форматы в picture:</p>
+			<picture>
+				<source type="image/avif" srcset="img/picture-1200x600@2x.avif" media="(min-width: 1200px)">
+				<source type="image/avif" srcset="img/picture-300x300@1x.avif 1x, img/picture-600x600@2x.avif 2x">
+				<source type="image/webp" srcset="img/picture-300x300@1x.webp 1x, img/picture-600x600@2x.webp 2x">
+				<img width="300" height="300" src="img/picture-300x300@1x.jpg" src="img/picture-600x600@2x.jpg 2x" alt="">
+			</picture>
+
+
+
+
+
+
+
+			<h2>Картинки с фикс-соотношением сторон</h2>
+
+			<div class="gallery">
+				<img src="https://picsum.photos/300/200?random=1" alt="">
+
+				<img src="https://picsum.photos/300/200?random=2" alt="">
+
+				<img src="https://picsum.photos/300/200?random=3" alt="">
+			</div>
+			<hr>
+
+
+
+
+			<h2>Галерея логотипов</h2>
+
+			<div class="gallery-2">
+				<img src="https://assets.codepen.io/85648/logo-made-up-company.svg" />
+
+				<img src="https://assets.codepen.io/85648/logo-pie-club.svg" />
+
+				<img src="https://assets.codepen.io/85648/logo-birdwatchers.svg" />
+
+				<img src="https://assets.codepen.io/85648/logo-vitamins.svg" />
+
+				<img src="https://assets.codepen.io/85648/logo-angry-jelly.svg" />
+			</div>
+			<hr>
+
+
+
+
+			<h2>Анимация ховера с наложением фильтра</h2>
+
+			<div class="bg-img"></div>
+			<hr>
+
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

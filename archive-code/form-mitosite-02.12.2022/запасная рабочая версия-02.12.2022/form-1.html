@@ -1,0 +1,88 @@
+---
+permalink: /form-1.html
+eleventyExcludeFromCollections: true
+---
+<!doctype html><!-- Файл form-1.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Формы связи – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="form-mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="/img/favicon.svg">
+
+	<style></style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Форма №1 без JS</h1>
+
+		<br><hr><br>
+		<a href="https://github.com/mitorun/form-mitosite">Описание форм, текущие проблемы и сами файлы на Гитхабе.</a><br>
+		<a href="form-1.html">Форма-1 без JS (работает только на PHP).</a><br>
+		<a href="form-2.html">Форма-2 с JS.</a><br>
+		<a href="form-3.html">Форма-3 со всеми инпутами.</a><br>
+		<a href="https://github.com/PHPMailer/PHPMailer">https://github.com/PHPMailer/PHPMailer</a><br>
+		<br><hr><br>
+
+
+
+
+		<form class="form" id="form" action="/fls/phpmailer/mail.php" method="POST" enctype="multipart/form-data">
+			<h3 class="form__title">Написать на почту</h3>
+
+
+			<div class="form__item">
+				<label class="form__label" for="name">Ваше имя</label>
+				<input class="form__input" id="name" type="text" name="name" placeholder="Иван" autocomplete="off" minlength="2" maxlength="50" title="Введите ваше имя">
+			</div>
+
+
+			<div class="form__item">
+				<label class="form__label required" for="email">Ваш емейл</label>
+				<input class="form__input" id="email" type="email" name="email" placeholder="email@example.com" autocomplete="email" minlength="6" maxlength="100" title="Введите действующий емейл" required>
+				<span class="form__validation" aria-hidden="true"></span>
+			</div>
+
+
+			<div class="form__item">
+				<label class="form__label" for="tel">Ваш телефон</label>
+				<input class="form__input" id="tel" type="tel" name="tel" placeholder="+7 123 456 78 90" autocomplete="tel" minlength="6" maxlength="20" title="Включая код страны (+7)">
+				<span class="form__validation" aria-hidden="true"></span>
+			</div>
+
+
+			<div class="form__item">
+				<label class="form__label" for="message">Ваше сообщение</label>
+				<textarea class="form__input" id="message" name="message" rows="5" placeholder="Напишите нам" autocomplete="off" minlength="6" maxlength="1500" spellcheck="true" title="Сообщение должно содержать от 6 до 1500 символов"></textarea>
+				<span class="form__validation" aria-hidden="true"></span>
+			</div>
+
+
+			<button class="button button--wide" type="submit">Кнопка</button>
+
+
+			<!--Сообщения об успешной или неудачной отправке:-->
+			<p class="form__success">Сообщение отправлено.</p>
+			<p class="form__failure">Ошибка! Сообщение не отправлено.</p>
+		</form>
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

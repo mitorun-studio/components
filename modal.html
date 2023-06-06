@@ -1,0 +1,629 @@
+<!doctype html><!-- Файл modal.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Разные модалы (кроме Bootstrap) – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Создание модальных окон (модал, попап, всплывающее окно, диалог, всплывашка, modal, dialog, popup).">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+/*---------------------------------------------------
+------------ Модал MicroModal (с JS): ---------------
+---------------------------------------------------*/
+
+.mmodal {
+	display: none;
+}
+/*.modal[aria-hidden='true'] {
+	display: none;
+} этот вариант скрытия не дает сделать задержку для анимации закрытия! */
+
+.mmodal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	/*z-index: 6;*/
+	display: grid;
+	place-items: center;
+	background: hsla(0, 0%, 0%, 0.6);
+	/*backdrop-filter: blur(3px); из-за этого тормозит анимация */
+	overflow-y: auto;
+	overflow-x: hidden;/* эти два оверфлоу на случай если в модале много контента (больше чем помещается на страницу) и для беспроблемной анимации */
+}
+
+.mmodal-body {
+	position: relative;
+	z-index: 7;
+	max-width: 500px;
+	max-height: 100vh;
+	padding: 30px;
+	background-color: hsl(0, 0%, 100%);
+	overflow-y: auto;
+}
+
+.mmodal-close {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	width: 44px;
+	height: 44px;
+	font-size: 32px;
+	background-color: transparent;
+	border: none;
+	appearance: none;
+	cursor: pointer;
+}
+
+.mmodal-close::before,
+.mmodal-close::after {
+	content: '';/* или знак крестика '\2715' */
+	position: absolute;
+	left: 50%;
+	display: block;
+	width: 22px;
+	height: 2px;
+	background-color: var(--color);
+}
+
+.mmodal-close::before {
+	transform: translateX(-50%) rotate(45deg);
+}
+
+.mmodal-close::after {
+	transform: translateX(-50%) rotate(-45deg);
+}
+
+/*.modal-content {}*/
+
+/* Анимация появления и изчезания модала: */
+@media (prefers-reduced-motion: no-preference) {
+	@keyframes mmfadein {
+		from {opacity: 0;}
+		/*to {opacity: 1;}*/
+	}
+
+	@keyframes mmfadeout {
+		/*from {opacity: 1;}*/
+		to {opacity: 0;}
+	}
+
+	@keyframes mmslidein {
+		from {transform: translateY(15%);}
+		/*to {transform: translateY(0);}*/
+	}
+
+	@keyframes mmslideout {
+		/*from {transform: translateY(0);}*/
+		to {transform: translateY(-10%);}
+	}
+
+	.mmodal.is-open {
+		display: block;
+	}
+
+	.mmodal[aria-hidden="false"] .mmodal-overlay {
+		animation: mmfadein 0.4s ease-out;/* было cubic-bezier(0.0, 0.0, 0.2, 1);*/
+	}
+
+	.mmodal[aria-hidden="false"] .mmodal-body {
+		animation: mmslidein 0.4s ease-out;/* было cubic-bezier(0, 0, .2, 1);*/
+	}
+
+	.mmodal[aria-hidden="true"] .mmodal-overlay {
+		animation: mmfadeout 0.3s ease-in;/* было cubic-bezier(0.0, 0.0, 0.2, 1);*/
+	}
+
+	.mmodal[aria-hidden="true"] .mmodal-body {
+		animation: mmslideout 0.3s ease-in;/* было cubic-bezier(0, 0, .2, 1);*/
+	}
+
+	.mmodal .mmodal-body,
+	.mmodal .mmodal-overlay {
+		will-change: transform;
+	}
+}
+
+
+
+
+
+
+/*-------------------------------------------
+-------- Модал с JS a11y-dialog: ------------
+-------------------------------------------*/
+
+.dialog-container {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 6;
+	display: grid;
+	place-items: center;
+	background-color: hsla(212, 19%, 17%, 0.6);
+	backdrop-filter: blur(2px);/* это вариант затемнения, но он тормозит! */
+	overflow-y: auto;
+	overflow-x: hidden;/* эти два оверфлоу на случай если в модале много контента (больше чем помещается на страницу) и для беспроблемной анимации */
+}
+
+.dialog-container[aria-hidden='true'] {
+	display: none;
+}/* это делает модал не видимым и недоступным для фокусировки когда он скрыт */
+
+.dialog-overlay {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	/*background-color: hsla(210, 13%, 19%, 0.9); это было у донора, я перенес этот фон в контейнер */
+}
+
+.dialog-content {
+	position: relative;
+	z-index: 7;
+	width: 600px;
+	max-width: 800px;/* или 90% */
+	height: 60vh;
+	max-height: 90vh;/* или 100vh; */
+	padding: 30px;
+	/*margin: auto; это центрирование было у донора */
+	background-color: var(--bg, hsl(0, 0%, 100%));
+	/*overscroll-behavior-y: contain; это убирает цепочку прокрутки у body! */
+	overflow-y: auto;
+}
+
+.dialog-close {
+	/*position: absolute;
+	top: 10rem;
+	right: 10rem;*/
+	display: block;
+	width: 28px;
+	height: 28px;
+	padding: 2px 4px 4px;
+	margin-left: auto;
+	font: 700 24px/1 var(--font-family, sans-serif);
+	background-color: hsl(170, 74%, 79%);/* или transparent */
+	border: none;
+	cursor: pointer;
+}/* можно эту кнопку не позиционировать, а задать размер и сместить вправо */
+
+/* Добавление анимации в модал a11y-dialog: */
+
+@media (prefers-reduced-motion: no-preference) {
+	/* Анимация появления: */
+	@keyframes fade-in {
+		from {opacity: 0;}
+	}
+
+	@keyframes slide-in {
+		from {transform: translateY(10%);}
+	}
+	.dialog-overlay,
+	.dialog-container {
+		animation: fade-in 0.3s both;
+	}
+
+	.dialog-content {
+		animation: fade-in 0.5s 0.2s both, slide-in 0.5s 0.2s both;
+	}
+
+	/* Анимация изчезания (вероятно чтобы ее сделать нужно отстрочить применение display:none на 0.6s)
+	@keyframes fade-out {
+		from {opacity: 1;}
+		to {opacity: 0;}
+	}
+	@keyframes slide-out {
+		from {transform: translateY(0);}
+		to { transform: translateY(-10%); }
+	}
+
+		.dialog-container[aria-hidden='true'] {
+		pointer-events: none;
+	}
+
+	.dialog-container[aria-hidden='true'] .dialog-content {
+		animation: fade-out .7s forwards, slide-out .7s forwards;
+	}
+
+	.dialog-container[aria-hidden='true'] .dialog-overlay {
+		animation: fade-out .7s forwards;
+	}*/
+}
+
+
+
+
+
+
+/*---------------------------------------
+---- Модал без JS на :target (ФПЖ): -----
+---------------------------------------*/
+
+.popup {
+	/*display: none;*/
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 6;
+	display: grid;
+	place-items: center;
+	background-color: hsla(0, 0%, 0%, 0.7);/* это затемняющий overlay слой */
+	opacity: 0;
+	visibility: hidden;/* эти два свойства скрывают модалку */
+	overflow-y: auto;
+	overflow-x: hidden;/* эти два оверфлоу на случай если в модале много контента (больше чем помещается на страницу) и для беспроблемной анимации */
+	transition: 0.4s;
+}
+
+.popup:target {
+	/*display: block;*/
+	opacity: 1;
+	visibility: visible;
+	transition: 0.5s;
+}
+
+.popup-overlay {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+.popup-body {
+	position: relative;
+	max-width: 800px;
+	max-height: 100vh;
+	padding: 30px;
+	background-color: hsl(0, 0%, 100%);
+	overflow: auto;
+}
+
+.popup-close {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	appearance: none;
+}
+
+/* добавление сложных анимаций появления модала: */
+
+.popup-body {
+	opacity: 0;
+	transform: translate(0, -100px);/* анимация №1 */
+	/*transform: perspective(600rem) translate(0, -100%) rotateX(45deg); анимация №2 */
+	transition: 0.5s;
+}
+
+.popup:target .popup-body {
+	opacity: 1;
+	transform: translate(0, 0);/* анимация №1 */
+	/*transform: perspective(600rem) translate(0, 0%) rotateX(0deg); анимация №2 */
+	transition: 0.7s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	* {
+		transition: 0.01s;
+	}
+}
+
+
+
+
+
+/*---------------------------------------------
+---- Модал без JS на :checked (Селезнева): ----
+---------------------------------------------*/
+
+.modal-check {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+	background-color: hsla(0, 0%, 0%, 0.7);
+	opacity: 0;
+	animation: modal-check-show 0.5s 1 forwards;
+}
+
+.modal-check-content {
+	position: relative;
+	width: 480px;
+	height: 180px;
+	padding: 24px;
+	background-color: white;
+}
+
+.modal-check-toggle:checked ~ .modal-check {
+	display: flex;
+}
+
+.modal-check-toggle {
+	appearance: none;
+}
+
+.modal-check-show {
+	display: inline-block;
+	padding: 12px;
+	background-color: #8bb02c;
+	color: white;
+	font-size: 18px;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.modal-check-hide {
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	width: 60px;
+	height: 60px;
+	padding: 0;
+	appearance: none;
+	background-color: transparent;
+	border: none;
+	font-size: 48px;
+	text-align: center;
+}
+
+@keyframes modal-check-show {
+	0% { opacity: 0; }
+	100% { opacity: 1; }
+}
+
+
+
+
+/* Анимация модала вырастающего из кнопки: */
+
+.icircle-button {
+	width: 100px;
+	height: 100px;
+	margin: 0;
+	padding: 18px;
+	border-radius: 50%;
+	background: #f1c40f;
+	color: #000;
+	font-size: 16px;
+	line-height: 2;
+	text-align: center;
+	text-transform: uppercase;
+	border: none;
+	outline: none;
+	box-shadow: none;
+	transition: color .25s .75s;
+}
+
+.icircle-modal {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	transform: scale(0);
+	transition: transform 0s 1s;
+}
+
+.icircle-modal::before {
+	content: '';
+	position: absolute;
+	top: 150px;
+	left: 150px;
+	width: calc(100% - 150px);
+	padding-top: calc(100% - 150px);
+	border-radius: 50%;
+	background: #f1c40f;
+	transform: translate(-50%, -50%) scale(0);
+	transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.icircle-modal-content {
+	position: relative;
+	padding: 100px;
+	opacity: 0;
+	transition: opacity 0.25s;
+}
+
+
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Модальное окно</h1>
+		<p>Создание модальных окон (модал, попап, диалог, всплывающее окно, всплывашка, modal, dialog, popup).</p>
+		<ul>
+			<li>Основные функции модалов: закрытие при клике на оверлее, закрытие при <kbd>Esc</kbd>, сохранение фокуса внутри модала, сохранение места расположения фокуса после закрытия модала, фокус на первом фокусируемом элементе при открытии модала, переключение атрибута <code>aria-hidden</code>в модале.</li>
+			<li>Код модала лучше располагать в конце документа, перед закрывающим тегом <code>/body</code>. Потому что модал имеет наложение, закрывающее весь остальной контент (видимо при этом не обязательно присваивать z-индексы).</li>
+			<li>Для появления модала хорошо использовать <code>transition-timing-function: ease-out;</code>, а для изчезания <code>transition-timing-function: ease-in;</code>.</li>
+		</ul>
+		<p>Дальнейшее улучшение компонента: Надо как-то сделать разные варианты-темы оформления (включая структуру HTML). Сделать вариант крестика как вконтакте - там крестик вынесен за пределы модала на оверлей, справа вверхе от модала (и тогда ему не надо отдельную кнопку закрывания, закрытие идет от всего оверлея)!</p>
+		<hr>
+
+
+
+
+		<!-- Модал Micromodal.js (с JS): -->
+		<section>
+			<h2>Модал с JS (micromodal.js)</h2>
+			<p>Хорошее решение, тут есть анимация при закрытии! <a href="https://micromodal.vercel.app/">https://micromodal.vercel.app/</a></p>
+			<p>Ссылка на последнюю скомпилированную версию скрипта <a href="https://unpkg.com/micromodal/dist/micromodal.min.js">https://unpkg.com/micromodal/dist/micromodal.min.js</a></p>
+			<p>Для того чтобы модал заработал нужно в конце скрипта вставить такой код:
+			<pre><code>MicroModal.init({
+				openTrigger: 'data-micromodal-trigger',
+				disableScroll: false,
+				awaitCloseAnimation: true
+				})</code></pre><br>В этом коде можно выключить скролл страницы и выключить анимацию при закрытии модала.</p>
+			<p>Скрипт добавляет для оболочки модала класс <code>is-open</code>. С помощью него делается скрытие и появление модала:
+			<pre><code>.modal.is-open {
+				display: block;
+				}</code></pre>. В этом случае при закрытии модала этот класс присваивается с задержкой, это и позволяет сделать анимацию закрытия!</p>
+
+			<!-- Кнопка открытия модала. Значение атрибута data-micromodal-trigger должно соответствовать id самого модала: -->
+			<button type="button" data-micromodal-trigger="mmodal" aria-label="Открыть диалог">Открыть micromodal</button>
+
+			<!-- Внешний контейнер модала. У каждого модала тут должен быть уникальный id: -->
+			<div class="mmodal" id="mmodal" aria-hidden="true">
+				<!-- Это слой оверлея. Атрибут data-micromodal-close дает возможность закрывать модал по клику на оверлее, если это не надо, то атрибут (и весь элемент?) можно удалить: -->
+				<div class="mmodal-overlay" tabindex="-1" data-micromodal-close>
+					<!-- Сам видимый модал. Имеет роль dialog и aria-modal, имеет ариа-лейбл равный заголовку модала. -->
+					<div class="mmodal-body" role="dialog" aria-modal="true" aria-labelledby="mmodal-title">
+						<h2 id="mmodal-title">Заголовок модала</h2>
+						<!-- Кнопка закрытия модала, закрывается благодаря атрибуту data-micromodal-close -->
+						<button class="mmodal-close" type="button" aria-label="Закрыть диалог" data-micromodal-close></button>
+						<div id="mmodal-content">Вы хотите закрыть этот модал?</div>
+						<button class="button" type="button">Оставить</button>
+						<button class="button-2" type="button" data-micromodal-close aria-label="Закрыть это диалоговое окно">Закрыть</button>
+					</div>
+				</div>
+			</div>
+
+			<script>
+				!function (e, t) { "object" == typeof exports && "undefined" != typeof module ? module.exports = t() : "function" == typeof define && define.amd ? define(t) : (e = "undefined" != typeof globalThis ? globalThis : e || self).MicroModal = t() }(this, (function () { "use strict"; function e(e, t) { for (var o = 0; o < t.length; o++) { var n = t[o]; n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(e, n.key, n) } } function t(e) { return function (e) { if (Array.isArray(e)) return o(e) }(e) || function (e) { if ("undefined" != typeof Symbol && Symbol.iterator in Object(e)) return Array.from(e) }(e) || function (e, t) { if (!e) return; if ("string" == typeof e) return o(e, t); var n = Object.prototype.toString.call(e).slice(8, -1); "Object" === n && e.constructor && (n = e.constructor.name); if ("Map" === n || "Set" === n) return Array.from(e); if ("Arguments" === n || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return o(e, t) }(e) || function () { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.") }() } function o(e, t) { (null == t || t > e.length) && (t = e.length); for (var o = 0, n = new Array(t); o < t; o++)n[o] = e[o]; return n } var n, i, a, r, s, l = (n = ["a[href]", "area[href]", 'input:not([disabled]):not([type="hidden"]):not([aria-hidden])', "select:not([disabled]):not([aria-hidden])", "textarea:not([disabled]):not([aria-hidden])", "button:not([disabled]):not([aria-hidden])", "iframe", "object", "embed", "[contenteditable]", '[tabindex]:not([tabindex^="-"])'], i = function () { function o(e) { var n = e.targetModal, i = e.triggers, a = void 0 === i ? [] : i, r = e.onShow, s = void 0 === r ? function () { } : r, l = e.onClose, c = void 0 === l ? function () { } : l, d = e.openTrigger, u = void 0 === d ? "data-micromodal-trigger" : d, f = e.closeTrigger, h = void 0 === f ? "data-micromodal-close" : f, v = e.openClass, g = void 0 === v ? "is-open" : v, m = e.disableScroll, b = void 0 !== m && m, y = e.disableFocus, p = void 0 !== y && y, w = e.awaitCloseAnimation, E = void 0 !== w && w, k = e.awaitOpenAnimation, M = void 0 !== k && k, A = e.debugMode, C = void 0 !== A && A; !function (e, t) { if (!(e instanceof t)) throw new TypeError("Cannot call a class as a function") }(this, o), this.modal = document.getElementById(n), this.config = { debugMode: C, disableScroll: b, openTrigger: u, closeTrigger: h, openClass: g, onShow: s, onClose: c, awaitCloseAnimation: E, awaitOpenAnimation: M, disableFocus: p }, a.length > 0 && this.registerTriggers.apply(this, t(a)), this.onClick = this.onClick.bind(this), this.onKeydown = this.onKeydown.bind(this) } var i, a, r; return i = o, (a = [{ key: "registerTriggers", value: function () { for (var e = this, t = arguments.length, o = new Array(t), n = 0; n < t; n++)o[n] = arguments[n]; o.filter(Boolean).forEach((function (t) { t.addEventListener("click", (function (t) { return e.showModal(t) })) })) } }, { key: "showModal", value: function () { var e = this, t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null; if (this.activeElement = document.activeElement, this.modal.setAttribute("aria-hidden", "false"), this.modal.classList.add(this.config.openClass), this.scrollBehaviour("disable"), this.addEventListeners(), this.config.awaitOpenAnimation) { var o = function t() { e.modal.removeEventListener("animationend", t, !1), e.setFocusToFirstNode() }; this.modal.addEventListener("animationend", o, !1) } else this.setFocusToFirstNode(); this.config.onShow(this.modal, this.activeElement, t) } }, { key: "closeModal", value: function () { var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null, t = this.modal; if (this.modal.setAttribute("aria-hidden", "true"), this.removeEventListeners(), this.scrollBehaviour("enable"), this.activeElement && this.activeElement.focus && this.activeElement.focus(), this.config.onClose(this.modal, this.activeElement, e), this.config.awaitCloseAnimation) { var o = this.config.openClass; this.modal.addEventListener("animationend", (function e() { t.classList.remove(o), t.removeEventListener("animationend", e, !1) }), !1) } else t.classList.remove(this.config.openClass) } }, { key: "closeModalById", value: function (e) { this.modal = document.getElementById(e), this.modal && this.closeModal() } }, { key: "scrollBehaviour", value: function (e) { if (this.config.disableScroll) { var t = document.querySelector("body"); switch (e) { case "enable": Object.assign(t.style, { overflow: "" }); break; case "disable": Object.assign(t.style, { overflow: "hidden" }) } } } }, { key: "addEventListeners", value: function () { this.modal.addEventListener("touchstart", this.onClick), this.modal.addEventListener("click", this.onClick), document.addEventListener("keydown", this.onKeydown) } }, { key: "removeEventListeners", value: function () { this.modal.removeEventListener("touchstart", this.onClick), this.modal.removeEventListener("click", this.onClick), document.removeEventListener("keydown", this.onKeydown) } }, { key: "onClick", value: function (e) { (e.target.hasAttribute(this.config.closeTrigger) || e.target.parentNode.hasAttribute(this.config.closeTrigger)) && (e.preventDefault(), e.stopPropagation(), this.closeModal(e)) } }, { key: "onKeydown", value: function (e) { 27 === e.keyCode && this.closeModal(e), 9 === e.keyCode && this.retainFocus(e) } }, { key: "getFocusableNodes", value: function () { var e = this.modal.querySelectorAll(n); return Array.apply(void 0, t(e)) } }, { key: "setFocusToFirstNode", value: function () { var e = this; if (!this.config.disableFocus) { var t = this.getFocusableNodes(); if (0 !== t.length) { var o = t.filter((function (t) { return !t.hasAttribute(e.config.closeTrigger) })); o.length > 0 && o[0].focus(), 0 === o.length && t[0].focus() } } } }, { key: "retainFocus", value: function (e) { var t = this.getFocusableNodes(); if (0 !== t.length) if (t = t.filter((function (e) { return null !== e.offsetParent })), this.modal.contains(document.activeElement)) { var o = t.indexOf(document.activeElement); e.shiftKey && 0 === o && (t[t.length - 1].focus(), e.preventDefault()), !e.shiftKey && t.length > 0 && o === t.length - 1 && (t[0].focus(), e.preventDefault()) } else t[0].focus() } }]) && e(i.prototype, a), r && e(i, r), o }(), a = null, r = function (e) { if (!document.getElementById(e)) return console.warn("MicroModal: ❗Seems like you have missed %c'".concat(e, "'"), "background-color: #f8f9fa;color: #50596c;font-weight: bold;", "ID somewhere in your code. Refer example below to resolve it."), console.warn("%cExample:", "background-color: #f8f9fa;color: #50596c;font-weight: bold;", '<div class="modal" id="'.concat(e, '"></div>')), !1 }, s = function (e, t) { if (function (e) { e.length <= 0 && (console.warn("MicroModal: ❗Please specify at least one %c'micromodal-trigger'", "background-color: #f8f9fa;color: #50596c;font-weight: bold;", "data attribute."), console.warn("%cExample:", "background-color: #f8f9fa;color: #50596c;font-weight: bold;", '<a href="#" data-micromodal-trigger="my-modal"></a>')) }(e), !t) return !0; for (var o in t) r(o); return !0 }, { init: function (e) { var o = Object.assign({}, { openTrigger: "data-micromodal-trigger" }, e), n = t(document.querySelectorAll("[".concat(o.openTrigger, "]"))), r = function (e, t) { var o = []; return e.forEach((function (e) { var n = e.attributes[t].value; void 0 === o[n] && (o[n] = []), o[n].push(e) })), o }(n, o.openTrigger); if (!0 !== o.debugMode || !1 !== s(n, r)) for (var l in r) { var c = r[l]; o.targetModal = l, o.triggers = t(c), a = new i(o) } }, show: function (e, t) { var o = t || {}; o.targetModal = e, !0 === o.debugMode && !1 === r(e) || (a && a.removeEventListeners(), (a = new i(o)).showModal()) }, close: function (e) { e ? a.closeModalById(e) : a.closeModal() } }); return "undefined" != typeof window && (window.MicroModal = l), l }));
+
+				/* Запуск(?) и настройка модалов: */
+				MicroModal.init({
+					openTrigger: 'data-micromodal-trigger',
+					disableScroll: false,
+					awaitCloseAnimation: true
+				})
+			</script>
+			<!-- Актуальная версия скрипта: <script defer src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>-->
+		</section>
+		<hr>
+
+
+
+
+		<!-- Модал A11y-Dialog (c JS): -->
+		<section>
+			<h2>Модал с JS (a11y-dialog)</h2>
+			<p>Это хорошее решение, которое советует Макеев. В нем нашел только один минус: нет анимации при закрытии модала, видимо для этого нужно в скрипт добавить задержку 0.6s перед применением <code>display:none</code> ?!</p>
+			<p><a href="https://a11y-dialog.netlify.app/">https://a11y-dialog.netlify.app/</a></p>
+			<p><code>data-a11y-dialog-show="your-dialog-id"</code> для кнопки открытия модалки создает связь со скриптом.</p>
+			<p><code>data-a11y-dialog="your-dialog-id"</code> для контейнера модалки создает связь со скриптом. Значение атрибута должно совпадать с идентификатором кнопки открытия.</p>
+			<p>По умолчанию модал имеет роль <code>role="dialog"</code>. Его можно сделать диалогом для критических взаимодействий сменив роль на <code>role="alertdialog"</code> и удалив атрибут <code>data-a11y-dialog-hide</code> у оверлея, тогда не будут работать выход по <kbd>Esc</kbd> и по клику на оверлей.</p>
+			<p>Про <a class="link" rel="noopener" target="_blank" href="https://a11y-dialog.netlify.app/advanced/scroll-lock/">выключение скролла под модалом</a> и другое более полноценное решение<a class="link" rel="noopener" target="_blank" href="https://github.com/willmcpo/body-scroll-lock">body-scroll-lock</a>.</p>
+
+			<button class="dialog-open" type="button" data-a11y-dialog-show="your-dialog-id" aria-label="Открыть диалог">Открыть a11y-dialog</button>
+
+			<!-- 1. The dialog container -->
+			<div class="dialog-container" id="a11ydialog" data-a11y-dialog="your-dialog-id" aria-labelledby="a11ydialogtitle" aria-hidden="true">
+				<!-- 2. The dialog overlay. data-a11y-dialog-hide для закрывания модала при клике на оверлей. -->
+				<div class="dialog-overlay" data-a11y-dialog-hide></div>
+				<!-- 3. The actual dialog -->
+				<div class="dialog-content" role="document">
+					<button class="dialog-close" type="button" data-a11y-dialog-hide aria-label="Закрыть диалог">&times;</button>
+					<h3 id="a11ydialogtitle">Доступный диалог</h3>
+					<p>Lorem</p>
+					<a href="#">link</a><br>
+					<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Totam, veritatis. Unde ratione, dolorum ut tempora deserunt ullam corporis accusantium aliquam voluptates maiores reprehenderit debitis, nulla voluptate a eaque impedit repellat?</p>
+					<a href="#">link</a><br>
+					<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis dolore facilis doloribus iusto et assumenda dolores veritatis illo delectus similique amet, quia dicta molestiae iste aspernatur laborum praesentium temporibus? Aspernatur.</p>
+					<a href="#">link</a><br>
+					<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam delectus aut velit necessitatibus est consequatur magnam illo ipsam doloremque modi minus perspiciatis perferendis tempora, iure deleniti labore cumque ut ipsum!</p>
+				</div>
+			</div>
+
+			<!-- Скрипт модалки a11y-dialog 7.3.0 — © Kitty Giraudel -->
+			<script>
+				!function (t, e) { "object" == typeof exports && "undefined" != typeof module ? module.exports = e() : "function" == typeof define && define.amd ? define(e) : (t = "undefined" != typeof globalThis ? globalThis : t || self).A11yDialog = e() }(this, (function () { "use strict"; var t = ['a[href]:not([tabindex^="-"])', 'area[href]:not([tabindex^="-"])', 'input:not([type="hidden"]):not([type="radio"]):not([disabled]):not([tabindex^="-"])', 'input[type="radio"]:not([disabled]):not([tabindex^="-"])', 'select:not([disabled]):not([tabindex^="-"])', 'textarea:not([disabled]):not([tabindex^="-"])', 'button:not([disabled]):not([tabindex^="-"])', 'iframe:not([tabindex^="-"])', 'audio[controls]:not([tabindex^="-"])', 'video[controls]:not([tabindex^="-"])', '[contenteditable]:not([tabindex^="-"])', '[tabindex]:not([tabindex^="-"])']; function e(t) { this._show = this.show.bind(this), this._hide = this.hide.bind(this), this._maintainFocus = this._maintainFocus.bind(this), this._bindKeypress = this._bindKeypress.bind(this), this.$el = t, this.shown = !1, this._id = this.$el.getAttribute("data-a11y-dialog") || this.$el.id, this._previouslyFocused = null, this._listeners = {}, this.create() } function i(t, e) { return i = (e || document).querySelectorAll(t), Array.prototype.slice.call(i); var i } function n(t) { (t.querySelector("[autofocus]") || t).focus() } function s() { i("[data-a11y-dialog]").forEach((function (t) { new e(t) })) } return e.prototype.create = function () { return this.$el.setAttribute("aria-hidden", !0), this.$el.setAttribute("aria-modal", !0), this.$el.setAttribute("tabindex", -1), this.$el.hasAttribute("role") || this.$el.setAttribute("role", "dialog"), this._openers = i('[data-a11y-dialog-show="' + this._id + '"]'), this._openers.forEach(function (t) { t.addEventListener("click", this._show) }.bind(this)), this._closers = i("[data-a11y-dialog-hide]", this.$el).concat(i('[data-a11y-dialog-hide="' + this._id + '"]')), this._closers.forEach(function (t) { t.addEventListener("click", this._hide) }.bind(this)), this._fire("create"), this }, e.prototype.show = function (t) { return this.shown || (this._previouslyFocused = document.activeElement, this.$el.removeAttribute("aria-hidden"), this.shown = !0, n(this.$el), document.body.addEventListener("focus", this._maintainFocus, !0), document.addEventListener("keydown", this._bindKeypress), this._fire("show", t)), this }, e.prototype.hide = function (t) { return this.shown ? (this.shown = !1, this.$el.setAttribute("aria-hidden", "true"), this._previouslyFocused && this._previouslyFocused.focus && this._previouslyFocused.focus(), document.body.removeEventListener("focus", this._maintainFocus, !0), document.removeEventListener("keydown", this._bindKeypress), this._fire("hide", t), this) : this }, e.prototype.destroy = function () { return this.hide(), this._openers.forEach(function (t) { t.removeEventListener("click", this._show) }.bind(this)), this._closers.forEach(function (t) { t.removeEventListener("click", this._hide) }.bind(this)), this._fire("destroy"), this._listeners = {}, this }, e.prototype.on = function (t, e) { return void 0 === this._listeners[t] && (this._listeners[t] = []), this._listeners[t].push(e), this }, e.prototype.off = function (t, e) { var i = (this._listeners[t] || []).indexOf(e); return i > -1 && this._listeners[t].splice(i, 1), this }, e.prototype._fire = function (t, e) { var i = this._listeners[t] || [], n = new CustomEvent(t, { detail: e }); this.$el.dispatchEvent(n), i.forEach(function (t) { t(this.$el, e) }.bind(this)) }, e.prototype._bindKeypress = function (e) { this.$el.contains(document.activeElement) && (this.shown && 27 === e.which && "alertdialog" !== this.$el.getAttribute("role") && (e.preventDefault(), this.hide(e)), this.shown && 9 === e.which && function (e, n) { var s = function (e) { return i(t.join(","), e).filter((function (t) { return !!(t.offsetWidth || t.offsetHeight || t.getClientRects().length) })) }(e), o = s.indexOf(document.activeElement); n.shiftKey && 0 === o ? (s[s.length - 1].focus(), n.preventDefault()) : n.shiftKey || o !== s.length - 1 || (s[0].focus(), n.preventDefault()) }(this.$el, e)) }, e.prototype._maintainFocus = function (t) { !this.shown || t.target.closest('[aria-modal="true"]') || t.target.closest("[data-a11y-dialog-ignore-focus-trap]") || n(this.$el) }, "undefined" != typeof document && ("loading" === document.readyState ? document.addEventListener("DOMContentLoaded", s) : window.requestAnimationFrame ? window.requestAnimationFrame(s) : window.setTimeout(s, 16)), e }));
+
+				/* Ниже скрипт для выключения прокрутки под модалом: */
+				/*
+				const element = document.getElementById('a11ydialog')
+				const html = document.documentElement
+				const dialog = new A11yDialog(element)
+
+				dialog
+					.on('show', () => (html.style.overflowY = 'hidden'))
+					.on('hide', () => (html.style.overflowY = ''))
+				*/
+			</script>
+			<!-- Актуальная версия скрипта: <script defer src="https://cdn.jsdelivr.net/npm/a11y-dialog@7/dist/a11y-dialog.min.js"></script>-->
+		</section>
+		<hr>
+
+
+
+
+		<h2>Модал без JS на :target (ФПЖ)</h2>
+		<p>Кнопка для закрытия модала сделана ссылкой, которая ссылается на идентификатор хедера (href="#header"). Это сделано чтобы при закрытии модалки нас не отбрасывало на начало страницы. Только для этого хедер с id="header" должен быть зафиксирован сверху страницы, или же вместо него надо сделать фиксированный пиксель с vissually-hidden.</p>
+		<a class="popup-link" href="#popup">Попап №1</a>
+
+		<div class="popup" id="popup">
+			<a class="popup-overlay" href="#header"></a>
+			<div class="popup-body">
+				<a class="popup-close" href="#header">X</a>
+				<p>Это модальное окно №1</p>
+				<p><!--<a class="popup-link" href="#popup_2">Попап №2</a>-->Lorem</p>
+				<!--<div class="popup-content"></div>-->
+			</div>
+		</div>
+		<hr>
+
+
+
+
+		<h2>Модал без JS на :checked (Селезнева)</h2>
+		<label class="modal-check-show" for="modal-check-toggle">Показать модальное окно</label>
+		<input class="modal-check-toggle" id="modal-check-toggle" type="checkbox">
+		<div class="modal-check">
+			<div class="modal-check-content">
+				<label class="modal-check-hide" for="modal-check-toggle">✕</label>
+			</div>
+		</div>
+		<br><br>
+		<hr><br><br>
+
+
+
+
+
+
+		<h2>Анимация модала вырастающего из кнопки (Селезнева)</h2>
+		<p>Есть только стили, нужен скрипт для работы!</p>
+
+		<div class="icircle">
+			<button type="button" class="icircle-button">CLICK HERE</button>
+			<div class="icircle-modal">
+				<div class="icircle-modal-content">
+					<p>I have a pen</p>
+					<p>I have a code</p>
+					<p>Ugh!</p>
+					<p>CodePen</p>
+				</div>
+			</div>
+		</div>
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

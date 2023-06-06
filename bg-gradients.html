@@ -1,0 +1,86 @@
+<!doctype html><!-- Файл bg-gradients.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="none">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Градиентные фоны – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+.mesh {
+	position: relative;
+	width: 200px;
+	height: 200px;
+	background: hsl(0, 100%, 50%);
+	background: linear-gradient(47deg, hsl(174, 100%, 50%) 0%, hsl(240, 100%, 71%) 38%, hsl(214, 92%, 34%) 47%, hsl(287, 100%, 50%) 100%);
+}
+
+.mesh::after {
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	backdrop-filter: blur(25px);
+}
+
+.mesh-1 {
+	background-color: azure;
+	position: absolute;
+	border-radius: 50%;
+	top: 0%;
+	bottom: 10%;
+	width: 30%;
+	height: 40%;
+	opacity: 0.7;
+}
+
+.mesh-2 {
+	background-color: cyan;
+	position: absolute;
+	left: 25%;
+	bottom: 10%;
+	width: 30%;
+	height: 40%;
+}
+
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Градиентные фоны</h1>
+		<hr>
+
+
+		<h2>Mesh-градиент на CSS</h2>
+		<div class="mesh">
+			<div class="mesh-1"></div>
+			<div class="mesh-2"></div>
+		</div>
+
+
+
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

@@ -1,0 +1,561 @@
+<!doctype html><!-- Файл tree.html -->
+<html lang="ru">
+
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Древовидная структура – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+/*------------------------------------------------
+---------- Вертикальное дерево: ------------------
+------------------------------------------------*/
+:root {
+	--tree-line: 1px solid hsl(0, 0%, 76%);
+	--text-indent: 1.4em;
+}
+
+.tree-vertical,
+.tree-vertical ul,
+.tree-vertical li {
+	margin: 0;
+	padding: 0;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 1.5;
+	list-style: none;
+}
+
+.tree-vertical ul {
+	margin-left: 1.6em;
+	/* отступ вертикальной линии */
+}
+
+.tree-vertical>li:not(:only-child),
+.tree-vertical li li {
+	position: relative;
+	/*padding-top: 0.1em;*/
+	padding-left: var(--text-indent);
+}
+
+/* Стиль вертикальной линии: */
+.tree-vertical li:not(:last-child),
+.tree-vertical li:last-child::before {
+	border-left: var(--tree-line);
+}
+
+/* Стили горизонтальной линии: */
+.tree-vertical li li::before,
+.tree-vertical>li:not(:only-child)::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: calc(var(--text-indent) - 0.2em);
+	height: 0.8em;
+	border-bottom: var(--tree-line);
+}
+
+/*------------------------------------------------
+---------- Горизонтальное дерево: ----------------
+------------------------------------------------*/
+
+.tree-horizontal,
+.tree-horizontal ul {
+	position: relative;
+	display: table;
+	margin: 1em 0 0 0 !important;
+	padding: 0.4em 0 0 0 !important;
+	line-height: normal;
+	text-align: center;
+	word-wrap: break-word;
+	word-break: break-all;
+}
+
+.tree-horizontal li {
+	position: relative;
+	display: table-cell;
+}
+
+/* Отступ между пунктами */
+.tree-horizontal li:not(:only-child) {
+	padding: 0.6em 0.5em 0;
+}
+
+.tree-horizontal li:last-child {
+	padding-right: 0;
+}
+
+.tree-horizontal li:first-child {
+	padding-left: 0;
+}
+
+/* Стили линий */
+.tree-horizontal ul:before,
+.tree-horizontal ul li:before,
+.tree-horizontal ul li:after {
+	content: '';
+	position: absolute;
+	top: -0.4em;
+	left: 0;
+	width: 50%;
+	height: 1em;
+	border-right: var(--tree-line);
+}
+
+.tree-horizontal ul::before {
+	top: -1em;
+}
+
+.tree-horizontal ul li:not(:only-child)::before {
+	border-top: var(--tree-line);
+}
+
+.tree-horizontal ul li:not(:only-child):first-child::before {
+	right: 0;
+	left: auto;
+	border-left: var(--tree-line);
+	border-right: none;
+}
+
+.tree-horizontal ul li:not(:only-child):first-child::before,
+.tree-horizontal ul li:not(:only-child):last-child::before {
+	width: calc(50% + 0.5em / 2);
+}
+
+.tree-horizontal ul li:after {
+	border: none;
+}
+
+.tree-horizontal ul li:not(:last-child):not(:first-child):after {
+	width: 100%;
+	border-top: var(--tree-line);
+}
+
+/*------------------------------------------------
+---------- Вертикальное дерево по центру:  -------
+------------------------------------------------*/
+
+.treegorizont {
+	margin: 0 !important;
+	padding: 0 !important;
+	line-height: normal;
+	word-wrap: break-word;
+	word-break: break-all;
+}
+
+.treegorizont ul {
+	position: relative;
+	display: table-cell;
+	margin: 0 !important;
+	padding: 0 0 0 10px !important;
+	vertical-align: middle;
+}
+
+.treegorizont li {
+	display: table;
+	position: relative;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.treegorizont div {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+/* Стили линий */
+.treegorizont ul:before,
+.treegorizont ul li:after,
+.treegorizont ul li:not(:last-child):not(:first-child):before {
+	content: "";
+	position: absolute;
+	left: -6px;
+	top: 0;
+	width: 3px;
+	height: 50%;
+	border-bottom: 1px solid #ccc;
+}
+
+.treegorizont ul:before {
+	left: 0;
+}
+
+.treegorizont ul li:not(:only-child):after {
+	border-left: 1px solid #ccc;
+}
+
+.treegorizont ul li:not(:only-child):first-child:after {
+	top: 50%;
+	border-top: 1px solid #ccc;
+	border-bottom-color: transparent;
+}
+
+.treegorizont ul li:not(:last-child):not(:first-child):before {
+	height: 100%;
+	border-left: 1px solid #ccc;
+	border-bottom-color: transparent;
+}
+
+/*------------------------------------------------
+--- Генеалогическое (семейное) дерево: -----------
+------------------------------------------------*/
+
+.tree-family {
+	position: relative;
+	overflow: hidden;
+	padding: 0 0 20px 0;
+}
+
+.tree-family ul {
+	position: relative;
+	padding: 20px 0;
+	transition: 0.2s;
+}
+
+.tree-family li {
+	list-style-type: none;
+	float: left;
+	position: relative;
+	padding: 20px 5px 0 5px;
+	text-align: center;
+	transition: 0.2s;
+}
+
+.tree-family li::before,
+.tree-family li::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 50%;
+	width: 50%;
+	height: 20px;
+	border-top: var(--tree-line);
+}
+
+.tree-family li::after {
+	right: auto;
+	left: 50%;
+	border-left: var(--tree-line);
+}
+
+.tree-family li:only-child::after,
+.tree-family li:only-child::before {
+	display: none;
+}
+
+.tree-family li:only-child {
+	padding-top: 0;
+}
+
+.tree-family li:first-child::before,
+.tree-family li:last-child::after {
+	border: 0 none;
+}
+
+.tree-family li:last-child::before {
+	border-right: var(--tree-line);
+	border-radius: 0 2px 0 0;
+}
+
+.tree-family li:first-child::after {
+	border-radius: 2px 0 0 0;
+}
+
+.tree-family ul ul::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 50%;
+	width: 0;
+	height: 20px;
+	border-left: var(--tree-line);
+}
+
+.tree-family li a {
+	display: inline-block;
+	padding: 5px 10px;
+	border: var(--tree-line);
+	border-radius: 2px;
+	text-decoration: none;
+	color: hsl(0, 0%, 33%);
+	font-size: 16px;
+	background-color: hsl(220, 21%, 95%);
+	transition: 0.2s;
+}
+
+.tree-family li a:hover,
+.tree-family li a:hover + ul li a {
+	/*border: 1px solid cornflowerblue;*/
+	border-color: cornflowerblue;
+	background-color: hsl(219, 74%, 95%);
+	color: hsl(0, 0%, 0%);
+}
+
+.tree-family li a:hover + ul li::after,
+.tree-family li a:hover + ul li::before,
+.tree-family li a:hover + ul::before,
+.tree-family li a:hover + ul ul::before {
+	border-color: cornflowerblue;
+}
+
+img {
+	display: block;
+	width: 50px;
+	height: 50px;
+	border-radius: 50px;
+	opacity: 0.8;
+	transition: 0.2s linear;
+}
+
+.tree-family li a:hover img,
+.tree-family li a:hover + ul img {
+	opacity: 1;
+}
+
+/*------------------------------------------------
+---------- Вариант на SVG: -----------------------
+------------------------------------------------*/
+
+.tree-svg text {
+	font-size: 14px;
+	fill: hsl(0, 0%, 40%);
+	cursor: pointer;
+}
+
+.tree-svg text:hover {
+	fill: hsl(236, 100%, 40%);
+}
+
+.tree-svg rect {
+	width: 100px;
+	height: 25px;
+	fill: hsl(0, 0%, 100%);
+	stroke: hsl(0, 0%, 80%);
+}
+
+.tree-svg line {
+	stroke: hsl(0, 0%, 80%);
+	stroke-width: 2;
+}
+
+.tree-svg path {
+	fill: none;
+	stroke: hsl(0, 0%, 80%);
+	stroke-width: 2;
+}
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Древовидная структура</h1>
+		<hr>
+
+		<h2>Вертикальное дерево</h2>
+
+		<ul class="tree-vertical">
+			<li>
+				<span>0. Меню</span>
+				<ul>
+					<li>
+						<span>1. Блог</span>
+						<ul>
+							<li>1.1. Статья</li>
+							<li>1.2. Статья</li>
+						</ul>
+					</li>
+					<li>2. Контакты</li>
+					<li>
+						<span>3. Работы</span>
+						<ul>
+							<li>3.1. Работа</li>
+							<li>3.2. Работа</li>
+							<li>3.3. Работа</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+		<br>
+		<hr><br>
+
+
+
+
+		<h2>Горизонтальное дерево</h2>
+
+		<ul class="tree-horizontal">
+			<li>
+				<span>0. Меню</span>
+				<ul>
+					<li>
+						<span>1. Блог</span>
+						<ul>
+							<li>1.1. Статья</li>
+							<li>1.2. Статья</li>
+						</ul>
+					</li>
+					<li>2. Контакты</li>
+					<li>
+						<span>3. Работы</span>
+						<ul>
+							<li>3.1. Работа</li>
+							<li>3.2. Работа</li>
+							<li>3.3. Работа</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+		<br>
+		<hr><br>
+
+
+
+
+		<h2>Вертикальное дерево по центру</h2>
+
+		<ul class="treegorizont">
+			<li>
+				<div>Главное меню</div>
+				<ul>
+					<li>
+						<div>База знаний</div>
+						<ul>
+							<li>
+								<div>Компоненты</div>
+							</li>
+							<li>
+								<div>Плагины</div>
+							</li>
+							<li>
+								<div>Модули</div>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<div>Отзывы</div>
+					</li>
+					<li>
+						<div>Контакты</div>
+					</li>
+				</ul>
+			</li>
+		</ul>
+		<br><hr><br>
+
+
+
+
+		<h2>Генеалогическое (семейное) дерево</h2>
+
+		<div class="tree-family">
+			<ul>
+				<li>
+					<a href="#"><img src="https://ss.metronews.ru/userfiles/materials/74/741810/858x540.jpg">Отец</a>
+					<ul>
+						<li>
+							<a href="#"><img src="https://ss.metronews.ru/userfiles/materials/74/741810/858x540.jpg">Сын</a>
+							<ul>
+								<li>
+									<a href="#"><img src="https://ss.metronews.ru/userfiles/materials/74/741810/858x540.jpg">Внук</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#"><img src="https://ss.metronews.ru/userfiles/materials/74/741810/858x540.jpg">Дочь</a>
+							<ul>
+								<li>
+									<a href="#"><img src="https://ss.metronews.ru/userfiles/materials/74/741810/858x540.jpg">Внучка</a>
+								</li>
+								<li>
+									<a href="#"><img src="https://ss.metronews.ru/userfiles/materials/74/741810/858x540.jpg">Внук</a>
+									<ul>
+										<li>
+											<a href="#"><img src="https://ss.metronews.ru/userfiles/materials/74/741810/858x540.jpg">Правнучка</a>
+										</li>
+										<li>
+											<a href="#"><img src="https://ss.metronews.ru/userfiles/materials/74/741810/858x540.jpg">Правнук</a>
+										</li>
+										<li>
+											<a href="#"><img src="https://ss.metronews.ru/userfiles/materials/74/741810/858x540.jpg">Правнучка</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a href="#"><img src="https://ss.metronews.ru/userfiles/materials/74/741810/858x540.jpg">Внучка</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<br><hr><br>
+
+
+
+
+		<h2>Вариант на SVG</h2>
+
+		<svg class="tree-svg" viewBox="0 0 660 270" xmlns="http://www.w3.org/2000/svg">
+			<g>
+				<rect x="300" y="10" ry="4" />
+				<text x="335" y="27">Отец</text>
+				<line x1="350" x2="350" y1="35" y2="50" />
+				<path d="m100,80 v-30 h350 v30" />
+				<rect x="50" y="80" ry="4" />
+				<rect x="400" y="80" ry="4" />
+				<text x="90" y="97">сын</text>
+				<text x="435" y="97">дочь</text>
+				<line x1="100" x2="100" y1="105" y2="125" />
+				<rect x="50" y="125" ry="4" />
+				<text x="75" y="142">правнук</text>
+				<line x1="450" x2="450" y1="105" y2="125" />
+				<path d="m200,155 v-30 h400 v30" />
+				<line x1="450" x2="450" y1="125" y2="155" />
+				<rect x="150" y="155" ry="4" />
+				<rect x="400" y="155" ry="4" />
+				<rect x="550" y="155" ry="4" />
+				<text x="180" y="172">внучка</text>
+				<text x="437" y="172">внук</text>
+				<text x="580" y="172">внучка</text>
+				<line x1="450" x2="450" y1="180" y2="210" />
+				<path d="m340,240 v-30 h210 v30" />
+				<line x1="450" x2="450" y1="210" y2="240" />
+				<rect x="290" y="240" ry="4" />
+				<rect x="400" y="240" ry="4" />
+				<rect x="510" y="240" ry="4" />
+				<text x="308" y="257">правнучка</text>
+				<text x="425" y="257">правнук</text>
+				<text x="528" y="257">правнучка</text>
+			</g>
+		</svg>
+		<br><hr><br>
+
+
+
+
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,143 @@
+<!doctype html><!-- Файл "artblock.html" -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="none">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Артблоки (раздел с текстом и картинкой) – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Шаблоны верстки разделов с текстом, картинкой, подзаголовком и т.п.">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+.artfield {
+	display: grid;
+	gap: 40px;
+}
+
+/*--------------- Артблок Hero №1 ---------------*/
+.artblock {
+	display: grid;
+	grid-template-columns: auto;
+	align-items: center;
+	gap: 20px;
+
+	background: content-box hsla(234, 100%, 50%, .03);
+	border: 2px dashed hsla(234, 100%, 50%, .2);/* это для тестирования */
+}
+
+@media (min-width: 576px) {
+	.artblock {
+		grid: min-content min-content / 1fr 1fr;
+	}
+
+	.artblock-img {
+		grid-area: 1 / 1 / -1 / 2;
+	}
+}
+
+.artblock-title {
+	align-self: end;
+	margin: 0;
+}
+
+.artblock-text {
+	align-self: start;
+}
+
+
+
+/*--------------- Артблок Hero №2 ---------------*/
+.artblock-2 {
+	background: content-box hsla(234, 100%, 50%, .03);
+	border: 2px dashed hsla(234, 100%, 50%, .2);/* это для тестирования */
+}
+
+@media (min-width: 1024px) {
+	.artblock-2 {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		/* flex-wrap: wrap; */
+	}
+}
+
+.artblock-wrap-2 {
+	margin-bottom: 24px;
+}
+
+@media (min-width: 1024px) {
+	.artblock-wrap-2 {
+		flex: 1 1 50%; /* flex: 1 1 auto; или flex: 1 1 50%; */
+		margin: 0 40px 0 0; /* это отстум между текстами и картинкой */
+	}
+}
+
+.artblock-title-2 {
+	margin: 0 0 28px;
+	font: 700 28px/1.3 var(--font-heading);
+}
+
+/*.artblock-text {
+}*/
+
+.artblock-img-2 {
+	object-fit: cover; /* это пригодится если нужно сохранить пропорции картинки, но тогда надо задать сами эти пропорции */
+}
+
+
+	</style>
+</head>
+
+<body>
+
+
+	<main class="container">
+
+		<h1 class="h1">Разделы с текстом и картинкой</h1>
+		<p>Шаблоны (веб-компоненты) верстки различных вариантов компоновки раздела с текстом и картинкой.</p>
+		<p>Руководство к использованию данных веб-компонентов:<br>
+			- Данные карточки и блоки можно использовать совместно с "оболочками" (которые находятся в файле колонки-галереи gallery.html).<br>
+			- Если нужно в карточках тег (p) с заголовком можно менять на тег заголовка (h2-h5)
+		</p>
+		<br><br><br><br>
+
+
+		<h2 class="h2">Блоки текст + картинка</h2>
+
+
+		<!-- Блок-карточка с текстами (заголовок, текст, кнопка) и картинкой сбоку. Это стандартный блок для главного экрана (у меня такой) и других секций. -->
+		<div class="artfield">
+			<div class="artblock">
+				<h3 class="artblock-title">Артблок Hero №01</h3>
+				<p class="artblock-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis tempora praesentium est eaque asperiores, quasi quam pariatur culpa quae corrupti, voluptatum libero totam nemo consequatur beatae non odio incidunt dicta.</p>
+
+				<img class="artblock-img" src="https://picsum.photos/1000/600/" alt="">
+			</div>
+
+
+			<div class="artblock-2">
+				<div class="artblock-wrap-2">
+					<h3 class="artblock-title-2">Артблок Hero №02</h3>
+					<p class="artblock-text-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis tempora praesentium est eaque asperiores, quasi quam pariatur culpa quae corrupti, voluptatum libero totam nemo consequatur beatae non odio incidunt dicta.</p>
+				</div>
+
+				<img class="artblock-img-2" src="https://picsum.photos/500/300/" alt="">
+			</div>
+		</div>
+		<br><br><br><br>
+
+
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

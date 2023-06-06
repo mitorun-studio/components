@@ -1,0 +1,437 @@
+<!doctype html><!-- Файл slider-bootstrap.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Слайдер Bootstrap – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<link rel="stylesheet" href="components.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+/*------------------------------------------------
+--- Компонент слайдер Bootstrap Carousel: --------
+------------------------------------------------*/
+
+.carousel {
+	position: relative;
+	/*touch-action: pan-y;*/
+	/*padding-bottom: 60px; это перемещает пагинацию ниже слайдов, только при этом кнопки пред/след опускаются ниже центра слайда*/
+}
+
+.carousel.pointer-event {
+	touch-action: pan-y;
+}
+
+.carousel-inner {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+}
+
+/* Это какой-то clear-фикс: */
+.carousel-inner::after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+/* Кнопки предыдущий/следующий слайд: */
+.carousel-control-prev,
+.carousel-control-next {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	z-index: 1;
+	display: grid;
+	place-content: center;
+	width: 15%;
+	color: hsl(0, 0%, 100%);
+	text-align: center;
+	background: none;
+	border: 0;
+	opacity: 0.5;
+	cursor: pointer;
+	transition: 0.2s ease;
+}
+
+.carousel-control-prev {
+	left: 0;
+}
+
+.carousel-control-next {
+	right: 0;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-prev:focus,
+.carousel-control-next:hover,
+.carousel-control-next:focus {
+	/*color: hsl(0, 0%, 100%);
+	text-decoration: none;*/
+	outline: 0;
+	opacity: 0.9;
+}
+
+/* Ниже мой код с добавлением кружков для стрелок: */
+.carousel-control-prev::after,
+.carousel-control-next::after {
+	content: '';
+	/*position: absolute;
+	z-index: -1;*/
+	/*display: inline-block;*/
+	width: 48px;
+	height: 48px;
+	background: padding-box url('img/sprite.svg#arrow-simple') 50% / 24px 24px no-repeat red;
+	border-radius: 99px;
+	transform: rotate(90deg);
+	transition: 0.2s linear;
+}
+
+.carousel-control-next::after {
+	transform: rotate(-90deg);
+}
+
+/* Пагинация слайдов: */
+.carousel-indicators {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 2;
+	display: flex;
+	justify-content: center;
+	margin-right: 15%;
+	margin-bottom: 16px;
+	margin-left: 15%;
+	list-style: none;
+}
+
+.carousel-indicators [data-bs-target] {
+	box-sizing: content-box;
+	flex: 0 1 auto;
+	width: 24px;
+	height: 4px;
+	margin-right: 3px;
+	margin-left: 3px;
+	text-indent: -999px;/* зачем? мешает если добавлять контент в кнопки */
+	background-color: hsl(0, 0%, 100%);
+	background-clip: padding-box;
+	border: 0;
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent;
+	border-radius: 0;
+	opacity: 0.5;
+	cursor: pointer;
+	transition: 0.6s ease;
+}
+
+.carousel-indicators [data-bs-target]:hover {
+	opacity: 1;
+	/*background-color: var(--color-1);*/
+}
+
+.carousel-indicators .active {
+	width: 30px;
+	height: 6px;
+	opacity: 1;
+}
+
+/* Слайд-карточка: */
+.carousel-item {
+	position: relative;
+	display: none;
+	float: left;
+	width: 100%;
+	/*height: 400px; это задает высоту слайдам и всему слайдеру */
+	max-height: 1080px;/* это для профилактики размеров */
+	margin-right: -100%;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+	transition: transform 0.6s ease-in-out;
+}
+
+/* Механизм показа и анимации слайдов: */
+.carousel-item.active,
+.carousel-item-next,
+.carousel-item-prev {
+	display: block;
+}
+
+/* эти классы подставляет скрипт для анимации: */
+.carousel-item-next:not(.carousel-item-start),
+.active.carousel-item-end {
+	transform: translateX(100%);
+}
+
+.carousel-item-prev:not(.carousel-item-end),
+.active.carousel-item-start {
+	transform: translateX(-100%);
+}
+
+/* Конец базовых стилей слайдера carousel. */
+
+
+
+/* Это анимация смены слайдов Fade:
+.carousel-fade .carousel-item {
+	opacity: 0;
+	transition-property: opacity;
+	transform: none;
+}
+
+.carousel-fade .carousel-item.active,
+.carousel-fade .carousel-item-next.carousel-item-start,
+.carousel-fade .carousel-item-prev.carousel-item-end {
+	z-index: 1;
+	opacity: 1;
+}
+
+.carousel-fade .active.carousel-item-start,
+.carousel-fade .active.carousel-item-end {
+	z-index: 0;
+	opacity: 0;
+	transition: opacity 0s 0.6s;
+}*/
+
+
+
+
+
+/*----------------------------------------
+----- Кастомное оформление слайдеров: ----
+----------------------------------------*/
+
+/*.gallery {}*/
+
+.gallery__card {
+	/*display: grid;
+	place-content: center;*/
+	min-height: 300px;
+	padding: var(--margin-m);
+	background-color: hsl(142, 49%, 83%);
+}
+
+
+
+/*------------------------------------------------
+---------- Внутренний контент слайдов: -----------
+------------------------------------------------*/
+
+.carousel-item > img /* моя идея: .carousel-item:first-child */ {
+	position: absolute;
+	top: 0;
+	left: 0;
+	min-width: 100%;
+	height: 100%;
+	/*height: 512px;*/
+	object-fit: cover;
+	background-color: hsl(157, 84%, 80%);
+}
+
+.carousel-caption {
+	position: absolute;
+	right: 15%;
+	bottom: 50px;
+	left: 15%;
+	z-index: 10;/* это чтобы текст слайдов был позиционирован выше основной картинки */
+	padding-top: 1.25rem;
+	padding-bottom: 1.25rem;
+	color: #fff;
+	text-align: center;
+}
+
+
+
+/*-----------------------------------
+---- Второй слайдер .carousel-2: ----
+-----------------------------------*/
+
+.carousel-2 {
+	/*z-index: 1; Fix of Webkit flickering */
+	width: 100%;/* или auto; */
+	height: auto;/* или фикс 300px */
+	max-height: 600px;/* для профилактики */
+	margin-right: auto;
+	margin-left: auto;
+	padding: 0;/* или 0 80px 40px 80px; чтобы вынести кнопки управления вне слайдера */
+	list-style: none;
+	overflow: hidden;
+	touch-action: pan-y;/* это добавляется от класса .carousel.pointer-event */
+}
+
+/*-------- Конец стилей слайдера Carousel -------*/
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Слайдер Bootstrap Carousel</h1>
+
+		<p><a rel="noopener" target="_blank" href="https://getbootstrap.com/docs/5.1/components/carousel/">Документация Bootstrap - Carousel</a></p>
+		<p>Как работает слайдер:</p>
+		<ul>
+			<li>Неактивные слайды спрятаны с <code>display: none;</code></li>
+			<li>Для одного из слайдов нужно добавить класс <code>.active</code> чтобы сделать его видимым (активным-текущим) с помощью <code>.carousel-item.active {display: block;}</code>. Далее скрипт переназначает этот класс другим слайдам. (А также нужно поставить класс <code>active</code> для соответствующей кнопки пагинации?)</li>
+			<li>Для .carousel нужно установить свой идентификатор (например <code>id="carousel"</code>) и присвоить всем элементам управления атрибут <code>data-bs-target="#carousel"</code>.</li>
+			<li>Для анимации перелистывания слайда скриптом на миг добавляется класс типа <code>.active.carousel-item-start</code> со свойством <code>transform: translateX</code>.</li>
+			<li>По умолчанию в слайдере включено автоматическое перелистывание слайдов в 5000мс.</li>
+			<li>Простая картинка добавляется внутрь <code>.carousel-item</code> и растягивается (100% и/или позиционированием?) на весь размер контейнера слайда. Для добавления текста в слайд нужно РЯДОМ с картинкой положить контейнер <code>.carousel-caption</code> (его обернуть контейнером, или контейнер положить в него). Причем весь этот контент <code>.carousel-caption</code> можно удалить на мобилках с помощью <code>display: none</code>.</li>
+			<li><b>Как происходит анимация смены слайдов:</b> В момент когда слайды сменяются у текущего слайда скриптом добавляются классы <code>carousel-item active carousel-item-start</code>, а для следующего слайда <code>carousel-item carousel-item-next carousel-item-start</code>.</li>
+		</ul>
+
+		<h3>Настройки слайдера:</h3>
+
+		<p>Настраивать поведение скриптов слайдера можно или через JS или в HTML с помощью data-атрибутов – что проще на практике. Делается это так: для главного элемента <code>div.carousel</code> добавляются data-атрибуты с настроками:</p>
+		<ul>
+			<li>Для каждого слайдера на странице задать уникальный идентификатор. Еще его нужно прописать для кнопок листания и пагинации.</li>
+
+			<li>Для первого (видимого активного) слайда обязательно задать класс<code>.active</code>.</li>
+
+			<li>Вручную создать столько кнопок пагинации сколько слайдов. Для первой кнопки задать класс <code>.active</code></li>
+
+			<li><code>data-bs-interval="5000"</code> – настройка интервала автоматической смены кадров или <code>data-bs-interval="false"</code> чтобы отключить авто-перелистывание.</li>
+
+			<li>Также можно настроить время автопролистывания для каждого отдельного слайда с помощью <code>&lt;div class="carousel-item" data-bs-interval="2000"&gt;&lt;/div&gt;</code></li>
+
+			<li><code>data-bs-keyboard="true"</code> (по умолчанию) – для управления с клавиатуры.</li>
+
+			<li><code>data-bs-pause="hover"</code> (по умолчанию) – при наведении мыши ставится на паузу авто-перелистывание слайдов, <code>data-bs-pause="false"</code> чтобы не ставить паузу при ховере.</li>
+
+			<li><code>data-bs-ride="carousel"</code> – слайдер начинает автоматическое перелистывание слайдов сразу после загрузки страницы, а с <code>data-bs-ride="false"</code> авто-перелистывание включится когда пользователь сам прокрутил первый слайд.</li>
+
+			<li><code>data-bs-touch="true"</code> – включение жеста смахивания на тач-экранах, "false" для выключения.</li>
+
+			<li>Стиль смены слайдов можно поменять с перелистывания на кроссфейд. Для этого нужно добавить класс <code>.carousel-fade</code> в свою карусель и нужно раскомментировать стили для фейда! Думаю также можно попробовать написать свои стили для анимации слайдов.</li>
+
+			<li><code>data-bs-wrap="true"</code> слайды зациклены по кругу (по умолчанию) или не зациклены с "false".</li>
+		</ul>
+		<br>
+
+
+		<!-- Компонент слайдер: -->
+		<div class="carousel slide" id="carousel" data-bs-ride="carousel" data-bs-interval="99999" data-bs-pause="false">
+			<div class="carousel-inner gallery">
+				<div class="carousel-item gallery__card active">
+					<p class="gallery__title">Слайд №1</p>
+					<p class="gallery__text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+				</div>
+
+
+				<div class="carousel-item gallery__card">
+					<p class="gallery__title">Слайд №2</p>
+					<p class="gallery__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet earum ab corrupti expedita cupiditate iusto ut, beatae molestiae ea voluptatibus veniam magnam voluptas.</p>
+				</div>
+
+
+				<div class="carousel-item gallery__card">
+					<p class="gallery__title">Слайд №3</p>
+					<p class="gallery__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet earum ab corrupti expedita cupiditate iusto ut, beatae molestiae ea voluptatibus veniam magnam voluptas. Nisi, aspernatur. Error labore illo eum nisi.</p>
+				</div>
+
+
+				<div class="carousel-item gallery__card">
+					<p class="gallery__title">Слайд №4</p>
+					<p class="gallery__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet earum ab corrupti expedita cupiditate iusto ut, beatae molestiae ea voluptatibus veniam magnam voluptas. Nisi, aspernatur. Error labore illo eum nisi.</p>
+				</div>
+
+
+				<div class="carousel-item gallery__card">
+					<p class="gallery__title">Слайд №5</p>
+					<p class="gallery__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet earum ab corrupti expedita cupiditate iusto ut, beatae molestiae ea voluptatibus veniam magnam voluptas. Nisi, aspernatur. Error labore illo eum nisi.</p>
+				</div>
+			</div>
+
+
+			<button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev" aria-label="Предыдущий слайд"></button>
+			<button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next" aria-label="Следующий слайд"></button>
+
+			<div class="carousel-indicators">
+				<button class="active" type="button" data-bs-target="#carousel" data-bs-slide-to="0" aria-current="true" aria-label="Слайд 1"></button>
+				<button class="" type="button" data-bs-target="#carousel" data-bs-slide-to="1" aria-label="Слайд 2"></button>
+				<button class="" type="button" data-bs-target="#carousel" data-bs-slide-to="2" aria-label="Слайд 3"></button>
+				<button class="" type="button" data-bs-target="#carousel" data-bs-slide-to="3" aria-label="Слайд 4"></button>
+				<button class="" type="button" data-bs-target="#carousel" data-bs-slide-to="4" aria-label="Слайд 5"></button>
+			</div>
+		</div>
+
+
+
+
+
+
+		<br><br><br>
+		<!-- Компонент слайдер-2: -->
+		<div class="carousel slide carousel-2" id="carousel2" data-bs-ride="carousel" data-bs-touch="true">
+			<button class="carousel-control-prev" type="button" data-bs-target="#carousel2" data-bs-slide="prev" aria-label="Предыдущий слайд"></button>
+
+			<button class="carousel-control-next" type="button" data-bs-target="#carousel2" data-bs-slide="next" aria-label="Следующий слайд"></button>
+
+			<div class="carousel-indicators">
+				<button class="active" type="button" data-bs-target="#carousel2" data-bs-slide-to="0" aria-current="true" aria-label="Слайд 1"></button>
+				<button class="" type="button" data-bs-target="#carousel2" data-bs-slide-to="1" aria-label="Слайд 2"></button>
+				<button class="" type="button" data-bs-target="#carousel2" data-bs-slide-to="2" aria-label="Слайд 3"></button>
+				<button class="" type="button" data-bs-target="#carousel2" data-bs-slide-to="3" aria-label="Слайд 4"></button>
+				<button class="" type="button" data-bs-target="#carousel2" data-bs-slide-to="4" aria-label="Слайд 5"></button>
+			</div>
+
+
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<img width="1000" height="800" src="https://picsum.photos/1000/800" alt="">
+
+					<div class="container">
+						<div class="carousel-caption">
+							<h1>Example headline.</h1>
+							<p>Some representative placeholder content for the first slide of the carousel.</p>
+							<p><a class="button" href="#">Sign up today</a></p>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="carousel-item">
+					<img width="1920" height="300" src="https://picsum.photos/1920/300" alt="">
+				</div>
+
+
+				<div class="carousel-item">
+					<img>
+				</div>
+
+
+				<div class="carousel-item">
+					<img>
+				</div>
+
+
+				<div class="carousel-item">
+					<img>
+				</div>
+			</div>
+		</div>
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+	<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>-->
+	<script defer src="bootstrap/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

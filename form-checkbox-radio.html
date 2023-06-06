@@ -1,0 +1,230 @@
+<!doctype html><!-- Файл "form-checkbox-radio.html" -->
+<html lang="ru">
+
+<head>
+	<meta name="robots" content="none">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Чекбокс | Mitorun Studio–</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Jost:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+	<style>
+:root {
+	--font-family: 'IBM Plex Sans', 'Jost', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', sans-serif;/* font-family для обычного текста */
+	--font-family-heading: 'Jost', 'Futura', 'IBM Plex Sans', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', sans-serif;/* font-family для заголовков */
+	--font-family-mono: 'SFMono-Regular', 'ui-monospace', 'Menlo', 'Monaco', 'PT Mono', 'Consolas', 'Liberation Mono', 'Courier New', monospace;/* font-family для моноширинного шрифта (для кода) */
+	--font-size-xl: 22px;
+	--font-size-l: 19px;
+	--font-size-m: 16px;
+	--font-size-s: 14px;
+	--font-size-xs: 12px;
+	--line-height-m: 1.5;/* базовый текст body */
+	--line-height-s: 1.35;/* по-плотней текст, заголовки h2-h4 */
+	--line-height-xs: 1.2;/* плотный текст, заголовок h1 */
+	--container-padding: 14px;/* это боковые паддинги для мобилки (или 14px, или 19px) */
+
+	--color: hsl(0, 0%, 0%);/* базовый цвет текста ("черный" для светлой темы и наоборот). Раньше было --color: hsl(0, 0%, 0%); Примеры: hsl(var(--color)), hsl(var(--color) / 0.65) */
+	--bg: hsl(0, 0%, 100%);/* базовый цвет фона ("белый" для светлой темы и наоборот) */
+	--color-grey: hsla(0, 0%, 0%, .6);/* черный полупрозрачный цвет текста ("серый" для светлой темы и наоборот). Было --color-transparent */
+	--color-grey-light: hsla(0, 0%, 0%, .2);/* черный полупрозрачный цвет текста ("светло-серый" для светлой темы и наоборот) */
+	--color-main: hsl(210, 95%, 40%);/* #0566c7 было hsl(210, 60%, 47%); главный цвет (для акцента на важных элементах) */
+	tab-size: 2;
+}
+
+*,
+::after,
+::before {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+
+	/*outline: 1px solid hsla(0, 100%, 50%, 0.3);
+	outline-offset: 0; это для тестирования границ элементов (переполнение) */
+}
+
+body {
+	min-height: 100vh;
+	color: var(--color, hsl(0, 0%, 0%));
+	font: 400 var(--font-size-m, 16px)/var(--line-height-m, 1.5) var(--font-family, sans-serif);
+	background: var(--bg, hsl(0, 0%, 100%));
+}
+
+h1, h2, h3, h4, h5, h6, p, hr {
+	margin: 1em 0;
+}
+
+img {
+	display: block;
+	/* это избавляет от пустой строки под картинкой, равной line-height. У этого способа есть минус когда нам не нужно чтобы картинка была блочной. Еще один способ - это задать родителю картинки display: flex; */
+	max-width: 100%;
+	/* или width: 100%; */
+	height: auto;
+	/* или max-height: 100%; нужна ли эта строка? */
+	object-fit: contain;
+	/*image-rendering: pixelated; убирает сглаживание растровых картинок при масштабировании, делая четкие пиксельные картинки */
+}
+
+.container {
+	max-width: calc(1000px + 2 * var(--container-padding, 14px));/* было 480px или 1236px или 1300px */
+	margin-right: auto;
+	margin-left: auto;
+	padding-right: var(--container-padding, 14px);
+	padding-left: var(--container-padding, 14px);
+
+	/*background: content-box hsla(39, 100%, 50%, 0.05);
+	outline: 2px dashed hsla(39, 100%, 50%, 0.4); это для тестирования */
+}
+
+/*---------------------------------------------------
+---------- Ниже код самих компонентов: --------------
+---------------------------------------------------*/
+
+/* Чекбокс: */
+
+.check {
+	display: block;
+	margin-bottom: .25em;
+	padding-left: 1.2em;
+	cursor: pointer;
+}
+
+.check-input {
+	position: absolute;/* это для удаления пробела между чекбоксом и подписью-лейблом */
+	-moz-appearance: none;
+	appearance: none;/* это для удаления браузерного оформления чекбокса */
+}
+
+.check-box {
+	position: absolute;
+	width: .6em;
+	height: .6em;
+	margin-top: .5em;
+	margin-left: -1em;
+	background: hsl(0, 0%, 100%);
+	/*background-image: url('img/off.svg'); это кастомный чекбокс картинкой */
+	border-radius: .05em;
+	box-shadow: 0 0 0 .1em hsl(240, 100%, 50%);
+}/* это настройка чекбокса и состояние когда он пустой */
+
+/* Состояние checked: */
+.check-input:checked + .check-box {
+	background-color: hsl(240, 100%, 50%);
+	background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 7 7" fill="none"%3E%3Cpath d="M1 3L3 5L6 2" stroke="%23fff"/%3E%3C/svg%3E');
+	/*background-image: url('img/on.svg'); это кастомный чекбокс картинкой */
+}/* это состояние чекбокса когда поставлена галка */
+
+/* Состояние focus: */
+.check-input:focus + .check-box {
+	box-shadow: 0 0 0 .1em hsl(240, 100%, 50%), 0 0 0 .2em hsl(350, 100%, 88%);/* это повторяет текущую тень и добавляет вторую для выделения фокуса */
+	/*background-image: url('img/off-focus.svg'); это кастомный чекбокс картинкой */
+}
+
+/*.check-input:checked:focus + .check-box {
+	background-image: url('img/on-focus.svg'); это кастомный чекбокс картинкой
+}*/
+
+/* Состояние disabled: */
+.check-input:disabled + .check-box {
+	opacity: .5;/* это делает выключенные (disabled) чекбоксы полупрозрачными */
+	filter: grayscale(0.8);/* это делает выключенные (disabled) чекбоксы серенькими */
+	/*background-image: url('img/off-disabled.svg'); это кастомный чекбокс картинкой */
+}
+
+/*.check-input:checked:disabled + .check-box {
+	background-image: url('img/on-disabled.svg'); это кастомный чекбокс картинкой
+}*/
+
+.label-radio-5 {
+	position: relative;
+}
+
+.input-radio-5 {
+	position: relative;
+	top: 4px;
+	width: 2.5vw;
+	height: 2.5vw;
+	margin-right: 10px;
+	background-color: #344056;
+	border: 0.2vw solid rgba(2, 228, 231, 0.8);
+	border-radius: 50%;
+	box-shadow: 0 0 5px #aac5c6;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	cursor: pointer;
+	transition: 0.2s linear;
+}
+
+.input-radio-5:checked {
+	border: 0.7vw solid #344056;
+	background-color: rgba(2, 228, 231, 0.8);
+}
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main>
+		<div class="container">
+
+
+			<h1>Чекбоксы</h1>
+			<br><br><hr><br><br>
+
+
+			<h2>Компонент 01</h2>
+			<br><br>
+
+			<label class="check">
+				<input class="check-input" type="checkbox">
+				<span class="check-box"></span>Первый
+			</label>
+
+			<label class="check">
+				<input class="check-input" type="checkbox" checked>
+				<span class="check-box"></span>Второй
+			</label>
+
+			<label class="check">
+				<input class="check-input" type="checkbox" disabled>
+				<span class="check-box"></span>Третий
+			</label>
+
+			<label class="check">
+				<input class="check-input" type="checkbox" checked disabled>
+				<span class="check-box"></span>Четвертый
+			</label>
+
+			<hr>
+
+
+			<label class="label-radio-5" for="radio-1">
+				<input class="input-radio-5" id="radio-1" type="radio" name="radio" value="radio-1" checked>
+				input-radio-5
+			</label>
+
+			<label class="label-radio-5" for="radio-1">
+				<input class="input-radio-5" id="radio-1" type="radio" name="radio" value="radio-1">
+				input-radio-5-2
+			</label>
+
+
+
+			<div style="height: 1440px;"></div>
+
+		</div>
+	</main>
+
+
+</body>
+</html>

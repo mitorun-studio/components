@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--<link rel="stylesheet" href="styles.css" />-->
+    <title>Drag & Drop | Проект 2</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding-top: 5rem;
+  font-family: 'Roboto', sans-serif;
+  background-color: #e5e5e5;
+  overflow: hidden;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  width: 600px;
+  margin-bottom: 1rem;
+}
+
+.col-header {
+  width: 150px;
+  padding: 0.8rem 1rem;
+  color: #fff;
+  border-radius: 20px;
+  box-shadow: 4px 4px 9px rgba(198, 198, 198, 0.36);
+}
+
+.start {
+  background: linear-gradient(90deg, #ff85e4 0%, #229efd 179.25%);
+}
+
+.progress {
+  background: linear-gradient(90deg, #209cff 0%, #68e0cf 100%);
+}
+
+.done {
+  background: linear-gradient(90deg, #84fab0 0%, #8fd3f4 100%);
+}
+
+.placeholder {
+  width: 150px;
+  height: 66px;
+  border: 2px dashed #888;
+  border-radius: 20px;
+}
+
+.item {
+  width: 150px;
+  height: 66px;
+  padding: 0.8rem 1rem;
+  color: #828282;
+  text-align: center;
+  background: #f7f6f7;
+  border: 1px solid #eee;
+  border-radius: 20px;
+  box-shadow: 4px 4px 9px rgba(198, 198, 198, 0.36);
+  cursor: grab;
+}
+
+.item:active {
+  cursor: grabbing;
+}
+
+.hold {
+  border: 3px dotted tomato;
+}
+
+.hide {
+  display: none;
+}
+
+.hovered {
+  box-shadow: 0 0 20px 1px blueviolet;
+}
+
+    </style>
+  </head>
+
+  <body>
+    <div>
+
+      <div class="row">
+          <div class="col-header start">Начать</div>
+          <div class="col-header progress">В процессе</div>
+          <div class="col-header done">Готовы</div>
+      </div>
+
+      <div class="row">
+        <div class="placeholder">
+          <div class="item" draggable="true">Перетащи меня</div>
+        </div>
+        <div class="placeholder"></div>
+        <div class="placeholder"></div>
+      </div>
+      
+    </div>
+
+    <script>
+      /* Ниже скрипт для Drag-n-Drop элемента */
+
+const item = document.querySelector('.item')/* получаем доступ к элементу .item */
+const placeholders = document.querySelectorAll('.placeholder')/* получаем доступ ко всем элементам .placeholder */
+
+/* слушаем события начала и конца перетаскивания .item */
+item.addEventListener('dragstart', dragstart)
+item.addEventListener('dragend', dragend)
+
+/* слушаем разные события перетаскивания элемента: */
+for (const placeholder of placeholders) {
+  placeholder.addEventListener('dragover', dragover)/* событие нахождения над элементом */
+  placeholder.addEventListener('dragenter', dragenter)/* событие попадания-входа над элементом?! */
+  placeholder.addEventListener('dragleave', dragleave)/* событие покидания элемента */
+  placeholder.addEventListener('drop', dragdrop)/* собитие отпускания над элементом? */
+}
+
+
+function dragstart(event) {
+  event.target.classList.add('hold')/* при начале перетаскивания добавляет класс .hold для оформления */
+  setTimeout(() => event.target.classList.add('hide'), 0)/* это через некоторое время добавляет класс .hide чтобы тот элемент который мы перетаскиваем исчез с его начального места, а показывался только в нашем перетаскивании */
+}
+
+function dragend(event) {
+  event.target.classList.remove('hold', 'hide')/* при окончании перетаскивания удаляет классs .hold и .hide у .item. Или это можно записать как: event.target.className = 'item' чтобы у элемента остался только класс .item */
+}
+
+function dragover(event) {
+  event.preventDefault()/* это необходимо для корректного переноса элемента в самом html */
+}
+
+function dragenter(event) {
+  event.target.classList.add('hovered')/* добавляет класс .hovered чтобы в стилях показать когда мы попадаем на область элемента .placeholder куда можно вставить-положить наш элемент */
+}
+
+function dragleave(event) {
+  event.target.classList.remove('hovered')/* убирает класс .hovered когда мы покидаем область элемента .placeholder */
+}
+
+function dragdrop(event) {
+  event.target.classList.remove('hovered')/* убирает класс .hovered когда мы отпускаем перетаскиваемый элемент в .placeholder */
+  event.target.append(item)/* это вроде переносит в html элемент .item в новый .placeholder */
+}
+    </script>
+    <!--<script src="app.js"></script>-->
+
+  </body>
+</html>

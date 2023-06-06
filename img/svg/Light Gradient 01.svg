@@ -1,0 +1,39 @@
+<svg width="1440" height="900" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g clip-path="url(#clip0)">
+<rect width="1440" height="900" fill="white"/>
+<rect x="1440" y="900" width="1440" height="900" transform="rotate(180 1440 900)" fill="url(#paint0_radial)"/>
+<rect x="1440" y="900" width="1440" height="900" transform="rotate(180 1440 900)" fill="url(#paint1_angular)" style="mix-blend-mode:difference"/>
+<rect x="1440" y="900" width="1440" height="900" transform="rotate(180 1440 900)" fill="url(#paint2_angular)" style="mix-blend-mode:screen"/>
+<rect width="1440" height="900" fill="url(#pattern0)" fill-opacity="0.19" style="mix-blend-mode:overlay"/>
+</g>
+<defs>
+<pattern id="pattern0" patternContentUnits="objectBoundingBox" width="0.152778" height="0.244444">
+<use xlink:href="#image0" transform="scale(0.000694444 0.00111111)"/>
+</pattern>
+<radialGradient id="paint0_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1585.51 1154.17) rotate(19.6165) scale(1219.77 902.57)">
+<stop offset="0.0760668" stop-color="#F86EFB"/>
+<stop offset="0.351413" stop-color="#7342FF"/>
+<stop offset="0.634538" stop-color="#42E8FF"/>
+<stop offset="1" stop-color="#42FF6B"/>
+</radialGradient>
+<radialGradient id="paint1_angular" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(2160 1350) rotate(90) scale(450 720)">
+<stop offset="0.0833333" stop-color="white"/>
+<stop offset="0.265625"/>
+<stop offset="0.46875" stop-color="white"/>
+<stop offset="0.635417"/>
+<stop offset="0.791667" stop-color="white"/>
+<stop offset="1"/>
+</radialGradient>
+<radialGradient id="paint2_angular" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(2160 1350) rotate(90) scale(450 720)">
+<stop offset="0.046875" stop-color="white" stop-opacity="0.72"/>
+<stop offset="0.244792"/>
+<stop offset="0.421875" stop-color="white" stop-opacity="0.72"/>
+<stop offset="0.625"/>
+<stop offset="0.802083" stop-color="white" stop-opacity="0.72"/>
+<stop offset="1"/>
+</radialGradient>
+<clipPath id="clip0">
+<rect width="1440" height="900" fill="white"/>
+</clipPath>
+</defs>
+</svg>

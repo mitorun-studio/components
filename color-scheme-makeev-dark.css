@@ -1,0 +1,23 @@
+
+:root {
+  --color: hsl(0, 0%, 100%);
+  /* базовый "черный" цвет (для текстов и элементов) */
+  --bg: hsl(0, 0%, 28%);
+  /* базовый "белый" цвет (для фонов и текста) */
+  --main-color: hsl(210, 87%, 85%);
+  /* главный цвет (для крупных элементов) */
+}
+
+/* Switcher */
+
+.switcher__radio {
+  filter: invert(1);
+}
+
+.switcher__radio:checked {
+  filter: invert(0);
+}
+
+.switcher__status {
+  filter: invert(1);
+}

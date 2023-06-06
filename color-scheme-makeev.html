@@ -1,0 +1,238 @@
+<!doctype html><!-- Файл color-scheme-makeev.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Изменение цветовой схемы сайта – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<!-- Ниже метатеги которые добавляются для создания темной темы: -->
+	<meta name="color-scheme" content="light dark">
+	<meta name="theme-color" media="(prefers-color-scheme: light)" content="#c7cbcc">
+	<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#273a43">
+	<script>
+		/* Это скрипт чтобы не мелькнула светлая тема при загрузке темной: */
+		if (matchMedia('(prefers-color-scheme: dark)').media === 'not all') {
+			document.documentElement.style.display = 'none';
+			document.head.insertAdjacentHTML(
+				'beforeend',
+				'<link rel="stylesheet" href="styles/light.css" onload="document.documentElement.style.display=\'\'">'
+			);
+		}
+	</script>
+	<link rel="stylesheet" href="color-scheme-makeev-light.css" media="(prefers-color-scheme: light)">
+	<link rel="stylesheet" href="color-scheme-makeev-dark.css" media="(prefers-color-scheme: dark)">
+	<!--<link rel="stylesheet" href="styles/index.css">-->
+
+	<style>
+:root {
+	color-scheme: light dark;
+}
+
+.switcher {
+	position: absolute;
+	bottom: 36px;
+	left: 50%;
+	margin: 0;
+	margin-left: -50px;
+	padding: 2px;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	border: none;
+}
+
+.switcher__legend {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.switcher__radio {
+	-webkit-appearance: none;
+	appearance: none;
+	margin: 0;
+	width: 32px;
+	height: 32px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 24px;
+	transition: filter 0.1s ease-in;
+}
+
+.switcher__radio:focus {
+	outline: none;
+}
+
+.switcher__radio--light {
+	background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"%3E%3Cpath d="M12 7a5 5 0 100 10 5 5 0 000-10zM2 13h2a1 1 0 001-1 1 1 0 00-1-1H2a1 1 0 00-1 1 1 1 0 001 1zm18 0h2a1 1 0 001-1 1 1 0 00-1-1h-2a1 1 0 00-1 1 1 1 0 001 1zM11 2v2a1 1 0 001 1 1 1 0 001-1V2a1 1 0 00-1-1 1 1 0 00-1 1zm0 18v2a1 1 0 001 1 1 1 0 001-1v-2a1 1 0 00-2 0zM5.99 4.58a1 1 0 10-1.41 1.41l1.06 1.06a1 1 0 101.41-1.41L5.99 4.58zm12.37 12.37a1 1 0 10-1.41 1.41l1.06 1.06a1 1 0 101.41-1.41l-1.06-1.06zm1.06-10.96a1 1 0 10-1.41-1.41l-1.06 1.06a1 1 0 101.41 1.41l1.06-1.06zM7.05 18.36a1 1 0 10-1.41-1.41l-1.06 1.06a1 1 0 101.41 1.41l1.06-1.06z"/%3E%3C/svg%3E');
+	/*background-image: url('../icons/light.svg');*/
+}
+
+.switcher__radio--auto {
+	background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"%3E%3Cpath d="M12 15a3 3 0 100-6 3 3 0 000 6z"/%3E%3Cpath fill-rule="evenodd" d="M22 12a10 10 0 11-20 0 10 10 0 0120 0zm-2 0a8 8 0 11-16 0 8 8 0 0116 0z"/%3E%3C/svg%3E');
+	/*background-image: url('../icons/auto.svg');*/
+}
+
+.switcher__radio--dark {
+	background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"%3E%3Cpath d="M12 3a9 9 0 108.9 7.64 5.39 5.39 0 01-9.2-5.61 5.4 5.4 0 011.66-1.93c-.44-.06-.9-.1-1.36-.1z"/%3E%3C/svg%3E');
+	/*background-image: url('../icons/dark.svg');*/
+}
+
+.switcher__status {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: -1;
+	box-shadow: 0 0 0 2px rgb(0 0 0 / 0.2);
+	border-radius: 18px;
+	background-color: rgb(255 255 255 / 0.5);
+	background-repeat: no-repeat;
+	background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"%3E%3Ccircle fill="%23000" cx="12" cy="12" r="12"/%3E%3C/svg%3E');
+	/*background-image: url('../icons/status.svg');*/
+	background-size: 32px;
+	background-position: center;
+	transition: background-position 0.1s ease-in;
+}
+
+.switcher__radio:focus-visible~.switcher__status {
+	box-shadow: 0 0 0 2px black;
+}
+
+.switcher__radio--light:checked~.switcher__status {
+	background-position: left 2px center;
+}
+
+.switcher__radio--auto:checked~.switcher__status {
+	background-position: center center;
+}
+
+.switcher__radio--dark:checked~.switcher__status {
+	background-position: right 2px center;
+}
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Компоненты</h1>
+		<hr>
+
+
+		<fieldset class="switcher">
+			<legend class="switcher__legend">Схема</legend>
+			<input class="switcher__radio switcher__radio--light" type="radio" name="color-scheme" value="light" aria-label="Светлая">
+			<input class="switcher__radio switcher__radio--auto" type="radio" name="color-scheme" value="auto" aria-label="Системная" checked="">
+			<input class="switcher__radio switcher__radio--dark" type="radio" name="color-scheme" value="dark" aria-label="Тёмная">
+			<div class="switcher__status"></div>
+		</fieldset>
+
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+	<!--<script src="/index.js"></script>-->
+	<script>
+const lightStyles = document.querySelectorAll('link[rel=stylesheet][media*=prefers-color-scheme][media*=light]');
+const darkStyles = document.querySelectorAll('link[rel=stylesheet][media*=prefers-color-scheme][media*=dark]');
+const darkSchemeMedia = matchMedia('(prefers-color-scheme: dark)');
+const switcherRadios = document.querySelectorAll('.switcher__radio');
+
+function setupSwitcher() {
+	const savedScheme = getSavedScheme();
+
+	if (savedScheme !== null) {
+		const currentRadio = document.querySelector(`.switcher__radio[value=${savedScheme}]`);
+		currentRadio.checked = true;
+	}
+
+	[...switcherRadios].forEach((radio) => {
+		radio.addEventListener('change', (event) => {
+			setScheme(event.target.value);
+		});
+	});
+}
+
+function setupScheme() {
+	const savedScheme = getSavedScheme();
+	const systemScheme = getSystemScheme();
+
+	if (savedScheme === null) return;
+
+	if (savedScheme !== systemScheme) {
+		setScheme(savedScheme);
+	}
+}
+
+function setScheme(scheme) {
+	switchMedia(scheme);
+
+	if (scheme === 'auto') {
+		clearScheme();
+	} else {
+		saveScheme(scheme);
+	}
+}
+
+function switchMedia(scheme) {
+	let lightMedia;
+	let darkMedia;
+
+	if (scheme === 'auto') {
+		lightMedia = '(prefers-color-scheme: light)';
+		darkMedia = '(prefers-color-scheme: dark)';
+	} else {
+		lightMedia = (scheme === 'light') ? 'all' : 'not all';
+		darkMedia = (scheme === 'dark') ? 'all' : 'not all';
+	}
+
+	[...lightStyles].forEach((link) => {
+		link.media = lightMedia;
+	});
+
+	[...darkStyles].forEach((link) => {
+		link.media = darkMedia;
+	});
+}
+
+function getSystemScheme() {
+	const darkScheme = darkSchemeMedia.matches;
+
+	return darkScheme ? 'dark' : 'light';
+}
+
+function getSavedScheme() {
+	return localStorage.getItem('color-scheme');
+}
+
+function saveScheme(scheme) {
+	localStorage.setItem('color-scheme', scheme);
+}
+
+function clearScheme() {
+	localStorage.removeItem('color-scheme');
+}
+
+setupSwitcher();
+setupScheme();
+	</script>
+
+</body>
+</html>

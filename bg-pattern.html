@@ -1,0 +1,190 @@
+<!doctype html><!-- Файл bg-pattern.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="none">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Фоны-паттерны – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+.patterns-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+	gap: 30px;
+}
+
+.patterns-grid > * {
+	height: 300px;
+	background-color: lightcyan;
+}
+
+.pattern-1 {
+	background: conic-gradient(transparent 25%, #e72e33 0% 50%, transparent 0% 75%, #020202 0%) 0/ 4em 4em, repeating-linear-gradient(45deg, #020202 0 2.83px, #e72e33 0 5.66px);
+}
+
+.pattern-2 {
+	background: conic-gradient(transparent 25%, #d2e5b7 0% 50%, transparent 0% 75%, #79598b 0%) 0/ 4em 4em, repeating-linear-gradient(45deg, hsla(278, 21%, 47%, 0.3) 0 1px, #d2e5b7 0 2.83px) #d2e5b7;
+}
+
+.pattern-3 {
+	background: conic-gradient(at 75% 75%, transparent 25%, #f0efea 0% 50%, transparent 0% 75%, #3c517c 0%) 0/ 2em 2em, repeating-linear-gradient(45deg, #3c517c 0 1.41px, #f0efea 0 2.83px);
+}
+
+.pattern-4 {
+	background: repeating-conic-gradient(from 30deg, #afe9dd 0% 120deg, #9bc3bb 0% 50%) 0/ 4em 6.928em;
+}
+
+.pattern-5 {
+	--l: transparent 49%, #fdfdfd 50%, transparent 51%;
+	background: linear-gradient(56deg, var(--l)), linear-gradient(-56deg, var(--l)), repeating-conic-gradient(from 34deg, #b5191d 0% 112deg, hsl(52, 49%, 77%) 0% 50%) 2.237em 0;
+	background-size: 4.474em 6.632em;
+}
+
+.pattern-6 {
+	--l: transparent 49%, hsla(0, 0%, 100%, 0.5) 50%, transparent 51%;
+	--s: / 3.632em 7.128em;
+	background: linear-gradient(63deg, var(--l)) 0 var(--s), linear-gradient(-63deg, var(--l)) 0 var(--s), repeating-conic-gradient(from 27deg, #93b4c5 0% 126deg, transparent 0% 50%) 1.816em var(--s), linear-gradient(90deg, #b43129 50%, #596c7b 0%) 1.816em/ 7.264em;
+}
+
+.pattern-7 {
+	--l: transparent 49%, #fff 50%, transparent 51%;
+	--s: / 4em 6.928em;
+	background: linear-gradient(60deg, var(--l)) 0 var(--s), linear-gradient(-60deg, var(--l)) 0 var(--s), repeating-conic-gradient(from 30deg, #d6cdac 0% 120deg, transparent 0% 50%) 2em var(--s), repeating-conic-gradient(#9cb3bb 0% 25%, #9cb08b 0% 50%) 2em/ 8em 13.856em;
+}
+
+.pattern-8 {
+	background: repeating-conic-gradient(from 45deg, #588333 0% 25%, transparent 0% 50%) 0 2em, conic-gradient(#6d983f 135deg, #c3d87d 0% 225deg, #79ab4a 0%);
+	background-size: 4em 4em;
+}
+
+.pattern-9 {
+	--l: 25%, transparent 0;
+	background: conic-gradient(at 80px 20px, #fff var(--l)) 20px 80px, conic-gradient(at 60px 40px, red var(--l)) 80px 20px, conic-gradient(at 40px 60px, #fff var(--l)) 40px 60px, conic-gradient(at 20px 80px, red var(--l)), repeating-linear-gradient(45deg, red 0 1.41px, transparent 0 2.83px);
+	background-size: 100px 100px;
+	background-blend-mode: normal, normal, color, difference;
+}
+
+.pattern-10 {
+	background: conic-gradient(transparent 25%, #a17bb6 0% 50%, transparent 0% 75%, #fff 0%) 0/ 4em 4em, repeating-conic-gradient(#a17bb6 0% 25%, #fff 0% 50%) 0/ 0.5em 0.5em;
+}
+
+.pattern-11 {
+	--l: #0a0432 calc(50% - 4.24px), #fff 0 calc(50% + 4.24px), #0a0432 0;
+	background: linear-gradient(90deg, #fe0478 25%, #afec32 0% 50%, #f35932 0% 75%, #0affd3 0%) 0/ 384px, repeating-conic-gradient(#fff 0% 25%, #0a0432 0% 50%) 0/ 12px 12px, linear-gradient(45deg, var(--l)) 0/ 96px 72px, linear-gradient(-45deg, var(--l)) 6px/ 96px 72px;
+	background-blend-mode: darken, darken, lighten;
+}
+
+.pattern-12 {
+	--l: transparent 49%, #c1986b 50%, transparent 51%;
+	--s: / 5.142em 6.128em;
+	background: linear-gradient(50deg, var(--l)) 0 var(--s), linear-gradient(-50deg, var(--l)) 0 var(--s), repeating-conic-gradient(from 40deg, #2f4d7f 0% 100deg, transparent 0% 50%) 2.571em var(--s), conic-gradient(#26a9e1 50%, #b87b83 0% 75%, #d4b57e 0%) 2.571em/ 10.284em 12.256em;
+}
+
+.pattern-13 {
+	--l: transparent 49%, #fff 50%, transparent 51%;
+	background: repeating-conic-gradient(from 40deg, #c71585 0% 100deg, #8a2be2 0% 50%) 0/ 7.714em 9.192em, repeating-conic-gradient(from 40deg, #b3b3b3 0% 100deg, #4d4d4d 0% 50%) 3.857em/ 7.714em 9.192em, linear-gradient(50deg, var(--l)) 0/ 3.857em 4.596em, linear-gradient(-50deg, var(--l)) 0/ 3.857em 4.596em;
+	background-blend-mode: color, difference, normal;
+}
+
+.pattern-14 {
+	--l: transparent 49%, #fff 50%, transparent 51%;
+	--p: 0% 126.86deg, transparent 0% 50%;
+	background: linear-gradient(63.43deg, var(--l)) 0 0/ 3em 6em, linear-gradient(-63.43deg, var(--l)) 0 0/ 3em 6em, repeating-conic-gradient(from 26.57deg, #1b1c4a var(--p)) 0 0/ 3em 12em, repeating-conic-gradient(from 26.57deg, #147fa3 var(--p)) 0 6em/ 3em 12em, repeating-conic-gradient(#fcb543 0% 25%, #f3753b 0% 50%) 0 0/ 6em 12em;
+}
+
+.pattern-15 {
+	--a: #000 calc(50% - 5.66px), #7d4caf 0 calc(50% + 5.66px), #000 0;
+	--b: #9f7cc7 0% 25%, #000 0%;
+	background: conic-gradient(at 8px 8px, #000 75%, #cfa7ff 0%) 28px 60px/ 4em 4em, linear-gradient(45deg, var(--a)) 0 0/ 4em 4em, linear-gradient(-45deg, var(--a)) 0 0/ 4em 4em, repeating-conic-gradient(var(--b), #601286 0% 50%) 4px 4px/ 1em 1em, conic-gradient(from 45deg at calc(50% + 8px), var(--b)) 0 0/ 4em 4em, conic-gradient(from 225deg at calc(50% - 8px), var(--b)) 0 0/ 4em 4em;
+	background-blend-mode: lighten;
+}/* TODO код поломан? */
+
+.pattern-16 {
+	--b: #0c0922 0% 25%, #fff 0%;
+	background: conic-gradient(#f88f22 25%, #83a1f3 0% 50%, #35627f 0% 75%, #f5d07d 0%) 0 3em/ 12em 12em,  repeating-conic-gradient(var(--b) 50%) 12px 4px/ 1em 1em, conic-gradient(from 45deg, var(--b)) 0 0/ 6em 6em, conic-gradient(from 225deg, var(--b)) 0 0/ 6em 6em;
+	background-blend-mode: darken;
+}
+
+.pattern-17 {
+	--l: transparent 49%, #000 50%, transparent 51%;
+	--s: 0/ 3.441em 4.915em;
+	background: linear-gradient(55deg, var(--l)) 0 var(--s), linear-gradient(-55deg, var(--l)) 0 var(--s), repeating-conic-gradient(from 35deg, #f2eed5 0% 110deg, transparent 0% 50%) 1.7205em var(--s), linear-gradient(#e27b38 20%, #48a6a8 0% 40%, #e8b838 0% 60%, #de3c37 0% 80%, #8b9d47 0%) 1.7205em -2.4575em/ 1% 24.575em;
+}
+
+.pattern-18 {
+	--l: purple 0 2px, transparent 0 4px;
+	background: repeating-conic-gradient(from 45deg,transparent 0% 25%, #eee 0% 50%) 1px 1px/ 40px 40px, repeating-linear-gradient(var(--l)), repeating-linear-gradient(90deg, var(--l));
+}
+
+.pattern-19 {
+	--l: 65%, #ccad77 25%, transparent 0% 50%, #000 0% 75%, transparent 0%;
+	background: conic-gradient(at 50% var(--l)), conic-gradient(at 35% var(--l)), repeating-conic-gradient(at 35% 65%, transparent 0% 25%, #cbaa03 0% 50%), repeating-linear-gradient(45deg, transparent 0 2.83px, #cbaa03 0 5.66px);
+	background-size: 6em 6em;
+	background-blend-mode: lighten, darken, difference;
+}
+
+.pattern-20 {
+	--l: 25%, transparent 0%;
+	background: conic-gradient(at 6em 2em, #fff var(--l)) 2em 2em/ 8em 8em, conic-gradient(at 2em 6em, #7cc5fc var(--l)) 0 4em/ 8em 8em, conic-gradient(#1b3160 var(--l)) 0 0/ 4em 4em, repeating-conic-gradient(#7cc5fc 0% 25%, #1b3160 0% 50%) 0 0/ 4em 4em, repeating-linear-gradient(45deg, #fff 0 2.83px, #000 0 5.66px);
+	background-blend-mode: lighten, darken, normal;
+}
+
+.pattern-21 {}
+
+.pattern-22 {}
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Фоны-паттерны</h1>
+		<hr>
+
+		<h2>Компонент №0</h2>
+		<p>Для этого списка фонов-паттернов хорошо бы сделать автоматический счетчик с номерами (как в шпоре HTML).</p>
+
+		<div class="patterns-grid">
+			<div class="pattern-1"></div>
+			<div class="pattern-2"></div>
+			<div class="pattern-3"></div>
+			<div class="pattern-4"></div>
+			<div class="pattern-5"></div>
+			<div class="pattern-6"></div>
+			<div class="pattern-7"></div>
+			<div class="pattern-8"></div>
+			<div class="pattern-9"></div>
+			<div class="pattern-10"></div>
+			<div class="pattern-11"></div>
+			<div class="pattern-12"></div>
+			<div class="pattern-13"></div>
+			<div class="pattern-14"></div>
+			<div class="pattern-15"></div>
+			<div class="pattern-16"></div>
+			<div class="pattern-17"></div>
+			<div class="pattern-18"></div>
+			<div class="pattern-19"></div>
+			<div class="pattern-20"></div>
+			<div class="pattern-21"></div>
+		</div>
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

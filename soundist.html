@@ -1,0 +1,285 @@
+<!doctype html><!-- Файл _TEMPLATE.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Компонент – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="./_mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+button {
+	margin-bottom: 20px;
+	padding: 8px 16px;
+	font-weight: 700;
+	background-color: lightblue;
+	border: 2px solid hsla(0, 0%, 50%, 0.2);
+	border-radius: var(--border-radius-m);
+}
+
+.soundist-active {
+	color: red;
+	background-color: lightskyblue;
+}
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Soundist</h1>
+
+		<p>Свой аудио-компонент – один скрипт, управляющий множеством аудиозаписей на сайте.</p>
+		<br><hr><br>
+
+
+		<h3>Инициализация саундиста и выбор аудиофайла</h3>
+		<p>Обязательный атрибут <code>data-soundist="/fls/audio.aac"</code> для выбора аудиофала и собственно инициализации саундиста по клику на этот элемент.</p>
+		<button type="button" data-soundist="./fls/example-1.aac">Аудио 1</button>
+		<button type="button" data-soundist="./fls/example-2.aac">Аудио 2</button>
+		<button type="button" data-soundist="./fls/example-3.aac">Аудио 3</button>
+		<button type="button" data-soundist="./fls/example-4.mp3">Аудио 4</button>
+		<p class="font-s">Поведение саундиста по умолчанию:<br>
+		- при повторном клике на кнопку аудио запускается сначала.<br>
+		- максимальная длительность аудио 10с (не реализовано).</p>
+		<br><hr><br>
+
+
+		<h3>Пауза, стоп и зацикливание</h3>
+		<p>Атрибут<code>data-pause</code> чтобы при повторном клике этот аудиофайл ставился на паузу, а при следующем клике запускался с места остановки.</p>
+		<p>Атрибут<code>data-stop</code> чтобы при повторном клике этот аудиофайл останавливался (выключался), а при следующем клике запускался с начала.</p>
+		<p>Атрибут<code>data-loop</code> чтобы воспроизведение аудиофайла зациклилось (начиналось заново). <span style="color:red;">Внимание! Это опасная настройка, желательно для этого атрибута в скрипте добавить ограничение в максимум 100 повторов и максимум в 10-30 минут (после чего аудио выключится).</span></p>
+		<button type="button" data-soundist="./fls/example-2.aac" data-pause>Пауза</button>
+		<button type="button" data-soundist="./fls/example-2.aac" data-stop>Стоп</button>
+		<button type="button" data-soundist="./fls/example-1.aac" data-loop>Цикл</button>
+		<p class="font-s">Примечание: При одновременном добавлении data-pause и data-stop будет работать пауза.</p>
+		<br><hr><br>
+
+
+		<h3>Добавление класса при проигрывании</h3>
+		<p>Атрибут<code>data-class="custom-class"</code> чтобы при воспроизведении добавлялся указанный кастомный класс.</p>
+		<p>По умолчанию во время проигрывания активному элементу всегда добаляется класс <code>soundist-active</code>.</p>
+		<button type="button" data-soundist="./fls/example-2.aac" data-class="custom-class">Добавление класса</button>
+		<br><hr><br>
+
+
+		<h3>Предзагрузка аудиофайла</h3>
+		<p>Атрибут<code>data-preload</code> чтобы этот аудиофайл предзагружался. Это надо ставить для коротких звуков, чтобы при нажатии они сразу начинали играть (иначе будет задержка для загрузки файла).</p>
+		<button type="button" data-soundist="./fls/example-1.aac" data-preload>Предзагружено</button>
+		<br><hr><br>
+
+
+		<h3>Громкость в %</h3>
+		<p>Атрибут<code>data-volume="100"</code> для изменения громкости аудио. Если не указывать, то по умолчанию громкость 100%.</p>
+		<button type="button" data-soundist="./fls/example-1.aac" data-volume="25">Громкость 25%</button>
+		<button type="button" data-soundist="./fls/example-1.aac" data-volume="50">Громкость 50%</button>
+		<button type="button" data-soundist="./fls/example-1.aac" data-volume="75">Громкость 75%</button>
+		<button type="button" data-soundist="./fls/example-1.aac" data-volume="100">Громкость 100%</button>
+		<br><hr><br>
+
+
+		<h3>Старт с позиции в секундах</h3>
+		<p>Атрибут<code>data-start="10"</code> чтобы аудиофайл начинал проигрываться с указанного места.</p>
+		<p>Примечание: Повторный старт с позиции требует перезагрузки аудиофайла.</p>
+		<button type="button" data-soundist="./fls/example-2.aac" data-start="5">Старт с 5 сек</button>
+		<button type="button" data-soundist="./fls/example-2.aac" data-start="10">Старт с 10 сек</button>
+		<button type="button" data-soundist="./fls/example-2.aac" data-start="20">Старт с 20 сек</button>
+		<button type="button" data-soundist="./fls/example-2.aac" data-start="40">Старт с 40 сек</button>
+		<br><hr><br>
+
+
+		<h3>Длительность в секундах</h3>
+		<p>Атрибут<code>data-duration="4"</code> ограничивает длительность проигрывания аудио указанным временем. Если аудиофайл короче указанного времени, то просто остановится раньше как обычно.</p>
+		<button type="button" data-soundist="./fls/example-3.aac" data-duration="2">Длительность 2 сек</button>
+		<button type="button" data-soundist="./fls/example-3.aac" data-duration="4">Длительность 4 сек</button>
+		<button type="button" data-soundist="./fls/example-1.aac" data-duration="10">Файл короче указанного времени</button>
+		<button type="button" data-soundist="./fls/example-3.aac" data-duration="16">Длительность 16 сек</button>
+		<br><hr><br>
+
+
+		<h3>Сложный пример</h3>
+		<button type="button" data-soundist="./fls/example-4.mp3" data-volume="60" data-start="61" data-duration="11" data-pause data-loop>Громкость 60%, Старт с 61 сек, Длительность 11 сек, Пауза, Зацикливание</button>
+		<br><hr><br>
+
+
+
+
+		<h2>Что ещё нужно сделать:</h2>
+		<ul>
+			<li>Чтобы по умолчанию было ограничение по длительности в 10-30 минут (чтобы в скрипте можно было изменить это время), после чего аудио ставилось на паузу или стоп. Это нужно для безопасности, чтобы включённое аудио не играло слишком долго, особенно залупленное)</li>
+			<li>Возможность добавлять фоновую музыку для сайта. Для этого желательно придумать кнопку-тумблер (например в хедере), которая будет отключать-включать все звуки (все звуки только саундиста?) на сайте. <br>
+			Еще хорошо будет добавить атрибут для тех кнопок, которые не будут отключаться этим тумблером (например чтобы при клике по тумблеру отключались фоновая музыка и озвучивание интерфейса, но не отключались критически важные контентные аудиофайлы). Кстати для этого подойдёт атрибут data-pause, как раз такие аудио где нужна пауза - и будут контентными.</li>
+			<li>Добавить возможность запускать саундит по ховеру/тапу на элемент. Это полезно для озвучивания интерфейса, совместно с анимациями.</li>
+		</ul>
+
+
+		<p><b>Требования к скрипту:</b></p>
+		<ol>
+			<li>Если одно аудио этого скрипта запущено, то запуск любого другого аудио должен останавливать (сбрасывать первый вариант и ставить на паузу второй) другие аудио.</li>
+			<li>Желательно чтобы все варианты кнопок были валидным кодом, без особых проблем с доступностью.</li>
+			<li>О безопасности подумать надо. Чтобы например пользователь тыщу раз не навел мышку и тыщу звуков не получил, ну и чтобы действия кнопки №1 как-то ограничивались, может им по умолчанию выставить максимальную продолжительность в 10с?</li>
+			<li>- по умолчанию задать всем аудиофайлам ограничение в длительности 10с если это возможно.
+				- чтобы длинное аудио игралось полностью - задавать атрибут data-duration="full"
+				- ну и для выбора длительности также data-duration="4"</li>
+		</ol>
+		<br><hr><br>
+
+
+
+
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+	<script>
+//Скрипт Soundist для управления аудио на сайте. Создан в Mitorun Studio, Олег Миторун (идея) и А.П.Гешов (код), версия 23.04.2023
+
+(() => {
+	let soundistMute = (sessionStorage.getItem("soundist-mute") === "true") ? true : false;
+
+	const soundistMap = new Map();
+
+	class Soundist {
+		constructor(element) {
+			this.element = element;
+			this.class = ["soundist-active"];
+			this.class = element.dataset.class ? this.class.concat(element.dataset.class.split(" ")) : this.class;
+			this.volume = element.dataset.volume ? element.dataset.volume / 100 : 1;
+			this.start = element.dataset.start ? Number(element.dataset.start) : 0;
+			this.duration = element.dataset.duration ? Number(element.dataset.duration) : 0;
+			this.end = this.duration ? this.start + this.duration : 0;
+			this.loop = (element.dataset.loop === undefined) ? false : 100;
+			this.loop = (element.dataset.loop) ? Number(element.dataset.loop) : this.loop;
+			this.loops = 1;
+			this.pause = (element.dataset.pause === undefined) ? false : true;
+			this.stop = (element.dataset.stop === undefined) ? false : true;
+			this.audio = new Audio(element.dataset.soundist);
+			this.audio.currentTime = this.start;
+			this.audio.volume = this.volume;
+			this.audio.ontimeupdate = this.ontimeupdate;
+			this.audio.onended = this.onended;
+		}
+
+		stopped = () => (this.audio.paused);
+
+		play = () => {
+			this.audio.play();
+			this.style(true);
+		}
+
+		replay = () => {
+			this.halt();
+			if (!this.stop && !this.pause) this.play();
+		}
+
+		halt = () => {
+			if (this.pause) this.pausing();
+			else this.stopping();
+		}
+
+		stopping = () => {
+			this.audio.pause();
+			this.style(false);
+			this.reload();
+		}
+
+		pausing = () => {
+			this.audio.pause();
+			this.style(false);
+		}
+
+		newloop = () => {
+			if (this.loops < this.loop) {
+				this.loops += 1;
+				this.play();
+			} else {
+				this.loops = 1;
+			}
+		}
+
+		reload = () => {
+			if (this.start) this.audio.load();
+			this.audio.currentTime = this.start;
+		}
+
+		style = (enable) => {
+			if (enable) this.element.classList.add(...this.class);
+			else this.element.classList.remove(...this.class);
+		}
+
+		onended = () => {
+			this.style(false);
+			this.reload();
+			if (this.loop) this.newloop();
+		}
+
+		ontimeupdate = () => {
+			if (this.end && this.audio.currentTime > this.end) {
+				this.stopping();
+				if (this.loop) this.newloop();
+			}
+		}
+	}
+
+	const preloadSound = (element) => {
+		const soundist = new Soundist(element);
+		soundistMap.set(element, soundist);
+	}
+
+	const stopAll = () => {
+		soundistMap.forEach((item) => {
+			if (!item.stopped()) item.stopping();
+		});
+	}
+
+	const soundElements = document.querySelectorAll("[data-soundist]");
+	soundElements.forEach(element => {
+		if (element.dataset.preload !== undefined) preloadSound(element);
+		element.addEventListener("click", () => {
+			const soundist = soundistMap.get(element) || new Soundist(element);
+			soundistMap.set(element, soundist);
+			if (!soundistMute) {
+				if (soundist.stopped()) {
+					stopAll();
+					soundist.play();
+				} else {
+					soundist.replay();
+				}
+			}
+		});
+	});
+
+	const setMuteClass = (element) => {
+		const muteClass = "soundist-mute";
+		if (soundistMute) element.classList.add(muteClass);
+		else element.classList.remove(muteClass);
+	}
+
+	const muteElements = document.querySelectorAll("[data-soundist-mute]");
+	muteElements.forEach(element => {
+		setMuteClass(element);
+		element.addEventListener("click", () => {
+			soundistMute = !soundistMute;
+			if (soundistMute) stopAll();
+			sessionStorage.setItem("soundist-mute", soundistMute);
+			muteElements.forEach(item => setMuteClass(item));
+		});
+	});
+})();
+	</script>
+
+
+</body>
+</html>

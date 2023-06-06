@@ -1,0 +1,903 @@
+<!doctype html><!-- Файл text-decoration.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Декор текста – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Декорирование текста - линии, тени...">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+/*---------------------------------------------
+------------ Декорированный текст: ------------
+---------------------------------------------*/
+
+.text-decoration-1 {
+	font-weight: 600;
+	font-size: 30px;
+	text-decoration: overline underline;
+	text-underline-offset: 0.3em;
+}
+
+.text-presentation {
+	margin-bottom: 1.7em;
+	font-weight: 600;
+	font-size: clamp(18px, calc(15px + 1vw), 36px);
+}
+
+/*-------- text-decoration-line: ---------------*/
+
+.text-decoration-line > * {
+	text-decoration-color: violet;
+}
+
+.line-auto {
+	text-decoration-line: none;
+}
+
+.line-underline {
+	text-decoration-line: underline;
+}
+
+.line-overline {
+	text-decoration-line: overline;
+}
+
+.line-line-through {
+	text-decoration-line: line-through;
+}
+
+.line-underline-overline {
+	text-decoration-line: underline overline;
+}
+
+.line-underline-line-through-overline {
+	text-decoration-line: underline line-through overline;
+}
+
+/*-------- text-decoration-style: --------------*/
+
+.text-decoration-style > * {
+	text-decoration-line: underline;
+	text-decoration-color: blue;
+}
+
+.style-solid {
+	text-decoration-style: solid;
+}
+
+.style-dashed {
+	text-decoration-style: dashed;
+}
+
+.style-dotted {
+	text-decoration-style: dotted;
+}
+
+.style-double {
+	text-decoration-style: double;
+}
+
+.style-wavy {
+	text-decoration-style: wavy;
+}
+
+/*-------- text-decoration-thickness: ----------*/
+
+.text-decoration-thickness > * {
+	text-decoration-line: underline;
+	text-decoration-color: coral;
+}
+
+.thickness-auto {
+	text-decoration-thickness: auto;
+}
+
+.thickness-from-font {
+	text-decoration-thickness: from-font;
+}
+
+.thickness-px {
+	text-decoration-thickness: 4px;
+}
+
+.thickness-em {
+	text-decoration-thickness: 0.5em;
+}
+
+.thickness-perc {
+	text-decoration-thickness: 50%;
+}
+
+/*-------- text-decoration-color: --------------*/
+
+.text-decoration-color > * {
+	text-decoration: underline;
+}
+
+.color-trans {
+	text-decoration-color: transparent;
+}
+
+.color-currentcolor {
+	text-decoration-color: currentcolor;
+}
+
+.color-tomato {
+	text-decoration-color: tomato;
+}
+
+.color-violet {
+	text-decoration-color: pink;
+}
+
+.color-cyan {
+	text-decoration-color: cyan;
+}
+
+/*-------- text-underline-position: ------------*/
+
+.text-underline-position > * {
+	text-decoration: underline;
+	text-decoration-color: tomato;
+}
+
+.position-auto {
+	text-underline-position: auto;
+}
+
+.position-from-font {
+	text-underline-position: from-font;
+}
+
+.position-under {
+	text-underline-position: under;
+}
+
+.position-left {
+	text-underline-position: left;
+}
+
+.position-right {
+	text-underline-position: right;
+}
+
+.position-under-left {
+	text-underline-position: under left;
+}
+
+.position-right-under {
+	text-underline-position: right under;
+}
+
+/*-------- text-decoration-skip-ink: -----------*/
+
+.text-decoration-skip-ink > * {
+	text-decoration: underline;
+	text-decoration-color: violet;
+}
+
+.skip-ink-none {
+	text-decoration-skip-ink: none;
+}
+
+.skip-ink-auto {
+	text-decoration-skip-ink: auto;
+}
+
+.skip-ink-all {
+	text-decoration-skip-ink: all;
+}
+
+/*-------- text-underline-offset: --------------*/
+
+.text-underline-offset > * {
+	text-decoration: underline;
+	text-decoration-color: green;
+}
+
+.offset-auto {
+	text-underline-offset: auto;
+}
+
+.offset-px {
+	text-underline-offset: 4px;
+}
+
+.offset-rem {
+	text-underline-offset: -0.5rem;
+}
+
+.offset-em {
+	text-underline-offset: 0.5em;
+}
+
+.offset-perc {
+	text-underline-offset: 50%;
+}
+
+
+
+
+
+
+/*------------ Цветная полоса: --------------*/
+
+.colorline {
+	padding: 0 12px;
+	/* это чтобы полоса выступала в начале и в конце текста */
+	/*background: linear-gradient(to bottom, transparent 58%, hsl(150, 76%, 76%) 42%); этот способ создания полосы был раньше */
+	box-shadow: inset 0 -0.5em 0 0 hsl(150, 82%, 83%);
+}
+
+.colorline-underline {
+	text-decoration-line: underline;
+	text-decoration-thickness: 0.5em;
+	text-underline-offset: -0.26em;
+	text-decoration-color: hsl(150, 82%, 83%);
+	text-decoration-skip-ink: none;
+}
+
+.colorline-underline::before,
+.colorline-underline::after {
+	content: ".";
+	color: transparent;
+}
+
+.colorline-2 {
+	padding: 0 12px;
+	/* это чтобы полоса выступала в начале и в конце текста */
+	/*background: linear-gradient(to bottom, transparent 58%, hsl(150, 76%, 76%) 42%); этот способ создания полосы был раньше */
+	box-shadow: inset 0 -0.5em 0 0 hsl(150, 82%, 83%);
+}
+
+
+.headcircle {
+	position: relative;
+	padding-left: 0.7em;
+}
+
+.headcircle:before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: -0.4em;
+	z-index: -1;
+	width: 2em;
+	height: 2em;
+	border-radius: 50%;
+	background-color: var(--color-main);
+	opacity: 0.15;
+}
+
+/*------------------ Тени текста 01 ------------------------*/
+
+.dynamic-text-shadow {
+	text-shadow: .1em .1em 0 hsla(200, 80%, 18%, 0.6);
+	/* тут длина тени зависит от размера шрифта */
+}
+
+
+/*------------------ Обводка текста 01: ----------------------*/
+
+.text-stroke {
+	color: transparent;
+	font: 400 50px/1 sans-serif;
+	-webkit-text-stroke: 1px #000;
+	text-stroke: 1px #000;
+}
+
+.t-s-2 {
+	font-weight: 700;
+}
+
+.t-s-3 {
+	font-weight: 700;
+	-webkit-text-fill-color: hsl(39, 100%, 50%);
+	text-fill-color: hsl(39, 100%, 50%);
+}
+
+
+/*------------------ Обводка текста 02 ----------------------*/
+
+.text-stroke-2 {
+	color: #fff;
+	font: 400 50px/1 sans-serif;
+	text-shadow: 1px 0 1px #000, 0 1px 1px #000, -1px 0 1px #000, 0 -1px 1px #000;
+}
+
+.t-s2-2 {
+	color: lightgreen;
+	font-weight: 700;
+	text-shadow:
+		-0 -2px 0 #000000,
+		0 -2px 0 #000000,
+		-0 2px 0 #000000,
+		0 2px 0 #000000,
+		-2px -0 0 #000000,
+		2px -0 0 #000000,
+		-2px 0 0 #000000,
+		2px 0 0 #000000,
+		-1px -2px 0 #000000,
+		1px -2px 0 #000000,
+		-1px 2px 0 #000000,
+		1px 2px 0 #000000,
+		-2px -1px 0 #000000,
+		2px -1px 0 #000000,
+		-2px 1px 0 #000000,
+		2px 1px 0 #000000,
+		-2px -2px 0 #000000,
+		2px -2px 0 #000000,
+		-2px 2px 0 #000000,
+		2px 2px 0 #000000,
+		-2px -2px 0 #000000,
+		2px -2px 0 #000000,
+		-2px 2px 0 #000000,
+		2px 2px 0 #000000;
+}
+
+.stroke-shadow {
+	font: 700 80px/1 sans-serif;
+	color: transparent;
+	text-shadow: 3px -3px 0 rgb(185, 60, 164);
+	-webkit-text-stroke: 1px hsl(0, 0%, 0%);
+	text-stroke: 1px hsl(0, 0%, 0%);
+}
+
+.rounded-dashes {
+	--w: 20px;    /* the width of dashes */
+	--h: 0.2em;   /* the height of dashes */
+	--c: #4b9ed9; /* the color */
+	position: relative;
+	width: max-content;
+	padding-bottom: var(--h);
+	padding-inline: .1em;
+	font-weight: 700;
+	font-size: 48px;
+}
+
+.rounded-dashes::after {
+	content: '';
+	position: absolute;
+	inset: calc(100% - var(--h)) 0 0;
+	border-radius: var(--h);
+	background: radial-gradient(circle closest-side, orange 90%,#0000 105%) 0/var(--w), linear-gradient(90deg, orange, #0000 0) calc(var(--w)/2)/calc(2*var(--w));
+}
+
+.gradient-text {
+	/*display: inline-block;*/
+	width: fit-content;
+	font: 900 80px sans-serif;
+	background-image: linear-gradient(90deg, hsl(183, 86%, 46%), hsl(309, 62%, 47%), hsl(183, 86%, 46%));
+	background-size: 200% auto;
+	background-clip: text;
+	-webkit-background-clip: text;
+	text-fill-color: transparent;
+	-webkit-text-fill-color: transparent;
+}
+
+.gradient-text:hover {
+	animation: textGradient 2s linear infinite;
+}
+
+@keyframes textGradient {
+	100% {background-position: 200% center;}
+}
+
+.gradient-text-2 {
+	width: fit-content;
+	font-weight: 900;
+	font-size: 140px;
+	color: black;
+	background: conic-gradient(
+		#D9D7F1 12%,
+		#BAABDA 12%, #BAABDA 33%,
+		#E7FBBE 33%, #E7FBBE 55%,
+		#FFCBCB 55%, #FFCBCB 70%,
+		#B5DEFF 70%, #B5DEFF 87%,
+		#F7D1BA 87%);
+	background-size: 100px;/* было 50%; у донора */
+	background-clip: text;
+	-webkit-background-clip: text;
+	text-fill-color: transparent;
+	-webkit-text-fill-color: transparent;
+}
+
+/* Обратный цвет текста: */
+
+.bg-reverse {
+	background-color: hsl(0, 100%, 50%);
+	animation: loadingReverse 5s linear infinite;
+}
+
+@keyframes loadingReverse {
+	0% {width: 0;}
+	100% {width: 500px;}
+}/* Вероятно лучше сделать анимацию с помощью transform+overflow:hidden */
+
+.text-reverse {
+	width: 500px;
+	font-weight: 700;
+	font-size: 40px;
+	text-align: center;
+	border: 1px solid hsl(0, 100%, 50%);
+	color: rgb(0, 255, 255);
+	mix-blend-mode: difference;
+}
+
+
+
+.bg-reverse-2-wrap {
+	width: 500px;
+}
+
+.bg-reverse-2 {
+	width: 0;
+	background-color: hsl(0, 100%, 50%);
+	transition: 1s linear;
+}
+
+.bg-reverse-2-wrap:hover .bg-reverse-2 {
+	width: 500px;
+}/* Вероятно лучше сделать анимацию с помощью transform+overflow:hidden */
+
+.text-reverse-2 {
+	width: 500px;
+	font-weight: 700;
+	font-size: 40px;
+	text-align: center;
+	border: 1px solid hsl(0, 100%, 50%);
+	color: rgb(0, 255, 255);
+	mix-blend-mode: difference;
+}
+
+/* Эффект волны в заливке текста: */
+.wave-font {
+	position: relative;
+	width: max-content;
+	font-weight: 900;
+	font-size: 100px;
+	letter-spacing: 0.1em;
+	color: rgb(41, 174, 204);
+	/*text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;*/
+}
+
+.wave-font::before {
+	content: attr(data-content);
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	color: darkblue;
+	/*text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;*/
+	background-color: rgb(211, 213, 235);
+	animation: wave 3s ease-in-out infinite;
+}
+
+@keyframes wave {
+	0%, 100% {
+		clip-path: polygon(0% 47%, 10% 48%, 33% 54%, 54% 60%, 70% 61%, 84% 59%, 100% 52%, 100% 100%, 0% 100%);
+	}
+
+	50% {
+		clip-path: polygon(0% 60%, 15% 65%, 34% 66%, 51% 62%, 67% 50%, 84% 45%, 100% 46%, 100% 100%, 0% 100%);
+	}
+}
+
+/* Подчеркивание волной SVG: */
+.fancy {
+	font-weight: 500;
+	font-size: 60px;
+}
+
+.fancy-underline {
+	position: relative;
+	white-space: nowrap;
+}
+
+.fancy-underline::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: calc(0.3em * -0.625);
+	height: 0.3em;
+	background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="64" fill="none"%3E%3Cg clip-path="url(%23a)"%3E%3Cpath d="M-17 30.5C-1 22 72-4 54 13 37.9 28.2-2.5 57.5 16 55.5s72-29 104-40" stroke="%2300FDCF" stroke-width="10"/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id="a"%3E%3Cpath fill="%23fff" d="M0 0h100v64H0z"/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E%0A');
+	background-size: auto 100%;
+	background-repeat: round;
+	background-position: 0em;
+}
+
+/* Линия с градиентом: */
+/*.full-line {
+	--b: 8;
+	--g: repeating-linear-gradient(45deg,#BD1550 0 10px,#E97F02 0 20px,#F8CA00 0 30px);
+	border-image: var(--g) var(--b)//0 100vw 0 0;
+	border-bottom: calc(var(--b)*1px) solid;
+	padding: 10px 0;
+}*/
+
+.full-line.two {
+	--b: 3;
+	--g: repeating-linear-gradient(90deg,purple 0 15px,#0000 0 22px);
+}
+
+.full-line.left {
+	--g: repeating-linear-gradient(-90deg,darkred 0 15px,#0000 0 22px);
+	border-image-outset: 0 0 0 100vw;
+	width: fit-content;
+}
+
+.full-line.four {
+	--b: 9;
+	--g: linear-gradient(0deg,#C02942 3px,#0000 0 6px,#53777A 0);
+}
+
+.bg-fluid {
+	--bg-fluid: #cbf2ee;
+	padding: 40px 0;
+	background-color: var(--bg-fluid);
+
+	border-style: solid;
+	border-image-source: linear-gradient(var(--bg-fluid), var(--bg-fluid));
+	/*border-image-slice: 1;*/
+	border-image-width: 100%;
+	border-image-outset: 0 100vw 0 100vw;
+	/*border-image-repeat: stretch;*/
+
+	/* source | slice | width | outset | repeat */
+	border-image: linear-gradient(var(--bg-fluid), var(--bg-fluid)) 1 / 100% / 0 100vw 0 100vw;
+}
+
+.gradient-effect {
+	line-height: 1.2;
+	color: transparent;
+	/* em не идеален, здесь 1.2em соответствует высоте строки 1.2 по умолчанию: */
+	background: repeating-linear-gradient(to bottom, red 0 1.2em, blue 0 2.4em, green 0 3.6em, rebeccapurple 0 4.8em);
+
+	/* Единица измерения lh будет соответствовать любым изменениям высоты строки: */
+	background: repeating-linear-gradient(
+		to bottom,
+		red 0 1lh,
+		blue 0 2lh,
+		green 0 3lh,
+		rebeccapurple 0 4lh
+	);
+	background-clip: text;
+}
+
+/*--- Ховер с частичным изменением цвета -------*/
+
+.partial-color-change {
+	position: relative;
+	width: 500px;
+	padding: 40px;
+	font-weight: 600;
+	font-size: 60px;
+	color: hsl(0, 0%, 18%);
+	border-radius: 28px;
+	box-shadow: 0 0 0 4px royalblue;
+}
+
+.partial-color-change::before {
+	content: attr(data-content);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	padding: 40px;
+	color: white;
+	background-color: royalblue;
+	border-radius: 28px;
+	clip-path: ellipse(100% 240% at -100% -20%);
+	transition: 0.4s ease-in;
+}
+
+.partial-color-change:hover::before {
+	clip-path: ellipse(100% 240% at -50% 40%);
+	transition: 0.5s ease-out;
+}
+
+.partial-color-change-2 {
+	position: relative;
+	width: fit-content;
+	padding: 0.15em;
+	font-weight: 600;
+	font-size: 60px;
+	color: hsl(0, 0%, 18%);
+	/*border-radius: 0.2em;*/
+}
+
+.partial-color-change-2::before {
+	content: attr(data-content);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	padding: 0.15em;
+	color: white;
+	background-color: royalblue;
+	/*border-radius: 0.2em;*/
+	clip-path: ellipse(500% 10% at 50% 100%);
+	transition: 0.4s ease-in;
+}
+
+.partial-color-change-2:hover::before {
+	/*clip-path: ellipse(100% 240% at -50% 40%);
+	border-radius: 0.2em;
+	transition: 2s ease-out;*/
+	animation: linkClipPath 1s linear forwards;
+	/*animation-fill-mode: both;*/
+}
+
+@keyframes linkClipPath {
+	0% {clip-path: ellipse(200% 10% at 50% 100%);}
+	30% {clip-path: ellipse(50% 0.7em at 50% 83%);}
+	50% {clip-path: ellipse(0.5em 0.5em at 50% 40%);}
+	100% {clip-path: ellipse(100% 100% at 50% 50%);}
+}
+
+
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Декор текста</h1>
+		<hr>
+
+
+		<h3>Свойства text-decoration</h3>
+		<p>text-decoration: text-decoration-line | text-decoration-color | text-decoration-style | text-decoration-thickness;</p>
+		<p>text-underline-offset: auto | 0.5em</p>
+
+		<p class="text-decoration-1">text-decoration: overline underline; text-underline-offset: 0.47em;</p>
+		<br>
+
+		<p class="text-presentation text-decoration-line">
+			<span class="line-auto">text-decoration-line: none </span>|
+			<span class="line-underline"> underline </span>|
+			<span class="line-overline"> overline </span>|
+			<span class="line-line-through"> line-through </span>|
+			<span class="line-underline-overline"> underline overline </span>|
+			<span class="line-underline-line-through-overline"> underline line-through overline;</span>
+		</p>
+		<br>
+
+
+		<p class="text-presentation text-decoration-style">
+			<span class="style-auto">text-decoration-style: solid </span>|
+			<span class="style-dashed"> dashed </span>|
+			<span class="style-dotted"> dotted </span>|
+			<span class="style-double"> double </span>|
+			<span class="style-wavy"> wavy;</span>
+		</p>
+		<br>
+
+
+		<p class="text-presentation text-decoration-thickness">
+			<span class="thickness-auto">text-decoration-thickness: auto </span>|
+			<span class="thickness-from-font"> from-font </span>|
+			<span class="thickness-px"> 4px </span>|
+			<span class="thickness-em"> 0.1em </span>|
+			<span class="thickness-perc"> 10%;</span>
+		</p>
+		<br>
+
+
+		<p class="text-presentation text-decoration-color">
+			<span class="color-trans">text-decoration-color: transparent </span>|
+			<span class="color-currentcolor"> currentcolor </span>|
+			<span class="color-tomato"> tomato </span>|
+			<span class="color-violet"> violet </span>|
+			<span class="color-cyan"> cyan;</span>
+		</p>
+		<br>
+
+
+		<p class="text-presentation text-decoration-skip-ink">
+			<span class="skip-ink-auto">text-decoration-skip-ink: auto (прерывается) </span>|
+			<span class="skip-ink-none"> none (не прерывается) </span>|
+			<span class="skip-ink-all"> all; (прерывается!)</span>
+		</p>
+		<br>
+
+
+		<p class="text-presentation text-underline-offset">
+			<span class="offset-auto">text-underline-offset: auto </span>|
+			<span class="offset-px"> 4px </span>|
+			<span class="offset-rem"> -0.5rem </span>|
+			<span class="offset-em"> 0.5em </span>|
+			<span class="offset-perc"> 50%;</span>
+		</p>
+		<br>
+
+
+		<p class="text-presentation text-underline-position">
+			<span class="position-auto">text-underline-position: auto </span>|
+			<span class="position-from-font"> from-font </span>|
+			<span class="position-under"> under </span>|
+			<span class="position-left"> left </span>|
+			<span class="position-right"> right </span>|
+			<span class="position-under-left"> under left </span>|
+			<span class="position-right-under"> right under;</span>
+		</p>
+		<br><hr><br>
+
+
+		<h3>Текст с цветной полосой</h3>
+		<p>Это мой пример из Knytt Stories fan site. Для такой правильной полосы нужен именно строчный элемент <code>span</code>, чтобы при переносе текста подчеркивались все строки!</p>
+		<p class="h1" style="max-width: 240px;"><span class="colorline">Заголовок с цветной полосой со спаном</span></p>
+
+		<p class="colorline-underline h1" style="max-width: 240px;">Заголовок с цветной полосой с андерлайном</p>
+
+		<p class="colorline-2 h1" style="max-width: 240px;">Заголовок с цветной полосой без спана</p>
+		<hr>
+
+
+
+
+		<h3>Фоновый круг</h3>
+		<p>Простое декорирование для заголовка кругом из псевдоэлемента. Для названия карточки или пункта списка.</p>
+		<h3 class="headcircle">Заголовок с кругом на фоне</h3>
+		<hr>
+
+
+
+
+		<h3>Тень текста</h3>
+		<p>Длина тени зависит от размера шрифта, в em</p>
+		<p class="dynamic-text-shadow" style="font-size: 60px; font-weight: 700;">Тень текста</p>
+		<p class="dynamic-text-shadow" style="font-size: 34px; font-weight: 500;">Тень текста</p>
+		<p class="dynamic-text-shadow" style="font-size: 18px;">Тень текста</p>
+		<hr>
+
+
+
+
+		<h3>Обводка текста 01</h3>
+		<p>Обводка и заливка текста с помощью нестандартных свойств -webkit-text-stroke и -webkit-text-fill-color.</p>
+		<p class="text-stroke">Обводка текста 1</p>
+		<p class="text-stroke t-s-2">Обводка текста 2</p>
+		<p class="text-stroke t-s-3">Обводка текста 3</p>
+		<hr>
+
+
+
+
+		<h3>Обводка текста 02</h3>
+		<p>Обводка и заливка текста с помощью свойства text-shadow. Хреновый костыль.</p>
+		<p class="text-stroke-2">Обводка текста 1</p>
+		<p class="text-stroke-2 t-s2-2">Обводка текста 2</p>
+		<hr>
+
+
+
+
+		<h3>Раздвоенный текст с обводкой и заливкой</h3>
+		<p class="stroke-shadow">Текст с обводкой и тенью</p>
+		<hr>
+
+
+
+
+		<h3>Подчеркивание пунктирной линией</h3>
+		<p class="rounded-dashes">Rounded Dashes</p>
+		<p>В этом примере должны получиться линии пунктира, а не точки.</p>
+		<hr>
+
+
+
+
+		<h3>Текс с заливкой градиентом</h3>
+		<p class="gradient-text">Анимация при ховере!</p>
+		<br>
+		<p class="gradient-text-2">hello world!</p>
+		<hr>
+
+
+
+
+		<h3>Обратный цвет текста</h3>
+		<div class="bg-reverse">
+			<p class="text-reverse">Text reverse</p>
+		</div>
+
+		<div class="bg-reverse-2-wrap">
+			<div class="bg-reverse-2">
+				<p class="text-reverse-2">Text reverse</p>
+			</div>
+		</div>
+		<hr>
+
+
+
+
+		<h3>Эффект волны в заливке текста</h3>
+		<p class="wave-font" data-content="Wave-font">Wave-font</p>
+		<hr>
+
+
+
+		<h3>Подчеркивание волной SVG</h3>
+		<p class="fancy">Text with fancy <span class="fancy-underline">underline</span></p>
+		<hr>
+
+
+
+
+		<h3>Линия бордером с градиентом</h3>
+		<p class="full-line">Линия с градиентом</p>
+		<p class="full-line two">Secondary title</p>
+		<p class="full-line left">Another Secondary title</p>
+		<p class="full-line four">Title</p>
+		<br>
+
+		<p class="bg-fluid">Эксперимент с фоном на весь экран.</p>
+		<br>
+		<hr>
+
+
+
+
+		<h3 class="gradient-effect" contenteditable>
+			это многострочный<br>
+			текстовый эффект с градиентом<br>
+			который использует единицу измерения <code>lh</code><br>
+			для создания идеального эффекта
+		</h3>
+		<br><hr><br>
+
+
+
+
+		<h3>Ховер с частичным изменением цвета текста и фона</h3>
+		<p>Тут скрипт подставляет в атрибуты текст элемента, для его наложения друг на друга.</p>
+
+		<p class="partial-color-change js-data-content">Кнопка или карточка</p>
+		<br><br>
+
+		<p class="partial-color-change-2 js-data-content">Ссылка</p>
+
+		<script>
+// Скрипт подставляет текст элемента в его атрибут data-content="":
+document
+	.querySelectorAll('.js-data-content')
+	.forEach(element => {
+		element.setAttribute('data-content', element.textContent);
+	})
+	// Чтобы скрипт работал при нескольких разных классах можно использовать такую конструкцию:
+	// querySelectorAll('[class^="js-data-content"]')
+	// Видимо тогда будет работать для всех классов, которые содержат js-data-content, например js-data-content-2
+		</script>
+		<br><br>
+		<hr>
+
+
+
+
+
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

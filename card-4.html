@@ -1,0 +1,335 @@
+<!doctype html><!-- Файл card-4.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Карточки №4 навороченные – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+/*-------- Карточка №40: ---------*/
+
+.card-container {
+	perspective: 50em;
+}
+
+.card-container:nth-child(1) {
+	--bi: repeating-linear-gradient(30deg, #111 0 0.25em, #333 0 1em);
+}
+
+.card-container:nth-child(2) {
+	--bi: linear-gradient(#555 5em, #0000 3em), linear-gradient(60deg, #880E4F, #1A237E);
+}
+
+.card {
+	position: relative;
+	width: 320px;
+	padding: 3em;
+	color: #fff;
+	transform: rotateY(30deg) rotateX(15deg);
+	transform-style: preserve-3d;
+	transition: transform 1s;
+}
+
+.card:hover {
+	transform: rotateY(-30deg) rotateX(-15deg);
+}
+
+.layers {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	transform-style: preserve-3d;
+	z-index: -1;
+}
+
+.layer {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 1em;
+	background-image: repeating-linear-gradient(30deg, #111 0 0.25em, #333 0 1em);
+	/*background-image:linear-gradient(#555 5em, #0000 3em), linear-gradient(60deg, #880E4F, #1A237E);*/
+	transform: translateZ(var(--tz));
+	box-shadow: 0 0 0.5em hsla(0, 0%, 0%, 0.8) inset;
+
+	/*@for $i from 0 to 10 {
+&:nth-child(#{$i + 1}) {
+	--tz: #{$i * -4}px;
+}
+}*/
+}
+
+/*.layer:nth-child(#{$i + 1}) {
+--tz: #{$i * -4}px;
+}*/
+
+.layer:last-child {
+	box-shadow: 0 0 0.5em hsla(0, 0%, 0%, 0.8) inset, 0 0 5px hsl(0, 0%, 0%);
+}
+/*------ Конец карты №40 -------*/
+
+/* Переворачивающаяся карточка (№41): */
+
+.card-41 {
+	position: relative;
+	width: 300px;
+	height: 300px;
+	transform-style: preserve-3d;
+	perspective: 500px;
+	cursor: pointer;
+	transition: 0.4s;
+}
+
+.card-41:hover {
+	transform: translateY(-4px);
+}
+
+.card-41:hover .face {
+	box-shadow: 0 5px 20px 3px hsla(0, 0%, 0%, 0.1);
+}
+
+.face {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding: 20px;
+	/*box-shadow: 0 15px 35px hsla(0, 0%, 0%, 0.5);*/
+	background: hsl(175, 93%, 89%);/* было hsla(0, 0%, 100%, 0.05); */
+	/*backdrop-filter: blur(10px);*/
+	transform-style: preserve-3d;
+	backface-visibility: hidden;/* это делает невидимым обратную сторону перевернутой карточки */
+	transition: .6s;
+}
+
+/*.front {
+	cursor: pointer;
+}*/
+
+.card-41:focus {
+	outline: none;
+}/* это чтобы при нажатии на карточку не появлялись рамки аутлайна из-за фокуса */
+
+.card-41:focus .front {
+	transform: rotateY(180deg);
+}/*для работы по клику селектор .card-41:hover .front */
+
+.back {
+	background: hsl(325, 88%, 90%);
+	transform: rotateY(180deg);
+}
+
+.card-41:focus .back {
+	transform: rotateY(360deg);
+}/*для работы по клику селектор .card-41:hover .back */
+
+
+
+
+/* Двигающаяся карточка: */
+
+.card-42-wrap {
+	background-color: hsl(223, 10%, 90%);
+	display: grid;
+	place-items: center;
+	height: 500px;
+	font-size: calc(20px + (30 - 20) * (100vw - 320px) / (1280 - 320));
+	perspective: 600px;
+	transition: background-color 0.3s;
+}
+
+.card-42 {
+	position: relative;
+	width: 165px;
+	height: 109px;
+	color: hsl(0, 0%, 100%);
+	background-color: hsl(223, 90%, 55%);
+	background-image:
+		radial-gradient(circle at 100% 0%,hsla(0,0%,100%,0.08) 30%,hsla(0,0%,100%,0) 30%),
+		radial-gradient(circle at 100% 0%,hsla(0,0%,100%,0.08) 40%,hsla(0,0%,100%,0) 40%),
+		radial-gradient(circle at 100% 0%,hsla(0,0%,100%,0.08) 50%,hsla(0,0%,100%,0) 50%);
+	border-radius: 8px;
+	box-shadow:
+		0 0 0 hsl(0, 0%, 80%),
+		0 0 0 hsl(0, 0%, 100%),
+		-3.2px 0 12px 0 hsla(0, 0%, 0%, 0.3);
+	transform: translate3d(0, 0, 0);
+	overflow: hidden;
+	animation-name: rotate;
+	animation-duration: 3s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+}
+
+.card-glare {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 200%;
+	height: 100%;
+	animation-name: cardGlare;
+	background-image: linear-gradient(-80deg, hsla(0, 0%, 100%, 0.3) 25%,hsla(0, 0%, 100%, 0) 45%);
+	animation-duration: 3s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+}
+
+.card-content {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	padding: 12px;
+	font-size: 12px;
+	font-weight: bold;
+	font-style: italic;
+	inset: 0;
+}
+
+/* Animation */
+@keyframes rotate {
+	from,
+	to {
+		animation-timing-function: ease-in;
+		box-shadow:
+			0 0 0 hsl(0, 0%, 80%),
+			1.6px 0 0 hsl(0, 0%, 100%),
+			-3.2px 0 12px 0 hsla(0, 0%, 0%, 0.3);
+		transform: rotateY(-10deg);
+	}
+	25%,
+	75% {
+		animation-timing-function: ease-out;
+		box-shadow:
+			0 0 0 hsl(0, 0%, 80%),
+			0 0 0 hsl(0, 0%, 100%),
+			-4px -0.8px 16px 2.4px hsla(0, 0%, 0%, 0.3);
+		transform: rotateY(0deg);
+	}
+	50% {
+		animation-timing-function: ease-in;
+		box-shadow:
+			-1.6px 0 0 hsl(0, 0%, 80%),
+			0 0 0 hsl(0, 0%, 100%),
+			-4.8px -1.6px 24px 4.8px hsla(0, 0%, 0%, 0.3);
+		transform: rotateY(10deg);
+	}
+}
+@keyframes cardGlare {
+	from,
+	to {
+		transform: translate3d(0, 0, 0);
+	}
+	50% {
+		transform: translate3d(-50%, 0, 0);
+	}
+}
+
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Карточки №4 навороченные</h1>
+		<hr>
+
+		<h2>Карточка №40</h2>
+		<p>Навороченная типа трехмерная карта, с анимацией-поворотом при ховере. Стили сделаны на SCSS, надо переделать в чистый CSS!</p>
+		<br>
+
+		<div class="card-container">
+			<div class="card">
+				<h3>Hover me</h3><br>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod maiores sapiente non asperiores deleniti, quos eos placeat corrupti id consequatur ullam accusantium, nesciunt aut fugiat at ipsam harum eveniet dolore.</p>
+				<div class="layers">
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="card-container">
+			<div class="card">
+				<h3>Hover me</h3><br>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod maiores sapiente non asperiores deleniti, quos eos placeat corrupti id consequatur ullam accusantium, nesciunt aut fugiat at ipsam harum eveniet dolore.</p>
+				<div class="layers">
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+				</div>
+			</div>
+		</div>
+		<hr>
+
+
+
+
+		<h2>Переворачивающаяся карточка</h2>
+
+		<div class="card-41" tabindex="0">
+			<div class="face front">
+				<p>Попробуй перевернуть меня</p>
+			</div>
+
+			<div class="face back" tabindex="0">
+				<p>Вот здорово! Люблю переворачиваться.</p>
+			</div>
+		</div>
+		<hr>
+
+
+
+
+		<h2>Двигающаяся карточка</h2>
+
+		<div class="card-42-wrap">
+			<div class="card-42">
+				<div class="card-content">
+					<p>Plastic Is Shiny</p>
+				</div>
+				<div class="card-glare"></div>
+			</div>
+		</div>
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!doctype html><!-- Файл code.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Компонент – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+
+
+kbd:not([class]),
+.kbd {
+	/*display: inline-block; обычно доноры используют, но мне не надо пока */
+	margin: 0 0.15em;/* можно задать в пикселях?! */
+	padding: 0 0.3em;/* padding: 2px 6px; */
+	/*font: 400 1em var(--font-mono);*/
+	/*vertical-align: middle; это было у донора */
+	background: var(--bg-kbd, lightblue);/* лучше делать сплошным цветом или полупрозрачным? */
+	/*border: 1px solid rgba(0,0,0,.1);  или var(--grey-light), лучше серым цветом или синим как фон? Сейчас сделал эту рамку с помощью box-shadow inset */
+	border-radius: 0.25em;
+	box-shadow: inset 0 0 0 1px hsla(0, 0%, 0%, 0.1);/* это свойство делает фон "клавиш" меньше, чем при использовании border */
+	/*hyphens: none; пока не вижу нужды в этой настройке */
+	/*text-align: left; пока не вижу нужды в этой настройке */
+	/*word-spacing: normal; это длина пробела между словами. Пока не вижу нужды в этой настройке */
+}
+
+
+
+.kbd2 {
+	display: inline-block;
+	padding: 0.1em 0.3em;
+	color: #555;
+	vertical-align: middle;
+	background-color: #fcfcfc;
+	border: solid 1px #ccc;
+	border-bottom-color: #bbb;
+	border-radius: 0.2em;
+	box-shadow: inset 0 -1px 0 #bbb;
+}
+
+
+
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Оформление текста и кода</h1>
+		<hr>
+
+		<h2 class="h2">Полезные символы и их "сущности"</h2>
+		<p class="font-24">– — $ € ₽ © ® ™ … × ÷ ± ≈ ≠ ° № ∞ § π µ Ø ¦ | ‾ ← ↑ → ↓ ↖ ↗ ↘ ↙ ¶ « » ≡ ✕ ∟ ∧ ∨ • ○ ·</p>
+		<p class="font-22"><code>(–) тире узкое-en &ndash; &#8211;<br>(—) тире широкое-em &mdash; &#8212;<br>(‑) неразрывное тире &#8209;<br>( ) неразрывный (дополнительный) пробел &nbsp; &#160;<br>( ) узкий пробел (еn-шириной в букву n) &ensp; &#8194;<br>( ) широкий пробел (em-шириной в букву m) &emsp; &#8195;<br>() мягкий перенос &shy; &#173;<br>(а́) ударение (ставится после "ударной" буквы) &#769;<br>(<>) кавычки меньше-больше &lt; &gt;</code></p>
+		<p>TODO: Нужно доделать этот абзац, чтобы сущности символов были видны на сайте!</p>
+		<br><br><br>
+		<hr><br><br><br>
+
+
+
+
+		<h2 class="h2">Клавиши и команды клавиатуры</h2>
+		<p>Это мой код клавиш (.kbd): <kbd class="kbd">Ctrl C</kbd> или <kbd>Alt</kbd> <kbd>Shift</kbd> + <kbd>Del</kbd>. </p>
+		<p>Это пример (.kbd2): <kbd class="kbd2">Shift P</kbd>. </p>
+		<br><br><br>
+		<hr><br><br><br>
+
+
+
+
+		<h2 class="h2">Строки кода</h2>
+		<p>
+			Пример: <code>object-fit</code> или <code>&lt;div&gt;Блок&lt;/div&gt;</code>.
+		</p>
+		<br><br><br>
+		<hr><br><br><br>
+
+
+
+
+		<h2 class="h2">Блоки с кодом</h2>
+		<p>Пример:</p>
+		<pre><code class="codefield">&lt;header class=&quot;header&quot;&gt;
+				&lt;img class=&quot;logo&quot; src=&quot;../img/logo.svg&quot; alt=&quot;Логотип&quot;&gt;
+				&lt;nav class=&quot;menu&quot;&gt;
+					&lt;a class=&quot;menu__link&quot; href=&quot;/&quot;&gt;Главная&lt;/a&gt;
+					&lt;a class=&quot;menu__link&quot; href=&quot;contacts.html&quot;&gt;Контакты&lt;/a&gt;
+				&lt;/nav&gt;
+		&lt;/header&gt;</code></pre>
+
+		<pre><code class="codefield">&lt;header class=&quot;header&quot;&gt;<br>  &lt;img class=&quot;logo&quot; src=&quot;../img/logo.svg&quot; alt=&quot;Логотип&quot;&gt;<br>  &lt;nav class=&quot;menu&quot;&gt;<br>    &lt;a class=&quot;menu__link&quot; href=&quot;/&quot;&gt;Главная&lt;/a&gt;<br>    &lt;a class=&quot;menu__link&quot; href=&quot;contacts.html&quot;&gt;Контакты&lt;/a&gt;<br>  &lt;/nav&gt;<br>&lt;/header&gt;</code></pre>
+
+		<pre><code class="codefield">&lt;header class=&quot;header&quot;&gt;<br>&nbsp; &lt;img class=&quot;logo&quot; src=&quot;../img/logo.svg&quot; alt=&quot;Логотип&quot;&gt;<br>&nbsp; &lt;nav class=&quot;menu&quot;&gt;<br>&nbsp; &nbsp; &lt;a class=&quot;menu__link&quot; href=&quot;/&quot;&gt;Главная&lt;/a&gt;<br>&nbsp; &nbsp; &lt;a class=&quot;menu__link&quot; href=&quot;contacts.html&quot;&gt;Контакты&lt;/a&gt;<br>&nbsp; &lt;/nav&gt;<br>&lt;/header&gt;</code></pre>
+		<hr>
+
+
+
+
+		<h2 class="h2">Сноски и примечания</h2>
+
+		<p class="sidenote">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore rem qui at suscipit dignissimos commodi, in quos molestias harum atque voluptatem, eaque pariatur eius itaque iusto consequuntur porro ducimus sed.</p>
+
+		<div class="sidenote">
+			<strong class="sidenote-title">Примечание</strong>
+			<p class="sidenote-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut aspernatur, similique nihil ex doloremque corporis debitis voluptate, tempora tempore distinctio eveniet vero earum maiores error autem asperiores ea quaerat hic, itaque obcaecati sapiente cumque minima laudantium! Excepturi error eum assumenda, atque, cum delectus reprehenderit dolorum laudantium accusamus soluta deserunt id?</p>
+		</div>
+
+
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

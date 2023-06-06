@@ -1,0 +1,143 @@
+<!doctype html><!-- Файл star-rating.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Звездный рейтинг – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Элемент рейтинга по 5-бальной шкале">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+/*------------- Звездный рейтинг по Макееву -----------------*/
+
+.rating {
+	border: none;
+}
+
+.rating-caption {
+	margin-bottom: 12px;
+	padding: 0;
+}
+
+.rating-group {
+	position: relative;
+	width: 150px;
+	height: 30px;
+	background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"%3E%3Cpath d="M5 3L4 .3 3.1 3H.2l2.4 1.7-.9 2.7L4 5.7l2.4 1.7-.9-2.7L7.8 3H5z" stroke="%23aaa" stroke-width=".3" stroke-linejoin="round" fill="%23ddd"/%3E%3C/svg%3E');
+	/*background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" fill="gold"%3E%3Cpath d="M4 .2L6.4 7.4L.2 3H7.8L1.6 7.4 4 .2Z"/%3E%3C/svg%3E'); это мини-версия звезды без обводки */
+	/*background-image: url(star-off.svg);*/
+	background-size: 30px auto;
+	/* или 30rem 30rem; или 2em 1.9em */
+	background-repeat: repeat-x;
+	/*opacity: 0.8;
+filter: grayscale(1); это идея сделать из золотой звезды неактивную серую */
+	transition: 0.2s;
+}
+
+.rating-group:focus-within {
+	outline: solid 2px #a5a5a5 hsl(210, 71%, 61%);
+	outline-offset: 2px;
+}
+
+.rating-star {
+	position: absolute;
+	top: 0;
+	left: 0;
+	/*width: 30px;*/
+	height: 30px;
+	font-size: inherit;
+	/*background: hsl(0, 0%, 61%);*/
+	background-size: 30px auto;
+	/* или 30rem 30rem; или 2em 1.9em */
+	background-repeat: repeat-x;
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+.rating-star:focus {
+	outline: none;
+}
+
+.rating-star:checked,
+.rating-star:hover {
+	background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"%3E%3Cpath d="M5 3L4 .3 3.1 3H.2l2.4 1.7-.9 2.7L4 5.7l2.4 1.7-.9-2.7L7.8 3H5z" stroke="%23333" stroke-width=".3" stroke-linejoin="round" fill="gold"/%3E%3C/svg%3E');
+	/*background-image: url(star-on.svg);*/
+}
+
+.rating-star:hover~.rating-star {
+	background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"%3E%3Cpath d="M5 3L4 .3 3.1 3H.2l2.4 1.7-.9 2.7L4 5.7l2.4 1.7-.9-2.7L7.8 3H5z" stroke="%23aaa" stroke-width=".3" stroke-linejoin="round" fill="%23ddd"/%3E%3C/svg%3E');
+	/*background-image: url(star-off.svg);*/
+}
+
+.rating-star:nth-of-type(1) {
+	z-index: 5;
+	width: 30px;
+}
+
+.rating-star:nth-of-type(2) {
+	z-index: 4;
+	width: 60px;
+}
+
+.rating-star:nth-of-type(3) {
+	z-index: 3;
+	width: 90px;
+}
+
+.rating-star:nth-of-type(4) {
+	z-index: 2;
+	width: 120px;
+}
+
+.rating-star:nth-of-type(5) {
+	z-index: 1;
+	width: 150px;
+}
+
+
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Рейтинги</h1>
+		<hr>
+
+
+		<h2>Рейтинг 00</h2>
+		<p>Звездный рейтинг по <a href="https://youtu.be/EbajTYI-gg8">ролику Макеева</a>. Надо перерисовать звезды
+			квадратными (несколько вариантов) и при ховере сделать выделение немного другим чем обычные звезды.</p>
+		<br><br>
+
+		<fieldset class="rating">
+			<legend class="rating-caption">Самочувствие</legend>
+			<div class="rating-group">
+				<input class="rating-star" type="radio" name="rating" value="1" title="Ужасно" aria-label="Ужасно" checked>
+				<input class="rating-star" type="radio" name="rating" value="2" title="Сносно" aria-label="Сносно">
+				<input class="rating-star" type="radio" name="rating" value="3" title="Нормально" aria-label="Нормально">
+				<input class="rating-star" type="radio" name="rating" value="4" title="Хорошо" aria-label="Хорошо">
+				<input class="rating-star" type="radio" name="rating" value="5" title="Отлично" aria-label="Отлично">
+			</div>
+		</fieldset>
+		<hr>
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

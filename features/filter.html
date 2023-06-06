@@ -1,0 +1,219 @@
+<!doctype html><!-- Файл filter.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Фильтры для карточек – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="../_mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+.filter {
+	display: flex;
+	flex-wrap: wrap;
+	row-gap: var(--margin-xs);
+	margin-bottom: var(--margin-m);
+}
+
+.filter__button {
+	padding: 0.5em 1em;
+	font-weight: var(--font-weight-l);
+	background: hsl(205, 80%, 95%);
+	border: 1px solid hsl(0, 0%, 0%);
+	border-radius: var(--border-radius-m);
+	/*cursor: pointer;*/
+}
+
+[data-filter].active {
+	color: hsl(0, 0%, 100%);
+	background: hsl(205, 98%, 50%);
+}
+
+.hide,
+[data-filter-item] {
+	display: none !important;
+}
+
+[data-filter-item].show {
+	display: grid !important;
+}
+
+
+
+/* Дополнительные стили для оформления: */
+
+.gallery {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(292px, 1fr));
+	gap: var(--margin-s);
+	margin-bottom: var(--margin-s);
+}
+
+.gallery__card {
+	display: grid;
+	place-content: center;
+	width: 200px;
+	height: 100px;
+	/*padding: 40px;*/
+	/*text-align: center;*/
+	background-color: hsl(165, 72%, 90%);
+	border: 1px solid hsl(165, 77%, 38%);
+}
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Фильтры для карточек</h1>
+		<hr>
+
+		<ul class="filter">
+			<li><button class="filter__button active" type="button" data-filter="all">All</button></li>
+			<li><button class="filter__button" type="button" data-filter="mobile">Mobile</button></li>
+			<li><button class="filter__button" type="button" data-filter="camera">Camera</button></li>
+			<li><button class="filter__button" type="button" data-filter="watch">Watch</button></li>
+			<li><button class="filter__button" type="button" data-filter="shoe">Shoe</button></li>
+			<li><button class="filter__button" type="button" data-filter="headphone">Headphone</button></li>
+		</ul>
+
+
+		<ul class="gallery">
+			<li class="gallery__card" data-filter-item="mobile">mobile</li>
+
+			<li class="gallery__card" data-filter-item="camera">camera</li>
+
+			<li class="gallery__card" data-filter-item="watch">watch</li>
+
+			<li class="gallery__card" data-filter-item="shoe">shoe</li>
+
+			<li class="gallery__card" data-filter-item="mobile">mobile 2</li>
+
+			<li class="gallery__card" data-filter-item="camera">camera 2</li>
+
+			<li class="gallery__card" data-filter-item="watch">watch 2</li>
+
+			<li class="gallery__card" data-filter-item="shoe">shoe 2</li>
+
+			<li class="gallery__card" data-filter-item="mobile">mobile 3</li>
+
+			<li class="gallery__card" data-filter-item="camera">camera 3</li>
+
+			<li class="gallery__card" data-filter-item="watch">watch 3</li>
+
+			<li class="gallery__card" data-filter-item="mobile">mobile 4</li>
+
+			<li class="gallery__card" data-filter-item="camera">camera 4</li>
+
+			<li class="gallery__card" data-filter-item="mobile">mobile 5</li>
+		</ul>
+
+
+		<button class="button more-button">Показать еще</button>
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+	<script>
+		'use strict'
+
+		// Переменные:
+		const dataFilter = '[data-filter]'; // Кнопки фильтра на вкладке.
+		const dataFilterItem = '[data-filter-item]'; // Элементы фильтра (карточки).
+		const moreButton = '.more-button'; // Копка "Показать ещё".
+		const classShow = 'show'; // Класс для скрытия/отображения карточек фильтра.
+		const classHide = 'hide'; // Класс для скрытия/отображения кнопки "Показать ещё".
+		const cardsLength = 3; // Кол-во карточек, которые будут показаны.
+
+		// Получаем элементы страницы:
+		const filterBtn = document.querySelector('.filter');
+		//const allFilterBtn = document.querySelectorAll('.filter__button');
+		const allFilterBtn = document.querySelectorAll(dataFilter);
+		//const cards = document.querySelectorAll('.card');
+		const cards = document.querySelectorAll(dataFilterItem);
+		const showMoreBtn = document.querySelector(moreButton);
+
+		// Преобразуем коллекцию карточек в массив:
+		const array = Array.from(cards);
+		// Устанавливаем счетчик и текущий фильтр:
+		let counter = cardsLength;
+		let currentFilter = 'all';
+
+		// Отображаем первые 3 карточки:
+		array.slice(0, cardsLength).forEach(item => item.classList.add(classShow));
+
+		// Добавляем обработчик событий для кнопок фильтра:
+		filterBtn.addEventListener('click', event => {
+			// Получаем ID выбранного фильтра и активную кнопку:
+			const targetId = event.target.dataset.filter;
+			const targetActiveBtn = event.target;
+
+			// Проверяем, что клик был по кнопке фильтра:
+			if (targetActiveBtn.hasAttribute('data-filter')) {
+				// Удаляем класс active со всех кнопок фильтра:
+				allFilterBtn.forEach(activeBtn => activeBtn.classList.remove('active'));
+				// Добавляем класс active к выбранной кнопке:
+				targetActiveBtn.classList.add('active');
+
+				// Если выбран фильтр "All":
+				if (targetId === 'all') {
+					// Скрываем все карточки:
+					array.forEach(item => item.classList.remove(classShow));
+					// Отображаем первые 3 карточки:
+					array.slice(0, cardsLength).forEach(item => item.classList.add(classShow));
+					// Если карточек меньше или равно 3, скрываем кнопку "Показать ещё":
+					if (array.length <= cardsLength) showMoreBtn.classList.add(classHide);
+					else showMoreBtn.classList.remove(classHide);
+				} else if (targetId === event.target.dataset.filter) {
+					// Если выбран другой фильтр:
+					array.forEach(item => {
+						// Скрываем карточки, которые не соответствуют выбранному фильтру:
+						if (item.dataset.filterItem != targetId) item.classList.remove(classShow);
+						else item.classList.add(classShow);
+					});
+
+					// Фильтруем массив карточек по выбранному фильтру:
+					const filteredArray = array.filter(item => item.dataset.filterItem === targetId);
+					filteredArray.forEach(item => item.classList.remove(classShow));
+					filteredArray.slice(0, cardsLength).forEach(item => item.classList.add(classShow));
+
+					if (filteredArray.length <= cardsLength) showMoreBtn.classList.add(classHide);
+					else showMoreBtn.classList.remove(classHide);
+				}
+				counter = cardsLength;
+				currentFilter = targetId;
+			}
+		});
+
+		// Добавляем обработчик событий для кнопки "Показать ещё":
+		showMoreBtn.addEventListener('click', () => {
+			counter += cardsLength;
+
+			if (currentFilter === 'all') {
+				array.slice(counter - cardsLength, counter).forEach(item => item.classList.add(classShow));
+				if (counter >= array.length) showMoreBtn.classList.add(classHide);
+			} else {
+				const filteredArray = array.filter(item => item.dataset.filterItem === currentFilter);
+				filteredArray.slice(counter - cardsLength, counter).forEach(item => item.classList.add(classShow));
+
+				if (counter >= filteredArray.length) showMoreBtn.classList.add(classHide);
+				return;
+			}
+		});
+	</script>
+
+</body>
+</html>

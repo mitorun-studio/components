@@ -1,0 +1,150 @@
+<!doctype html><!-- Файл animation-blob.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Анимация капли Blob – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+.blob-svg-smil {}
+
+.blob-css-border-radius {
+	width: 300px;
+	height: 200px;
+	background-color: hsl(224, 100%, 82%);
+	border-radius: 81% 19% 66% 34% / 45% 16% 84% 55%;
+	animation: blobCssBR 15s linear infinite;
+}
+
+@keyframes blobCssBR {
+	0% {
+		/*width: 600px;
+		height: 400px;*/
+		border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+	}
+	10% {
+		/*width: 530px;
+		height: 500px;*/
+		border-radius: 59% 41% 39% 61% / 54% 33% 67% 46%;
+	}
+	30% {
+		/*width: 400px;
+		height: 600px;*/
+		border-radius: 77% 23% 61% 39% / 33% 22% 78% 67%;
+	}
+	50% {
+		/*width: 500px;
+		height: 450px;*/
+		border-radius: 88% 12% 83% 17% / 67% 8% 92% 33%;
+	}
+	70% {
+		/*width: 500px;
+		height: 550px;*/
+		border-radius: 63% 37% 66% 34% / 89% 49% 51% 11%;
+	}
+	90% {
+		/*width: 550px;
+		height: 450px;*/
+		border-radius: 39% 61% 83% 17% / 60% 70% 30% 40%;
+	}
+	100% {
+		/*width: 600px;
+		height: 400px;*/
+		border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+		/*rotate: 360deg;*/
+	}
+}
+
+.blob-svg-css path {
+ animation: blobSvgCss 15s linear infinite;
+}
+
+@keyframes blobSvgCss {
+	0% {
+		d:path("M76 32C71 23 59 16 48 16C37 16 25 25 20 32C15 39 14 55 20 64C26 73 35 80 48 80C61 80 72 71 76 64C80 57 81 41 76 32Z");
+	}
+	10% {
+		d:path("M75 16C72 8 59 4 48 8C37 12 17 31 14 42C11 53 10 65 19 75C28 85 51 92 60 86C69 80 64 56 66 48C68 40 78 24 75 16Z");
+	}
+	30% {
+		d:path("M84 26C80 20 59 18.5 48 19C37 19.5 14 24 12 31C10 38 22 46 27 55C32 64 38 84 44 85C50 86 63 70 70 61C77 52 88 32 84 26Z");
+	}
+	50% {
+		d:path("M84 38C80 32 64 28 53 26C42 24 14 24 10 28C6 32 6 38 9 46C12 54 30 70 43 75C56 80 78 76 84 69C90 62 88 44 84 38Z");
+	}
+	70% {
+		d:path("M89 44C90 34 53 7 43 8C33 9 38 23 32 29C26 35 8 37 6 47C4 57 38 91 47 89C56 87 55 58 63 54C71 50 88 54 89 44Z");
+	}
+	90% {
+		d:path("M79 41C77 34 50 8 41 9C32 10 12 41 10 46C8 51 6 59 14 68C22 77 41 86 51 84C61 82 73 62 76 58C79 54 81 48 79 41Z");
+	}
+	100% {
+		d:path("M76 32C71 23 59 16 48 16C37 16 25 25 20 32C15 39 14 55 20 64C26 73 35 80 48 80C61 80 72 71 76 64C80 57 81 41 76 32Z");
+	}
+}
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Анимация капли Blob</h1>
+		<hr>
+
+		<h2>Blob с SVG-SMIL-анимацией атрибута "d"</h2>
+
+		<svg class="blob-svg-smil" width="400px" viewBox="0 0 96 96" fill="#A3BCFF">
+			<path>
+				<animate begin="0s" attributeName="d" dur="15s" repeatCount="indefinite" values="
+					M76 32C71 23 59 16 48 16C37 16 25 25 20 32C15 39 14 55 20 64C26 73 35 80 48 80C61 80 72 71 76 64C80 57 81 41 76 32Z;
+
+					M75 16C72 8 59 4 48 8C37 12 17 31 14 42C11 53 10 65 19 75C28 85 51 92 60 86C69 80 64 56 66 48C68 40 78 24 75 16Z;
+
+					M84 26C80 20 59 18.5 48 19C37 19.5 14 24 12 31C10 38 22 46 27 55C32 64 38 84 44 85C50 86 63 70 70 61C77 52 88 32 84 26Z;
+
+					M84 38C80 32 64 28 53 26C42 24 14 24 10 28C6 32 6 38 9 46C12 54 30 70 43 75C56 80 78 76 84 69C90 62 88 44 84 38Z;
+
+					M89 44C90 34 53 7 43 8C33 9 38 23 32 29C26 35 8 37 6 47C4 57 38 91 47 89C56 87 55 58 63 54C71 50 88 54 89 44Z;
+
+					M79 41C77 34 50 8 41 9C32 10 12 41 10 46C8 51 6 59 14 68C22 77 41 86 51 84C61 82 73 62 76 58C79 54 81 48 79 41Z;
+
+					M76 32C71 23 59 16 48 16C37 16 25 25 20 32C15 39 14 55 20 64C26 73 35 80 48 80C61 80 72 71 76 64C80 57 81 41 76 32Z;" />
+			</path>
+		</svg>
+		<br><hr><br><br>
+
+
+
+
+		<h2>Blob с CSS-анимацией border-radius</h2>
+
+		<div class="blob-css-border-radius"></div>
+		<br><hr><br><br>
+
+
+
+		<h2>Blob с CSS-анимацией SVG-атрибута "d"!</h2>
+
+		<svg class="blob-svg-css" width="400px" viewBox="0 0 96 96" fill="#A3BCFF">
+			<path d="M76 32C71 23 59 16 48 16C37 16 25 25 20 32C15 39 14 55 20 64C26 73 35 80 48 80C61 80 72 71 76 64C80 57 81 41 76 32Z" />
+		</svg>
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

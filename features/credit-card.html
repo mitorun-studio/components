@@ -1,0 +1,271 @@
+<!DOCTYPE html><!-- Файл credit-card.html -->
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Переворачивающаяся кредитка – Mitorun Studio</title>
+	<meta name="description" content="Описание страницы">
+	<meta name="keywords" content="Теги, ключевые слова страницы">
+	<meta name="author" content="Oleg Mitorun">
+	<style>
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	overflow: hidden;
+	font: 400 18px/1.5 sans-serif;
+	background-color: rgb(207, 207, 207);
+}
+
+section {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	background: rgb(36, 31, 44);
+}
+
+section::before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 600px;
+	height: 600px;
+	background: linear-gradient(#f00, #f0f);
+	border-radius: 50%;
+}
+
+.card {
+	position: relative;
+	width: 508px;
+	height: 314px;
+	transform-style: preserve-3d;
+	perspective: 500px;
+}
+
+.face {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	box-shadow: 0 15px 35px rgba(0, 0, 0, .5);
+	border-radius: 15px;
+	background: rgba(255, 255, 255, .05);
+	backdrop-filter: blur(10px);
+	transform-style: preserve-3d;
+	transition: 500ms;
+	backface-visibility: hidden;
+	/* это делает невидимым обратную сторону перевернутой карточки */
+}
+
+.card:focus {
+	outline: none;
+}
+
+/* это чтобы при нажатии на карточку не появлялись рамки аутлайна из-за фокуса */
+.card:focus .front {
+	transform: rotateY(180deg);
+}
+
+.back {
+	transform: rotateY(180deg);
+}
+
+.card:focus .back {
+	transform: rotateY(360deg);
+}
+
+.front::before {
+	content: '';
+	position: absolute;
+	right: 40px;
+	bottom: 40px;
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background: rgb(255, 255, 255);
+	opacity: .5;
+}
+
+.front::after {
+	content: '';
+	position: absolute;
+	right: 80px;
+	bottom: 40px;
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background: rgb(255, 255, 255);
+	opacity: .7;
+}
+
+.debit {
+	position: absolute;
+	top: 30px;
+	left: 40px;
+	font-size: 19px;
+	font-weight: 500;
+	color: #fff;
+}
+
+.bank {
+	position: absolute;
+	top: 25px;
+	right: 40px;
+	font-size: 24px;
+	font-weight: 500;
+	font-style: italic;
+	color: #fff;
+}
+
+.chip {
+	position: absolute;
+	top: 80px;
+	left: 50px;
+	width: 64px;
+	height: 40px;
+	border: 4px solid rgb(41, 41, 41);
+	border-radius: 8px;
+	background: rgb(204, 185, 78);
+}
+
+.number {
+	position: absolute;
+	left: 40px;
+	bottom: 130px;
+	font-size: 24px;
+	font-weight: 500;
+	letter-spacing: 6px;
+	text-shadow: 0 2px 1px #0005;
+	color: #fff;
+}
+
+.valid {
+	position: absolute;
+	left: 40px;
+	bottom: 90px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	line-height: 1em;
+	font-weight: 300;
+	text-align: right;
+	color: #fff;
+}
+
+.valid span:last-child {
+	margin-left: 20px;
+	font-size: 16px;
+	font-weight: 400;
+	letter-spacing: 2px;
+}
+
+.card-holder {
+	position: absolute;
+	left: 40px;
+	bottom: 40px;
+	font-size: 16px;
+	font-weight: 300;
+	letter-spacing: 2px;
+	color: #fff;
+}
+
+.blackbar {
+	position: absolute;
+	top: 40px;
+	width: 100%;
+	height: 60px;
+	background: black;
+}
+
+.ccvtext {
+	position: absolute;
+	top: 120px;
+	left: 30px;
+}
+
+.ccvtext p {
+	font-size: 12px;
+	font-weight: 400;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	color: white;
+}
+
+.white-bar {
+	position: relative;
+	width: 400px;
+	height: 40px;
+	margin-top: 5px;
+	background: white;
+}
+
+.ccv {
+	position: relative;
+	top: -35px;
+	left: 395px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 50px;
+	height: 30px;
+	font-weight: 600;
+	letter-spacing: 3px;
+	color: #111;
+	background: #ccc;
+}
+
+.text {
+	/*position: absolute;
+bottom: 30px;
+left: 30px;
+right: 30px;*/
+	font-size: 10px;
+	line-height: 1.4;
+	font-weight: 300;
+	color: white;
+}
+	</style>
+</head>
+
+<body>
+
+
+
+
+
+	<section>
+		<div class="card" tabindex="0">
+			<div class="face front">
+				<p class="debit">Credit Card</p>
+				<p class="bank">Bank Name</p>
+				<div class="chip"></div>
+				<p class="number">0123 4567 8901 2345</p>
+				<div class="valid">
+					<span>Valid<br>thru</span><span>10/23</span>
+				</div>
+				<p class="card-holder">Oleg Mitorun</p>
+			</div>
+
+
+			<div class="face back">
+				<div class="blackbar"></div>
+				<div class="ccvtext">
+					<p>Lorem ipsum dolor sit amet.</p>
+					<div class="white-bar"></div>
+					<div class="ccv">123</div>
+					<p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum veritatis est, excepturi omnis reprehenderit culpa earum, unde praesentium soluta consequatur aspernatur, exercitationem alias quod aut ipsum? Nisi quia sit est?</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+
+</html>

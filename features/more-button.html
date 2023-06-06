@@ -1,0 +1,120 @@
+<!doctype html><!-- Файл more-button.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Кнопка "Показать ещё" (карточки) – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="../_mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+.blog {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(292px, 1fr));
+	gap: var(--margin-s);
+}
+.blog__card {
+	height: 150px;
+	background-color: hsl(31, 63%, 92%);
+	border: 1px solid black;
+}
+
+/*-------- Кнопка Показать ещё: ----------------*/
+.blog__card:nth-child(n + 4) {
+	display: none;
+}
+
+.blog__card.is-visible {
+	display: block;
+	/*display: grid;*/
+}
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Кнопка "Показать ещё" (карточки)</h1>
+		<hr>
+
+		<h2>Компонент №1</h2>
+
+		<ul class="blog">
+			<li class="blog__card">Card #1</li>
+
+			<li class="blog__card">Card #2</li>
+
+			<li class="blog__card">Card #3</li>
+
+			<li class="blog__card">Card #4</li>
+
+			<li class="blog__card">Card #5</li>
+
+			<li class="blog__card">Card #6</li>
+
+			<li class="blog__card">Card #7</li>
+
+			<li class="blog__card">Card #8</li>
+
+			<li class="blog__card">Card #9</li>
+
+			<li class="blog__card">Card #10</li>
+
+			<li class="blog__card">Card #11</li>
+
+			<li class="blog__card">Card #12</li>
+
+			<li class="blog__card">Card #13</li>
+
+			<li class="blog__card">Card #14</li>
+
+			<li class="blog__card">Card #15</li>
+
+			<li class="blog__card">Card #16</li>
+
+			<li class="blog__card">Card #17</li>
+
+			<li class="blog__card">Card #18</li>
+		</ul>
+
+
+		<button class="button show-more">Показать еще</button>
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+	<script>
+// Скрипт для кнопки Показать ещё:
+
+const moreButton = document.querySelector('.show-more');
+const cardsLength = document.querySelectorAll('.blog__card').length;
+let items = 3;// сколько карточек видно изначально, это число надо повторить в стилях карточек для display:none !
+
+moreButton.addEventListener('click', () => {
+	items += 3;// сколько карточек добавлять по клику кнопки.
+	const array = Array.from(document.querySelector('.blog').children);
+	const visItems = array.slice(0, items);
+
+	visItems.forEach(el => el.classList.add('is-visible'));
+
+	if (visItems.length === cardsLength) {
+		moreButton.style.display = 'none';
+	}
+});
+	</script>
+
+
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!doctype html><!-- Файл focus.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Фокус – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+.template-grid {
+	grid-template-columns: repeat(auto-fit, minmax(292px, 1fr));
+	font-size: 30px;
+}
+
+.template-card.dark {
+	color: white;
+	background-color: hsl(210, 15%, 24%);
+}
+
+.focus-default *:focus {
+	outline-offset: initial;
+}
+
+.focus-visible *:focus-visible {
+	outline: 4px solid orange;
+	outline-offset: initial;
+}
+
+/* Fallback for browsers without :focus-visible support: */
+@supports not selector(:focus-visible) {
+	.focus-visible *:focus {
+		outline: 4px solid orange;
+		outline-offset: initial;
+	}
+}
+
+.focus-visible-shadow *:focus-visible {
+	box-shadow: 0 0 0 4px violet;
+	outline: none;
+	outline-offset: initial;
+}
+
+/* Fallback for browsers without :focus-visible support: */
+@supports not selector(:focus-visible) {
+	.focus-visible-shadow *:focus {
+		box-shadow: 0 0 0 4px violet;
+		outline: none;
+		outline-offset: initial;
+	}
+}
+
+.focus-within .template-card:focus-within {
+	outline: 4px solid orange;
+	outline-offset: initial;
+}
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Фокус</h1>
+		<hr>
+
+		<h2>Фокус <code>:focus</code>по умолчанию</h2>
+
+		<div class="template-grid focus-default">
+			<div class="template-card">
+				<a href="#">ссылка</a>
+			</div>
+
+			<div class="template-card">
+				<button class="button" type="button">кнопка</button>
+			</div>
+
+			<div class="template-card dark">
+				<a href="#">ссылка</a>
+			</div>
+
+			<div class="template-card dark">
+				<button class="button" type="button">кнопка</button>
+			</div>
+		</div>
+
+
+
+
+		<h2>Фокус с <code>:focus-visible</code></h2>
+
+		<div class="template-grid focus-visible">
+			<div class="template-card">
+				<a href="#">ссылка</a>
+			</div>
+
+			<div class="template-card">
+				<button class="button" type="button">кнопка</button>
+			</div>
+
+			<div class="template-card dark">
+				<a href="#">ссылка</a>
+			</div>
+
+			<div class="template-card dark">
+				<button class="button" type="button">кнопка</button>
+			</div>
+		</div>
+
+
+
+
+		<h2>Фокус с <code>:focus-visible</code> и <code>box-shadow</code></h2>
+
+		<div class="template-grid focus-visible-shadow">
+			<div class="template-card">
+				<a href="#">ссылка</a>
+			</div>
+
+			<div class="template-card">
+				<button class="button" type="button">кнопка</button>
+			</div>
+
+			<div class="template-card dark">
+				<a href="#">ссылка</a>
+			</div>
+
+			<div class="template-card dark">
+				<button class="button" type="button">кнопка</button>
+			</div>
+		</div>
+
+
+
+
+		<h2>Фокус с <code>:focus-within</code></h2>
+		<p>Стили для элемента если он сам в фокусе или любой из его потомков.</p>
+
+		<div class="template-grid focus-within">
+			<div class="template-card">
+				<a href="#">ссылка</a>
+			</div>
+
+			<div class="template-card">
+				<button class="button" type="button">кнопка</button>
+			</div>
+
+			<div class="template-card dark">
+				<a href="#">ссылка</a>
+			</div>
+
+			<div class="template-card dark">
+				<button class="button" type="button">кнопка</button>
+			</div>
+		</div>
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

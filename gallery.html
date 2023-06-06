@@ -1,0 +1,309 @@
+<!doctype html><!-- Файл "gallery.html" -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="none">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Галереи и карточки – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Шаблоны верстки разных вариантов галерей и карточек, на флексах и гридах">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+.container,
+.container2 {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.container2 {
+	margin-left: 4px;
+	margin-right: 4px;
+}
+
+.container > div {
+	background: hsl(65, 58%, 93%);
+	outline: 2px dashed hsl(66, 87%, 27%);
+}
+
+.container2 > div {
+	background: hsl(175, 62%, 92%);
+	outline: 2px dashed hsl(175, 81%, 25%);
+}
+
+/*---------- Галерея №1: ------------*/
+
+.gallery1 {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+}
+
+.gallery1 > * {
+	flex: max(300px, 100%/4 + 0.1%);/* или flex: max(300px, 100%/3 - 20px); */
+	/* или flex: 300px; что равно flex: 1 1 400px */
+	/*max-width: 600px; это для профилактики */
+	height: 100px;
+	background: hsl(56, 89%, 40%);
+}
+
+/*----------- Галерея №2: -----------*/
+
+.gallery2 {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(clamp(100% / 4 + 0.1%, 300px, 100%), 1fr));
+	/*grid-template-columns: repeat(auto-fit, minmax(max(300px, 100%/4 + 0.1%), 1fr));*/
+	/* или grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));*/
+	gap: 20px;
+}
+
+.gallery2 > * {
+	max-width: 600px;/* это для профилактики */
+	height: 100px;
+	background:hsl(145, 79%, 32%);
+}
+
+/*.gallery3 {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(clamp(clamp(100%/5 + 0.1%, (800px - 100vw)*1000, 100%/3 + 0.1%), (400px - 100vw)*1000, 100%), 1fr));
+	gap: 20px;
+}*/
+
+.gallery3 {
+	--w1:400px;/* breakpoint №1 */
+	--p:2;
+	--w2:800px;/* breakpoint №2 */
+	--m:4;
+	--w3:1200px;/* breakpoint №3 */
+	--n:6;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(clamp(clamp(clamp(100%/(var(--n) + 1) + 0.1%, (var(--w3) - 100%)*1000, 100%/(var(--m) + 1) + 0.1%), (var(--w2) - 100%)*1000, 100%/(var(--p) + 1) + 0.1%), (var(--w1) - 100%)*1000, 100%), 1fr));
+	gap: 10px;
+}
+
+.gallery3 > * {
+	max-width: 600px;/* это для профилактики */
+	height: 100px;
+	background:hsl(330, 43%, 48%);
+}
+
+
+
+
+
+
+/*----------- ГАЛЕРЕЯ №? -----------*/
+
+.gallery {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
+grid-gap: 30px;
+margin: 0;
+padding: 0;
+list-style: none;
+}
+
+.card {
+padding-bottom: 26px;
+background-color: hsl(0, 0%, 100%);
+border-radius: 10px;
+box-shadow: 1px 2px 6px 0.6px rgba(0, 0, 0, 0.3);
+transition: 0.4s;
+}
+
+.card > :last-child {
+margin-bottom: 0;
+}
+
+.card-title {
+margin-top: 20px;
+font-size: 25px;
+}
+
+.card-img {
+width: 100%;
+/*height: max(10px, 30vh); это ограничитель, вероятно не нужен */
+object-fit: cover;
+aspect-ratio: 3/2;
+border-radius: 10px 10px 0 0;
+}
+
+/* это настраивает адаптивные картинки с фикс-соотношением сторон */
+
+.card-img ~ * {
+margin-right: 20px;
+margin-left: 20px;
+}
+
+.card:hover {
+box-shadow: 1px 4px 10px 0.6px rgba(0, 0, 0, 0.25);
+transform: translateY(-5px);
+transition: 0.4s;
+}
+
+/* Ниже градиентный переход для картинок:
+.card {
+		background-image: linear-gradient(#5E9AD9, #E271AD,white max(190px, 27vh));
+		или №2: background-image: linear-gradient(tomato, orange,white max(190px, 27vh));
+}
+.card-img {
+		max-height: max(200px, 30vh);
+		mix-blend-mode: overlay; или №2: multiply;
+}*/
+
+	</style>
+</head>
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Галереи</h1>
+		<p>Галерея, gallery.</p>
+
+		<p>Правила по галереям:</p>
+		<ol>
+			<li>На узких экранах (320px) галерея и карточки не должны приводить к переполнению (быть шире экрана, появится горизонтальный скролл).</li>
+			<li>Карточки должны удовлетворительно выглядеть при любой ширине экрана, вплоть до 3840px с масштабом 100%.</li>
+			<li>На мобилке если будет галерея в 2 колонки, то желательно чтобы отступ между колонок был равен отступам по бокам (или по бокам больше).</li>
+		</ol>
+		<hr>
+
+
+
+		<section>
+			<div class="container">
+				<h2>Галерея №1 flex простейшая</h2>
+				<p>Особенности галереи: очень простая по коду, в нижнем ряду карточки имеют другую несогласованную длину, нельзя управлять количеством карточек в строке. Благодаря свойству <code>flex: max(300px, 100%/3 - 20px);</code> каждый ряд может содержать от одной до максимум трех карточек.</p>
+				<div class="gallery1">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+			</div>
+
+			<div class="container2">
+				<div class="gallery1">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+			</div>
+		</section>
+
+
+
+
+		<section>
+			<div class="container">
+				<h2>Галерея №2 grid</h2>
+				<p><code>grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));</code> – </p>
+				<p><code>grid-template-columns: repeat(auto-fit, minmax(max(300px, 100%/4 + 0.1%), 1fr));</code> – тут трюк с 100%/4+0.1% делает так что в ряду будет максимум 3 карточки.</p>
+				<p><code>grid-template-columns: repeat(auto-fit, minmax(clamp(100% / 4 + 0.1%, 300px, 100%), 1fr));</code> – этот трюк с clamp (в дополнение к предыдущему трюку) делает так чтобы на узких экранах карточка не превышала 100% родителя.</p>
+				<p><code>grid-template-columns: repeat(auto-fit, minmax(clamp(100%/4 + 0.1%, (300px - 100vw)*1000, 100%),1fr));</code> – этот трюк с (300px - 100vw)*1000 (в дополнение к предыдущим) делает так чтобы на узких экранах была только одна карточка, а на более широких всегда три карточки.</p>
+				<p><code>grid-template-columns:repeat(auto-fit, minmax(clamp(100%/5 + 0.1%, (300px - 100vw)*1000, 100%/3 + 0.1%), 1fr));</code> – этот трюк дополнительно указывает что у нас должно быть всегда по две карточки на узких экранах и всегда по 4 карточки на широких.</p>
+
+				<div class="gallery2">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+			</div>
+
+			<div class="container2">
+				<div class="gallery2">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+			</div>
+		</section>
+
+
+
+
+		<section>
+			<div class="container">
+				<h2>Галерея №3 grid</h2>
+				<p>Это самый навороченный вариант адаптивной галереи на гридах. Тут с помощью переменных можно настроить сколько будет карточек в ряду для трех разных ширин контейнера-галереи! То есть такая сложная запись заменяет собой три медиазапроса, причем они действуют не от ширины экрана, а от ширины контейнера-галереи. Можно сделать чтобы эти псевдо-медиазапросы работали от ширины экрана – нужно просто в некоторых местах заменить "100%" на "100vw".</p><br>
+				<p><code>grid-template-columns: repeat(auto-fill, minmax(clamp(clamp(100%/5 + 0.1%, (800px - 100vw)*1000, 100%/3 + 0.1%), (400px - 100vw)*1000, 100%), 1fr));</code> – тут "5" это четыре карточки на широких экранах шире 800px, "3" это две карточки на средних экранах 400-800px, 100% это одна карточка на узких экранах до 400px.</p>
+				<p><code>grid-template-columns: repeat(auto-fill, minmax(clamp(clamp(clamp(100%/6 + 0.1%, (1000px - 100vw)*1000, 100%/5 + 0.1%), (800px - 100vw)*1000, 100%/3 + 0.1%), (400px - 100vw)*1000, 100%), 1fr));</code> – это еще более сложная вариация, в которой можно указать четыре варианта количества карточек в ряду (имеет три псевдо-медиаперехода при разных ширинах экрана).</p>
+
+				<div class="gallery3">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+			</div>
+
+			<div class="container2">
+				<div class="gallery3">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+			</div>
+		</section>
+
+
+
+
+		<h2>Галерея карточек с адаптивными картинками</h2>
+		<ul class="gallery">
+			<li class="card">
+				<img class="card-img" src="https://picsum.photos/300/200" alt="">
+				<h3 class="card-title">Карточка с заголовком</h3>
+				<p class="card-text">Lorem ipsum sit dolor amit</p>
+			</li>
+
+			<li class="card">
+				<img class="card-img" src="https://picsum.photos/400/400" alt="">
+				<h3 class="card-title">Карточка с заголовком</h3>
+				<p class="card-text">Lorem ipsum sit dolor amit</p>
+			</li>
+
+			<li class="card">
+				<img class="card-img" src="https://picsum.photos/200/300" alt="">
+				<h3 class="card-title">Карточка с заголовком</h3>
+				<p class="card-text">Lorem ipsum sit dolor amit</p>
+			</li>
+		</ul>
+
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

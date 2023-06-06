@@ -1,0 +1,133 @@
+<!doctype html><!-- Файл more-button.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Кнопка "Показать ещё" (карточки) – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="../_mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+.blog {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(292px, 1fr));
+	gap: var(--margin-s);
+}
+.blog__card {
+	height: 150px;
+	background-color: hsl(31, 63%, 92%);
+	border: 1px solid black;
+}
+
+/*-------- Кнопка Показать ещё: ----------------*/
+/* .blog__card:nth-child(n + 4) {
+	display: none;
+} */
+
+/* .blog__card.is-visible {
+	display: block; */
+	/*display: grid;*/
+/* } */
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Кнопка "Показать ещё" (карточки)</h1>
+		<hr>
+
+		<h2>Компонент №1</h2>
+
+		<ul class="blog">
+
+		</ul>
+
+
+		<button class="button show-more">Показать еще</button>
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+	<script>
+// Скрипт для кнопки Показать ещё:
+
+// const moreButton = document.querySelector('.show-more');
+// const cardsLength = document.querySelectorAll('.blog__card').length;
+// let items = 3;// сколько карточек видно изначально, это число надо повторить в стилях карточек для display:none !
+
+// moreButton.addEventListener('click', () => {
+// 	items += 3;// сколько карточек добавлять по клику кнопки.
+// 	const array = Array.from(document.querySelector('.blog').children);
+// 	const visItems = array.slice(0, items);
+
+// 	visItems.forEach(el => el.classList.add('is-visible'));
+
+// 	if (visItems.length === cardsLength) {
+// 		moreButton.style.display = 'none';
+// 	}
+// });
+
+
+const data = [
+  {content: "Card #1"},
+  {content: "Card #2"},
+  {content: "Card #3"},
+  {content: "Card #4"},
+  {content: "Card #5"},
+  {content: "Card #6"},
+  {content: "Card #7"},
+  {content: "Card #8"},
+  {content: "Card #9"},
+  {content: "Card #10"},
+  {content: "Card #11"},
+  {content: "Card #12"},
+  {content: "Card #13"},
+  {content: "Card #14"},
+  {content: "Card #15"},
+  {content: "Card #16"},
+  {content: "Card #17"},
+];
+
+const showMoreButton = document.querySelector('.show-more');
+
+let arrayData = data;
+let currentIndex = 0;
+
+function renderData(data) {
+  const blog = document.querySelector('.blog');
+  data.forEach((item) => {
+    const blogItemLi = document.createElement('li');
+    blogItemLi.classList.add('blog__card');
+    blogItemLi.innerHTML = `${item.content}`;
+    blog.appendChild(blogItemLi);
+  });
+}
+
+renderData(arrayData.slice(currentIndex, currentIndex + 3));
+
+showMoreButton.addEventListener("click", () => {
+  currentIndex += 3;
+  renderData(arrayData.slice(currentIndex, currentIndex + 3));
+  if (currentIndex >= arrayData.length - 3) {
+    // showMoreButton.disabled = true;
+    showMoreButton.style.display = 'none';
+  }
+});
+	</script>
+
+
+</body>
+</html>

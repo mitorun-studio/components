@@ -1,0 +1,271 @@
+<!doctype html><!-- Файл slider-hover-no-js.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Интересный слайдер по ховеру – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+.slider-grid {
+	display: grid;
+	place-items: center;
+	height: 400px;
+	font-size: 14px;
+	line-height: 1;
+	background: hsl(0, 0%, 87%);
+}
+
+.slider-hover {
+	width: 500px;
+	height: 80px;
+	background: hsl(0, 0%, 100%);
+	overflow: hidden;
+	transform: translateZ(0);
+}
+
+.slider-hover:hover .slider-hover__card {
+	width: 5%;
+}
+
+.slider-hover__card {
+	position: relative;
+	float: left;
+	width: 20%;
+	height: 100%;
+	color: hsl(0, 0%, 67%);
+	border-right: 1px solid hsl(0, 0%, 87%);
+	overflow: hidden;
+	cursor: pointer;
+	transition: 0.6s width;
+}
+
+.slider-hover__card:last-child {
+	border-right: 0;
+}
+
+.slider-hover .slider-hover__card:hover {
+	width: 80%;
+	color: hsl(0, 0%, 33%);
+}
+
+.small {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100px;
+	font: 400 24px/3 fontawesome;
+	text-align: center;
+}
+
+.full {
+	position: absolute;
+	top: 22px;
+	left: 100px;
+	text-transform: uppercase;
+}
+
+.f1,
+.f2 {
+	font: 400 16px/1.5 var(--font-basic);
+	white-space: nowrap;
+}
+
+.f2 {
+	margin-top: 8px;
+	font-size: 10px;
+}
+
+.prev {
+	position: absolute;
+	top: 0;
+	left: 7px;
+	font: 400 12px/6 fontawesome;
+	opacity: 0;
+	transition: 0.5s opacity;
+}
+
+.slider-hover__card:hover .prev {
+	opacity: 0;
+}
+
+/* Если сделать тут селектор ".slider-hover .card:hover .prev", то первоначальная маленькая иконка-превью будет изчезать!!!  */
+.slider-hover:hover .prev {
+	opacity: 1;
+}
+
+
+
+
+/*------------------------------------------------
+---------- Слайдер №2 на флексах: ----------------
+------------------------------------------------*/
+
+.slider-hover-2 {
+	display: flex;
+}
+
+.slider-hover-2__card {
+	flex: 1;
+	height: 200px;
+	background-color: cyan;
+	border: 2px solid white;
+	transition: 0.3s linear;
+}
+
+.slider-hover-2__card:hover {
+	flex: 3;
+	background-color: darkcyan;
+}
+
+
+
+
+/*------------------------------------------------
+---------- Слайдер №3 эксперименты: -----------------
+------------------------------------------------*/
+
+.slider-hover-3 {
+	display: flex;
+}
+
+.slider-hover-3:not(:hover) .slider-hover-3__card:first-child {
+	flex: 4;
+}
+
+.slider-hover-3__card {
+	flex: 1;
+	height: 300px;
+	padding: var(--margin-s);
+	background-color: cyan;
+	border: 2px solid white;
+	transition: 0.3s linear;
+}
+
+.slider-hover-3__card:hover {
+	flex: 4;
+	background-color: darkcyan;
+}
+
+	</style>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Слайдеры с расширяющимися карточками по ховеру</h1>
+
+		<section class="slider-grid">
+			<h2>Слайдер №1</h2>
+			<div class="slider-hover">
+				<div class="slider-hover__card">
+					<div class="prev">&#xf1cb;</div>
+					<div class="small">&#xf1cb;</div>
+					<div class="full">
+						<div class="f1">headline</div>
+						<div class="f2">some additional info to this link</div>
+					</div>
+				</div>
+
+				<div class="slider-hover__card">
+					<div class="prev">&#xf17d;</div>
+					<div class="small">&#xf17d;</div>
+					<div class="full">
+						<div class="f1">headline</div>
+						<div class="f2">some additional info to this link</div>
+					</div>
+				</div>
+
+				<div class="slider-hover__card">
+					<div class="prev">&#xf26e;</div>
+					<div class="small">&#xf26e;</div>
+					<div class="full">
+						<div class="f1">headline</div>
+						<div class="f2">some additional info to this link</div>
+					</div>
+				</div>
+
+				<div class="slider-hover__card">
+					<div class="prev">&#xf09b;</div>
+					<div class="small">&#xf09b;</div>
+					<div class="full">
+						<div class="f1">headline</div>
+						<div class="f2">some additional info to this link</div>
+					</div>
+				</div>
+
+				<div class="slider-hover__card">
+					<div class="prev">&#xf171;</div>
+					<div class="small">&#xf171;</div>
+					<div class="full">
+						<div class="f1">headline</div>
+						<div class="f2">some additional info to this link</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+
+
+		<section class="section">
+			<h2>Слайдер №2 на флексах</h2>
+			<div class="slider-hover-2">
+				<div class="slider-hover-2__card"></div>
+
+				<div class="slider-hover-2__card"></div>
+
+				<div class="slider-hover-2__card"></div>
+
+				<div class="slider-hover-2__card"></div>
+
+				<div class="slider-hover-2__card"></div>
+			</div>
+		</section>
+
+
+
+
+		<section class="section">
+			<h2>Слайдер №3 эксперименты</h2>
+			<div class="slider-hover-3">
+				<div class="slider-hover-3__card">
+					<p>Карточка 1</p>
+				</div>
+
+				<div class="slider-hover-3__card">
+					<p>Карточка 2</p>
+				</div>
+
+				<div class="slider-hover-3__card">
+					<p>Карточка 3</p>
+				</div>
+
+				<div class="slider-hover-3__card">
+					<p>Карточка 4</p>
+				</div>
+
+				<div class="slider-hover-3__card">
+					<p>Карточка 5</p>
+				</div>
+			</div>
+		</section>
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

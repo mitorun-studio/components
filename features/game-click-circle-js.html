@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Aim Training | Проект 5</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css?family=Khula&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  color: #fff;
+  font-family: 'Khula', sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  text-align: center;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #16D9E3;
+  border-color: #16D9E3;
+}
+
+.start {
+  padding: 0 34px;
+  font: 500 26px/68px sans-serif;
+  border: 2px solid #C0C0C0;
+  border-radius: 8px;
+}
+
+h1, h2 {
+  line-height: 1.3;
+  font-size: 60px;
+}
+
+p {
+  font: italic 28px/1.4 sans-serif;
+}
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  transition: margin 0.5s ease-out;
+  background: linear-gradient(90deg, #29323C 0%, #485563 100%);
+}
+
+.screen.up {
+  margin-top: -100vh;
+}
+
+.time-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+}
+
+.time-list li {
+  margin: 10px;
+}
+
+.time-btn {
+  background-color: transparent;
+  border: 2px solid #C0C0C0;
+  border-radius: 8px;
+  font: 500 24px/50px inherit;
+  color: #fff;
+  cursor: pointer;
+  padding: 18px 24px;
+  font-size: 1.5rem;
+}
+
+.time-btn:hover {
+  border: 2px solid #16D9E3;
+  color: #16D9E3;
+}
+
+.hide {
+  opacity: 0;
+}
+
+.primary {
+  color: #16D9E3;
+}
+
+.board {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 500px;
+  height: 500px;
+  background: linear-gradient(118.38deg, #29323C -4.6%, #485563 200.44%);
+  box-shadow: -8px -8px 20px #2A333D, 10px 7px 20px #475462;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.circle {
+  background: linear-gradient(90deg, #16D9E3 0%, #30C7EC 47%, #46AEF7 100%);
+  position: absolute;
+  border-radius: 50%;
+  cursor: pointer;
+}
+    </style>
+  </head>
+  <body>
+    <div class="screen">
+      <h1>Игра на клики по целям</h1>
+      <p>За отведенное время (10с, 30с или 60с)<br> нужно как можно быстрее кликать по появляющимся кружочкам</p><br><br><br>
+      <a class="start" id="start" href="#">Начать игру</a>
+    </div>
+
+    <div class="screen">
+      <h2>Выберите время</h2>
+      <ul class="time-list" id="time-list">
+        <li>
+          <button class="time-btn" data-time="10">10 сек</button>
+        </li>
+        <li>
+          <button class="time-btn" data-time="20">20 сек</button>
+        </li>
+        <li>
+          <button class="time-btn" data-time="30">30 сек</button>
+        </li>
+        <li>
+          <button class="time-btn" data-time="60">60 сек</button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="screen">
+      <h3>Осталось <span id="time">00:00</span></h3>
+      <div class="board" id="board"></div>
+    </div>
+
+    <script>
+
+const startBtn = document.querySelector('#start')
+const screens = document.querySelectorAll('.screen')
+const timeList = document.querySelector('#time-list')
+const timeEl = document.querySelector('#time')
+const board = document.querySelector('#board')
+let time = 0
+let score = 0
+
+/* Ниже это слушает клик на #start, убирает стандартное действие ссылки, добавляет к .screen класс .up который переносит нас на второй экран с помощью задания margin-top: -100vh; */
+startBtn.addEventListener('click', (event) => {
+  event.preventDefault()
+  screens[0].classList.add('up')
+})
+
+timeList.addEventListener('click', event => {
+  if (event.target.classList.contains('time-btn')) {
+    time = parseInt(event.target.getAttribute('data-time'))
+    screens[1].classList.add('up')
+    startGame()
+  }
+})
+
+board.addEventListener('click', event => {
+  if (event.target.classList.contains('circle')) {
+    score++
+    event.target.remove()
+    createRandomCircle()
+  }
+})
+
+// DEBUG
+//startGame()
+
+function startGame() {
+  setInterval(decreaseTime, 1000)
+  createRandomCircle()
+  setTime(time)
+}
+
+function decreaseTime() {
+  if (time === 0) {
+    finishGame()
+  } else {
+    let current = --time
+    if (current < 10) {
+      current = `0${current}`
+    }
+    setTime(current)
+  }
+}
+
+function setTime(value) {
+  timeEl.innerHTML = `00:${value}`
+}
+
+function finishGame() {
+  timeEl.parentNode.classList.add('hide')
+  board.innerHTML = `<h1>Счет: ${score}</h1>`
+}
+
+function createRandomCircle() {
+  const circle = document.createElement('div')
+  const size = getRandomNumber(10, 60)
+  const {width, height} = board.getBoundingClientRect()
+  const x = getRandomNumber(0, width - size)
+  const y = getRandomNumber(0, height - size)
+
+  circle.classList.add('circle')
+  circle.style.width = `${size}px`
+  circle.style.height = `${size}px`
+  circle.style.top = `${y}px`
+  circle.style.left = `${x}px`
+
+  board.append(circle)
+}
+
+function getRandomNumber(min, max) {
+  return Math.round(Math.random() * (max - min) + min)
+}
+
+
+    </script>
+  </body>
+</html>

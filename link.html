@@ -1,0 +1,1121 @@
+<!doctype html><!-- Файл link.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Оформление ссылок – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Оформление и эффекты ссылок">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+.template-card p:last-child {
+	font-size: 24px;
+}
+
+.template-card a {
+	text-decoration: none;
+	color: mediumblue;
+}
+
+/*-------------- Ссылка №01: -----------------*/
+.link-hover-1 {
+	transition: 0.3s;
+}
+
+.link-hover-1:hover {
+	opacity: 0.7;
+}
+
+/*-------------- Ссылка №02: -----------------*/
+.link-hover-2 {
+	transition: 0.3s;
+}
+
+.link-hover-2:hover {
+	color: violet;
+}
+
+/*-------------- Ссылка №03: -----------------*/
+.link-hover-3 {
+
+	transition: 0.3s;
+}
+
+.link-hover-3:hover {
+	color: violet;
+}
+
+/*-------------- Ссылка №20: -----------------*/
+.link-hover-20 {
+	border-bottom: 3px solid transparent;
+	transition: border-color 0.35s;
+}
+
+.link-hover-20:hover {
+	border-bottom-color: mediumblue;
+	transition-duration: 0.175s;
+}
+
+/*-------------- Ссылка #21: -----------------*/
+.link-hover-21 {
+	padding: 0 0 2px 0;
+	border-bottom: 3px solid transparent;
+	transition: 0.3s ease;
+}
+
+.link-hover-21:hover{
+	padding: 0 0 5px 0;
+	border-bottom-color: mediumblue;
+}
+
+/*-------------- Ссылка #22: -----------------*/
+.link-hover-22 {
+	position: relative;
+	/*z-index: 1; это было в примере, видимо чтобы псевдоэлемент не перекрывал ссылку */
+}
+
+.link-hover-22::before {
+	content: '';
+	position: absolute;
+	bottom: -8px;
+	width: 100%;
+	height: 3px;
+	background-color: mediumblue;
+	opacity: 0;
+	transition: 0.3s ease-in 0.2s;
+}
+
+.link-hover-22:hover::before,
+.link-hover-22:focus::before {
+	bottom: -5px;
+	opacity: 1;
+}
+
+/*-------------- Ссылка №23: -----------------*/
+.link-hover-23 {
+	position: relative;
+	/*z-index: 1; это было в примере, видимо чтобы псевдоэлемент не перекрывал ссылку */
+}
+
+.link-hover-23::before {
+	content: '';
+	position: absolute;
+	bottom: -5px;
+	width: 100%;
+	height: 0;
+	background-color: mediumblue;
+	transition: 0.2s ease-in 0.1s;
+}
+
+.link-hover-23:hover::before,
+.link-hover-23:focus::before {
+	height: 3px;
+}
+
+/*-------------- Ссылка #24: -----------------*/
+.link-hover-24 {
+	position: relative;
+	/*z-index: 1; это было в примере, видимо чтобы псевдоэлемент не перекрывал ссылку */
+}
+
+.link-hover-24::before {
+	content: '';
+	position: absolute;
+	bottom: -5px;
+	left: 0;
+	width: 0;
+	height: 3px;
+	background: mediumblue;
+	/*border-radius: 5px;*/
+	visibility: hidden;
+	transition: 0.3s ease-in 0.2s;
+}
+
+.link-hover-24:hover::before,
+.link-hover-24:focus::before {
+	width: 100%;
+	visibility: visible;
+	transition: 0.3s ease-in;
+}
+
+/*-------------- Ссылка #25: -----------------*/
+.link-hover-25 {
+	position: relative;
+	/*z-index: 1; это было в примере, видимо чтобы псевдоэлемент не перекрывал ссылку */
+}
+
+.link-hover-25::before {
+	content: '';
+	position: absolute;
+	right: 0;
+	bottom: -5px;
+	width: 0;
+	height: 3px;
+	background: mediumblue;
+	/*border-radius: 5px;*/
+	visibility: hidden;
+	transition: 0.3s ease-in 0.2s;
+}
+
+.link-hover-25:hover::before,
+.link-hover-25:focus::before {
+	width: 100%;
+	visibility: visible;
+	transition: 0.3s ease-in;
+}
+
+/*-------------- Ссылка #27: -----------------*/
+
+.link-hover-27 {
+	position: relative;
+	/*z-index: 1; это было в примере, видимо чтобы псевдоэлемент не перекрывал ссылку */
+}
+
+.link-hover-27::before {
+	content: '';
+	position: absolute;
+	bottom: -5px;
+	/*left: 0;*/
+	width: 100%;
+	height: 3px;
+	background-color: mediumblue;
+	visibility: hidden;
+	transform: scaleX(0);
+	transition: 0.3s ease-in-out 0.2s;
+}
+
+.link-hover-27:hover::before,
+.link-hover-27:focus::before {
+	visibility: visible;
+	transform: scaleX(1);
+}
+
+/*-------------- Ссылка №28: ----------------*/
+.link-hover-28 {
+	position: relative;
+}
+
+.link-hover-28::after {
+	content: '';
+	position: absolute;
+	bottom: -5px;
+	left: 0;
+	width: 100%;
+	height: 3px;
+	background-color: mediumblue;
+	scale: 0 1;
+	transform-origin: bottom right;/* если оставить только bottom left то полоса будет работать только в одну сторону! */
+	transition: scale 0.3s linear;
+}
+
+.link-hover-28:hover::after {
+	transform-origin: bottom left;
+	scale: 1 1;
+	/*transition: scale 0.3s ease-out;*/
+}
+
+/*-------------- Ссылка №28a: ----------------*/
+.link-hover-28a {
+	position: relative;
+	z-index: 2;
+	mix-blend-mode: difference;
+}
+
+.link-hover-28a::before {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	/*z-index: 1;*/
+	width: 100%;
+	height: 100%;
+	background-color: lightcyan;
+	transform: scaleY(0);
+	/*transform-origin: bottom;если оставить только bottom left то полоса будет работать только в одну сторону!*/
+	transition: transform 0.3s;
+	mix-blend-mode: difference;
+}
+
+.link-hover-28a:hover::before {
+	/*transform-origin: bottom;*/
+	transform: scaleY(1);
+}
+
+/*-------------- Ссылка №29: ----------------*/
+.link-hover-29 {
+	position: relative;
+}
+
+.link-hover-29::before,
+.link-hover-29::after {
+	content: '';
+	position: absolute;
+	bottom: -5px;
+	width: 50%;
+	height: 3px;
+	background-color: mediumblue;
+	transform: scaleX(0);
+	transition: transform 0.3s;
+}
+
+.link-hover-29::before {
+	left: 0;
+	transform-origin: bottom left;
+}
+
+.link-hover-29::after {
+	right: 0;
+	transform-origin: bottom right;
+}
+
+.link-hover-29:hover::before {
+	transform-origin: bottom right;
+	transform: scaleX(1);
+}
+
+.link-hover-29:hover::after {
+	transform-origin: bottom left;
+	transform: scaleX(1);
+}
+
+/*-------------- Ссылка №31: ----------------*/
+.link-hover-31 {
+	position: relative;
+}
+
+.link-hover-31::before {
+	content: attr(data-content);
+	position: absolute;
+	color: transparent;/*#1619cb;*/
+	text-decoration: underline;
+	/*text-decoration-style: dotted;
+	text-decoration-style: dashed;
+	text-decoration-style: double;
+	text-decoration-style: wavy;
+	text-decoration-line: line-through;*/
+	text-decoration-color: #b816d1;
+	text-underline-offset: 0.15em;
+	clip-path: polygon(0 0, 0 0, 0% 100%, 0 100%);
+	transition: clip-path 275ms ease;
+}
+
+.link-hover-31:hover::before,
+.link-hover-31:focus::before {
+	clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+/*-------------- Ссылка №32: -----------------*/
+.link-hover-32 {
+	position: relative;
+	padding: 10px;
+}
+
+.link-hover-32::before,
+.link-hover-32::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	border-style: solid;
+	border-color: royalblue;
+	transition: 0.5s;
+}
+
+.link-hover-32::before {
+	border-width: 3px 0 3px 0;
+	transform: scaleX(0);
+}
+
+.link-hover-32::after {
+	border-width: 0 3px 0 3px;
+	transform: scaleY(0);
+}
+
+.link-hover-32:hover::before,
+.link-hover-32:hover::after {
+	transform: scale(1, 1);
+}
+
+/*-------------- Ссылка №33: -----------------*/
+.link-hover-33 {
+	position: relative;
+	display: inline-block;
+	padding: 5px 0;
+	overflow: hidden;
+}
+.link-hover-33::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 3px;
+	background-color: royalblue;
+	transform: translateX(-100%);
+	transition: 0.3s;
+}
+.link-hover-33:hover::before {
+	transform: translateX(0);
+}
+
+/*-------------- Ссылка №34: -----------------*/
+.link-hover-34 {
+	position: relative;
+	padding: 5px;
+	display: inline-block;
+	overflow: hidden;
+}
+
+.link-hover-34::before,
+.link-hover-34::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 3px;
+	background: royalblue;
+	transition: 0.4s;
+}
+
+.link-hover-34::before {
+	bottom: 0;
+	transform: translateX(-100%);
+}
+
+.link-hover-34::after {
+	top: 0;
+	transform: translateX(100%);
+}
+
+.link-hover-34:hover::before,
+.link-hover-34:hover::after {
+	transform: translateX(0);
+}
+
+/*-------------- Ссылка №35: -----------------*/
+.link-hover-35 {
+	position: relative;
+	display: inline-block;
+	overflow: hidden;
+}
+
+.link-hover-35::before,
+.link-hover-35::after {
+	content: '';
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	background-color: royalblue;
+	transition: 0.7s linear;
+}
+
+.link-hover-35::before {
+	width: 100%;
+	height: 3px;
+	transform: translateX(-100%);
+	transition: 0.3s linear;
+}
+
+.link-hover-35::after {
+	width: 3px;
+	height: 100%;
+	transform: translateY(100%);
+	transition: 0.2s linear;
+}
+
+.link-hover-35 > span {
+	display: block;
+	padding: 10px;
+}
+
+.link-hover-35 > span::before,
+.link-hover-35 > span::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	background-color: royalblue;
+	transition: 0.7s linear;
+}
+
+.link-hover-35 > span::before {
+	width: 100%;
+	height: 3px;
+	transform: translateX(100%);
+	transition: 0.3s linear;
+}
+
+.link-hover-35 > span::after {
+	width: 3px;
+	height: 100%;
+	transform: translateY(-100%);
+	transition: 0.2s linear;
+}
+
+.link-hover-35:hover::before,
+.link-hover-35:hover::after,
+.link-hover-35:hover > span::before,
+.link-hover-35:hover > span::after {
+	transform: translate(0, 0);
+}
+
+.link-hover-35:hover::before {
+	transition-delay: 0s;
+}
+.link-hover-35:hover::after {
+	transition-delay: 0.3s;
+}
+.link-hover-35:hover > span::before {
+	transition-delay: 0.5s;
+}
+.link-hover-35:hover > span::after {
+	transition-delay: 0.8s;
+}
+
+/*-------------- Ссылка №36: -----------------*/
+.link-hover-36 {
+	position: relative;
+	display: inline-block;
+	overflow: hidden;
+}
+
+.link-hover-36::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: hsl(63, 100%, 95%);
+	transform: translateX(-100%);
+	transition: 0.5s ease;
+}
+
+.link-hover-36::after {
+	content: attr(data-content);
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 0;
+	margin: 12px;
+	color: violet;
+	white-space: nowrap;
+	overflow: hidden;
+	transition: 0.5s ease;
+}
+
+.link-hover-36 > span {
+	display: block;
+	margin: 2px;
+	padding: 10px;
+	background: hsl(180, 100%, 95%);
+}
+
+.link-hover-36:hover::before {
+	transform: translateX(0);
+}
+
+.link-hover-36:hover::after {
+	width: calc(100% - 24px);
+}
+
+
+
+/*-------------- Ссылка №40: -----------------*/
+.link-hover-40 {
+	padding: 0 5px;
+	box-shadow: inset 0 0 0 0 mediumblue;
+	transition: 0.5s ease-in-out;
+}
+
+.link-hover-40:hover{
+	box-shadow: inset 0 0 0 25px mediumblue;
+	color: var(--bg);
+}
+
+/*-------------- Ссылка №41: -----------------*/
+.link-hover-41 {
+	padding: 0.12em 0.12em;
+	box-shadow: inset 0 -0.07em 0 0 mediumblue;
+	transition: box-shadow 0.3s 0.1s ease-in-out, color 0.2s 0.2s ease-in-out;
+}
+
+.link-hover-41:hover {
+	box-shadow: inset 0 -2em 0 0 mediumblue;
+	color: var(--bg);
+	transition: box-shadow 0.3s ease-in, color 0.2s 0.1s ease-in;
+}
+
+/*-------------- Ссылка №42: -----------------*/
+.link-hover-42 {
+	padding: 0 5px;
+	box-shadow: inset 0 0 0 0 mediumblue;
+	transition: 0.5s ease-in-out;
+}
+
+.link-hover-42:hover{
+	box-shadow: inset 100px 0 0 0 mediumblue;
+	color: var(--bg);
+}
+
+/*-------------- Ссылка №43: -----------------*/
+
+.link-hover-43 {
+	position: relative;
+}
+
+.link-hover-43::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: yellow;
+	mix-blend-mode: multiply;
+	transform-origin: top left;
+	transform: scaleX(0);
+	transition: transform 0.4s ease-in-out;
+}
+
+.link-hover-43:hover::after {
+	transform: scaleX(1);
+}
+
+/*-------------- Ссылка #49: -----------------*/
+
+.link-hover-49 {
+	position: relative;
+	padding: 10px 10px 8px;
+}
+
+.link-hover-49::before,
+.link-hover-49::after {
+	content: '';
+	position: absolute;
+	top: 100%;
+	left: 0;
+	width: 100%;
+	height: 3px;
+	background: mediumblue;
+	transform: scale(0.8);
+	transition: transform 0.3s;
+}
+
+.link-hover-49::after {
+	opacity: 0;
+	transition: top 0.3s, opacity 0.3s, transform 0.3s;
+}
+
+.link-hover-49:hover::before,
+.link-hover-49:hover::after,
+.link-hover-49:focus::before,
+.link-hover-49:focus::after {
+	transform: scale(1);
+}
+
+.link-hover-49:hover::after,
+.link-hover-49:focus::after {
+	top: 0;
+	opacity: 1;
+}
+
+/*-------------- Ссылка №51: -----------------*/
+.link-hover-51 {
+	box-shadow: 0 1px 0 0 hsla(224, 74%, 59%, 0.3), inset 0 -2px 0 0 hsla(224, 74%, 59%, 0.3);
+	transition: 0.4s ease-out;
+}
+
+/*.link-hover-21:visited {
+color: hsl(271, 62%, 50%);
+}*/
+
+.link-hover-51:active,
+.link-hover-51:focus,
+.link-hover-51:hover {
+	box-shadow: 0 1px 0 0 hsla(224, 74%, 59%, 0.3), inset 0 -1.2em 0 0 hsla(224, 74%, 59%, 0.3);
+}
+
+
+/*-------------- Ссылка №52: -----------------*/
+
+.link-hover-52 {
+	background-image: linear-gradient(to right, #f2cfe3, #c4e0f3);
+	/* или linear-gradient(hsl(210, 100%, 88%), hsl(210, 100%, 88%)); или linear-gradient(#cfeef3,#e8def8); */
+	background-repeat: no-repeat;
+	background-position: 0 100%;
+	background-size: 100% 11%;
+	/* outline: 0; или лучше none? */
+	transition: 0.3s ease-in;
+}
+
+.link-hover-52:visited {
+	background-image: linear-gradient(hsl(266, 75%, 81%), hsl(266, 75%, 81%));
+}
+
+.link-hover-52:active,
+.link-hover-52:focus,
+.link-hover-52:hover {
+	background-size: 100% 100%;
+}
+
+/*-------------- Ссылка №54: -----------------*/
+.link-hover-54 {
+	background-image: linear-gradient(180deg, transparent 60%, lightblue 60%, lightblue 100%, transparent 100%);
+	background-repeat: no-repeat;
+	background-size: 0% 100%;
+	box-shadow: inset 0 -3px 0 0 lightblue;
+	transition: background-size 0.2s;
+}
+
+.link-hover-54:hover {
+	background-size: 100% 100%;
+	transition: background-size 0.2s;
+}
+
+/*-------------- Ссылка №60: -----------------*/
+.link-hover-60 {
+	display: inline-block;
+	overflow: hidden;
+	vertical-align: top;
+	perspective: 600px;
+	perspective-origin: 50% 50%;
+}
+
+.link-hover-60 span {
+	display: block;
+	position: relative;
+	padding: 0 2px;
+	transition: all 1s ease;
+	transform-origin: 50% 0%;
+	transform-style: preserve-3d;
+}
+
+.link-hover-60:hover span {
+	background: #00929c;
+	transform: translate3d( 0px, 0px, -30px ) rotateX( 90deg );
+}
+
+.link-hover-60 span::after {
+	content: attr(data-title);
+	display: block;
+	position: absolute;
+	left: 0;
+	top: 0;
+	padding: 0 2px;
+	background: #98e9ef;
+	transform-origin: 50% 0%;
+	transform: translate3d(0, 105%, 0) rotateX(-90deg);
+}
+
+/*-------------- Ссылка №61: -----------------*/
+.link-hover-61 {
+	perspective: 1000px;
+	transition: 1s;
+}
+
+.link-hover-61 span {
+	position: relative;
+	display: inline-block;
+	padding: 0;
+	transform-origin: 50% 0;
+	transform-style: preserve-3d;
+	transition: 1s;
+}
+
+.link-hover-61 span::before {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	content: attr(data-hover);
+	transition: color 0.3s;
+	transform: rotateX(-90deg);
+	transform-origin: 50% 0;
+	text-align: center;
+}
+
+.link-hover-61:hover span,
+.link-hover-61:focus span {
+	transform: rotateX(90deg) translateY(-22px);
+}
+
+.link-hover-61:hover span::before,
+.link-hover-61:focus span::before {
+	color: rgb(210, 73, 54);
+}
+
+/*-------------- Ссылка №70: -----------------*/
+:root {
+	--duration: 0.44s;
+	--duration-line: 0.84s;
+}
+
+.link-hover-70-p {
+	font-size: 16px;
+	line-height: 16px;
+}
+
+.link-hover-70 {
+	display: inline-block;
+	position: relative;
+	text-decoration: none;
+	color: inherit;
+}
+.link-hover-70 div {
+	overflow: hidden;
+}
+.link-hover-70 div:first-child {
+	display: flex;
+	overflow: hidden;
+	text-shadow: 0 16px 0 #2b3044;
+}
+.link-hover-70 div:last-child {
+	position: absolute;
+	pointer-events: none;
+	right: 0;
+	left: 0;
+	bottom: -3px;
+	height: 5px;
+}
+.link-hover-70 div:last-child svg {
+	display: block;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 300%;
+	height: 5px;
+	fill: none;
+	stroke: #275efe;
+	stroke-width: 1.5px;
+	stroke-linecap: round;
+	stroke-dasharray: 63.5px 128px;
+	stroke-dashoffset: var(--line-offset, 190.25px);
+	transform: translateX(var(--line-x)) translateZ(0);
+	transition: transform var(--line-d, 0s), stroke-dashoffset var(--line-d, 0s);
+}
+.link-hover-70 div span {
+	display: block;
+	backface-visibility: hidden;
+	font-style: normal;
+	transition: transform 0.44s ease;
+	transform: translateY(var(--m, 0));
+}
+.link-hover-70 div span:nth-child(1) {
+	transition-delay: 0.05s;
+}
+.link-hover-70 div span:nth-child(2) {
+	transition-delay: 0.1s;
+}
+.link-hover-70 div span:nth-child(3) {
+	transition-delay: 0.15s;
+}
+.link-hover-70 div span:nth-child(4) {
+	transition-delay: 0.2s;
+}
+.link-hover-70 div span:nth-child(5) {
+	transition-delay: 0.25s;
+}
+.link-hover-70 div span:nth-child(6) {
+	transition-delay: 0.3s;
+}
+.link-hover-70 div span:nth-child(7) {
+	transition-delay: 0.35s;
+}
+.link-hover-70 div span:nth-child(8) {
+	transition-delay: 0.4s;
+}
+.link-hover-70 div span:nth-child(9) {
+	transition-delay: 0.45s;
+}
+.link-hover-70 div span:nth-child(10) {
+	transition-delay: 0.5s;
+}
+.link-hover-70 div span:nth-child(11) {
+	transition-delay: 0.55s;
+}
+.link-hover-70:hover {
+	--m: calc(-1 * 16px);
+	--line-d: 0.84s;
+	--line-x: 65.66%;
+	--line-offset: 63.5px;
+}
+
+.link-hover-71,
+.link-hover-71:visited {
+	text-decoration: none;
+	border-bottom: 5px solid lightskyblue;
+	/*color: var(--color);*/
+	transition: background-color 0.25s linear;
+}
+
+.link-hover-71:hover {
+	background-color: lightskyblue;
+}
+
+.link-hover-72 {
+	position: relative;
+}
+
+.link-hover-72::after {
+	content: '';
+	position: absolute;
+	bottom: -3.5px;
+	left: -25%;
+	width: 100%;
+	height: 2px;
+	background-color: currentColor;
+	opacity: 0;
+	transition: 0.2s 0.15s;
+}
+
+.link-hover-72:hover::after {
+	left: 0;
+	opacity: 1;
+	transition: 0.2s;
+}
+
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Оформление и эффекты ссылок</h1>
+		<hr>
+
+
+		<h2>Анимации при наведении для ссылок</h2>
+
+
+		<div class="template-grid">
+			<div class="template-card">
+				<p>Прозрачность с <code>opacity</code></p>
+				<p>Ссылка <a class="link-hover-1" href="#">hover-1</a> в тексте.</p>
+			</div>
+
+
+			<div class="template-card">
+				<p>Другой цвет с <code>color</code></p>
+				<p>Ссылка <a class="link-hover-2" href="#">hover-2</a> в тексте.</p>
+			</div>
+
+
+			<div class="template-card">
+				<p>Другой цвет с <code>color</code></p>
+				<p>Ссылка <a class="link-hover-3" href="#">hover-3</a> в тексте.</p>
+			</div>
+
+
+			<div class="template-card">
+				<p>Появление цвета у <code>border-bottom</code></p>
+				<p>Ссылка <a class="link-hover-20" href="#">hover-20</a> в тексте.</p>
+			</div>
+
+
+			<div class="template-card">
+				<p>Появление цвета у <code>border-bottom</code> со сдвигом с <code>padding</code></p>
+				<p>Ссылка <a class="link-hover-21" href="#">hover-21</a> в тексте.</p>
+			</div>
+
+
+			<div class="template-card">
+				<p>Сдвиг и проявление <code>bottom, opacity</code></p>
+				<p>Ссылка <a class="link-hover-22" href="#">hover-22</a> в тексте.</p>
+			</div>
+
+
+			<div class="template-card">
+				<p>Увеличение <code>height</code></p>
+				<p>Ссылка <a class="link-hover-23" href="#">hover-23</a> в тексте.</p>
+			</div>
+
+
+			<div class="template-card">
+				<p>Увеличивается <code>width</code> у псевдоэлемента</p>
+				<p>Ссылка <a class="link-hover-24" href="#">hover-24</a> в тексте.</p>
+			</div>
+
+
+			<div class="template-card">
+				<p>Увеличивается <code>width</code> у псевдоэлемента</p>
+				<p>Ссылка <a class="link-hover-25" href="#">hover-25</a> в тексте.</p>
+			</div>
+
+
+			<div class="template-card">
+				<p>Увеличение <code>transform: scaleX()</code> у псевдоэлемента</p>
+				<p>Ссылка <a class="link-hover-27" href="#">hover-27</a> в тексте.</p>
+			</div>
+
+
+			<div class="template-card">
+				<p>Увеличение черты-псевдоэлемента с <code>transform: scaleX()</code> плюс <strong style="color: red;">уникальное</strong> задание направления анимации с <code>transform-origin</code></p>
+				<p>Ссылка <a class="link-hover-28" href="#">hover-28</a> в тексте.</p>
+			</div>
+
+
+			<div class="template-card">
+				<p>Увеличение черты-псевдоэлемента с <code>transform: scaleX()</code> плюс <strong style="color: red;">уникальное</strong> задание направления анимации с <code>transform-origin</code></p>
+				<p>Ссылка <a class="link-hover-28a" href="#">hover-28a</a> в тексте.</p>
+			</div>
+
+
+			<div class="template-card">
+				<p>Увеличение 2-х черт-псевдоэлементов с <code>transform: scaleX()</code> плюс <strong style="color: red;">уникальное</strong> задание направления анимации с <code>transform-origin</code></p>
+				<p>Ссылка <a class="link-hover-29" href="#">hover-29</a> в тексте.</p>
+			</div>
+
+
+			<div class="template-card">
+				<p>Псевдоэлемент, дублирующий контент ссылки плюс <code>text-decoration-style</code>, появляется сдвигом <code>clip-path: polygon()</code><br>Можно менять стили линий!</p>
+				<p>Ссылка <a class="link-hover-31" href="#" data-content="hover-31">hover-31</a> в тексте.</p>
+			</div>
+
+
+			<div class="template-card">
+				<p>Появление бордеров с <code>transform: scale()</code> у двух псевдоэлементов</p>
+				<p>Ссылка <a class="link-hover-32" href="#">hover-32</a> в тексте.</p>
+			</div>
+
+
+			<div class="template-card">
+				<p>Сдвигаение с <code>transform: translateX()</code> псевдоэлемента.<br>Видимо это неудачный способ, так как нужно под полосу делать отступ и скрывать ее с оверфлоу. Лучше переделать полосы с изменением width: 0-100%</p>
+				<p>Ссылка <a class="link-hover-33" href="#">hover-33</a> в тексте.</p>
+			</div>
+
+
+			<div class="template-card">
+				<p>Сдвигаение с <code>transform: translateX()</code> у 2-х псевдоэлементов.<br>Видимо это неудачный способ, так как нужно под полосы делать отступ и скрывать их с оверфлоу. Лучше переделать полосы с изменением width: 0-100%</p>
+				<p>Ссылка <a class="link-hover-34" href="#">hover-34</a> в тексте.</p>
+			</div>
+
+
+			<div class="template-card">
+				<p>Сдвигаение с <code>transform: translate()</code> у 4-х псевдоэлементов.<br>Видимо это неудачный способ, так как нужно под полосы делать отступ и скрывать их с оверфлоу. Лучше переделать полосы с изменением width: 0-100%</p>
+				<p>Ссылка <a class="link-hover-35" href="#"><span>hover-35</span></a> в тексте.</p>
+			</div>
+
+
+			<div class="template-card">
+				<p>Сдвигаение с <code>transform: translate()</code> у 4-х псевдоэлементов.<br>Видимо это неудачный способ, так как нужно под полосы делать отступ и скрывать их с оверфлоу. Лучше переделать полосы с изменением width: 0-100%</p>
+				<p>Ссылка <a class="link-hover-36" href="#" data-content="hover-36"><span>hover-36</span></a> в тексте.</p>
+			</div>
+
+
+			<div class="template-card">
+				<p>Увеличение <code>box-shadow: inset</code> и смена цветов</p>
+				<p>Ссылка <a class="link-hover-40" href="#">hover-40</a> в тексте.</p>
+			</div>
+
+
+			<div class="template-card">
+				<p>Увеличение <code>box-shadow: inset</code> и смена цветов</p>
+				<p>Ссылка <a class="link-hover-41" href="#">hover-41</a> в тексте.</p>
+			</div>
+
+
+			<div class="template-card">
+				<p>Увеличение <code>box-shadow: inset</code> и смена цветов</p>
+				<p>Ссылка <a class="link-hover-42" href="#">hover-42</a> в тексте.</p>
+			</div>
+
+
+			<div class="template-card">
+				<p>Увеличение <code>transform: scaleX()</code> у псевдоэлемента</p>
+				<p>Ссылка <a class="link-hover-43" href="#">hover-43</a> в тексте.</p>
+			</div>
+
+
+			<div class="template-card">
+				<p>Комбинация из <code>top, opacity, transform: scale()</code></p>
+				<p>Ссылка <a class="link-hover-49" href="#">hover-49</a> в тексте.</p>
+			</div>
+
+
+			<div class="template-card">
+				<p>Увеличивается <code>box-shadow</code></p>
+				<!--<p>Это пример из сайта Ahmad Shadeed https://ishadeed.com/ с моими доработками.</p>-->
+				<p>Ссылка <a class="link-hover-51" href="#">hover-51</a> в тексте.</p>
+			</div>
+
+
+			<div class="template-card">
+				<p>Увеличивается <code>background-size</code> у градиента</p>
+				<p>Ссылка <a class="link-hover-52" href="#">hover-52</a> в тексте.</p>
+			</div>
+
+
+			<div class="template-card">
+				<p>Увеличивается <code>background-size</code> у градиента</p>
+				<p>Ссылка <a class="link-hover-54" href="#">hover-54</a> в тексте.</p>
+			</div>
+
+
+			<div class="template-card">
+				<p>У<code>b</code> </p>
+				<p><a class="link-hover-60" href="#"><span data-title="link-hover-60">link-hover-60</span></a></p>
+			</div>
+
+
+			<div class="template-card">
+				<p>У<code>b</code> </p>
+				<p><a class="link-hover-61" href="https://templateflip.com" target="_blank"><span data-hover="hover-61">hover-61</span></a></p>
+			</div>
+
+
+			<div class="template-card">
+				<p>У <code>w</code></p>
+				<p class="link-hover-70-p">Ссылка <a class="link-hover-70" href="#">hover-70</a> в тексте.</p>
+				<script>
+					//Скрипт для анимации ссылки link-hover-70:
+					document.querySelectorAll('.link-hover-70').forEach(link => {
+						link.innerHTML = '<div><span>' + link.textContent.trim().split('').join('</span><span>') + '</span></div>'
+						link.querySelectorAll('span').forEach(s => s.innerHTML = s.textContent == ' ' ? '&nbsp;' : s.textContent)
+						link.insertAdjacentHTML('beforeend', '<div><svg preserveAspectRatio="none" viewBox="0 0 192 5"><path d="M191.2 4H129C129 4 127.8 4 127 4C114.8 3.9 108.2 1 96 1C83.8 1 77.2 3.9 65 4C64.2 4 63 4 63 4H0.8" /></svg></div>')
+					});
+				</script>
+			</div>
+
+
+			<div class="template-card">
+				<p>Проявление <code>background-color</code>.</p>
+				<p><a class="link-hover-71" href="#">hover-71</a></p>
+			</div>
+
+
+			<div class="template-card">
+				<p>Появление полосы-псевдоэлемента с <code>b</code>.</p>
+				<p><a class="link-hover-72" href="#">hover-72</a></p>
+			</div>
+
+		</div>
+
+
+		<p>Latte teapot shincha blend <a class="link" href="#"><span data-content="chamomile">chamomile</span></a> yixing scented shrub iced ginger. Chamomile irish breakfast fermentation london fog gaiwan <a class="link" href="#"><span class="dotted" data-content="boba">boba</span></a> lapsang souchong ceylon shincha teahouse <a class="link" href="#"><span class="line-through" data-content="kombucha">kombucha</span></a> camellia sinensis white. Pu’erh lychee tisane ceylon infusion ginger antioxidant <a class="link" href="#"><span class="dashed" data-content="jasmine">jasmine</span></a> darjeeling antioxidant zen mint. Oolong taro honeydew shoumei white pearl milk boba <a class="link" href="#"><span class="double" data-content="latte">latte</a> lapsang souchong white rooibos. Mug tea time english breakfast kukicha boba tisane <a class="link" href="#"><span class="wavy" data-content="matcha">matcha</span></a> teacup.</p>
+		<hr>
+
+
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

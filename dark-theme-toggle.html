@@ -1,0 +1,280 @@
+<!doctype html><!-- Файл dark-theme-toggle.html -->
+<html lang="ru" dir="ltr">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+
+	<script>
+		// Скрипт для переключателя темы сайта из статьи https://web.dev/building-a-theme-switch-component/
+		// Этот скрипт лучше располагать так, чтобы он загружался и срабатывал как можно скорее, чтобы избежать возможной вспышки при изменении темы!
+
+		const storageKey = 'theme-preference'
+
+		const onClick = () => {
+			// По клику перевернуть текущее значение:
+			theme.value = theme.value === 'light'
+				? 'dark'
+				: 'light'
+			setPreference()
+		}
+
+		const getColorPreference = () => {
+			if (localStorage.getItem(storageKey))
+				return localStorage.getItem(storageKey)
+			else
+				return window.matchMedia('(prefers-color-scheme: dark)').matches
+					? 'dark'
+					: 'light'
+		}
+
+		const setPreference = () => {
+			localStorage.setItem(storageKey, theme.value)
+			reflectPreference()
+		}
+
+		const reflectPreference = () => {
+			document.firstElementChild
+				.setAttribute('data-theme', theme.value)
+
+			document
+				.querySelector('#theme-toggle')
+				?.setAttribute('aria-label', theme.value)
+		}
+
+		const theme = {
+			value: getColorPreference(),
+		}
+
+		// Установить заранее, чтобы страница не мигнула (CSS был осведомлен):
+		reflectPreference()
+
+		window.onload = () => {
+			// Установить при загрузке, чтобы скринридеры могли видеть последнее значение на кнопке:
+			reflectPreference()
+
+			// Теперь этот скрипт может находить и прослушивать щелчки по элементу управления:
+			document
+				.querySelector('#theme-toggle')
+				.addEventListener('click', onClick)
+		}
+
+		// Синхронизировать с системными изменениями:
+		window
+			.matchMedia('(prefers-color-scheme: dark)')
+			.addEventListener('change', ({ matches: isDark }) => {
+				theme.value = isDark ? 'dark' : 'light'
+				setPreference()
+			})
+	</script>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+
+	<title>Theme Switch (GUI Challenges) – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<!-- Эти два метатега были у донора: -->
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="theme-color" content="Canvas">
+
+	<style>
+
+:root {
+	--color: hsl(0, 0%, 0%);
+	--bg: hsl(0, 0%, 100%);
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+}
+
+html {
+	block-size: 100%;
+	color-scheme: light;
+}
+
+html[data-theme='dark'] {
+	color-scheme: dark;
+}
+
+/* Это было у донора:
+@supports not (color-scheme: dark) {
+	html[data-theme='dark'] {
+		background: hsl(0, 0%, 7%);
+	}
+}*/
+
+body {
+	display: grid;
+	justify-content: center;
+	place-content: center;
+	align-content: center;
+	min-height: 100%;
+	color: var(--color);
+	background-color: var(--bg);
+}
+
+/*--------------------------------------------
+---- Тумблер переключения цветовой темы: -----
+--------------------------------------------*/
+
+.theme-toggle {
+	/*--size: 2rem;
+	--icon-fill: hsl(210 10% 30%);
+	--icon-fill-hover: hsl(210 10% 15%);
+	inline-size: 48px;
+	block-size: 48px;*/
+	width: 48px;/* было 32px на десктопе */
+	height: 48px;/* было 32px на десктопе */
+	padding: 10px;/* это будет в базовых стилях и можно удалить! */
+	aspect-ratio: 1;
+	background: none;
+	border: none;
+	border-radius: 99px;/* было 50%; у донора */
+	/*outline-offset: 5px;*/
+	cursor: pointer;
+	/*touch-action: manipulation;*/
+	-webkit-tap-highlight-color: transparent;
+}
+
+.sun-moon {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+.sun {
+	transform-origin: center center;
+	fill: var(--color);
+	transition: transform 0.5s cubic-bezier(0.5, 1.25, 0.75, 1.25);
+}
+
+.sun-beams {
+	transform-origin: center center;
+	stroke: var(--color);
+	stroke-width: 6px;
+	stroke-linecap: round;
+	transition: transform 0.5s cubic-bezier(0.5, 1.5, 0.75, 1.25), opacity 0.5s cubic-bezier(.25, 0, 0.3, 1);
+}
+
+.moon {
+	transform-origin: center center;
+	fill: var(--color);
+}
+
+@supports (cx: 1) {
+	.moon > circle {
+		transition: cx 0.25s cubic-bezier(0, 0, 0, 1);
+	}
+}
+
+.theme-toggle:is(:hover,:focus-visible) :is(.moon,.sun) {
+	fill: steelblue;
+}
+
+.theme-toggle:is(:hover,:focus-visible) .sun-beams {
+	stroke: steelblue;
+}
+
+[data-theme='dark'] .sun {
+	transform: scale(1.75);
+}
+
+[data-theme='dark'] .sun-beams {
+	opacity: 0;
+}
+
+/* Это фоллбэк если не поддерживается анимация "cx": */
+[data-theme='dark'] .moon > circle {
+	transform: translate(-7px);
+}
+
+@supports (cx: 1) {
+	[data-theme='dark'] .moon > circle {
+		transform: translate(0);
+		cx: 62;
+	}
+}
+
+[data-theme='dark'] .sun {
+	transform: scale(1.75);
+	transition-timing-function: cubic-bezier(.25, 0, 0.3, 1);
+	transition-duration: 0.25s;
+}
+
+[data-theme='dark'] .sun-beams {
+	transform: rotate(-25deg);
+	transition-duration: 0.15s;
+}
+
+[data-theme='dark'] .moon > circle {
+	transition-delay: 0.25s;
+	transition-duration: 0.5s;
+}
+
+/*-----------------------------------------------------
+------------- Стили для темной темы: ------------------
+-- запускается от <html lang="ru" data-theme="dark"> --
+-----------------------------------------------------*/
+
+[data-theme='dark'] {
+	--color: hsl(0, 0%, 96%);
+	--bg: hsl(0, 0%, 23%);
+}
+
+	</style>
+
+
+	<!--Это стили у донора: <link rel="stylesheet" href="./assets/index.d7af5557.css">-->
+	<!-- Это оригинальные стили донора: <style>
+@import"https://unpkg.com/open-props/easings.min.css";.sun-moon>:is(.moon,.sun,.sun-beams){transform-origin:center center}.sun-moon>:is(.moon,.sun){fill:var(--icon-fill)}.theme-toggle:is(:hover,:focus-visible)>.sun-moon>:is(.moon,.sun){fill:var(--icon-fill-hover)}.sun-moon>.sun-beams{stroke:var(--icon-fill);stroke-width:2px}.theme-toggle:is(:hover,:focus-visible) .sun-moon>.sun-beams{stroke:var(--icon-fill-hover)}[data-theme=dark] .sun-moon>.sun{transform:scale(1.75)}[data-theme=dark] .sun-moon>.sun-beams{opacity:0}[data-theme=dark] .sun-moon>.moon>circle{transform:translate(-7px)}@supports (cx: 1){[data-theme=dark] .sun-moon>.moon>circle{transform:translate(0);cx:17}}@media (prefers-reduced-motion: no-preference){.sun-moon>.sun{transition:transform .5s var(--ease-elastic-3)}.sun-moon>.sun-beams{transition:transform .5s var(--ease-elastic-4),opacity .5s var(--ease-3)}.sun-moon .moon>circle{transition:transform .25s var(--ease-out-5)}@supports (cx: 1){.sun-moon .moon>circle{transition:cx .25s var(--ease-out-5)}}[data-theme=dark] .sun-moon>.sun{transform:scale(1.75);transition-timing-function:var(--ease-3);transition-duration:.25s}[data-theme=dark] .sun-moon>.sun-beams{transform:rotate(-25deg);transition-duration:.15s}[data-theme=dark] .sun-moon>.moon>circle{transition-delay:.25s;transition-duration:.5s}}.theme-toggle{--size: 2rem;--icon-fill: hsl(210 10% 30%);--icon-fill-hover: hsl(210 10% 15%);background:none;border:none;padding:0;inline-size:var(--size);block-size:var(--size);aspect-ratio:1;border-radius:50%;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;outline-offset:5px}.theme-toggle>svg{inline-size:100%;block-size:100%;stroke-linecap:round}[data-theme=dark] .theme-toggle{--icon-fill: hsl(210 10% 70%);--icon-fill-hover: hsl(210 15% 90%) }@media (hover: none){.theme-toggle{--size: 48px }}*{box-sizing:border-box;margin:0}html{block-size:100%;color-scheme:light}html[data-theme=dark]{color-scheme:dark}@supports not (color-scheme: dark){html[data-theme=dark]{background:#111}}body{min-block-size:100%;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;display:grid;align-content:center;justify-content:center;place-content:center}.github-corner{fill:#ff69b4;color:Canvas}.github-corner:hover .octo-arm{-webkit-animation:octocat-wave .56s ease-in-out;animation:octocat-wave .56s ease-in-out}[data-theme=dark] .github-corner{fill:indigo}@-webkit-keyframes octocat-wave{0%,to{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@keyframes octocat-wave{0%,to{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}
+	</style>-->
+</head>
+<body>
+
+	<main class="container">
+		<button class="theme-toggle" id="theme-toggle" title="Переключатель светлой и тёмной темы" aria-label="auto" aria-live="polite">
+			<svg class="sun-moon" width="24" height="24" viewBox="0 0 90 90" aria-hidden="true">
+				<mask class="moon" id="moon-mask">
+					<rect x="0" y="0" width="100%" height="100%" fill="#fff" />
+					<circle cx="90" cy="35" r="20" fill="#000" />
+				</mask>
+				<circle class="sun" cx="45" cy="45" r="22" mask="url(#moon-mask)" fill="currentColor" />
+				<path class="sun-beams" stroke="currentColor" d="M45 4V11M74 16L69 21M86 45H79M74 74L69 69M45 86V79M16 74L21 69M4 45H11M16 16L21 21" />
+			</svg>
+
+			<!--<svg class="sun-moon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+					<mask class="moon" id="moon-mask">
+						<rect x="0" y="0" width="100%" height="100%" fill="#fff"/>
+						<circle cx="24" cy="10" r="6" fill="#000"/>
+					</mask>
+					<circle class="sun" cx="12" cy="12" r="6" mask="url(#moon-mask)" fill="currentColor"/>
+					<g class="sun-beams" stroke="currentColor">
+						<line x1="12" y1="1" x2="12" y2="3" />
+						<line x1="12" y1="21" x2="12" y2="23" />
+						<line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+						<line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+						<line x1="1" y1="12" x2="3" y2="12" />
+						<line x1="21" y1="12" x2="23" y2="12" />
+						<line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+						<line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+					</g>
+				</svg>-->
+		</button>
+
+
+		<p>Советуется установить скрипт в head для максимально быстрой загрузки и исполнения, чтобы избежать мигания тем: <code>&lt;script src="./theme-toggle.js"&gt;&lt;/script&gt;</code></p>
+		<p>Если на сайте темная тема, то желательно для всех анимаций на сайте подписывать transition-property, свойство которое анимируется, чтобы при переключении темы эти элементы не начали с задержкой трансформироваться.</p>
+		<p style="margin-top: 30px; padding-bottom: 110px;">
+			<a class="link" target="_blank" href="https://web.dev/building-a-theme-switch-component/">Статья с описанием переключателя.</a>
+			<a class="link" target="_blank" href="https://gui-challenges.web.app/theme-switch/dist/">Демка с переключателем.</a>
+		</p>
+	</main>
+
+</body>
+</html>

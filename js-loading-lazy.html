@@ -1,0 +1,173 @@
+<!doctype html><!-- Файл js-loading-lazy.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Ленивая загрузка – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+.img-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	gap: 30px;
+}
+
+.img-grid img {
+	aspect-ratio: 2 / 1;
+	object-fit: cover;
+}
+
+.hero {
+	display: grid;
+	place-items: center;
+	height: 400px;
+}
+
+.lazy-bg {
+	background: url('img/placeholder.png') no-repeat 50% / cover;/* это заглушка-плейсхолдер для ленивой загрузки фоновой картинки со скриптом */
+}
+
+.lazy-bg.visible {
+	background-image: url('img/example-woman-5.jpg');/* это финальный файл картинки для ленивой загрузки скриптом */
+}
+
+
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+		<section>
+
+				<h1>Ленивая загрузка</h1>
+				<hr>
+
+				<h2>loading=lazy с атрибутом</h2>
+				<p>В тег картинки &lt;img&gt; добавляются атрибуты <code>loading="lazy" importance="high | low"</code>.</p>
+				<p>В конце 2021 эти атрибуты поддерживаются не всеми браузерами, а где поддерживаются могут приводить к плохим последствиям (с телефона просто не загружались файлы с <code>loading="lazy"</code>).</p>
+
+				<div class="img-grid">
+					<img importance="high" width="600" height="300" src="https://picsum.photos/600/300?random=1" alt="Случайная фотография №1">
+					<img importance="high" width="600" height="300" src="https://picsum.photos/600/300?random=2" alt="Случайная фотография №2">
+					<img importance="high" width="600" height="300" src="https://picsum.photos/600/300?random=3" alt="Случайная фотография №3">
+					<img loading="lazy" importance="low" width="600" height="300" src="https://picsum.photos/600/300?random=4" alt="Случайная фотография №4">
+					<img loading="lazy" importance="low" width="600" height="300" src="https://picsum.photos/600/300?random=5" alt="Случайная фотография №5">
+					<img loading="lazy" importance="low" width="600" height="300" src="https://picsum.photos/600/300?random=6" alt="Случайная фотография №6">
+				</div>
+
+		</section>
+		<hr>
+
+
+
+
+		<section>
+
+				<h2>loading=lazy со скриптом</h2>
+				<p>Отложенная загрузка картинок с помощью API-интерфейса <strong>Intersection Observer</strong>.</p>
+				<p>Для работы этого скрипта картинка должна содержать: атрибут <code>class="lazy"</code>, атрибут <code>src</code> с плейсхолдером для начальной загрузки (например <code>src="img/placeholder.png"</code>), атрибуты <code>data-src и(!?) data-srcset</code> с настоящими изображениями, которые будут загружаться когда элемент появится в окне просмотра.</p>
+				<p>Пример: <code>&lt;img class="lazy" width="600" height="300" src="img/placeholder.png" data-src="image-1x.jpg" data-srcset="image-2x.jpg 2x, image-1x.jpg 1x" alt="Ленивая картинка"&gt;</code></p>
+
+				<div class="img-grid">
+					<img width="600" height="300" src="https://picsum.photos/600/300?random=21" alt="Случайная фотография №21">
+					<img width="600" height="300" src="https://picsum.photos/600/300?random=22" alt="Случайная фотография №22">
+					<img width="600" height="300" src="https://picsum.photos/600/300?random=23" alt="Случайная фотография №23">
+					<img class="lazy" width="600" height="300" src="img/placeholder.png" data-src="img/example-kid-1.jpg" data-srcset="img/example-kid.jpg 2x, img/example-kid-1.jpg 1x" alt="Случайная фотография №24">
+					<img class="lazy" width="600" height="300" src="img/placeholder.png" data-src="img/example-kid-1.jpg" data-srcset="img/example-kid.jpg 2x, img/example-kid-1.jpg 1x" alt="Случайная фотография №25">
+					<img class="lazy" width="600" height="300" src="img/placeholder.png" data-src="img/example-kid-1.jpg" data-srcset="img/example-kid.jpg 2x, img/example-kid-1.jpg 1x" alt="Случайная фотография №26">
+				</div>
+
+		</section>
+
+
+
+
+		<section>
+
+				<h2>фоновые картинки loading=lazy со скриптом</h2>
+				<p>Отложенная загрузка фоновых картинок с помощью API-интерфейса <strong>Intersection Observer</strong>.</p>
+				<p>Для работы этого скрипта картинка должна содержать: атрибут <code>class="lazy"</code>, атрибут <code>src</code> с плейсхолдером для начальной загрузки (например <code>src="img/placeholder.png"</code>), атрибуты <code>data-src и(!?) data-srcset</code> с настоящими изображениями, которые будут загружаться когда элемент появится в окне просмотра.</p>
+				<p>Пример: <code>&lt;img class="lazy" width="600" height="300" src="img/placeholder.png" data-src="image-1x.jpg" data-srcset="image-2x.jpg 2x, image-1x.jpg 1x" alt="Ленивая картинка"&gt;</code></p>
+
+				<div class="hero lazy-bg">
+					<h3>Here's a hero heading to get your attention!</h3>
+					<p>Here's hero copy to convince you to buy a thing!</p>
+				</div>
+				<hr>
+
+
+				<p>Библиотеки со скриптами для ленивой загрузки картинок, фоновых картинок, видео, ифреймов, скриптов: <a rel="noopener" target="_blank" href="https://github.com/ApoorvSaxena/lozad.js">Lozad.js</a>, <a rel="noopener" target="_blank" href="https://github.com/verlok/vanilla-lazyload">Vanilla-Lazyload</a>.</p>
+
+		</section>
+
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+	<!-- Скрипт для ленивой загрузки контентных изображений с помощью API-интерфейса Intersection Observer (код из статьи https://web.dev/lazy-loading-images/): -->
+	<script defer>
+document.addEventListener("DOMContentLoaded", function () {
+	var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
+
+	if ("IntersectionObserver" in window) {
+		let lazyImageObserver = new IntersectionObserver(function (entries, observer) {
+			entries.forEach(function (entry) {
+				if (entry.isIntersecting) {
+					let lazyImage = entry.target;
+					lazyImage.src = lazyImage.dataset.src;
+					lazyImage.srcset = lazyImage.dataset.srcset;
+					lazyImage.classList.remove("lazy");
+					lazyImageObserver.unobserve(lazyImage);
+				}
+			});
+		});
+
+		lazyImages.forEach(function (lazyImage) {
+			lazyImageObserver.observe(lazyImage);
+		});
+	} else {
+		// Possibly fall back to event handlers here
+	}
+});
+	</script>
+
+<!-- Скрипт для ленивой загрузки фоновых изображений с помощью API-интерфейса Intersection Observer (код из статьи https://web.dev/lazy-loading-images/): -->
+	<script defer>
+document.addEventListener("DOMContentLoaded", function () {
+	var lazyBackgrounds = [].slice.call(document.querySelectorAll(".lazy-bg"));
+
+	if ("IntersectionObserver" in window) {
+		let lazyBackgroundObserver = new IntersectionObserver(function (entries, observer) {
+			entries.forEach(function (entry) {
+				if (entry.isIntersecting) {
+					entry.target.classList.add("visible");
+					lazyBackgroundObserver.unobserve(entry.target);
+				}
+			});
+		});
+
+		lazyBackgrounds.forEach(function (lazyBackground) {
+			lazyBackgroundObserver.observe(lazyBackground);
+		});
+	}
+});
+	</script>
+
+</body>
+</html>

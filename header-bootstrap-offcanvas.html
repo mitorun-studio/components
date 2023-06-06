@@ -1,0 +1,340 @@
+<!doctype html><!-- Файл header-bootstrap-offcanvas.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Header Bootstrap 3 offcanvas – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Компонент хедера со скриптом от Bootstrap с ракрывающимся меню как в модале.">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+/*------------------------------------------------
+---------- Header Navbar-3 Offcanvas: ------------
+----- с классами "offcanvas offcanvas-end" -------
+ (меню позиционировано и раскрывается как модал):
+------------------------------------------------*/
+
+/* Стили сделаны так чтобы бургер-меню изчезало на ширине 992px.
+В бутстрапе для .navbar добавляется класс .navbar-expand-lg : */
+
+.header {
+	/* Закрепить наверху страницы:
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	z-index: 1030;*/
+
+	display: grid;
+	grid-template-columns: auto 1fr;
+	grid-auto-columns: auto;
+	grid-auto-flow: column;
+	gap: var(--margin-xs);
+	align-items: center;
+	justify-items: end;/* это чтобы на мобилке второй элемент хедера прижался к правому краю! */
+	width: 100%;/* с 100vw нет скачка из-за убирания 17px скроллбара, но хедер получается налезает на скроллбар (смещается вправо на 17px)! */
+	min-height: 70px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background-color: var(--grey-lightest);
+	/*-webkit-backdrop-filter: blur(4px);
+	backdrop-filter: blur(4px); это размытие (блюр) фона хедера */
+	/*border-bottom: var(--border-3);*/
+	/*box-shadow: var(--shadow);*/
+}
+
+/*Расположить меню посередине хедера:
+@media (min-width: 992px) {
+	.header {
+		justify-items: stretch;
+	}
+}*/
+
+/* Фиксация хедера только на десктопе:
+@media (min-width: 992px) and (min-height: 756px) {
+	.header {
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 1030;
+		width: 100%;
+	}
+}*/
+
+.header__brand {
+	display: grid;
+	align-items: center;
+	height: 48px;/* это влияет на высоту хедера */
+}
+
+/*-------- Кнопка бургер-меню: -----------------*/
+
+.header__button {
+	width: 48px;/* это влияет на высоту хедера */
+	height: 48px;/* это влияет на высоту хедера */
+	/*margin-right: -9px; это чтобы иконка бургера была по линии контента */
+	background: content-box url('img/sprite.svg#burger') 50% / 26px no-repeat transparent;
+	background-color: grey;
+	border: none;
+	-webkit-tap-highlight-color: hsla(0, 0%, 0%, 0);/* или transparent; это вообще убирает синий фон в хроме при нажатии на кнопку! */
+}
+
+@media (min-width: 992px) {
+	.header__button {
+		display: none;
+	}
+}
+
+/* Раскрывающийся позиционированный блок: */
+/*.header__menu {}*/
+
+@media (max-width: 991.98px) {
+	.offcanvas {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 1045;
+		/*display: grid;
+		place-items: center;*/
+		/*display: flex;
+		flex-direction: column;*/
+		width: 440px;
+		max-width: 100%;
+		/*width: min(400px, 100%);*/
+		height: 100vh;
+		background-color: var(--bg);
+		background-clip: padding-box;
+		/*border-left: 1px solid hsla(0, 0%, 0%, 0.2);*/
+		box-shadow: -4px 0 6px hsla(0, 0%, 30%, 0.1);
+		outline: 0;
+		visibility: hidden;
+		/*transform: translateX(100%);*/
+		translate: 100%;
+		transition: translate 0.3s ease-in-out;
+
+		/* Меню слева:
+		top: 0;
+		left: 0;
+		transform: translateX(-100%);*/
+
+		/* Меню сверху:
+		top: 0;
+		right: 0;
+		left: 0;
+		height: 30vh;
+		max-height: 100%;
+		transform: translateY(-100%);*/
+
+		/* Меню снизу:
+		right: 0;
+		left: 0;
+		height: 30vh;
+		max-height: 100%;
+		transform: translateY(100%);*/
+	}
+
+	.offcanvas.show:not(.hiding),
+	.offcanvas.showing {
+		/*transform: none;*/
+		translate: none;
+	}
+
+	.offcanvas.hiding,
+	.offcanvas.show,
+	.offcanvas.showing {
+		visibility: visible;
+	}
+
+	/* Див с этим классом видимо добавляется скриптом: */
+
+	.offcanvas-backdrop {
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 1040;
+		width: 100vw;
+		height: 100vh;
+		background-color: hsl(0, 0%, 0%);
+	}
+
+	.offcanvas-backdrop.fade {
+		opacity: 0;
+	}
+
+	.offcanvas-backdrop.show {
+		opacity: 0.5;
+	}
+
+	/* Базовая кнопка-крестик для закрытия: */
+	.btn-close {
+		position: absolute;
+		top: 10px;
+		right: var(--container-padding);
+		background-image: url('img/sprite.svg#cross');
+	}
+}
+
+/* Навигационное меню: */
+.menu {
+	display: grid;
+	grid-template-columns: max-content;
+	gap: 1vh;
+	place-content: center start;
+	height: 100%;
+	padding: 0 0 0 34px;
+}
+
+@media (min-width: 992px) {
+	.menu {
+		grid-template-columns: auto;
+		grid-auto-columns: auto;
+		grid-auto-flow: column;
+		gap: 0 40px;
+		align-items: center;
+		justify-content: center;
+	}
+}
+
+.menu__link {
+	display: inline-block;
+	padding: 20px 0;
+	transition: 0.3s;
+}
+
+.menu__link[aria-current='page'],
+.menu__link.active {
+	font-weight: var(--font-weight-l);
+}
+
+.menu__link:hover,
+.menu__link:focus {
+	color: var(--color-main);
+}
+
+
+
+
+/* Дополнительный архивный код бутстрапа:
+Ниже оформление области меню у донора:
+.offcanvas-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 1rem 1rem;
+}
+.offcanvas-header .btn-close {
+	padding: 0.5rem 0.5rem;
+	margin-top: -0.5rem;
+	margin-right: -0.5rem;
+	margin-bottom: -0.5rem;
+}
+.offcanvas-title {
+	margin-bottom: 0;
+	line-height: 1.5;
+}
+.offcanvas-body {
+	flex-grow: 1;
+	padding: 1rem 1rem;
+	overflow-y: auto;
+}
+@media (min-width: 992px) {
+	.offcanvas-body {
+		display: flex;
+		flex-grow: 0;
+		padding: 0;
+		overflow-y: visible;
+	}
+}*/
+
+
+
+
+
+
+	</style>
+</head>
+
+<body>
+
+	<!-- Navbar №3 Offcanvas с классами "offcanvas offcanvas-end": -->
+	<header class="header container">
+		<a class="header__brand" href="#">Лого</a>
+
+
+		<nav class="header__menu offcanvas" id="offcanvasNavbar" tabindex="-1">
+			<button class="header__button btn-close" type="button" data-bs-dismiss="offcanvas" aria-label="Закрыть меню"></button>
+
+			<ul class="menu navbar-nav">
+				<li data-bs-dismiss="offcanvas">
+					<a class="menu__link active" href="#link-anchor" aria-current="page">Якорная ссылка</a>
+				</li>
+				<li>
+					<a class="menu__link" target="_blank" href="https://mitorun.studio/">Обычная ссылка</a>
+				</li>
+				<li>
+					<a class="menu__link" href="#">Заглушка</a>
+				</li>
+			</ul>
+		</nav>
+
+
+		<button class="header__button navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Открыть меню"></button>
+	</header>
+	<br><br><br><br><br>
+
+
+
+
+
+	<main class="container">
+
+		<h1>Хедер с бургер-меню Offcanvas</h1>
+
+		<h3>Проблемы и особенности:</h3>
+		<p>У этого компонента Offcanvas есть недостаток-особенность, что при клике в нём на якорную ссылку по странице – меню не закрывается, страница под меню прокручивается до нужного якоря, но при закрытии меню фокус перемещается скриптом на кнопку бургер-меню в хедере и страница проскролливается обратно наверх!<br>
+		У этой проблемы нет легкого решения. Пока самый эффективный способ – это назначить менюшкам атрибут закрытия меню <code>data-bs-dismiss="offcanvas"</code>, но только не самим ссылкам (скрипт конфликтует с href), а внешним &lt;li&gt; или внутри ссылки обернуть текст в &lt;span&gt;.</p>
+		<br><hr><br>
+
+
+		<p><a rel="noopener" target="_blank" href="https://getbootstrap.com/docs/5.1/components/navbar/">Документация Bootstrap - Navbar</a></p>
+		<p>Компонент состоит из базового кода HTML, который похож для всех вариантов бургер-меню, а названия основных классов оставлены такими как у донора Bootstrap 5.1.3 . CSS состоит из базового кода Navbar (общий для всех вариантов бургер-меню), отличительного кода для каждого варианта механизма бургер-меню и дополнительных настроек (например фиксирование хедера, раскрытие меню и удаление бургера). Скрипт это донорский файл "bootstrap.min.js", только туда еще добавлен код для инициализации Navbar-2.</p>
+		<p>Для текущей страницы нужно добавить к менюшке класс <code>.active</code> и атрибут <code>aria-current="page"</code>: <code>&lt;a class="nav-link active" aria-current="page"&gt;</code></p>
+		<p>Что можно улучшить:</p>
+		<ul>
+			<li>Разработать разные варианты иконок бургер-меню: на CSS, SVG в HTML, SVG в фоне. </li>
+			<li>Разработать хорошие варианты анимации раскрытия меню. Например добавить чтобы элемент меню (ul) переходил из opacity 0; в 1; .</li>
+			<li>Разработать варианты компоновки более сложных хедеров.</li>
+		</ul>
+		<hr>
+
+
+
+
+		<h2>Хедер Offcanvas (Navbar-3)</h2>
+		<p>Меню позиционировано и раскрывается на часть страницы как модал. Для этого в меню добавляется класс <code>offcanvas</code> и класс для направления откуда выезжает меню, например справа: <code>offcanvas-end</code>.</p>
+		<p>Раскрытое меню содержит свою отдельную кнопку для закрытия меню и также оно закрывается при клике вне меню.</p>
+		<p>Скрипт блокирует прокрутку body при раскрытом меню! Для этого он смещает страницу на 17px для компенсации ширины скроллбара, это нужно помнить если делать кастомный скроллбар и если будут какие-то проблемы со сдвигами страницы.</p>
+		<p>Сборка компонента: нужно взять базовый код Navbar, добавить отличительный код Navbar-3 Offcanvas. Можно добавить код для фиксирования хедера наверху страницы и код чтобы бургер-меню разворачивалось на определенной ширине экрана.</p>
+		<hr>
+
+
+	</main>
+
+
+	<div id="link-anchor" style="height: 100vh;">Проверка якорной ссылки</div>
+
+
+
+
+	<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>-->
+	<script defer src="bootstrap/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

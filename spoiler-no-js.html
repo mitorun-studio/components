@@ -1,0 +1,542 @@
+<!doctype html><!-- Файл spoiler-no-js.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Спойлер (без JS) – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Спойлеры">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+/*------------ Простейший спойлер: ----------------*/
+
+.spoiler {
+	background-color: hsl(194, 86%, 91%);
+}
+
+.spoiler-summary {
+	/*position: relative; это для позиционирования .spoiler-summary::after */
+	/*display: block; или list-style-type: none; это новые свойства для удаления иконки-треугольника у раскрывающегося списка */
+	/*padding: 15px 46px 15px 15px; 46px это отступ для значка-стрелки */
+	/*font: 500 22px/1.3 var(--font-basic);*/
+	/*outline: none; это чтобы убрать обводку когда спойлер открыт */
+	cursor: pointer;
+	/*transition: 0.4s 0.2s;*/
+}
+
+.spoiler-summary:hover,
+.spoiler-summary:focus {
+	background: hsl(0, 0%, 94%);
+	transition: 0.4s;
+}
+
+.spoiler-content {
+	padding: 12px 15px 16px;
+	background-color: hsl(71, 76%, 92%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	details[open] summary ~ * {
+		animation: spoiler 0.5s ease-in-out;
+	}
+
+	@keyframes spoiler {
+		0% {
+			transform: translateY(-4px);
+			opacity: 0;
+		}
+	}
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	details[open] .summary-animation ~ * {
+		animation: spoiler-advance 0.7s ease-in-out;
+	}
+
+	@keyframes spoiler-advance {
+		0% {
+			transform: translateY(-7px);
+			opacity: 0;
+		}
+
+		20% {
+			opacity: 0;
+		}
+
+		70% {
+			transform: translateY(0);
+		}
+	}
+}
+
+/*----------------- Спойлер №0 --------------------*/
+
+.spoiler0 {
+	border-bottom: 1px solid hsl(0, 0%, 80%);/*var(--border2);*/
+}
+
+.spoiler0:first-of-type {
+	border-top: 1px solid hsl(0, 0%, 80%);/*var(--border2);*/
+}
+
+.spoiler0-summary {
+	position: relative;/* это для позиционирования .spoiler-summary::after */
+	display: block;/* или list-style-type: none; это новые свойства для удаления иконки-треугольника у раскрывающегося списка */
+	padding: 15px 46px 15px 15px;/* 46px это отступ для значка-стрелки */
+	font: 500 22px/1.3 var(--font-family);
+	outline: none;/* это чтобы убрать обводку когда спойлер открыт */
+	cursor: pointer;
+	transition: 0.4s 0.2s;
+}
+
+/*summary::-webkit-details-marker {
+	display: none;
+} это профилактическое удаление маркера в большинстве браузеров, устаревает */
+
+.spoiler0-summary::after {
+	content: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 8 8" fill="none"%3E%3Cpath d="M1 3L4 6L7 3" stroke="%23303030" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/%3E%3C/svg%3E');/*url('/img/down.svg'); "∟"; или "✕"; */
+	position: absolute;
+	top: 14px;
+	right: 14px;
+	/*top: 50%;
+	transform: translateY(-50%); это дает неровную анимацию */
+	line-height: 1;/* это чтобы стрелочка поворачивалась ровнее */
+	transition: 0.5s;
+}/* это значок-стрелка для спойлера. Желательно расположить его так, чтобы он находился посередине первой строки заголовка спойлера и не приходилось подстраивать значение top под изменения заголовка.
+Нужно попробовать другие формы-виды этого значка, сейчас мало возможностей его настройки (не реагирует на изменения жирности шрифта) и код сложноват. Например нарисовать его бордерами псевдоэлемента, или поискать другие значки в шрифте и т.п. */
+
+details[open] .spoiler0-summary::after {
+	transform: rotate(180deg);
+	transition: 0.5s;
+}/* это анимация разворота стрелки при раскрытии спойлера */
+
+.spoiler0-summary:hover,
+.spoiler0-summary:focus {
+	background: hsl(0, 0%, 94%);/*var(--grey-lightest);*/
+	transition: 0.4s;
+}
+
+.spoiler0-content {
+	padding: 12px 14px 14px;
+}
+
+.spoiler0-content > *:nth-child(n+2) {
+	margin-top: 14px;
+}/* нельзя ли упростить селектор? */
+
+
+
+
+/*------------------- Спойлер №1 -----------------------*/
+
+.spoiler1 {
+	margin-bottom: 40px;
+	/* border-bottom: 1px solid var(--grey-light); */
+	/* background-color: rgb(153, 229, 226);  временная тестовая строка */
+}
+
+.spoiler1-summary {
+	position: relative;/* это для позиционирования .spoiler-summary::after */
+	display: block;/* или list-style-type: none; это новые свойства для удаления иконки-треугольника у раскрывающегося списка */
+	padding: 12px 40px 13px 0;/* это отступ для значка-стрелки */
+	font: 500 22px/1.3 var(--font-family);
+	outline: none;/* чтобы убрать обводку когда спойлер открыт */
+	/* background-color: rgba(221, 245, 223, .7); временная тестовая строка */
+	cursor: pointer;
+	transition: 0.4s;
+}
+
+.spoiler1-summary::after {
+	content: '∟';/* или content: "✕"; */
+	position: absolute;
+	top: 12px;/* или 50% ? */
+	right: 0;
+	transform: rotate(-45deg);
+	transition: 0.6s;
+}/* это значок-стрелка для спойлера */
+
+details[open] .spoiler1-summary::after {
+	transform: rotate(135deg);
+	transition: 0.6s;
+}/* это анимация разворота стрелки при раскрытии спойлера */
+
+.spoiler1-summary:hover,
+.spoiler1-summary:focus {
+	box-shadow: inset 0 2px 0 0 var(--color-main), inset 0 -2px 0 0 var(--color-main);
+	/* background-color: var(--grey-lightest); */
+	transition: 0.4s;
+}/* анимация спойлера при наведении и фокусе. Чтобы он был заметен и становилось понятно что это интерактивный элемент. Надо искать другие способы показать что это спойлер и его можно раскрыть. Нужно лучше продумать это поведение! */
+
+.spoiler1-content {
+	margin: 10px 0;
+	padding: 6px 15px 15px;
+	border: 1px solid hsl(0, 0%, 80%);
+	border-top: none;
+
+	/* background-color: rgb(243, 236, 196); временная тестовая строка */
+}/* это оболочка всего раскрывающегося контента, для оформления */
+
+.spoiler1-text {
+	margin: 0;
+}
+
+
+
+
+/*------------------- Спойлер №2 -----------------------*/
+
+.spoiler2 {
+	margin-bottom: 40px;
+	/* border-bottom: 1px solid var(--grey-light); */
+
+	/* background-color: rgb(153, 229, 226);  временная тестовая строка */
+}
+
+.spoiler2-summary {
+	position: relative;/* это для позиционирования .spoiler-summary::after */
+	padding: 15px 55px 15px 15px;/* это отступ для значка-стрелки */
+	font: 500 22px/1.3 var(--font-family);
+	list-style-type: none;/* или display: block; это новые свойства для удаления иконки-треугольника у раскрывающегося списка */
+	background-color: hsl(0, 0%, 94%);
+	border: 1px solid hsl(0, 0%, 80%);
+	outline: none;/* чтобы убрать обводку когда спойлер открыт */
+	cursor: pointer;
+	transition: 0.4s;
+}
+
+.spoiler2-summary::after {
+	content: '∨';/* или content: "∟✕"; */
+	position: absolute;
+	top: 12px;
+	right: 15px;
+	font: 500 24px/1 var(--font-family-mono);
+	/* transform: rotate(-45deg); */
+	transition: 0.6s;
+}/* это значок-стрелка для спойлера. Желательно расположить его так, чтобы он находился посередине первой строки заголовка спойлера и не приходилось подстраивать значение top под изменения заголовка. */
+
+/* Нужно попробовать другие формы-виды этого значка, сейчас мало возможностей его настройки (не реагирует на изменения жирности шрифта) и код сложноват. Например нарисовать его бордерами псевдоэлемента, или поискать другие значки в шрифте и т.п. */
+
+/* ИДЕЯ: Можно на десктопе (или везде) добавить еще один псевдоэлемент рядом со стрелкой: "Подробнее", окрасить его в цвет ссылки */
+
+details[open] .spoiler2-summary::after {
+	transform: rotate(180deg);
+	transition: 0.6s;
+}/* это анимация разворота стрелки при раскрытии спойлера */
+
+.spoiler2-summary:hover,
+.spoiler2-summary:focus {
+	background-color: hsl(0, 0%, 90%);
+	transition: 0.4s;
+}/* анимация спойлера при наведении и фокусе. Чтобы он был заметен и становилось понятно что это интерактивный элемент. Надо искать другие способы показать что это спойлер и его можно раскрыть. Нужно лучше продумать это поведение! */
+
+.spoiler2-content {
+	/* margin: 10px 0; */
+	padding: 15px;
+	border: 1px solid hsl(0, 0%, 80%);
+	border-top: none;/* это чтобы вместе с бордером от summary не образовывалась двойная жирная рамка */
+}/* это оболочка всего раскрывающегося контента, для оформления */
+
+
+
+/*------------------- Спойлер №3 -----------------------*/
+
+.spoiler3-summary {
+	position: relative;
+	display: block;
+	padding: 15px 65px 15px 30px;
+	font: 500 24px/1.3 var(--font-family);
+	background-color: hsl(120, 58%, 95%);
+	border: 1px solid hsla(120, 65%, 37%, .3);
+	border-radius: 14px;
+	outline: none;
+	/*border-bottom: 1px solid var(--grey-light); эта полоса сейчас задана для <details class="faq"> */
+	cursor: pointer;
+	transition: 0.4s 0.1s;/* это для позиционирования .spoiler-summary::after *//* или list-style-type: none; это новые свойства для удаления иконки-треугольника у раскрывающегося списка *//* 50px это отступ для значка-стрелки *//* чтобы убрать обводку когда спойлер открыт */
+}
+
+/*summary::-webkit-details-marker {
+	 display: none;
+} это старый способ удаления маркера-треугольника слева от спойлера */
+
+.spoiler3-summary::after {
+	content: url('../img/down.svg');/* "∟" или content: "✕"; */
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	transition: 0.5s;
+}/* это значок-стрелка для спойлера. Желательно расположить его так, чтобы он находился посередине первой строки заголовка спойлера и не приходилось подстраивать значение top под изменения заголовка. */
+/* Нужно попробовать другие формы-виды этого значка, сейчас мало возможностей его настройки (не реагирует на изменения жирности шрифта) и код сложноват. Например нарисовать его бордерами псевдоэлемента, или поискать другие значки в шрифте и т.п. */
+
+.spoiler3-summary:hover,
+.spoiler3-summary:focus {
+	background-color: hsl(120, 63%, 92%);
+	transition: 0.4s;
+}
+
+.spoiler3-content {
+	margin-top: -1px;
+	padding: 10px 15px 18px;
+	background-color: hsl(120, 12%, 94%);
+	border: 1px solid hsla(120, 3%, 59%, .5);
+	border-radius: 0 0 14px 14px;
+}
+
+details[open] .spoiler3-summary::after {
+	transform: rotate(180deg);
+	transition: 0.5s;
+}/* это анимация разворота стрелки при раскрытии спойлера */
+
+details[open] .spoiler3-summary {
+	border-radius: 14px 14px 0 0;
+	transition: 0s;
+}
+
+.spoiler3-content > * {
+	margin-top: 0;
+	margin-right: 0;
+	margin-left: 0;
+}
+
+.spoiler3-content > :last-child {
+	margin-bottom: 0;
+}/* это экспериментальные настройки, нужно подобрать такой код чтобы в контент спойлера можно было просто добавлять p, ul, img и они выглядели хорошо без доп-настроек */
+
+
+
+
+/*------------------- Спойлер №4 -----------------------*/
+
+.spoiler4 {
+	margin: 0 -15px 24px;
+	/* background-color: hsl(165, 36%, 96%); */
+	border: 1px solid hsl(164, 51%, 63%);
+}
+
+@media (min-width: 576px) {
+	.spoiler4 {
+		margin: 0 0 40px;
+	}
+}
+
+summary::-webkit-details-marker {
+	display: none;
+}/* это профилактическое удаление маркера в большинстве браузеров, устаревает */
+
+.spoiler4-summary {
+	position: relative;/* это для позиционирования .spoiler-summary::after */
+	/* display: block; или list-style-type: none; это новые свойства для удаления иконки-треугольника у раскрывающегося списка */
+	display: flex;
+	align-items: center;
+	padding: 12px 50px 12px 15px;/* 50px это отступ для значка-стрелки */
+	color: hsl(0, 0%, 27%);
+	font: 400 22px/1.2 var(--font-family);
+	/*vertical-align: middle;*/
+	/* border-bottom: 1px solid var(--grey-light); эта полоса сейчас задана для <details class="faq"> */
+	background: hsl(171, 41%, 93%);
+	cursor: pointer;
+	transition: 0.4s 0.1s;
+}
+
+.spoiler4-summary code {
+	margin-left: -5px;/* это для выравнивания по левой стороне контента */
+	font: 700 22px/1.3 var(--font-family);
+	white-space: nowrap;
+	background: none;
+	/* font: inherit; */
+}
+
+/* summary::-webkit-details-marker {
+	 display: none;
+} это старый способ удаления маркера-треугольника слева от спойлера */
+
+.spoiler4-summary::after {
+	content: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 8 8" fill="none"%3E%3Cpath d="M1 3L4 6L7 3" stroke="%23303030" stroke-width="0.8" /%3E%3C/svg%3E');/* url('img/down.svg'); "∟"; или "✕"; */
+	position: absolute;
+	/* top: 21px; */
+	right: 19px;
+	line-height: 1;/* это чтобы стрелочка поворачивалась ровнее */
+	transition: 0.5s;
+}/* это значок-стрелка для спойлера. Желательно расположить его так, чтобы он находился посередине первой строки заголовка спойлера и не приходилось подстраивать значение top под изменения заголовка. */
+
+/* Нужно попробовать другие формы-виды этого значка, сейчас мало возможностей его настройки (не реагирует на изменения жирности шрифта) и код сложноват. Например нарисовать его бордерами псевдоэлемента, или поискать другие значки в шрифте и т.п. */
+
+.spoiler4-summary:hover,
+.spoiler4-summary:focus {
+	background: hsl(170, 43%, 90%);
+	transition: 0.4s;
+}
+
+.spoiler4-content {
+	padding: 20px 15px 22px;/* 15px потому что это отступы по бокам на мобилке */
+}
+
+@media (min-width: 1024px) {
+	.spoiler4-content {
+		display: grid;
+		grid: auto auto auto 1fr / 3fr 2fr;
+		gap: 20px 30px;
+		place-items: start stretch;
+		/* place-content: start start; */
+	}
+}
+
+.spoiler4-content > * {
+	margin-bottom: 14px;
+	font: 400 18px/1.3 var(--font-family);
+
+	/* border: 1px dashed hsla(240, 82%, 43%, 0.5);
+	background: content-box hsla(240, 82%, 43%, 0.1); это временное для настройки */
+}
+
+@media (min-width: 1024px) {
+	.spoiler4-content > * {
+		margin: 0;
+	}
+
+	.spoiler4-content pre {
+		grid-area: 1 / 2 / 5 / 3;
+		align-self: stretch;
+	}
+}
+
+.spoiler4-links {
+	display: flex;
+	justify-content: space-between;
+}
+
+.spoiler4 pre {
+	max-height: 270px;
+	margin: 0;
+}/* это экспериментальные настройки, нужно подобрать такой код чтобы в контент спойлера можно было просто добавлять p, ul, img и они выглядели хорошо без доп-настроек */
+
+details[open] .spoiler4-summary::after {
+	transform: rotate(180deg);
+	transition: 0.5s;
+}/* это анимация разворота стрелки при раскрытии спойлера */
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Спойлеры</h1>
+		<p>Раскрывающийся контент</p>
+		<hr>
+
+
+		<h2>Спойлер простейший</h2>
+		<p class="bg-red">Анимация раскрытия спойлера details работает только в первый раз! Во второй уже контент резко, без транзишена, появляется.</p>
+		<br>
+
+		<details class="spoiler">
+			<summary class="spoiler-summary">Это простейший спойлер</summary>
+			<div class="spoiler-content">
+				<p>Это раскрывающийся контент</p>
+			</div>
+		</details>
+		<hr>
+
+
+
+
+		<h2>Спойлер №0</h2>
+
+		<details class="spoiler0">
+			<summary class="spoiler0-summary">Это спойлер с раскрывающимся контентом.</summary>
+			<div class="spoiler0-content">
+				<p>Lopx ipsum dolor sit amet consectetur adipisicing elit. Esse voluptatibus maxime veniam. Voluptas magni aspernatur culpa ratione nemo ab, quas quis eaque atque qui ipsam iste corporis vitae quidem cumque.</p>
+				<p>Lopx ipsum dolor sit amet consectetur adipisicing elit. Dicta ullam, id doloribus eos eaque cupiditate aspernatur expedita vero laudantium laborum, quo sunt ipsum unde deleniti minima eligendi illo sequi aperiam.</p>
+			</div>
+		</details>
+
+		<details class="spoiler0">
+			<summary class="spoiler0-summary">Это спойлер с раскрывающимся контентом. Это спойлер с раскрывающимся контентом. Это спойлер с раскрывающимся контентом.</summary>
+			<div class="spoiler0-content">
+				<p>Lopx ipsum dolor sit amet consectetur adipisicing elit. Esse voluptatibus maxime veniam. Voluptas magni aspernatur culpa ratione nemo ab, quas quis eaque atque qui ipsam iste corporis vitae quidem cumque.</p>
+				<img width="300" height="150" src="https://picsum.photos/300/150" alt="">
+				<p>Lopx ipsum dolor sit amet, consectetur adipisicing elit. Saepe quas nostrum ipsam tempora nihil, eos soluta, explicabo facilis accusamus temporibus nam reiciendis corporis quidem quo? Numquam ducimus fugiat fugit porro?</p>
+			</div>
+		</details>
+		<hr>
+
+
+
+
+
+		<h2>Спойлер №1</h2>
+
+		<details class="spoiler1">
+			<summary class="spoiler1-summary">Это спойлер с раскрывающимся контентом. <br>Lopx, ipsum dolor sit amet consectetur adipisicing elit. Itaque dicta fugiat, reiciendis asperiores aspernatur ipsa? Sapiente dolorum ea iusto animi similique quibusdam porro hic aspernatur, magni voluptatum esse quas distinctio?</summary>
+			<div class="spoiler1-content">
+				<p class="spoiler1-text">Lopx ipsum dolor sit amet consectetur adipisicing elit. Esse voluptatibus maxime veniam. Voluptas magni aspernatur culpa ratione nemo ab, quas quis eaque atque qui ipsam iste corporis vitae quidem cumque.</p>
+			</div>
+		</details>
+		<hr>
+
+
+
+
+		<h2>Спойлер №2</h2>
+
+		<details class="spoiler2">
+			<summary class="spoiler2-summary">Это спойлер с раскрывающимся контентом. <br>Lopx, ipsum dolor sit amet consectetur adipisicing elit. Itaque dicta fugiat, reiciendis asperiores aspernatur ipsa? Sapiente dolorum ea iusto animi similique quibusdam porro hic aspernatur, magni voluptatum esse quas distinctio?</summary>
+			<div class="spoiler2-content">
+				<p class="spoiler2-text">Lopx ipsum dolor sit amet consectetur adipisicing elit. Esse voluptatibus maxime veniam. Voluptas magni aspernatur culpa ratione nemo ab, quas quis eaque atque qui ipsam iste corporis vitae quidem cumque.</p>
+			</div>
+		</details>
+		<hr>
+
+
+
+
+		<h2>Спойлер №3</h2>
+
+		<details class="spoiler3">
+			<summary class="spoiler-summary spoiler3-summary">Это спойлер с раскрывающимся контентом.</summary>
+			<div class="spoiler-content spoiler3-content">
+				<p>Lopx ipsum dolor sit amet consectetur adipisicing elit. Neque harum dolorum, repellendus alias accusantium deleniti, earum libero unde blanditiis culpa dignissimos praesentium odit expedita quod nulla px. A, quia quae.</p>
+			</div>
+		</details>
+		<hr>
+
+
+
+
+		<h2>Спойлер №4</h2>
+
+		<details class="spoiler4">
+			<summary class="spoiler4-summary summary-animation" title="Variable"><code>&lt;var&gt;</code> – переменная</summary>
+			<div class="spoiler4-content">
+				<p><code>&lt;var&gt;текст&lt;/var&gt;</code></p>
+				<p><strong>Описание: </strong>Переменная из программы.</p>
+				<p><strong>Атрибуты: </strong>глобальные атрибуты.</p>
+				<div class="spoiler4-links">
+					<a target="_blank" rel="noopener" href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-var-element">HTML Living Standard</a>
+					<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/var">MDN</a>
+				</div>
+				<pre class="cf-css"><code class="codefield">var {
+display: inline;
+font-style: italic;
+}</code></pre>
+			</div>
+		</details>
+		<hr>
+
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>
