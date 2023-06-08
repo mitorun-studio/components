@@ -434,9 +434,9 @@
 
 
 
-		<h2>Слайдер №4 - с картинками <code>.embla-pic</code></h2>
+		<h2>Слайдер №4 - на весь экран <code>.embla-fullscreen</code></h2>
 
-		<div class="embla embla-pic">
+		<div class="embla embla-fullscreen">
 			<div class="embla__viewport">
 				<div class="embla__container pictures">
 					<div class="embla__slide pictures__card">
@@ -501,11 +501,11 @@
 				align: 'start',// 'center' (default) | 'start' | 'end' | '0.5' выравнивание активного слайда.
 				loop: true,// зацикленная прокрутка.
 				// Подключение и настройка плагинов:
-				autoplay: {
-					delay: 9999,// задержка мс между автопрокруткой слайдов.
-					stopOnMouseEnter: true,// true остановит автопрокрутку при ховере. При включенной stopOnInteraction: true автопрокрутка уже не вернётся после снятия ховера!
-					stopOnInteraction: false,// false не останавливать при взаимодействии.
-				},
+				// autoplay: {
+				// 	delay: 9999,// задержка мс между автопрокруткой слайдов.
+				// 	stopOnMouseEnter: true,// true остановит автопрокрутку при ховере. При включенной stopOnInteraction: true автопрокрутка уже не вернётся после снятия ховера!
+				// 	stopOnInteraction: false,// false не останавливать при взаимодействии.
+				// },
 			},
 
 			// Настройки для слайдера с выносом кнопок:
@@ -521,9 +521,14 @@
 			},
 
 			// Настройки для слайдера с картинками:
-			'embla-pic': {
+			'embla-fullscreen': {
 				align: 'center',// 'center' (default) | 'start' | 'end' | '0.5' выравнивание активного слайда.
 				loop: true,// зацикленная прокрутка.
+				// autoplay: {
+				// 	delay: 7000,// задержка мс между автопрокруткой слайдов.
+				// 	// stopOnMouseEnter: true,// true остановит автопрокрутку при ховере. При включенной stopOnInteraction: true автопрокрутка уже не вернётся после снятия ховера!
+				// 	stopOnInteraction: false,// false не останавливать при взаимодействии.
+				// },
 			},
 
 			// Настройки для слайдера полные:
