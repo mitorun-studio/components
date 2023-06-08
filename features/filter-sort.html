@@ -1,0 +1,241 @@
+<!doctype html><!-- Файл filter-sort.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Фильтры для карточек – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="../mitosite.css">
+	<link rel="stylesheet" href="../components.css">
+	<meta name="theme-color" content="#d4e6f7">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+
+/* Оформление фильтра: */
+.filter {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	align-items: start;
+	margin-bottom: 30px;
+}
+
+.filter__buttons {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--margin-xs);
+}
+
+.filter__button {
+	padding: 0.5em 1em;
+}
+
+[data-filter-year].active {
+	color: var(--white);
+	background-color: var(--color-main);
+}
+
+.filter__sort {
+	padding: 8px;
+	border-radius: 4px;
+}
+
+[data-filter-select] option:checked {
+	background-color: lightgray;
+}
+
+.hide {
+	display: none;
+}
+
+/* Дополнительные стили для оформления: */
+.gallery {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(252px, 1fr));
+	gap: var(--margin-s);
+}
+
+.gallery__card {
+	padding: var(--margin-s);
+	border: 1px solid var(--color);
+}
+
+.gallery__card h2 {
+	margin: 0;
+}
+
+.gallery__date {
+	color: red;
+	font-weight: 700;
+}
+
+	</style>
+</head>
+<body>
+
+	<main class="container">
+
+		<h1>Фильтры для карточек</h1>
+
+
+		<!-- Функционал фильтра: -->
+		<div class="filter">
+			<div class="filter__buttons">
+				<button class="filter__button active" type="button" data-filter-year="all">Все</button>
+			</div>
+
+			<select class="filter__sort" data-filter-select>
+				<option value="new">Сначала новые</option>
+				<option value="old">Сначала старые</option>
+			</select>
+		</div>
+
+
+		<!-- Галерея с карточками: -->
+		<div class="gallery js-filter-gallery">
+			<div class="gallery__card">
+				<h2>Заголовок карточки</h2>
+				<p>Текст карточки</p>
+				<time class="gallery__date" data-card-date datetime="2023-05-01">01 Мая 2023</time>
+			</div>
+
+
+			<div class="gallery__card">
+				<h2>Заголовок карточки</h2>
+				<p>Текст карточки</p>
+				<time class="gallery__date" data-card-date datetime="2022-08-29">29 Августа 2022</time>
+			</div>
+
+
+			<div class="gallery__card">
+				<h2>Заголовок карточки</h2>
+				<p>Текст карточки</p>
+				<time class="gallery__date" data-card-date datetime="2022-08-21">21 Августа 2022</time>
+			</div>
+
+
+			<div class="gallery__card">
+				<h2>Заголовок карточки</h2>
+				<p>Текст карточки</p>
+				<time class="gallery__date" data-card-date datetime="2023-12-27">27 Декабря 2023</time>
+			</div>
+
+
+			<div class="gallery__card">
+				<h2>Заголовок карточки</h2>
+				<p>Текст карточки</p>
+				<time class="gallery__date" data-card-date datetime="2021-03-13">13 Марта 2021</time>
+			</div>
+
+
+			<div class="gallery__card">
+				<h2>Заголовок карточки</h2>
+				<p>Текст карточки</p>
+				<time class="gallery__date" data-card-date datetime="2018-03-13">13 Марта 2018</time>
+			</div>
+
+
+			<div class="gallery__card">
+				<h2>Заголовок карточки</h2>
+				<p>Текст карточки</p>
+				<time class="gallery__date" data-card-date datetime="2023-01-01">01 Января 2023</time>
+			</div>
+		</div>
+
+	</main>
+
+	<div style="height: 100vh;"></div>
+
+
+	<!-- Скрипт фильтра и сортировки карточек -->
+	<script>
+		'use strict'
+
+		// Переменные:
+		const cards = '.js-filter-gallery'; // Все карточки.
+		const cardDate = '[data-card-date]'; // Выборка карточек по дате.
+		const filterContainer = '.filter__buttons'; // Контейнер для кнопок фильтрации по году.
+		const filterBtn = 'filter__button'; // Кнопки фильтра по году.
+		const filterAddBtn = 'data-filter-year'; // Добавляет кнопки с годом для фильтра.
+		const filterSelect = '[data-filter-select]'; // Селект фильтра.
+		const classHide = 'hide'; // Класс для скрытия лишних карточек.
+		const classActive = 'active'; // Класс для активных кнопок и селектора фильтра.
+
+
+		// Получаем элементы со страницы:
+		const cardsList = document.querySelector(cards); // Список карточек.
+		const sortOrder = document.querySelector(filterSelect); // Элемент select для выбора порядка сортировки.
+		const yearButtons = document.querySelector(filterContainer); // Контейнер для кнопок фильтрации по году.
+
+		let currentFilter = 'all'; // Переменная для отслеживания текущего выбранного фильтра.
+
+		// Функция для сортировки карточек:
+		function sortCards() {
+			const cards = Array.from(cardsList.children); // Получаем список карточек.
+			const order = sortOrder.value === 'new' ? 1 : -1; // Определяем выбранный порядок сортировки.
+			cards.sort((cardA, cardB) => { // Сортируем карточки
+				const dateA = new Date(cardA.querySelector(cardDate).getAttribute('datetime')); // Получаем дату первой карточки.
+				const dateB = new Date(cardB.querySelector(cardDate).getAttribute('datetime')); // Получаем дату второй карточки.
+				return order * (dateB - dateA); // Сортируем карточки по дате в выбранном порядке.
+			});
+			cardsList.innerHTML = ''; // Очищаем список карточек.
+			cards.forEach(card => cardsList.appendChild(card)); // Добавляем отсортированные карточки обратно в список.
+		}
+
+		// Функция для фильтрации карточек по году:
+		function filterByYear(year) {
+			if (year === currentFilter) { // Если выбранный фильтр уже активен.
+				year = 'all'; // Сбрасываем фильтр на "Показать все".
+			}
+			currentFilter = year; // Обновляем текущий выбранный фильтр.
+			const cards = Array.from(cardsList.children); // Получаем список карточек.
+			if (year === 'all') { // Если выбрана кнопка "Показать все".
+				cards.forEach(card => card.classList.remove(classHide)); // Отображаем все карточки.
+			} else {
+				cards.forEach(card => { // Для каждой карточки.
+					if (card.querySelector(cardDate).getAttribute('datetime').startsWith(year)) { // если год карточки соответствует выбранному году.
+						card.classList.remove(classHide); // Отображаем карточку.
+					} else {
+						card.classList.add(classHide); // Скрываем карточку.
+					}
+				});
+			}
+			// Добавляем код для обновления активной кнопки:
+			yearButtons.querySelectorAll(`.${filterBtn}`).forEach(button => {
+				if (button.getAttribute(filterAddBtn) === year) {
+					button.classList.add(classActive);
+				} else {
+					button.classList.remove(classActive);
+				}
+			});
+		}
+
+		sortCards(); // Сортируем карточки при загрузке страницы.
+
+		// Добавляем обработчик события для обновления сортировки при изменении порядка:
+		sortOrder.addEventListener('change', sortCards);
+
+		// Добавление кнопок для фильтрации по году:
+		const years = Array.from(new Set(Array.from(cardsList.children).map(card => card.querySelector(cardDate).getAttribute('datetime').slice(0,4)))).sort(); // Получаем уникальные года из списка карточек и сортируем их.
+		years.forEach(year => { // Для каждого года.
+			const button = document.createElement('button'); // Создаем кнопку.
+			button.classList.add(filterBtn); // Добавляем класс кнопке.
+			button.setAttribute(filterAddBtn, year); // Устанавливаем атрибут data-filter-year со значением года.
+			button.textContent = year; // Устанавливаем текст кнопки равным году.
+			yearButtons.appendChild(button); // Добавляем кнопку в контейнер для кнопок фильтрации по году.
+		});
+
+		// Добавляем обработчик клика на кнопке для фильтрации по году:
+		yearButtons.addEventListener('click', event => {
+			if (event.target.matches(`.${filterBtn}`)) { // Если кликнули на кнопку фильтрации по году.
+				filterByYear(event.target.getAttribute(filterAddBtn)); // Фильтруем карточки по выбранному году.
+			}
+		});
+
+	</script>
+
+</body>
+</html>
