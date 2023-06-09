@@ -19,13 +19,8 @@
 
 .embla {
 	position: relative;
-	z-index: 1;/* Fix of Webkit flickering */
-	max-height: 700px;/* для профилактики */
 	overflow: hidden;
-	touch-action: pan-y;
 }
-
-/* .embla__viewport {} */
 
 .embla__container {
 	display: flex;
@@ -44,7 +39,6 @@
 .embla__next {
 	position: absolute;
 	inset: 0;
-	/* top: calc(50% - 24px); */
 	z-index: 8;
 	/*display: grid;
 	place-content: center;*/
@@ -53,7 +47,6 @@
 	/*aspect-ratio: 1/1;*/
 	margin: auto;
 	background-color: transparent;
-	border: 0;
 	border-radius: 99px;
 	-webkit-appearance: none;
 	appearance: none;
@@ -82,7 +75,7 @@
 	position: absolute;
 	inset: 0;
 	background: url('./img/sprite.svg#arrow-simple') 50% / 24px 24px no-repeat;
-	background-color: var(--color-main);
+	background-color: red;
 	border-radius: 99px;
 	transition: 0.17s linear;
 }
@@ -91,14 +84,10 @@
 	rotate: 180deg;
 }
 
-@media (hover: hover) {
-	.embla__prev:hover::after,
-	.embla__next:hover::after {
-		scale: 1.1;
-		filter: brightness(120%);
-	}
+.embla__prev:hover::after,
+.embla__next:hover::after {
+	scale: 1.1;
 }
-
 
 /* Пагинация: */
 
@@ -108,19 +97,13 @@
 	right: 0;
 	bottom: 0;
 	z-index: 9;
-	/* Другой вариант центрирования:
 	display: flex;
 	flex-wrap: wrap;
 	gap: 2px;
-	justify-content: center; */
-	width: fit-content;
-	margin-left: auto;
-	margin-right: auto;
-	/* pointer-events: none; */
-}
-
-.embla__dot:only-child {
-	display: none !important;
+	justify-content: center;
+	/*width: fit-content;*/
+	/*margin: auto;*/
+	pointer-events: none;
 }
 
 .embla__dot {
@@ -128,27 +111,24 @@
 	place-content: center;
 	width: 26px;
 	height: 40px;
-	margin: 0 2px;
-	background-color: hsla(226, 100%, 50%, 0.1);
+	background-color: hsla(0, 100%, 50%, 0.1);
 	touch-action: manipulation;
 	appearance: none;
+	pointer-events: auto;
 	cursor: pointer;
-	/* pointer-events: auto; */
 }
 
 .embla__dot::after {
 	content: '';
 	width: 10px;
 	height: 10px;
-	/* aspect-ratio: 1/1; */
 	background-color: transparent;
-	border: 1px solid var(--color-main);
+	border: 1px solid red;
 	border-radius: 99px;
-	transition: 0.15s linear;
+	transition: 0.17s linear;
 }
-
 .embla__dot--selected::after {
-	background-color: var(--color-main);
+	background-color: red;
 }
 
 .embla__dot:not(.embla__dot--selected):hover::after {
@@ -231,7 +211,7 @@
 	width: 48px;
 	height: 48px;
 	background: url('./img/sprite.svg#arrow-simple') 50% / 24px 24px no-repeat;
-	background-color: var(--color-main);
+	background-color: red;
 	border-radius: 99px;
 	transition: 0.17s linear;
 }
@@ -240,134 +220,13 @@
 	rotate: 180deg;
 }
 
-@media (hover: hover) {
-	.embla--bootstrap-buttons .embla__prev:hover::after,
-	.embla--bootstrap-buttons .embla__next:hover::after {
-		scale: 1.1;
-	}
+.embla--bootstrap-buttons .embla__prev:hover::after,
+.embla--bootstrap-buttons .embla__next:hover::after {
+	scale: 1.1;
 }
 
 
 
-/*------------------------------------------------
---- Слайдер Embla №2 с выносом кнопок: -----------
-------------------------------------------------*/
-
-.embla-outside {
-	padding: 0 0 40px;
-}
-
-@media (width < 992px) {
-	.embla-outside .embla__prev,
-	.embla-outside .embla__next {
-		display: none;
-	}
-}
-
-@media (width >= 992px) {
-	.embla-outside {
-		padding: 0 80px 50px;
-	}
-
-	/* .embla-outside .embla__viewport {
-		overflow: hidden;
-	} */
-
-	/* Градиентный переход карточек в фон: */
-
-	.embla-outside::before {
-		content: '';
-		position: absolute;
-		inset: 0 0 50px 0;
-		z-index: 5;
-		background-image: linear-gradient(to right, var(--bg), transparent 80px, transparent calc(100% - 80px), var(--bg));
-		/*  background-image: linear-gradient(to right, var(--bg) 80px, transparent 80px, transparent calc(100% - 80px), var(--bg) calc(100% - 80px)); */
-		pointer-events: none;
-	}
-
-	.embla-outside .embla__prev,
-	.embla-outside .embla__next {
-		bottom: 50px;
-	}
-}
-
-/* Чтобы кнопки выходили за контейнер: */
-/* @media (width >= 1300px) {
-	.embla-outside {
-		margin-right: -80px;
-		margin-left: -80px;
-	}
-} */
-
-
-
-
-/*------------------------------------------------
---- Слайдер Embla №3 с кастомными кнопками: ------
-------------------------------------------------*/
-
-.embla-buttons {
-	display: grid;
-	grid-template-columns: 1fr auto auto;
-	gap: var(--margin-s);
-	margin-bottom: var(--margin-m);
-}
-
-.embla-custom__prev,
-.embla-custom__next {
-	position: relative;
-	margin: 0;
-}
-
-.embla-custom2__prev,
-.embla-custom2__next {
-	position: relative;
-	margin: 0;
-}
-
-
-
-
-/*------------------------------------------------
---- Слайдер Embla №4 полноэкранный слайд: ------
-------------------------------------------------*/
-
-.section-fullscreen {
-	height: clamp(680px, 100vh, 1008px);
-	overflow: hidden;
-}
-
-.embla-fullscreen {
-	height: 100%;
-	max-height: 1080px;
-}
-
-.embla-fullscreen .embla__slide {
-	height: clamp(680px, 100vh, 1008px) !important;
-}
-
-.fullscreen__card {
-	display: grid;
-	gap: var(--margin-m);
-	padding: 0 var(--container-padding);
-	background-color: hsl(142, 49%, 83%);
-}
-
-.fullscreen__card:nth-child(even) {
-	background-color: hsl(27, 100%, 87%);
-}
-
-@media (width >= 768px) {
-	.fullscreen__card {
-		grid-template-columns: 1fr 1fr;
-		align-items: center;
-	}
-}
-
-
-/*------------------------------------------------
---- Оформление слайдов: --------------------------
-------------------------------------------------*/
 
 /* Нумерация слайдов: */
 
@@ -468,6 +327,8 @@
 	object-position: 50% 50%;
 }
 
+
+
 	</style>
 </head>
 
@@ -475,238 +336,145 @@
 <body>
 
 
-	<main>
-		<section class="container">
+	<main class="container">
 
-			<h1>Слайдер <a target="_blank" href="https://www.embla-carousel.com/">Embla</a></h1>
+		<h1>Слайдер Embla</h1>
 
 
-			<h2>Слайдер №1 – базовый <code>.embla-base</code></h2>
+		<h2>Слайдер №1 – базовый <code>.embla-base</code></h2>
 
-			<div class="embla embla-base">
-				<div class="embla__viewport">
-					<div class="embla__container gallery">
-						<div class="embla__slide gallery__card">Slide 1</div>
-						<div class="embla__slide gallery__card">Slide 2</div>
-						<div class="embla__slide gallery__card">Slide 3</div>
-						<div class="embla__slide gallery__card">Slide 4</div>
-						<div class="embla__slide gallery__card">Slide 5</div>
-						<div class="embla__slide gallery__card">Slide 6</div>
+		<div class="embla embla-base">
+			<div class="embla__viewport">
+				<div class="embla__container gallery">
+					<div class="embla__slide gallery__card">Slide 1</div>
+					<div class="embla__slide gallery__card">Slide 2</div>
+					<div class="embla__slide gallery__card">Slide 3</div>
+					<div class="embla__slide gallery__card">Slide 4</div>
+					<div class="embla__slide gallery__card">Slide 5</div>
+					<div class="embla__slide gallery__card">Slide 6</div>
+				</div>
+			</div>
+
+			<button class="embla__prev" type="button"></button>
+			<button class="embla__next" type="button"></button>
+
+			<div class="embla__dots"></div>
+		</div>
+
+
+
+
+		<p>Копия первого слайдера, а значит для одинаковых слайдеров не нужно менять названия классов и скрипт:</p>
+
+		<div class="embla embla-base">
+			<div class="embla__viewport">
+				<div class="embla__container gallery">
+					<div class="embla__slide gallery__card">Слайд 1</div>
+					<div class="embla__slide gallery__card">Слайд 2</div>
+					<div class="embla__slide gallery__card">Слайд 3</div>
+					<div class="embla__slide gallery__card">Слайд 4</div>
+				</div>
+			</div>
+
+			<button class="embla__prev" type="button"></button>
+			<button class="embla__next" type="button"></button>
+
+			<div class="embla__dots"></div>
+		</div>
+
+
+
+
+		<h2>Слайдер №2 – вынос кнопок <code>.embla-outside</code></h2>
+
+		<div class="embla embla-outside">
+			<div class="embla__viewport">
+				<div class="embla__container gallery">
+					<div class="embla__slide gallery__card">Slide 1</div>
+					<div class="embla__slide gallery__card">Slide 2</div>
+					<div class="embla__slide gallery__card">Slide 3</div>
+					<div class="embla__slide gallery__card">Slide 4</div>
+					<div class="embla__slide gallery__card">Slide 5</div>
+					<div class="embla__slide gallery__card">Slide 6</div>
+				</div>
+			</div>
+
+			<button class="embla__prev" type="button"></button>
+			<button class="embla__next" type="button"></button>
+
+			<div class="embla__dots"></div>
+		</div>
+
+
+
+
+		<h2>Слайдер №3 – кастомные кнопки <code>.embla-custom</code></h2>
+
+		<div class="embla-buttons">
+			<button class="embla__prev embla-custom__prev" type="button"></button>
+			<button class="embla__next embla-custom__next" type="button"></button>
+		</div>
+
+		<div class="embla embla-custom">
+			<div class="embla__viewport">
+				<div class="embla__container gallery">
+					<div class="embla__slide gallery__card">Slide 1</div>
+					<div class="embla__slide gallery__card">Slide 2</div>
+					<div class="embla__slide gallery__card">Slide 3</div>
+					<div class="embla__slide gallery__card">Slide 4</div>
+					<div class="embla__slide gallery__card">Slide 5</div>
+					<div class="embla__slide gallery__card">Slide 6</div>
+				</div>
+			</div>
+
+
+			<div class="embla__dots"></div>
+		</div>
+
+
+
+
+		<h2>Слайдер №4 - на весь экран <code>.embla-fullscreen</code></h2>
+
+		<div class="embla embla-fullscreen">
+			<div class="embla__viewport">
+				<div class="embla__container pictures">
+					<div class="embla__slide pictures__card">
+						<img width="600" height="400" src="https://loremflickr.com/600/400?random=1" alt="">
+					</div>
+
+					<div class="embla__slide pictures__card">
+						<img width="600" height="400" src="https://loremflickr.com/600/400?random=2" alt="">
+					</div>
+
+					<div class="embla__slide pictures__card">
+						<img width="600" height="400" src="https://loremflickr.com/600/400?random=3" alt="">
+					</div>
+
+					<div class="embla__slide pictures__card">
+						<img width="600" height="400" src="https://loremflickr.com/600/400?random=4" alt="">
+					</div>
+
+					<div class="embla__slide pictures__card">
+						<img width="600" height="400" src="https://loremflickr.com/600/400?random=5" alt="">
+					</div>
+
+					<div class="embla__slide pictures__card">
+						<img width="600" height="400" src="https://loremflickr.com/600/400?random=6" alt="">
 					</div>
 				</div>
-
-				<button class="embla__prev" type="button"></button>
-				<button class="embla__next" type="button"></button>
-
-				<div class="embla__dots"></div>
 			</div>
 
+			<button class="embla__prev" type="button"></button>
+			<button class="embla__next" type="button"></button>
 
+			<div class="embla__dots"></div>
+		</div>
 
 
-			<p>Копия первого слайдера, а значит для одинаковых слайдеров не нужно менять названия классов и скрипт:</p>
 
-			<div class="embla embla-base">
-				<div class="embla__viewport">
-					<div class="embla__container gallery">
-						<div class="embla__slide gallery__card">Слайд 1</div>
-						<div class="embla__slide gallery__card">Слайд 2</div>
-						<div class="embla__slide gallery__card">Слайд 3</div>
-						<div class="embla__slide gallery__card">Слайд 4</div>
-					</div>
-				</div>
 
-				<button class="embla__prev" type="button"></button>
-				<button class="embla__next" type="button"></button>
-
-				<div class="embla__dots"></div>
-			</div>
-
-
-
-
-			<h2>Слайдер №2 – вынос кнопок <code>.embla-outside</code></h2>
-
-			<div class="embla embla-outside">
-				<div class="embla__viewport">
-					<div class="embla__container gallery">
-						<div class="embla__slide gallery__card">Slide 1</div>
-						<div class="embla__slide gallery__card">Slide 2</div>
-						<div class="embla__slide gallery__card">Slide 3</div>
-						<div class="embla__slide gallery__card">Slide 4</div>
-						<div class="embla__slide gallery__card">Slide 5</div>
-						<div class="embla__slide gallery__card">Slide 6</div>
-					</div>
-				</div>
-
-				<button class="embla__prev" type="button"></button>
-				<button class="embla__next" type="button"></button>
-
-				<div class="embla__dots"></div>
-			</div>
-
-
-
-
-			<h2>Слайдер №3 – кастомные кнопки <code>.embla-custom</code></h2>
-
-
-			<div class="embla-buttons">
-				<p>Кнопки листания выносятся за разметку слайдера.</p>
-
-				<button class="embla__prev embla-custom__prev" type="button"></button>
-				<button class="embla__next embla-custom__next" type="button"></button>
-			</div>
-
-
-			<div class="embla embla-custom">
-				<div class="embla__viewport">
-					<div class="embla__container gallery">
-						<div class="embla__slide gallery__card">Slide 1</div>
-						<div class="embla__slide gallery__card">Slide 2</div>
-						<div class="embla__slide gallery__card">Slide 3</div>
-						<div class="embla__slide gallery__card">Slide 4</div>
-						<div class="embla__slide gallery__card">Slide 5</div>
-						<div class="embla__slide gallery__card">Slide 6</div>
-					</div>
-				</div>
-
-
-				<div class="embla__dots"></div>
-			</div>
-
-
-
-
-			<h2>Слайдер №4 - полноэкранный слайд <code>.embla-fullscreen</code></h2>
-
-		</section>
-
-
-
-
-		<section class="container section section-fullscreen">
-
-			<div class="embla embla-fullscreen">
-				<div class="embla__viewport">
-					<div class="embla__container fullscreen">
-						<div class="embla__slide fullscreen__card">
-							<div class="fullscreen__content">
-								<h2 class="fullscreen__title h2">Заголовок</h2>
-								<p class="fullscreen__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, reprehenderit molestias, praesentium blanditiis autem magni consequatur aperiam accusamus explicabo placeat aliquid, consequuntur quidem amet asperiores inventore. Officia odio aut blanditiis.</p>
-								<a class="button" href="#">Кнопка</a>
-							</div>
-
-							<img class="fullscreen__img" width="600" height="400" src="https://loremflickr.com/600/400?random=1" alt="">
-						</div>
-
-						<div class="embla__slide fullscreen__card">
-							<div class="fullscreen__content">
-								<h2 class="fullscreen__title h2">Заголовок</h2>
-								<p class="fullscreen__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, reprehenderit molestias, praesentium blanditiis autem magni consequatur aperiam accusamus explicabo placeat aliquid, consequuntur quidem amet asperiores inventore. Officia odio aut blanditiis.</p>
-								<a class="button" href="#">Кнопка</a>
-							</div>
-
-							<img class="fullscreen__img" width="600" height="400" src="https://loremflickr.com/600/400?random=2" alt="">
-						</div>
-
-						<div class="embla__slide fullscreen__card">
-							<div class="fullscreen__content">
-								<h2 class="fullscreen__title h2">Заголовок</h2>
-								<p class="fullscreen__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, reprehenderit molestias, praesentium blanditiis autem magni consequatur aperiam accusamus explicabo placeat aliquid, consequuntur quidem amet asperiores inventore. Officia odio aut blanditiis.</p>
-								<a class="button" href="#">Кнопка</a>
-							</div>
-
-							<img class="fullscreen__img" width="600" height="400" src="https://loremflickr.com/600/400?random=3" alt="">
-						</div>
-					</div>
-				</div>
-
-				<button class="embla__prev" type="button"></button>
-				<button class="embla__next" type="button"></button>
-
-				<div class="embla__dots"></div>
-			</div>
-
-		</section>
-
-
-
-		<section class="container">
-
-			<h2>Слайдер №5 – картинки <code>.embla-pic</code></h2>
-
-			<div class="embla embla-pic">
-				<div class="embla__viewport">
-					<div class="embla__container pictures">
-						<div class="embla__slide pictures__card">
-							<img width="600" height="400" src="https://loremflickr.com/600/400?random=1" alt="">
-						</div>
-
-						<div class="embla__slide pictures__card">
-							<img width="600" height="400" src="https://loremflickr.com/600/400?random=2" alt="">
-						</div>
-
-						<div class="embla__slide pictures__card">
-							<img width="600" height="400" src="https://loremflickr.com/600/400?random=3" alt="">
-						</div>
-
-						<div class="embla__slide pictures__card">
-							<img width="600" height="400" src="https://loremflickr.com/600/400?random=4" alt="">
-						</div>
-
-						<div class="embla__slide pictures__card">
-							<img width="600" height="400" src="https://loremflickr.com/600/400?random=5" alt="">
-						</div>
-
-						<div class="embla__slide pictures__card">
-							<img width="600" height="400" src="https://loremflickr.com/600/400?random=6" alt="">
-						</div>
-					</div>
-				</div>
-
-				<button class="embla__prev" type="button"></button>
-				<button class="embla__next" type="button"></button>
-
-				<div class="embla__dots"></div>
-			</div>
-
-
-
-
-			<p><a href="https://www.embla-carousel.com/">https://www.embla-carousel.com/</a></p>
-
-
-
-
-			<h2>Повтор Слайдер №3 – кастомные кнопки <code>.embla-custom2</code></h2>
-
-			<div class="embla-buttons">
-				<p>Кнопки листания выносятся за разметку слайдера. <mark>Нужно доработать скрипт чтобы несколько таких кастомных слайдеров работали от одних и тех же классов!</mark></p>
-
-				<button class="embla__prev embla-custom2__prev" type="button"></button>
-				<button class="embla__next embla-custom2__next" type="button"></button>
-			</div>
-
-			<div class="embla embla-custom2">
-				<div class="embla__viewport">
-					<div class="embla__container gallery">
-						<div class="embla__slide gallery__card">Slide 1</div>
-						<div class="embla__slide gallery__card">Slide 2</div>
-						<div class="embla__slide gallery__card">Slide 3</div>
-						<div class="embla__slide gallery__card">Slide 4</div>
-						<div class="embla__slide gallery__card">Slide 5</div>
-						<div class="embla__slide gallery__card">Slide 6</div>
-					</div>
-				</div>
-
-
-				<div class="embla__dots"></div>
-			</div>
-
-		</section>
-
-
+		<p><a href="https://www.embla-carousel.com/">https://www.embla-carousel.com/</a></p>
 
 	</main>
 
@@ -733,11 +501,11 @@
 				align: 'start',// 'center' (default) | 'start' | 'end' | '0.5' выравнивание активного слайда.
 				loop: true,// зацикленная прокрутка.
 				// Подключение и настройка плагинов:
-				autoplay: {
-					delay: 9999,// задержка мс между автопрокруткой слайдов.
-					stopOnMouseEnter: true,// true остановит автопрокрутку при ховере. При включенной stopOnInteraction: true автопрокрутка уже не вернётся после снятия ховера!
-					stopOnInteraction: false,// false не останавливать при взаимодействии.
-				},
+				// autoplay: {
+				// 	delay: 9999,// задержка мс между автопрокруткой слайдов.
+				// 	stopOnMouseEnter: true,// true остановит автопрокрутку при ховере. При включенной stopOnInteraction: true автопрокрутка уже не вернётся после снятия ховера!
+				// 	stopOnInteraction: false,// false не останавливать при взаимодействии.
+				// },
 			},
 
 			// Настройки для слайдера с выносом кнопок:
@@ -752,27 +520,15 @@
 				loop: true,// зацикленная прокрутка.
 			},
 
-			// Настройки для слайдера с кастомными кнопками:
-			'embla-custom2': {
-				align: 'start',// 'center' (default) | 'start' | 'end' | '0.5' выравнивание активного слайда.
-				loop: true,// зацикленная прокрутка.
-			},
-
-			// Настройки для полноэкранного слайдера:
+			// Настройки для слайдера с картинками:
 			'embla-fullscreen': {
 				align: 'center',// 'center' (default) | 'start' | 'end' | '0.5' выравнивание активного слайда.
 				loop: true,// зацикленная прокрутка.
-				autoplay: {
-					delay: 7000,// задержка мс между автопрокруткой слайдов.
-					// stopOnMouseEnter: true,// true остановит автопрокрутку при ховере. При включенной stopOnInteraction: true автопрокрутка уже не вернётся после снятия ховера!
-					stopOnInteraction: false,// false не останавливать при взаимодействии.
-				},
-			},
-
-			// Настройки для слайдера с картинками:
-			'embla-pic': {
-				align: 'center',// 'center' (default) | 'start' | 'end' | '0.5' выравнивание активного слайда.
-				loop: true,// зацикленная прокрутка.
+				// autoplay: {
+				// 	delay: 7000,// задержка мс между автопрокруткой слайдов.
+				// 	// stopOnMouseEnter: true,// true остановит автопрокрутку при ховере. При включенной stopOnInteraction: true автопрокрутка уже не вернётся после снятия ховера!
+				// 	stopOnInteraction: false,// false не останавливать при взаимодействии.
+				// },
 			},
 
 			// Настройки для слайдера полные:
@@ -828,12 +584,8 @@
 			const options = sliderOptions[sliderName];// получаем параметры для текущего слайдера.
 
 			const viewportNode = slider.querySelector('.embla__viewport');
-			let prevButtonNode = slider.querySelector('.embla__prev');
-			let nextButtonNode = slider.querySelector('.embla__next');
-			if (!prevButtonNode || !nextButtonNode) {
-				prevButtonNode = document.querySelector(`.${sliderName}__prev`);
-				nextButtonNode = document.querySelector(`.${sliderName}__next`);
-			}
+			const prevButtonNode = slider.querySelector('.embla__prev');
+			const nextButtonNode = slider.querySelector('.embla__next');
 			const dotsNode = slider.querySelector('.embla__dots');
 
 			// Подключаем плагины:

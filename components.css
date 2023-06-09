@@ -4,7 +4,8 @@
 }
 
 body {
-	background-color: hsl(0, 0%, 90%);
+	--bg: hsl(0, 0%, 90%);
+	/* background-color: hsl(0, 0%, 90%); */
 }
 
 h1,
@@ -15,7 +16,7 @@ h3,
 .h3,
 h4,
 .h4 {
-	margin-top: 2.2em;
+	margin-top: 3em;
 	margin-bottom: 1.1em;
 }
 
@@ -29,6 +30,140 @@ h1,
 
 p,
 .p {
-	margin-top: 0.7em;
-	margin-bottom: 0.5em;
+	margin-top: 0.8em;
+	margin-bottom: 0.4em;
 }
+
+a:not([class]) {
+	text-decoration: underline;
+	text-underline-offset: 0.23em;
+	color: var(--color-main);
+	transition: 0.15s linear;
+}
+
+a:hover {
+	text-underline-offset: 0.3em;
+}
+
+
+
+
+/*------------------------------------------------
+--- Компонент Кнопка: ----------------------------
+------------------------------------------------*/
+
+.button {
+	position: relative;
+	display: inline-grid;
+	grid-template-columns: auto;
+	/* или max-content */
+	grid-auto-columns: auto;
+	grid-auto-flow: column;
+	place-items: center;
+	place-content: center;
+	column-gap: calc(var(--padding-form) / 2);
+	width: fit-content;
+	padding: var(--padding-form) calc(var(--padding-form) * 2);
+	font-weight: var(--font-weight-form);
+	font-size: var(--font-size-form);
+	line-height: var(--line-height-form);
+	font-family: var(--font-family-form);
+	text-align: center;
+	text-decoration: none;
+	/*text-transform: uppercase;
+	letter-spacing: 0.03em;*/
+	color: var(--white);
+	background-color: var(--color-main);
+	border: 1px solid var(--color-main);
+	border-radius: var(--border-radius-m);
+	/*box-shadow: var(--shadow);*/
+	/*overflow: hidden;*/
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	-webkit-tap-highlight-color: transparent;
+	/*cursor: pointer;*/
+	/*user-select: none; чтобы не выделялся контент кнопки */
+	transition: 0.2s;
+}
+
+.button--2 {
+	color: var(--color-main);
+	background: transparent;
+	/*border: 2px solid currentColor;*/
+	/*box-shadow: none;*/
+}
+
+.button--s {
+	padding: var(--padding-form-s) calc(var(--padding-form-s) * 2);
+	font: var(--font-form-s);
+}
+
+.button--icon::after {
+	content: '';
+	width: 1em;
+	height: 1em;
+	/*background-image: url('/img/sprite.svg#arrow-simple-dark');*/
+	background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" fill="none" stroke="%23fff" stroke-width=".6"%3E%3Cpath d="M7 4H0 M5 2L7 4L5 6"/%3E%3C/svg%3E') 50% / 100% no-repeat;
+}
+
+/*.button--2.button--icon::after,
+[data-theme='dark'] .button--icon::after {
+	background-image: url('/img/sprite.svg#arrow-link');
+}*/
+
+@media (width < 450px) {
+	.button {
+		width: 100%;
+	}
+}
+
+.button--wide {
+	width: 100%;
+	max-width: 600px;
+}
+
+.button--center {
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+	/*translate: -50%;*/
+}
+
+.button:not(.button--2):hover,
+.button:not(.button--2):focus-visible {
+	filter: brightness(115%);
+}
+
+.button--2:hover,
+.button--2:focus-visible {
+	box-shadow: inset 0 0 0 1px var(--color-main);
+}
+
+.button--icon:hover,
+.button--icon:focus-visible {
+	column-gap: calc(var(--padding-form) / 2 + 16px);
+	padding: var(--padding-form) calc(var(--padding-form) * 2 - 8px);
+}
+
+.button:active {
+	filter: brightness(0.9) !important;
+}
+
+.button:focus:not(:focus-visible) {
+	outline: 0;
+}
+
+.disabled,
+button:disabled,
+input[disabled],
+input[aria-disabled=true],
+fieldset[disabled] {
+	transform: none;
+	opacity: 0.6;
+	/* это делает отключенные кнопки полупрозрачными */
+	filter: grayscale(0.8);
+	/* это делает отключенные кнопки серенькими */
+}
+
+/*-------- Конец компонента Кнопка. ------------*/
