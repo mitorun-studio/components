@@ -32,12 +32,6 @@
 	/*gap: var(--margin-s);*/
 }
 
-.embla__slide {
-	flex: 0 0 auto;
-	min-width: 0;
-	max-width: 100%;
-}
-
 /* Кнопки след/пред: */
 
 .embla__prev,
@@ -129,7 +123,7 @@
 	width: 26px;
 	height: 40px;
 	margin: 0 2px;
-	background-color: hsla(226, 100%, 50%, 0.1);
+	background-color: transparent;
 	touch-action: manipulation;
 	appearance: none;
 	cursor: pointer;
@@ -141,7 +135,7 @@
 	width: 10px;
 	height: 10px;
 	/* aspect-ratio: 1/1; */
-	background-color: transparent;
+	background-color: var(--white);
 	border: 1px solid var(--color-main);
 	border-radius: 99px;
 	transition: 0.15s linear;
@@ -155,10 +149,86 @@
 	scale: 1.2;
 }
 
+.embla__slide {
+	flex: 0 0 auto;
+	min-width: 0;
+	max-width: 100%;
+}
+
 /* Конец компонента слайдера Embla. */
 
 
 
+
+/*------------------------------------------------
+--- Оформление слайдов: --------------------------
+------------------------------------------------*/
+
+/* Галерея с карточками №1: */
+
+/*.gallery {}*/
+
+.gallery__card {
+	/*display: grid;
+	place-content: center;*/
+	/*flex-basis: 290px;*/
+	width: 100%;
+	min-height: 150px;
+	margin-right: var(--margin-s);
+	padding: var(--margin-s);
+}
+
+@media (width >= 1040px) {
+	.gallery__card {
+		width: calc((100% - var(--margin-s) * 2) / 3);
+	}
+}
+
+/* Галерея с карточками №2: */
+
+/*.pictures {}*/
+
+.pictures__card {
+	position: relative;
+	/*display: grid;
+	place-content: center;*/
+	/*flex-basis: 290px;*/
+	width: 100%;
+	min-height: 150px;
+	margin-right: var(--margin-s);
+
+}
+
+.pictures__card img {
+	display: block;
+	width: 100%;
+	height: 500px;
+	object-fit: cover;
+	object-position: 50% 50%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*------------------------------------------------
+--- Разные варианты настроек слайдеров: ----------
+------------------------------------------------*/
 
 /* Слайдер на гридах: */
 
@@ -287,7 +357,7 @@
 
 	.embla-outside .embla__prev,
 	.embla-outside .embla__next {
-		bottom: 50px;
+		inset: 0 0 50px;
 	}
 }
 
@@ -365,14 +435,24 @@
 }
 
 
+
+
 /*------------------------------------------------
---- Оформление слайдов: --------------------------
+--- Оформление слайдов для компонента: -----------
 ------------------------------------------------*/
 
-/* Нумерация слайдов: */
+.embla__dot {
+	background-color: hsla(226, 100%, 50%, 0.1);
+}
 
 .embla__slide {
 	position: relative;
+	background-color: hsl(142, 49%, 83%);
+	border: 1px dashed grey;
+}
+
+.embla__slide:nth-child(even) {
+	background-color: hsl(27, 100%, 87%);
 }
 
 .embla__slide::after {
@@ -416,57 +496,8 @@
 	content: '6';
 }
 
-/* Галерея с карточками №1: */
 
-/*.gallery {}*/
 
-.gallery__card {
-	/*display: grid;
-	place-content: center;*/
-	/*flex-basis: 290px;*/
-	width: 100%;
-	min-height: 150px;
-	margin-right: var(--margin-s);
-	padding: var(--margin-s);
-	background-color: hsl(142, 49%, 83%);
-	border: 1px dashed grey;
-}
-
-.gallery__card:nth-child(even) {
-	background-color: hsl(27, 100%, 87%);
-}
-
-@media (width >= 1040px) {
-	.gallery__card {
-		width: calc((100% - var(--margin-s) * 2) / 3);
-	}
-}
-
-/* Галерея с карточками №2: */
-
-/*.pictures {}*/
-
-.pictures__card {
-	position: relative;
-	/*display: grid;
-	place-content: center;*/
-	/*flex-basis: 290px;*/
-	width: 100%;
-	min-width: 0;
-	min-height: 150px;
-	margin-right: var(--margin-s);
-	/* padding-left: var(--margin-s); */
-	background-color: hsl(142, 49%, 83%);
-	border: 1px dashed grey;
-}
-
-.pictures__card img {
-	display: block;
-	width: 100%;
-	height: 400px;
-	object-fit: cover;
-	object-position: 50% 50%;
-}
 
 	</style>
 </head>
@@ -636,7 +667,7 @@
 
 			<h2>Слайдер №5 – картинки <code>.embla-pic</code></h2>
 
-			<div class="embla embla-pic">
+			<div class="embla embla-pictures">
 				<div class="embla__viewport">
 					<div class="embla__container pictures">
 						<div class="embla__slide pictures__card">
@@ -770,7 +801,7 @@
 			},
 
 			// Настройки для слайдера с картинками:
-			'embla-pic': {
+			'embla-pictures': {
 				align: 'center',// 'center' (default) | 'start' | 'end' | '0.5' выравнивание активного слайда.
 				loop: true,// зацикленная прокрутка.
 			},

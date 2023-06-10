@@ -1,0 +1,538 @@
+<!doctype html><!-- Файл content.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Стили для статей – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<!-- <link rel="stylesheet" href="components.css"> -->
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+/*------------------------------------------------
+--- Компонент стилей для статей: -----------------
+------------------------------------------------*/
+
+.content {
+	--font-size-m: 17px;
+	max-width: 720px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+@media (width >= 576px) {
+	.content {
+		--font-size-m: 18px;
+	}
+}
+
+@media (width >= 992px) {
+	.content {
+		--font-size-m: 20px;
+	}
+}
+
+.content h1,
+.content h2,
+.content h3,
+.content h4,
+.content h5,
+.content h6 {
+	margin-top: 1.8em;
+	margin-bottom: max(0.6em, 16px);
+	line-height: var(--line-height-xs);
+}
+
+.content p {
+	margin-bottom: 1em;
+	font-size: var(--font-size-m);
+	line-height: 1.5;
+}
+
+.content ul,
+.content ol {
+	margin-bottom: 1em;
+	padding-left: 30px;
+}
+
+.content li {
+	margin-bottom: 0.5em;
+	font-size: var(--font-size-m);
+	line-height: 1.3;
+}
+
+.content a {
+	text-decoration: underline;
+	text-underline-offset: 0.26em;
+	text-decoration-thickness: 0.08em;
+	text-decoration-skip-ink: none;
+	color: var(--color-main);
+	transition: 0.15s linear;
+}
+
+.content a:hover,
+.content a:focus-visible {
+	text-underline-offset: 0.32em;
+}
+
+.content a:active {
+	text-underline-offset: 0.18em;
+}
+
+.content img {
+	width: 100%;
+	max-width: 100%;
+	height: auto;
+	max-height: 600px;
+	/*aspect-ratio: 3/2;*/
+	object-fit: contain;
+	object-position: center center;
+}
+
+.content hr {
+	margin: 1em 0;
+	font-size: var(--font-size-m);
+	color: inherit;
+	border: 0;
+	border-top: 1px solid var(--grey-light);
+}
+
+.content blockquote {
+	margin-bottom: 1em;
+	padding: 0.8em 0.7em;
+	font-size: var(--font-size-m);
+	font-style: italic;
+	background-color: var(--grey-lightest);
+	border-left: 4px solid var(--grey);
+}
+
+@media (width >= 576px) {
+	.content blockquote {
+		padding: 1.5em;
+		border-left-width: 6px;
+	}
+}
+
+.content blockquote p {
+	margin: 0;
+}
+
+/*--- Инлайновый код: -------------------*/
+
+.code,
+.content :not(pre) > code {
+	display: inline-block;
+	margin-inline: 0.1em;
+	padding: 0.26em;
+	font-weight: 440;
+	font-size: 90%;
+	line-height: 1;
+	background: var(--grey-lightest);/* var(--bg-code); */
+	/* border: 1px dashed var(--grey); */
+	border-radius: 0.3em;
+}
+
+/*--- Блок с кодом: ----------------------*/
+
+:root {
+	--bg-code: hsl(0, 0%, 94%);
+}
+
+.code-block,
+.content pre {
+	position: relative;
+	display: block;
+	margin-bottom: 1em;
+	font-size: var(--font-size-m);
+	background-color: var(--bg-code);
+	overflow: auto;
+}
+
+@media (width < 576px) {
+	.code-block,
+	.content pre {
+		margin-left: calc(-1 * var(--container-padding));
+		margin-right: calc(-1 * var(--container-padding));
+	}
+}
+
+.code-block::after,
+.content pre::after {
+	content: '';
+	position: absolute;
+	inset: 0 0 14px;
+	background-image: linear-gradient(to right, var(--bg-code) 2px, transparent var(--container-padding), transparent calc(100% - var(--container-padding)), var(--bg-code) calc(100% - 2px));
+	pointer-events: none;
+}
+
+@media (width >= 576px) {
+	.code-block::after,
+	.content pre::after {
+		background-image: linear-gradient(to right, var(--bg-code) 3px, transparent 1.8em, transparent calc(100% - 1.8em), var(--bg-code) calc(100% - 3px));
+	}
+}
+
+.code-block code,
+.content pre > code {
+	display: block;
+	/* min-height: 8em; */
+	padding: 0.9em var(--container-padding);
+	font-size: 90%;
+	line-height: 1.2;
+	white-space: pre;
+	tab-size: 2;
+	/* background-color: var(--grey-lightest); */
+	overflow: auto;
+}
+
+@media (width >= 576px) {
+	.code-block code,
+	.content pre > code {
+		padding: 0.9em 1.8em;
+	}
+}
+
+@media (width >= 800px) {
+	.code-block code,
+	.content pre > code {
+		tab-size: 4;
+	}
+}
+
+/*--- Элемент с названием языка кода: ----------*/
+
+.content pre > code[class*='language-'] {
+	padding-top: 1.4em;
+}
+
+.code-block code[class*='language-']::before,
+.content pre > code[class*='language-']::before {
+	/*content: attr(data-content);*/
+	position: absolute;
+
+	top: 0;
+	left: var(--container-padding);
+	padding: 0 0.7em;
+	font-size: var(--font-size-s);
+	color: var(--white);
+	background-color: hsl(224, 78%, 66%);
+	border-radius: 0 0 0.4em 0.4em;
+
+	/* Другой вариант стилей: */
+	/* top: 0;
+	right: 0;
+	z-index: 9999;
+	width: fit-content;
+	font: 900 60px/0.8 var(--font-family);
+	text-align: right;
+	color: hsla(0, 0%, 50%, 0.09);
+	background-color: transparent;*/
+
+	text-transform: uppercase;
+	pointer-events: none;
+}
+
+@media (width >= 576px) {
+	.code-block code[class*='language-']::before,
+	.content pre > code[class*='language-']::before {
+		left: 2.1em;
+	}
+}
+
+.language-html::before {
+	content: 'HTML';
+	background-color: hsl(8, 77%, 63%);
+}
+
+.language-md::before {
+	content: 'MD';
+	background-color: hsl(54, 85%, 63%);
+}
+
+.language-njk::before {
+	content: 'NJK';
+	background-color: hsl(287, 70%, 66%);
+}
+
+.language-css::before {
+	content: 'CSS';
+	background-color: hsl(134, 72%, 60%);
+}
+
+.language-js::before {
+	content: 'JS';
+	background-color: hsl(319, 78%, 69%);
+}
+
+.language-svg::before {
+	content: 'SVG';
+	background-color: hsl(256, 75%, 70%);
+}
+
+.language-php::before {
+	content: 'PHP';
+	background-color: hsl(39, 100%, 50%);
+}
+
+.language-mix::before {
+	content: 'MIX';
+	background-color: hsl(39, 100%, 50%);
+}
+
+.language-live::before {
+	content: 'Live';
+	background-color: hsl(39, 100%, 50%);
+}
+
+.language-shell::before {
+	content: 'Shell';
+	background-color: hsl(39, 100%, 50%);
+}
+
+/*--- Скроллбар для блока кода: ----------------*/
+
+.content pre > code::-webkit-scrollbar {
+	height: 14px;
+}
+
+.content pre > code::-webkit-scrollbar-thumb {
+	background: content-box transparent;
+	border: 4px solid transparent;
+	border-radius: 9px;
+	transition: 0.17s linear;
+}
+
+.content pre > code::-webkit-scrollbar-track {
+	background-color: transparent;
+}
+
+.content pre > code:hover::-webkit-scrollbar-thumb {
+	background-color: var(--grey-light);
+	/* border: 2px solid red; */
+}
+
+
+
+.content table {
+	display: block;
+	width: 100%;
+	table-layout: fixed;/* это метод вычисления ширины ячеек, желательно указывать ширину таблицы */
+	font-size: var(--font-size-s);
+	line-height: var(--line-height-s);
+	background: hsl(0, 0%, 100%);
+	/*border-collapse: collapse; это соединяет рамки соседних ячеек. Но при этом рамки становятся как бы частью таблицы и не принадлежат ячейкам, например при фиксировании ячеек рамки теряются */
+	/*empty-cells: show | hide; hide будет прятать пустые ячейки */
+	overflow: auto;
+}
+
+.content table caption {
+	margin: 1em 0 0.5em;
+	color: hsl(0, 0%, 26%);
+	font: 700 20px/1.3 var(--font-heading);
+	text-align: left;
+}
+
+.content table thead {
+	position: sticky;/* это чтобы зафиксировать верхний ряд! */
+	top: 2px;/* 2px чтобы была видна верхняя рамка с помощью box-shadow или outline */
+}
+
+.content table tbody tr:nth-of-type(even) {
+	background: var(--color-main-lightest);
+}
+
+.content table th {
+	background: var(--grey-lightest);
+}
+
+.content table th,
+.content table td {
+	/*position: relative; это для выделения колонок псевдоэлементом */
+	padding: 4px 8px;
+	overflow: hidden;
+	text-align: center;/* стоит ли так оформлять по умолчанию? */
+	/*vertical-align: middle; это по умолчанию в хроме */
+	/*border: 2px solid hsl(0, 0%, 60%); это вариант рамки с помощью border */
+	/*box-shadow: 0 0 0 2px hsl(0, 0%, 60%); это вариант рамки с помощью box-shadow */
+	outline: 1px solid var(--grey);/* это вариант рамки с помощью outline */
+}
+
+.content table th[rowspan],
+.content table td[rowspan] {
+	writing-mode: vertical-rl;
+	/*text-orientation: upright;*/
+	/*writing-mode: vertical-rl; transform: rotate(180deg);*/
+	/*writing-mode: horizontal-tb | vertical-rl | vertical-lr | sideways-rl | sideways-lr*/
+}
+
+.content table tr:hover {
+	/*background: hsl(60, 63%, 92%);*/
+	box-shadow: inset 0 0 0 100vmax hsla(50, 90%, 55%, 0.1);
+}
+
+.content table td:hover {
+	/*background: hsl(60, 67%, 86%);*/
+	box-shadow: inset 0 0 0 100vmax hsla(50, 90%, 55%, 0.1);
+}
+
+/*.content td:hover::after,
+.content th:hover::after {
+	content: '';
+	position: absolute;
+	top: -3000px;
+	left: 0;
+	z-index: -1;
+	width: 100%;
+	height: 6000px;
+	background: hsl(60, 63%, 92%);
+} это для выделения колонок при ховере */
+
+
+
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Стили для статей</h1>
+
+
+		<h2>Компонент №1</h2>
+		<hr>
+
+		<div class="content">
+			<h1>Заголовок H1</h1>
+
+			<h2>Заголовок H2</h2>
+
+
+			<p>aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa</p>
+
+
+			<p>Это один параграф с обычным текстом. В нём может быть несколько предложений.</p>
+
+
+			<p>Это пример как можно<br>перенести на новую строку внутри одного параграфа. Нужно в месте переноса вставить тег br в угловых скобках.</p>
+
+			<h3>Заголовок H3</h3>
+
+
+
+			<p>Это пример как вставить <a href="https://example.com">строчную ссылку</a> в текст.</p>
+
+
+
+			<h4>Заголовок H4</h4>
+
+
+			<p>Ниже пример как вставить картинку в статью:</p>
+			<p><img src="img/example.jpg" alt="alt картинки"></p>
+
+
+			<p><em>Курсивный текст</em> <strong>Жирный текст</strong> <strong><em>Курсивный и жирный текст</em></strong> <s>Зачёркнутый текст</s></p>
+
+
+			<h5>Заголовок H5</h5>
+
+
+			<p>Ненумерованный список:</p>
+
+			<ul>
+				<li>Первый пункт списка Первый пункт списка Первый пункт списка</li>
+				<li>Второй пункт списка Второй пункт списка Второй пункт списка</li>
+				<li>Третий пункт списка Третий пункт списка Третий пункт списка</li>
+			</ul>
+
+
+			<h6>Заголовок H6</h6>
+
+
+			<p>Нумерованный список:</p>
+
+			<ol>
+				<li>Первый пункт нумерованного списка</li>
+				<li>Второй пункт нумерованного списка</li>
+				<li>Третий пункт нумерованного списка</li>
+			</ol>
+
+
+			<p>Разделительная черта:</p>
+
+			<hr>
+
+			<p>Следующий абзац за разделительной чертой.</p>
+
+
+			<blockquote>
+				<p>Блок с цитатой.</p>
+			</blockquote>
+
+
+			<p>Вставка кода <code>inline-code</code> в строку.</p>
+
+
+			<p>Вставка отдельного блока с кодом:</p>
+
+			<pre><code class="language-html">&lt;div>Какой-то бессмысленный длинный текст, выходящий за блок и создающий скролл или перенос.
+	&lt;span>Какой-то бессмысленный длинный текст, выходящий за блок и создающий скролл или перенос.&lt;/span>
+&lt;/div></code></pre>
+
+
+			<pre><code>.example {
+	color: black;
+	background-color: lime;
+}</code></pre>
+
+			<pre><code class="language-shell">.example {}</code></pre>
+
+
+			<p>*Экранирование спецсимволов маркдауна (перед символом нужно добавить обратный слэш)*</p>
+
+
+			<p>Ниже пример добавления таблицы, но этот функционал поддерживается не везде:</p>
+
+			<table>
+				<thead>
+					<tr>
+						<th>Номер</th>
+						<th style="text-align:center">Продукт</th>
+						<th style="text-align:right">Количество</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td style="text-align:center">Банан</td>
+						<td style="text-align:right">5</td>
+					</tr>
+
+					<tr>
+						<td>2</td>
+						<td style="text-align:center">Стакан</td>
+						<td style="text-align:right">214</td>
+					</tr>
+				</tbody>
+			</table>
+
+
+
+
+		</div>
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>

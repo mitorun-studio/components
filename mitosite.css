@@ -286,7 +286,7 @@ samp {
 	unicode-bidi: bidi-override;
 }
 
-kbd:not([class]),
+/* kbd:not([class]),
 .kbd,
 code:not([class]),
 .code {
@@ -294,7 +294,7 @@ code:not([class]),
 	padding: 0.1em 0.3em;
 	background: var(--grey-lightest);
 	border-radius: 0.25em;
-}
+} */
 
 hr,
 .hr {
