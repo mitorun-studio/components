@@ -19,7 +19,7 @@
 
 .content {
 	--font-size-m: 17px;
-	max-width: 720px;
+	max-width: 760px;
 	margin-right: auto;
 	margin-left: auto;
 }
@@ -53,18 +53,6 @@
 	line-height: 1.5;
 }
 
-.content ul,
-.content ol {
-	margin-bottom: 1em;
-	padding-left: 30px;
-}
-
-.content li {
-	margin-bottom: 0.5em;
-	font-size: var(--font-size-m);
-	line-height: 1.3;
-}
-
 .content a {
 	text-decoration: underline;
 	text-underline-offset: 0.26em;
@@ -83,6 +71,37 @@
 	text-underline-offset: 0.18em;
 }
 
+.list,
+.content ul,
+.content ol {
+	margin-bottom: 1em;
+	padding-left: 30px;
+}
+
+.list ul,
+.content ul {
+	list-style-type: disc;/* disc | circle | square | decimal | georgian | trad-chinese-informal | kannada | '–' | custom-counter-style | none; */
+	list-style-image: url('./img/ul.svg');
+	list-style-position: outside;/* outside | inside; */
+}
+
+.list li,
+.content li {
+	margin-bottom: 0.5em;
+	font-size: var(--font-size-m);
+	line-height: 1.3;
+}
+
+ul li::marker {
+	content: '✝ ';
+	font-size: 1.2em;
+}
+
+ol li::marker {
+	content: '₽ ';
+	font-size: 1em;
+}
+
 .content img {
 	width: 100%;
 	max-width: 100%;
@@ -93,6 +112,30 @@
 	object-position: center center;
 }
 
+b,
+strong,
+.b,
+.content strong {
+	font-weight: var(--font-weight-l, 600);
+}
+
+i,
+.i,
+.content em {
+	font-style: italic;
+	/* font-style: oblique 40deg; */
+}
+
+s,
+.s,
+.content s {
+	text-decoration: line-through;
+	text-decoration-thickness: 0.08em;
+	text-decoration-color: red;
+	/* opacity: 0.6; */
+}
+
+.hr,
 .content hr {
 	margin: 1em 0;
 	font-size: var(--font-size-m);
@@ -112,7 +155,7 @@
 
 @media (width >= 576px) {
 	.content blockquote {
-		padding: 1.5em;
+		padding: 1em 1.2em;
 		border-left-width: 6px;
 	}
 }
@@ -123,17 +166,32 @@
 
 /*--- Инлайновый код: -------------------*/
 
+kbd,
+code,
+pre,
+samp {
+	font-size: 90%;
+	font-family: var(--font-family-mono, monospace);
+	direction: ltr;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	unicode-bidi: bidi-override;
+}
+
+.kbd,
 .code,
 .content :not(pre) > code {
-	display: inline-block;
 	margin-inline: 0.1em;
-	padding: 0.26em;
+	padding: 0.20em 0.26em;
 	font-weight: 440;
 	font-size: 90%;
 	line-height: 1;
-	background: var(--grey-lightest);/* var(--bg-code); */
+	background: var(--bg-code);/* var(--bg-code); */
 	/* border: 1px dashed var(--grey); */
 	border-radius: 0.3em;
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+	hyphens: none;
 }
 
 /*--- Блок с кодом: ----------------------*/
@@ -214,6 +272,7 @@
 	/*content: attr(data-content);*/
 	position: absolute;
 
+	/* Вариант стилей №1: */
 	top: 0;
 	left: var(--container-padding);
 	padding: 0 0.7em;
@@ -222,15 +281,15 @@
 	background-color: hsl(224, 78%, 66%);
 	border-radius: 0 0 0.4em 0.4em;
 
-	/* Другой вариант стилей: */
+	/* Вариант стилей №2: */
 	/* top: 0;
-	right: 0;
+	right: 0.1em;
 	z-index: 9999;
 	width: fit-content;
 	font: 900 60px/0.8 var(--font-family);
 	text-align: right;
 	color: hsla(0, 0%, 50%, 0.09);
-	background-color: transparent;*/
+	background-color: transparent; */
 
 	text-transform: uppercase;
 	pointer-events: none;
@@ -239,7 +298,7 @@
 @media (width >= 576px) {
 	.code-block code[class*='language-']::before,
 	.content pre > code[class*='language-']::before {
-		left: 2.1em;
+		left: 2.2em;
 	}
 }
 
@@ -315,71 +374,98 @@
 	/* border: 2px solid red; */
 }
 
+/*------------------------------------------------
+--- Компонент таблица: ------------------------
+------------------------------------------------*/
 
-
+.table,
 .content table {
-	display: block;
-	width: 100%;
-	table-layout: fixed;/* это метод вычисления ширины ячеек, желательно указывать ширину таблицы */
+	min-width: 100%;
+	/* min-width: 600px; */
+	table-layout: auto;/* auto | fixed; метод вычисления ширины ячеек, желательно указывать ширину таблицы */
 	font-size: var(--font-size-s);
-	line-height: var(--line-height-s);
-	background: hsl(0, 0%, 100%);
-	/*border-collapse: collapse; это соединяет рамки соседних ячеек. Но при этом рамки становятся как бы частью таблицы и не принадлежат ячейкам, например при фиксировании ячеек рамки теряются */
+	line-height: var(--line-height-xs);
+	background-color: hsl(0, 0%, 100%);
+	/* border: 1px solid red; */
+	border-collapse: collapse;/* separate | collapse; это соединяет рамки соседних ячеек. Но при этом рамки становятся как бы частью таблицы и не принадлежат ячейкам, например при фиксировании ячеек рамки теряются. */
+	border-spacing: 0;/* 0 | 8px; это профилактика для border-collapse: collapse; */
 	/*empty-cells: show | hide; hide будет прятать пустые ячейки */
 	overflow: auto;
+	/*overflow: hidden; это для выделения колонок псевдоэлементом */
 }
 
-.content table caption {
+.table caption,
+.content caption {
 	margin: 1em 0 0.5em;
-	color: hsl(0, 0%, 26%);
-	font: 700 20px/1.3 var(--font-heading);
+	font-weight: var(--font-weight-xl);
+	font-size: var(--font-size-l);
+	line-height: var(--line-height-s);
 	text-align: left;
 }
 
-.content table thead {
+.table tbody tr:nth-of-type(even),
+.content tbody tr:nth-of-type(even) {
+	background-color: hsl(208, 60%, 97%);
+}
+
+.table th,
+.content th {
+	font-weight: var(--font-weight-l);
+	background: hsl(208, 12%, 88%);
+}
+
+.table th,
+.table td,
+.content th,
+.content td {
+	/*position: relative; это для выделения колонок псевдоэлементом */
+	padding: 0.4em 0.6em;
+	overflow: hidden;
+	/*text-align: center; стоит ли так оформлять по умолчанию? */
+	/*vertical-align: middle; это по умолчанию в хроме */
+	border: 1px solid hsl(0, 0%, 60%);/* это вариант рамки с помощью border */
+	/*box-shadow: 0 0 0 2px hsl(0, 0%, 60%); это вариант рамки с помощью box-shadow */
+	/*outline: 2px solid var(--grey-light); это вариант рамки с помощью outline */
+}
+
+/* Конец базового компонента таблицы. */
+
+/* Специальные возможности таблицы: */
+
+.table thead,
+.content thead {
 	position: sticky;/* это чтобы зафиксировать верхний ряд! */
 	top: 2px;/* 2px чтобы была видна верхняя рамка с помощью box-shadow или outline */
 }
 
-.content table tbody tr:nth-of-type(even) {
-	background: var(--color-main-lightest);
-}
-
-.content table th {
-	background: var(--grey-lightest);
-}
-
-.content table th,
-.content table td {
-	/*position: relative; это для выделения колонок псевдоэлементом */
-	padding: 4px 8px;
-	overflow: hidden;
-	text-align: center;/* стоит ли так оформлять по умолчанию? */
-	/*vertical-align: middle; это по умолчанию в хроме */
-	/*border: 2px solid hsl(0, 0%, 60%); это вариант рамки с помощью border */
-	/*box-shadow: 0 0 0 2px hsl(0, 0%, 60%); это вариант рамки с помощью box-shadow */
-	outline: 1px solid var(--grey);/* это вариант рамки с помощью outline */
-}
-
-.content table th[rowspan],
-.content table td[rowspan] {
+.td-vert,
+.table th[rowspan],
+.table td[rowspan],
+.content th[rowspan],
+.content td[rowspan] {
 	writing-mode: vertical-rl;
+	rotate: 180deg;
 	/*text-orientation: upright;*/
 	/*writing-mode: vertical-rl; transform: rotate(180deg);*/
 	/*writing-mode: horizontal-tb | vertical-rl | vertical-lr | sideways-rl | sideways-lr*/
 }
 
-.content table tr:hover {
+.table tr:hover,
+.content tr:hover {
 	/*background: hsl(60, 63%, 92%);*/
-	box-shadow: inset 0 0 0 100vmax hsla(50, 90%, 55%, 0.1);
+	box-shadow: inset 0 0 0 100vmax hsla(50, 100%, 67%, 0.1);
 }
 
-.content table td:hover {
+.table td:hover,
+.content td:hover {
 	/*background: hsl(60, 67%, 86%);*/
-	box-shadow: inset 0 0 0 100vmax hsla(50, 90%, 55%, 0.1);
+	box-shadow: inset 0 0 0 100vmax hsla(50, 100%, 50%, 0.1);
 }
 
-/*.content td:hover::after,
+/* Выделение колонок при ховере (не работает!?): */
+/* .table td:hover::after,
+.table th:hover::after
+.content td:hover::after,
 .content th:hover::after {
 	content: '';
 	position: absolute;
@@ -388,8 +474,8 @@
 	z-index: -1;
 	width: 100%;
 	height: 6000px;
-	background: hsl(60, 63%, 92%);
-} это для выделения колонок при ховере */
+	background-color: red !important;
+} */
 
 
 
@@ -437,7 +523,7 @@
 			<p><img src="img/example.jpg" alt="alt картинки"></p>
 
 
-			<p><em>Курсивный текст</em> <strong>Жирный текст</strong> <strong><em>Курсивный и жирный текст</em></strong> <s>Зачёркнутый текст</s></p>
+			<p><em>Курсивный текст</em> <strong>Жирный текст</strong> <strong><em>Курсивный и жирный текст</em></strong> <s>Зачёркнутый текст</s></p>
 
 
 			<h5>Заголовок H5</h5>
@@ -476,7 +562,7 @@
 			</blockquote>
 
 
-			<p>Вставка кода <code>inline-code</code> в строку.</p>
+			<p>Вставка кода <code>inline-code</code> в строку. А это <code>Длинный предлинный или очень вытянутый-перевытяннутый кусок кода. А может не кусок, а лента.</code>, тут код закончился. <code>ДлинныйпредлинныйилиоченьвытянутыйперевытяннутыйкусоккодаАможетнекусокалента.</code></p>
 
 
 			<p>Вставка отдельного блока с кодом:</p>
@@ -519,6 +605,12 @@
 						<td>2</td>
 						<td style="text-align:center">Стакан</td>
 						<td style="text-align:right">214</td>
+					</tr>
+
+					<tr>
+						<td>3</td>
+						<td style="text-align:center">Капкан</td>
+						<td style="text-align:right">13131</td>
 					</tr>
 				</tbody>
 			</table>
