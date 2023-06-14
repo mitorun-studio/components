@@ -9,27 +9,21 @@ body {
 }
 
 h1:not([class]),
-.h1,
 h2:not([class]),
-.h2,
 h3:not([class]),
-.h3,
-h4:not([class]),
-.h4 {
+h4:not([class]) {
 	margin-top: 3em;
 	margin-bottom: 1.1em;
 }
 
-h1:not([class]),
-.h1 {
+h1:not([class]) {
 	margin-top: 0.7em;
 	margin-bottom: 1.8em;
 	padding-bottom: 0.2em;
 	border-bottom: 1px solid hsl(0, 0%, 50%);
 }
 
-p:not([class]),
-.p {
+p:not([class]) {
 	margin-top: 0.8em;
 	margin-bottom: 0.4em;
 }
@@ -52,6 +46,9 @@ a:not([class]):active {
 	text-underline-offset: 0.18em;
 }
 
+code {
+	background-color: var(--grey-lightest);
+}
 
 
 

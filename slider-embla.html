@@ -19,54 +19,49 @@
 
 .embla {
 	position: relative;
-	z-index: 1;/* Fix of Webkit flickering */
-	max-height: 700px;/* для профилактики */
-	overflow: hidden;
 	touch-action: pan-y;
 }
 
-/* .embla__viewport {} */
+.embla__viewport {
+	overflow: hidden;
+}
 
 .embla__container {
 	display: flex;
-	/*gap: var(--margin-s);*/
 }
 
-.embla__slide {
-	flex: 0 0 auto;
-	min-width: 0;
-	max-width: 100%;
-}
-
-/* Кнопки след/пред: */
+/* Кнопки листания след/пред: */
 
 .embla__prev,
 .embla__next {
 	position: absolute;
-	inset: 0;
-	/* top: calc(50% - 24px); */
+	bottom: calc(50% - 24px);/* (50% - половина высоты кнопки) */
 	z-index: 8;
-	/*display: grid;
-	place-content: center;*/
 	width: 48px;
 	height: 48px;
 	/*aspect-ratio: 1/1;*/
-	margin: auto;
 	background-color: transparent;
-	border: 0;
 	border-radius: 99px;
 	-webkit-appearance: none;
 	appearance: none;
-	touch-action: manipulation;
-	cursor: pointer;
 }
 
 .embla__prev {
-	margin-left: var(--margin-s);
+	left: var(--container-padding);
 }
 
 .embla__next {
-	margin-right: var(--margin-s);
+	right: var(--container-padding);
+}
+
+@media (width >= 768px) {
+	.embla__prev {
+		left: 0;
+	}
+
+	.embla__next {
+		right: 0;
+	}
 }
 
 .embla__prev:disabled,
@@ -81,7 +76,7 @@
 	content: '';
 	position: absolute;
 	inset: 0;
-	background: url('./img/sprite.svg#arrow-simple') 50% / 24px 24px no-repeat;
+	background: url('./img/sprite.svg#arrow-simple') 50% / 50% no-repeat;
 	background-color: var(--color-main);
 	border-radius: 99px;
 	transition: 0.17s linear;
@@ -99,24 +94,21 @@
 	}
 }
 
-
 /* Пагинация: */
 
 .embla__dots {
 	position: absolute;
-	left: 0;
-	right: 0;
-	bottom: 0;
+	inset: auto 0 4%;
 	z-index: 9;
+	width: fit-content;
+	margin-left: auto;
+	margin-right: auto;
 	/* Другой вариант центрирования:
 	display: flex;
 	flex-wrap: wrap;
 	gap: 2px;
-	justify-content: center; */
-	width: fit-content;
-	margin-left: auto;
-	margin-right: auto;
-	/* pointer-events: none; */
+	justify-content: center;
+	pointer-events: none; */
 }
 
 .embla__dot:only-child {
@@ -126,13 +118,11 @@
 .embla__dot {
 	display: inline-grid;
 	place-content: center;
-	width: 26px;
+	width: 22px;
 	height: 40px;
-	margin: 0 2px;
-	background-color: hsla(226, 100%, 50%, 0.1);
-	touch-action: manipulation;
+	margin: 0 1px;
+	background-color: transparent;
 	appearance: none;
-	cursor: pointer;
 	/* pointer-events: auto; */
 }
 
@@ -141,7 +131,7 @@
 	width: 10px;
 	height: 10px;
 	/* aspect-ratio: 1/1; */
-	background-color: transparent;
+	background-color: var(--white);
 	border: 1px solid var(--color-main);
 	border-radius: 99px;
 	transition: 0.15s linear;
@@ -155,10 +145,65 @@
 	scale: 1.2;
 }
 
+.embla__slide {
+	flex: 0 0 auto;
+	min-width: 0;
+	max-width: 100%;
+}
+
 /* Конец компонента слайдера Embla. */
 
 
 
+
+/*------------------------------------------------
+--- Оформление слайдов: --------------------------
+------------------------------------------------*/
+
+/* Галерея с карточками №1: */
+
+/*.gallery {}*/
+
+.gallery__card {
+	/*display: grid;
+	place-content: center;*/
+	/*flex-basis: 290px;*/
+	width: 100%;
+	min-height: 150px;
+	margin-right: var(--margin-s);
+	padding: var(--margin-s);
+}
+
+@media (width >= 1040px) {
+	.gallery__card {
+		width: calc((100% - var(--margin-s) * 2) / 3);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*------------------------------------------------
+--- Разные варианты настроек слайдеров: ----------
+------------------------------------------------*/
 
 /* Слайдер на гридах: */
 
@@ -190,62 +235,31 @@
 
 .embla--bootstrap-buttons .embla__prev,
 .embla--bootstrap-buttons .embla__next {
-	position: absolute;
 	top: 0;
 	bottom: 0;
-	z-index: 8;
 	display: grid;
 	place-content: center;
 	width: max(60px, 15%);
 	height: auto;
-	margin: 0;
-	background-color: transparent;
-	border-radius: 99px;
-	-webkit-appearance: none;
-	appearance: none;
-	touch-action: manipulation;
-	cursor: pointer;
+	border-radius: 0;
 }
 
 .embla--bootstrap-buttons .embla__prev {
 	left: 0;
-	right: auto;
 }
 
 .embla--bootstrap-buttons .embla__next {
-	left: auto;
 	right: 0;
-}
-
-.embla--bootstrap-buttons .embla__prev:disabled,
-.embla--bootstrap-buttons .embla__next:disabled {
-	opacity: 0.3;
-	cursor: auto;
-	pointer-events: none;
 }
 
 .embla--bootstrap-buttons .embla__prev::after,
 .embla--bootstrap-buttons .embla__next::after {
-	content: '';
 	position: static;
 	width: 48px;
 	height: 48px;
-	background: url('./img/sprite.svg#arrow-simple') 50% / 24px 24px no-repeat;
-	background-color: var(--color-main);
-	border-radius: 99px;
-	transition: 0.17s linear;
 }
 
-.embla--bootstrap-buttons .embla__prev::after {
-	rotate: 180deg;
-}
 
-@media (hover: hover) {
-	.embla--bootstrap-buttons .embla__prev:hover::after,
-	.embla--bootstrap-buttons .embla__next:hover::after {
-		scale: 1.1;
-	}
-}
 
 
 
@@ -253,8 +267,8 @@
 --- Слайдер Embla №2 с выносом кнопок: -----------
 ------------------------------------------------*/
 
-.embla-outside .embla {
-	padding: 0 0 40px;
+.embla-outside {
+	padding-bottom: 48px;
 }
 
 @media (width < 992px) {
@@ -265,17 +279,28 @@
 }
 
 @media (width >= 992px) {
-	.embla-outside .embla {
-		padding: 0 80px 50px;
+	.embla-outside {
+		padding: 0 80px 60px;
 	}
 
-	/* .embla-outside .embla__viewport {
+	.embla-outside .embla__prev,
+	.embla-outside .embla__next {
+		bottom: calc(50% - 24px + 30px);/* (50% - половина высоты кнопки + половина padding-bottom) */
+	}
+}
+
+/* Градиентный переход карточек в фон: */
+
+@media (width >= 992px) {
+	.embla-outside {
 		overflow: hidden;
-	} */
+	}
 
-	/* Градиентный переход карточек в фон: */
+	.embla-outside .embla__viewport {
+		overflow: visible;
+	}
 
-	.embla-outside .embla::before {
+	.embla-outside::before {
 		content: '';
 		position: absolute;
 		inset: 0 0 50px 0;
@@ -283,11 +308,6 @@
 		background-image: linear-gradient(to right, var(--bg), transparent 80px, transparent calc(100% - 80px), var(--bg));
 		/*  background-image: linear-gradient(to right, var(--bg) 80px, transparent 80px, transparent calc(100% - 80px), var(--bg) calc(100% - 80px)); */
 		pointer-events: none;
-	}
-
-	.embla-outside .embla__prev,
-	.embla-outside .embla__next {
-		bottom: 50px;
 	}
 }
 
@@ -303,83 +323,149 @@
 
 
 /*------------------------------------------------
---- Слайдер Embla №3 с кастомными кнопками: ------
+--- Слайдер Embla №3 с кастомной разметкой: ------
 ------------------------------------------------*/
 
-.embla-buttons {
+.block-grid {
 	display: grid;
-	grid-template-columns: 1fr auto auto;
-	gap: var(--margin-s);
+	gap: var(--margin-s) var(--margin-m);
 	margin-bottom: var(--margin-m);
 }
 
-.embla-custom__prev,
-.embla-custom__next {
-	position: relative;
-	margin: 0;
+@media (width >= 576px) {
+	.block-grid {
+		grid-template-columns: 1fr auto;
+	}
 }
 
-.embla-custom2__prev,
-.embla-custom2__next {
+.embla-buttons {
+	justify-self: end;
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--margin-s);
+}
+
+.embla-custom .embla__prev,
+.embla-custom .embla__next {
 	position: relative;
-	margin: 0;
+	inset: auto;
 }
 
 
 
 
 /*------------------------------------------------
---- Слайдер Embla №4 полноэкранный слайд: ------
+--- Слайдер Embla №4 полноэкранный слайд: --------
 ------------------------------------------------*/
 
-.section-fullscreen {
-	height: clamp(680px, 100vh, 1008px);
-	overflow: hidden;
-}
-
-.embla-fullscreen .embla {
-	height: 100%;
-	max-height: 1080px;
-}
-
-.embla-fullscreen .embla__slide {
-	height: clamp(680px, 100vh, 1008px) !important;
+@media (width < 768px) {
+	.embla-fullscreen {
+		margin-left: calc(-1 * var(--container-padding));
+		margin-right: calc(-1 * var(--container-padding));
+	}
 }
 
 .fullscreen__card {
 	display: grid;
 	gap: var(--margin-m);
-	padding: 0 var(--container-padding);
-	background-color: hsl(142, 49%, 83%);
-}
-
-.fullscreen__card:nth-child(even) {
-	background-color: hsl(27, 100%, 87%);
+	align-items: center;
+	min-height: max(680px, 100vh);
+	max-height: 1080px;
+	padding: var(--margin-l) var(--container-padding);
 }
 
 @media (width >= 768px) {
+	.embla-fullscreen .embla__prev {
+		margin-left: 0;
+	}
+
+	.embla-fullscreen .embla__next {
+		margin-right: 0;
+	}
+
 	.fullscreen__card {
 		grid-template-columns: 1fr 1fr;
-		align-items: center;
+		padding-left: 60px;
+		padding-right: 60px;
 	}
 }
 
 
+
+
 /*------------------------------------------------
---- Оформление слайдов: --------------------------
+--- Слайдер Embla №5 с картинками: ---------------
 ------------------------------------------------*/
 
-/* Нумерация слайдов: */
+@media (width < 768px) {
+	.embla-pictures {
+		margin-left: calc(-1 * var(--container-padding));
+		margin-right: calc(-1 * var(--container-padding));
+	}
+}
+
+@media (width >= 768px) {
+	.embla-pictures .embla__prev {
+		left: 4%;
+	}
+
+	.embla-pictures .embla__next {
+		right: 4%;
+	}
+}
+
+/*.pictures {}*/
+
+.pictures__card {
+	position: relative;
+	/*display: grid;
+	place-content: center;*/
+	/*flex-basis: 290px;*/
+	width: 100%;
+	min-height: 150px;
+	margin-right: var(--margin-s);
+
+}
+
+.pictures__card img {
+	display: block;
+	width: 100%;
+	height: 500px;
+	object-fit: cover;
+	object-position: 50% 50%;
+}
+
+
+
+
+/*------------------------------------------------
+--- Оформление слайдов для компонента: -----------
+------------------------------------------------*/
+
+.embla__dot {
+	background-color: hsla(226, 100%, 50%, 0.1);
+}
+
+.embla--bootstrap-buttons .embla__prev,
+.embla--bootstrap-buttons .embla__next {
+	background-color: hsla(226, 100%, 50%, 0.1);
+}
 
 .embla__slide {
 	position: relative;
+	background-color: hsl(142, 49%, 83%);
+	border: 1px dashed grey;
+}
+
+.embla__slide:nth-child(even) {
+	background-color: hsl(27, 100%, 87%);
 }
 
 .embla__slide::after {
 	content: '';
 	position: absolute;
-	top: 15px;
-	right: 25px;
+	top: 6%;
+	right: 8%;
 	display: inline-block;
 	width: 80px;
 	height: 80px;
@@ -416,57 +502,8 @@
 	content: '6';
 }
 
-/* Галерея с карточками №1: */
 
-/*.gallery {}*/
 
-.gallery__card {
-	/*display: grid;
-	place-content: center;*/
-	/*flex-basis: 290px;*/
-	width: 100%;
-	min-height: 150px;
-	margin-right: var(--margin-s);
-	padding: var(--margin-s);
-	background-color: hsl(142, 49%, 83%);
-	border: 1px dashed grey;
-}
-
-.gallery__card:nth-child(even) {
-	background-color: hsl(27, 100%, 87%);
-}
-
-@media (width >= 1040px) {
-	.gallery__card {
-		width: calc((100% - var(--margin-s) * 2) / 3);
-	}
-}
-
-/* Галерея с карточками №2: */
-
-/*.pictures {}*/
-
-.pictures__card {
-	position: relative;
-	/*display: grid;
-	place-content: center;*/
-	/*flex-basis: 290px;*/
-	width: 100%;
-	min-width: 0;
-	min-height: 150px;
-	margin-right: var(--margin-s);
-	/* padding-left: var(--margin-s); */
-	background-color: hsl(142, 49%, 83%);
-	border: 1px dashed grey;
-}
-
-.pictures__card img {
-	display: block;
-	width: 100%;
-	height: 400px;
-	object-fit: cover;
-	object-position: 50% 50%;
-}
 
 	</style>
 </head>
@@ -476,54 +513,32 @@
 
 
 	<main>
+
 		<section class="container">
 
 			<h1>Слайдер <a target="_blank" href="https://www.embla-carousel.com/">Embla</a></h1>
 
+			<p>Высота слайдера всегда(!) определяется высотой слайдов <code>.embla__slide.gallery__card</code>. Даже если нужно сделать полноэкранный слайдер, то эта высота назначается так: <code>.embla__slide {min-height: max(680px, 100vh); max-height: 1080px;}</code></p>
+
 
 			<h2>Слайдер №1 – базовый <code>.embla-base</code></h2>
 
-			<div class="slider-wrapper embla-base">
-				<div class="embla">
-					<div class="embla__viewport">
-						<div class="embla__container gallery">
-							<div class="embla__slide gallery__card">Slide 1</div>
-							<div class="embla__slide gallery__card">Slide 2</div>
-							<div class="embla__slide gallery__card">Slide 3</div>
-							<div class="embla__slide gallery__card">Slide 4</div>
-							<div class="embla__slide gallery__card">Slide 5</div>
-							<div class="embla__slide gallery__card">Slide 6</div>
-						</div>
-					</div>
-
-					<button class="embla__prev" type="button"></button>
-					<button class="embla__next" type="button"></button>
-
-					<div class="embla__dots"></div>
+			<div class="embla embla-base">
+				<div class="embla__viewport">
+					<ul class="embla__container gallery">
+						<li class="embla__slide gallery__card">Slide 1</li>
+						<li class="embla__slide gallery__card">Slide 2</li>
+						<li class="embla__slide gallery__card">Slide 3</li>
+						<li class="embla__slide gallery__card">Slide 4</li>
+						<li class="embla__slide gallery__card">Slide 5</li>
+						<li class="embla__slide gallery__card">Slide 6</li>
+					</ul>
 				</div>
-			</div>
 
+				<button class="embla__prev" type="button" aria-label="Предыдущий слайд"></button>
+				<button class="embla__next" type="button" aria-label="Следующий слайд"></button>
 
-
-
-			<p>Копия первого слайдера, а значит для одинаковых слайдеров не нужно менять названия классов и скрипт:</p>
-
-			<div class="slider-wrapper embla-base">
-				<div class="embla">
-					<div class="embla__viewport">
-						<div class="embla__container gallery">
-							<div class="embla__slide gallery__card">Слайд 1</div>
-							<div class="embla__slide gallery__card">Слайд 2</div>
-							<div class="embla__slide gallery__card">Слайд 3</div>
-							<div class="embla__slide gallery__card">Слайд 4</div>
-						</div>
-					</div>
-
-					<button class="embla__prev" type="button"></button>
-					<button class="embla__next" type="button"></button>
-
-					<div class="embla__dots"></div>
-				</div>
+				<div class="embla__dots" aria-label="Кнопки для перехода по слайдам"></div>
 			</div>
 
 
@@ -531,141 +546,107 @@
 
 			<h2>Слайдер №2 – вынос кнопок <code>.embla-outside</code></h2>
 
-			<div class="slider-wrapper embla-outside">
-				<div class="embla">
-					<div class="embla__viewport">
-						<div class="embla__container gallery">
-							<div class="embla__slide gallery__card">Slide 1</div>
-							<div class="embla__slide gallery__card">Slide 2</div>
-							<div class="embla__slide gallery__card">Slide 3</div>
-							<div class="embla__slide gallery__card">Slide 4</div>
-							<div class="embla__slide gallery__card">Slide 5</div>
-							<div class="embla__slide gallery__card">Slide 6</div>
-						</div>
-					</div>
-
-					<button class="embla__prev" type="button" aria-label="Предыдущий слайд"></button>
-					<button class="embla__next" type="button" aria-label="Следующий слайд"></button>
-
-					<div class="embla__dots"></div>
+			<div class="embla embla-outside">
+				<div class="embla__viewport">
+					<ul class="embla__container gallery">
+						<li class="embla__slide gallery__card">Slide 1</li>
+						<li class="embla__slide gallery__card">Slide 2</li>
+						<li class="embla__slide gallery__card">Slide 3</li>
+						<li class="embla__slide gallery__card">Slide 4</li>
+						<li class="embla__slide gallery__card">Slide 5</li>
+						<li class="embla__slide gallery__card">Slide 6</li>
+					</ul>
 				</div>
+
+				<button class="embla__prev" type="button" aria-label="Предыдущий слайд"></button>
+				<button class="embla__next" type="button" aria-label="Следующий слайд"></button>
+
+				<div class="embla__dots" aria-label="Кнопки для перехода по слайдам"></div>
 			</div>
 
 
 
 
-			<h2>Слайдер №3 – кастомные кнопки <code>.embla-custom</code></h2>
+			<h2>Слайдер №3 – кастомная разметка <code>.embla-custom</code></h2>
 
+			<div class="embla embla-custom">
+				<div class="block-grid">
+					<p>Кнопки листания выносятся за разметку слайдера. А точнее это другая разметка добавляется внутрь <code>.embla</code></p>
 
-			<div class="slider-wrapper embla-custom">
-				<div class="embla-buttons">
-					<p>Кнопки листания выносятся за разметку слайдера.</p>
-
-					<button class="embla__prev embla-custom__prev" type="button"></button>
-					<button class="embla__next embla-custom__next" type="button"></button>
-				</div>
-
-
-				<div class="embla">
-					<div class="embla__viewport">
-						<div class="embla__container gallery">
-							<div class="embla__slide gallery__card">Slide 1</div>
-							<div class="embla__slide gallery__card">Slide 2</div>
-							<div class="embla__slide gallery__card">Slide 3</div>
-							<div class="embla__slide gallery__card">Slide 4</div>
-							<div class="embla__slide gallery__card">Slide 5</div>
-							<div class="embla__slide gallery__card">Slide 6</div>
-						</div>
+					<div class="embla-buttons">
+						<button class="embla__prev" type="button" aria-label="Предыдущий слайд"></button>
+						<button class="embla__next" type="button" aria-label="Следующий слайд"></button>
 					</div>
-
-
-					<div class="embla__dots"></div>
 				</div>
+
+
+				<div class="embla__viewport">
+					<ul class="embla__container gallery">
+						<li class="embla__slide gallery__card">Slide 1</li>
+						<li class="embla__slide gallery__card">Slide 2</li>
+						<li class="embla__slide gallery__card">Slide 3</li>
+						<li class="embla__slide gallery__card">Slide 4</li>
+						<li class="embla__slide gallery__card">Slide 5</li>
+						<li class="embla__slide gallery__card">Slide 6</li>
+					</ul>
+				</div>
+
+				<div class="embla__dots" aria-label="Кнопки для перехода по слайдам"></div>
 			</div>
 
 
 
 
-			<h2>Повтор Слайдер №3 – кастомные кнопки <code>.embla-custom</code></h2>
-
-			<div class="slider-wrapper embla-custom">
-				<div class="embla-buttons">
-					<p>Кнопки листания выносятся за разметку слайдера. <mark>Нужно доработать скрипт чтобы несколько таких кастомных слайдеров работали от одних и тех же классов!</mark></p>
-
-					<button class="embla__prev embla-custom2__prev" type="button"></button>
-					<button class="embla__next embla-custom2__next" type="button"></button>
-				</div>
-
-				<div class="embla">
-					<div class="embla__viewport">
-						<div class="embla__container gallery">
-							<div class="embla__slide gallery__card">Slide 1</div>
-							<div class="embla__slide gallery__card">Slide 2</div>
-							<div class="embla__slide gallery__card">Slide 3</div>
-							<div class="embla__slide gallery__card">Slide 4</div>
-							<div class="embla__slide gallery__card">Slide 5</div>
-							<div class="embla__slide gallery__card">Slide 6</div>
-						</div>
-					</div>
-
-
-					<div class="embla__dots"></div>
-				</div>
-			</div>
-
-
-
-
-			<h2>Слайдер №4 - полноэкранный слайд <code>.embla-fullscreen</code></h2>
+			<h2>Слайдер №4 - полноэкранный слайд <code>.embla-fullscreen</code>:</h2>
 
 		</section>
 
 
 
 
-		<section class="container section section-fullscreen">
+		<section class="container">
 
-			<div class="slider-wrapper embla-fullscreen">
-				<div class="embla">
-					<div class="embla__viewport">
-						<div class="embla__container fullscreen">
-							<div class="embla__slide fullscreen__card">
-								<div class="fullscreen__content">
-									<h2 class="fullscreen__title h2">Заголовок</h2>
-									<p class="fullscreen__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, reprehenderit molestias, praesentium blanditiis autem magni consequatur aperiam accusamus explicabo placeat aliquid, consequuntur quidem amet asperiores inventore. Officia odio aut blanditiis.</p>
-									<a class="button" href="#">Кнопка</a>
-								</div>
-
-								<img class="fullscreen__img" width="600" height="400" src="https://loremflickr.com/600/400?random=1" alt="">
+			<div class="embla embla-fullscreen">
+				<div class="embla__viewport">
+					<ul class="embla__container fullscreen">
+						<li class="embla__slide fullscreen__card">
+							<div class="fullscreen__content">
+								<h2 class="fullscreen__title h2">Заголовок</h2>
+								<p class="fullscreen__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, reprehenderit molestias, praesentium blanditiis autem magni consequatur aperiam accusamus explicabo placeat aliquid, consequuntur quidem amet asperiores inventore. Officia odio aut blanditiis.</p>
+								<a class="button" href="#">Кнопка</a>
 							</div>
 
-							<div class="embla__slide fullscreen__card">
-								<div class="fullscreen__content">
-									<h2 class="fullscreen__title h2">Заголовок</h2>
-									<p class="fullscreen__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, reprehenderit molestias, praesentium blanditiis autem magni consequatur aperiam accusamus explicabo placeat aliquid, consequuntur quidem amet asperiores inventore. Officia odio aut blanditiis.</p>
-									<a class="button" href="#">Кнопка</a>
-								</div>
+							<img class="fullscreen__img" width="600" height="400" src="https://loremflickr.com/600/400?random=1" alt="">
+						</li>
 
-								<img class="fullscreen__img" width="600" height="400" src="https://loremflickr.com/600/400?random=2" alt="">
+
+						<li class="embla__slide fullscreen__card">
+							<div class="fullscreen__content">
+								<h2 class="fullscreen__title h2">Заголовок</h2>
+								<p class="fullscreen__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, reprehenderit molestias, praesentium blanditiis autem magni consequatur aperiam accusamus explicabo placeat aliquid, consequuntur quidem amet asperiores inventore. Officia odio aut blanditiis.</p>
+								<a class="button" href="#">Кнопка</a>
 							</div>
 
-							<div class="embla__slide fullscreen__card">
-								<div class="fullscreen__content">
-									<h2 class="fullscreen__title h2">Заголовок</h2>
-									<p class="fullscreen__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, reprehenderit molestias, praesentium blanditiis autem magni consequatur aperiam accusamus explicabo placeat aliquid, consequuntur quidem amet asperiores inventore. Officia odio aut blanditiis.</p>
-									<a class="button" href="#">Кнопка</a>
-								</div>
+							<img class="fullscreen__img" width="600" height="400" src="https://loremflickr.com/600/400?random=2" alt="">
+						</li>
 
-								<img class="fullscreen__img" width="600" height="400" src="https://loremflickr.com/600/400?random=3" alt="">
+
+						<li class="embla__slide fullscreen__card">
+							<div class="fullscreen__content">
+								<h2 class="fullscreen__title h2">Заголовок</h2>
+								<p class="fullscreen__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, reprehenderit molestias, praesentium blanditiis autem magni consequatur aperiam accusamus explicabo placeat aliquid, consequuntur quidem amet asperiores inventore. Officia odio aut blanditiis.</p>
+								<a class="button" href="#">Кнопка</a>
 							</div>
-						</div>
-					</div>
 
-					<button class="embla__prev" type="button"></button>
-					<button class="embla__next" type="button"></button>
-
-					<div class="embla__dots"></div>
+							<img class="fullscreen__img" width="600" height="400" src="https://loremflickr.com/600/400?random=3" alt="">
+						</li>
+					</ul>
 				</div>
+
+				<button class="embla__prev" type="button" aria-label="Предыдущий слайд"></button>
+				<button class="embla__next" type="button" aria-label="Следующий слайд"></button>
+
+				<div class="embla__dots" aria-label="Кнопки для перехода по слайдам"></div>
 			</div>
 
 		</section>
@@ -674,56 +655,36 @@
 
 		<section class="container">
 
-			<h2>Слайдер №5 – картинки <code>.embla-pic</code></h2>
+			<h2>Слайдер №5 – картинки <code>.embla-pictures</code></h2>
 
-			<div class="slider-wrapper embla-pic">
-				<div class="embla">
-					<div class="embla__viewport">
-						<div class="embla__container pictures">
-							<div class="embla__slide pictures__card">
-								<img width="600" height="400" src="https://loremflickr.com/600/400?random=1" alt="">
-							</div>
+			<div class="embla embla-pictures">
+				<div class="embla__viewport">
+					<ul class="embla__container pictures">
+						<li class="embla__slide pictures__card">
+							<img width="600" height="400" src="https://loremflickr.com/600/400?random=1" alt="">
+						</li>
 
-							<div class="embla__slide pictures__card">
-								<img width="600" height="400" src="https://loremflickr.com/600/400?random=2" alt="">
-							</div>
+						<li class="embla__slide pictures__card">
+							<img width="600" height="400" src="https://loremflickr.com/600/400?random=2" alt="">
+						</li>
 
-							<div class="embla__slide pictures__card">
-								<img width="600" height="400" src="https://loremflickr.com/600/400?random=3" alt="">
-							</div>
+						<li class="embla__slide pictures__card">
+							<img width="600" height="400" src="https://loremflickr.com/600/400?random=3" alt="">
+						</li>
 
-							<div class="embla__slide pictures__card">
-								<img width="600" height="400" src="https://loremflickr.com/600/400?random=4" alt="">
-							</div>
-
-							<div class="embla__slide pictures__card">
-								<img width="600" height="400" src="https://loremflickr.com/600/400?random=5" alt="">
-							</div>
-
-							<div class="embla__slide pictures__card">
-								<img width="600" height="400" src="https://loremflickr.com/600/400?random=6" alt="">
-							</div>
-						</div>
-					</div>
-
-					<button class="embla__prev" type="button"></button>
-					<button class="embla__next" type="button"></button>
-
-					<div class="embla__dots"></div>
+						<li class="embla__slide pictures__card">
+							<img width="600" height="400" src="https://loremflickr.com/600/400?random=4" alt="">
+						</li>
+					</ul>
 				</div>
+
+				<button class="embla__prev" type="button" aria-label="Предыдущий слайд"></button>
+				<button class="embla__next" type="button" aria-label="Следующий слайд"></button>
+
+				<div class="embla__dots" aria-label="Кнопки для перехода по слайдам"></div>
 			</div>
 
-
-
-
-			<p><a href="https://www.embla-carousel.com/">https://www.embla-carousel.com/</a></p>
-
-
-
-
 		</section>
-
-
 
 	</main>
 
@@ -738,7 +699,7 @@
 	<script src="https://unpkg.com/embla-carousel-class-names/embla-carousel-class-names.umd.js"></script>
 	<script src="https://unpkg.com/embla-carousel-wheel-gestures/dist/embla-carousel-wheel-gestures.umd.js"></script> -->
 
-	<!-- Локальное подключение бандла из базового скрипта и плагина autoplay: -->
+	<!-- Подключение скрипта-бандла слайдера Embla: -->
 	<script src="sliders/embla-carousel-bundle.js"></script>
 
 	<!-- Скрипт инициализации и настройки слайдера Embla: -->
@@ -769,19 +730,19 @@
 				loop: true,// зацикленная прокрутка.
 			},
 
-			// Настройки для полноэкранного слайдера:
+			// Настройки для слайдера с картинками:
 			'embla-fullscreen': {
 				align: 'center',// 'center' (default) | 'start' | 'end' | '0.5' выравнивание активного слайда.
 				loop: true,// зацикленная прокрутка.
 				autoplay: {
-					delay: 7000,// задержка мс между автопрокруткой слайдов.
+					delay: 700099,// задержка мс между автопрокруткой слайдов.
 					// stopOnMouseEnter: true,// true остановит автопрокрутку при ховере. При включенной stopOnInteraction: true автопрокрутка уже не вернётся после снятия ховера!
 					stopOnInteraction: false,// false не останавливать при взаимодействии.
 				},
 			},
 
-			// Настройки для слайдера с картинками:
-			'embla-pic': {
+			// Настройки для слайдера с кастомными кнопками:
+			'embla-pictures': {
 				align: 'center',// 'center' (default) | 'start' | 'end' | '0.5' выравнивание активного слайда.
 				loop: true,// зацикленная прокрутка.
 			},
@@ -831,81 +792,72 @@
 			},
 		};
 
-		// НИЖЕ ТЕХНИЧЕСКАЯ ЧАСТЬ СЛАЙДЕРА:
+		// Техническая часть слайдера:
 		const sliders = document.querySelectorAll('.embla');
 
 		sliders.forEach(slider => {
-			try {
-				const sliderWrapper = slider.closest('.slider-wrapper');// находим оборачивающий класс.
-				const sliderName = sliderWrapper.classList[1];// получаем название слайдера.
-				const options = sliderOptions[sliderName];// получаем параметры для текущего слайдера.
+			const sliderName = slider.classList[1];// получаем название слайдера.
+			const options = sliderOptions[sliderName];// получаем параметры для текущего слайдера.
 
-				const viewportNode = sliderWrapper.querySelector('.embla__viewport');
-				let prevButtonNode = sliderWrapper.querySelector('.embla__prev');
-				let nextButtonNode = sliderWrapper.querySelector('.embla__next');
-				//if (!prevButtonNode || !nextButtonNode) {
-				//	prevButtonNode = document.querySelector(`.${sliderName}__prev`);
-				//	nextButtonNode = document.querySelector(`.${sliderName}__next`);
-				//}
-				const dotsNode = slider.querySelector('.embla__dots');
+			const viewportNode = slider.querySelector('.embla__viewport');
+			const prevButtonNode = slider.querySelector('.embla__prev');
+			const nextButtonNode = slider.querySelector('.embla__next');
+			const dotsNode = slider.querySelector('.embla__dots');
 
-				// Подключаем плагины:
-				const plugins = [];
-				// Подключаем плагин autoplay:
-				if (options.autoplay) {
-					plugins.push(EmblaCarouselAutoplay(options.autoplay));
-				}
-				// Подключаем плагин autoHeight:
-				if (options.autoHeight) {
-					plugins.push(EmblaCarouselAutoHeight(options.autoHeight));
-				}
-				// Подключаем плагин classNames:
-				if (options.classNames) {
-					plugins.push(EmblaCarouselClassNames(options.classNames));
-				}
-				// Подключаем плагин wheelGestures:
-				if (options.wheelGestures) {
-					plugins.push(EmblaCarouselWheelGestures(options.wheelGestures));
-				}
-
-				const embla = EmblaCarousel(viewportNode, options, plugins);
-
-				prevButtonNode.addEventListener('click', embla.scrollPrev, false);
-				nextButtonNode.addEventListener('click', embla.scrollNext, false);
-
-
-				// Создание пагинации dots:
-				embla.slideNodes().forEach((_, index) => {
-					const dot = document.createElement('button');
-					dot.classList.add('embla__dot');
-					dot.addEventListener('click', () => {
-						embla.scrollTo(index);
-						if (embla.plugins().autoplay) {
-							embla.plugins().autoplay.stop();
-							embla.plugins().autoplay.play();
-						}
-					});
-					dotsNode.appendChild(dot);
-				});
-
-				// Обновление активного dot:
-				const updateDots = (selectedIndex) => {
-					const dotsArray = Array.from(dotsNode.querySelectorAll('.embla__dot'))
-					dotsArray.forEach((dot, index) => {
-						if (index === selectedIndex) {
-							dot.classList.add('embla__dot--selected')
-						} else {
-							dot.classList.remove('embla__dot--selected')
-						}
-					})
-				}
-
-				// Обновление активного dot при изменении выбранного слайда:
-				embla.on('select', () => updateDots(embla.selectedScrollSnap()));
-				updateDots(embla.selectedScrollSnap());
-			} catch (error) {
-				console.error(error);
+			// Подключаем плагины:
+			const plugins = [];
+			// Подключаем плагин autoplay:
+			if (options.autoplay) {
+				plugins.push(EmblaCarouselAutoplay(options.autoplay));
 			}
+			// Подключаем плагин autoHeight:
+			if (options.autoHeight) {
+				plugins.push(EmblaCarouselAutoHeight(options.autoHeight));
+			}
+			// Подключаем плагин classNames:
+			if (options.classNames) {
+				plugins.push(EmblaCarouselClassNames(options.classNames));
+			}
+			// Подключаем плагин wheelGestures:
+			if (options.wheelGestures) {
+				plugins.push(EmblaCarouselWheelGestures(options.wheelGestures));
+			}
+
+			const embla = EmblaCarousel(viewportNode, options, plugins);
+
+			prevButtonNode.addEventListener('click', embla.scrollPrev, false);
+			nextButtonNode.addEventListener('click', embla.scrollNext, false);
+
+
+			// Создание пагинации dots:
+			embla.slideNodes().forEach((_, index) => {
+				const dot = document.createElement('button');
+				dot.classList.add('embla__dot');
+				dot.addEventListener('click', () => {
+					embla.scrollTo(index);
+					if (embla.plugins().autoplay) {
+						embla.plugins().autoplay.stop();
+						embla.plugins().autoplay.play();
+					}
+				});
+				dotsNode.appendChild(dot);
+			});
+
+			// Обновление активного dot:
+			const updateDots = (selectedIndex) => {
+				const dotsArray = Array.from(dotsNode.querySelectorAll('.embla__dot'))
+				dotsArray.forEach((dot, index) => {
+					if (index === selectedIndex) {
+						dot.classList.add('embla__dot--selected')
+					} else {
+						dot.classList.remove('embla__dot--selected')
+					}
+				})
+			}
+
+			// Обновление активного dot при изменении выбранного слайда:
+			embla.on('select', () => updateDots(embla.selectedScrollSnap()));
+			updateDots(embla.selectedScrollSnap());
 		});
 	</script>
 

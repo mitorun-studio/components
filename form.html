@@ -438,15 +438,26 @@ input[aria-disabled=true] {
 -- Сообщения об успешной или неудачной отправке: -
 ------------------------------------------------*/
 
+.form__buttons {
+	position: relative;
+}
+
 .form__success,
 .form__failure {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
 	display: none;
+	width: min(100%, 600px);
+	min-height: min(100%, 90px);
 	padding: var(--padding-form-s);
 	font-size: var(--font-size-form-s);
+	text-align: center;
 	color: var(--white);
 	background-color: var(--color-success, green);
 	border: 1px solid var(--color-success, green);
-	border-radius: var(--border-radius-l);
+	border-radius: var(--border-radius-m);
 
 	/*height: 0;
 	opacity: 0;
@@ -454,8 +465,8 @@ input[aria-disabled=true] {
 }
 
 .form__failure {
-	color: var(--color-danger, red);
-	background-color: var(--bg-danger, hsla(0, 100%, 50%, 0.1));
+	color: var(--white);
+	background-color: var(--color-danger, red);
 	border-color: var(--color-danger, red);
 }
 
@@ -771,13 +782,14 @@ input[type="radio"]:checked + label::before {
 			</fieldset>
 
 
-			<!--Кнопка отправки формы:-->
-			<button class="button button--wide" type="submit">Кнопка</button>
+			<div class="form__buttons">
+				<!--Кнопка отправки формы:-->
+				<button class="button button--wide" type="submit">Кнопка</button>
 
-
-			<!--Сообщения об успешной или неудачной отправке:-->
-			<p class="form__success active" aria-live="polite">Сообщение отправлено.</p>
-			<p class="form__failure active" aria-live="polite">Ошибка! Сообщение не отправлено.</p>
+				<!--Сообщения об успешной или неудачной отправке:-->
+				<p class="form__success active" aria-live="polite">Сообщение отправлено.</p>
+				<p class="form__failure active" aria-live="polite">Ошибка! Не отправлено.</p>
+			</div>
 		</form>
 		<hr>
 
@@ -825,11 +837,13 @@ input[type="radio"]:checked + label::before {
 			</div>
 
 
-			<button class="button button--wide" type="submit">Кнопка</button>
+			<div class="form__buttons">
+				<button class="button button--wide" type="submit">Кнопка</button>
 
+				<p class="form__success active" aria-live="polite">Сообщение отправлено.</p>
 
-			<p class="form__success active" aria-live="polite">Сообщение отправлено.</p>
-			<p class="form__failure active" aria-live="polite">Ошибка! Сообщение не отправлено.</p>
+				<p class="form__failure " aria-live="polite">Ошибка! Не отправлено.</p>
+			</div>
 		</form>
 		<hr>
 
