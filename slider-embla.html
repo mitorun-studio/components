@@ -14,7 +14,7 @@
 
 	<style>
 /*------------------------------------------------
----------- Компонент слайдер Embla: --------------
+--- Компонент слайдер Embla: ---------------------
 ------------------------------------------------*/
 
 .embla {
@@ -98,11 +98,12 @@
 
 .embla__dots {
 	position: absolute;
-	inset: auto 0 4%;
+	inset: auto 0 2%;
 	z-index: 9;
 	width: fit-content;
 	margin-left: auto;
 	margin-right: auto;
+	text-align: center;
 	/* Другой вариант центрирования:
 	display: flex;
 	flex-wrap: wrap;
@@ -417,20 +418,16 @@
 /*.pictures {}*/
 
 .pictures__card {
-	position: relative;
-	/*display: grid;
-	place-content: center;*/
-	/*flex-basis: 290px;*/
 	width: 100%;
 	min-height: 150px;
 	margin-right: var(--margin-s);
-
 }
 
 .pictures__card img {
 	display: block;
 	width: 100%;
 	height: 500px;
+	/* aspect-ratio: 3/2; */
 	object-fit: cover;
 	object-position: 50% 50%;
 }
@@ -692,174 +689,176 @@
 	<div style="height: 100vh;"></div>
 
 
-	<!-- Подключение скрипта embla-carousel по CDN: -->
-	<!-- <script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
-	<script src="https://unpkg.com/embla-carousel-autoplay/embla-carousel-autoplay.umd.js"></script>
-	<script src="https://unpkg.com/embla-carousel-auto-height/embla-carousel-auto-height.umd.js"></script>
-	<script src="https://unpkg.com/embla-carousel-class-names/embla-carousel-class-names.umd.js"></script>
-	<script src="https://unpkg.com/embla-carousel-wheel-gestures/dist/embla-carousel-wheel-gestures.umd.js"></script> -->
 
-	<!-- Подключение скрипта-бандла слайдера Embla: -->
-	<script src="sliders/embla-carousel-bundle.js"></script>
 
-	<!-- Скрипт инициализации и настройки слайдера Embla: -->
-	<script>
-		// Объект с параметрами для каждого слайдера:
-		const sliderOptions = {
-			// Настройки для базового слайдера:
-			'embla-base': {
-				align: 'start',// 'center' (default) | 'start' | 'end' | '0.5' выравнивание активного слайда.
-				loop: true,// зацикленная прокрутка.
-				// Подключение и настройка плагинов:
-				autoplay: {
-					delay: 9999,// задержка мс между автопрокруткой слайдов.
-					stopOnMouseEnter: true,// true остановит автопрокрутку при ховере. При включенной stopOnInteraction: true автопрокрутка уже не вернётся после снятия ховера!
-					stopOnInteraction: false,// false не останавливать при взаимодействии.
-				},
+<!-- Подключение скрипта embla-carousel по CDN: -->
+<!-- <script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
+<script src="https://unpkg.com/embla-carousel-autoplay/embla-carousel-autoplay.umd.js"></script>
+<script src="https://unpkg.com/embla-carousel-auto-height/embla-carousel-auto-height.umd.js"></script>
+<script src="https://unpkg.com/embla-carousel-class-names/embla-carousel-class-names.umd.js"></script>
+<script src="https://unpkg.com/embla-carousel-wheel-gestures/dist/embla-carousel-wheel-gestures.umd.js"></script> -->
+
+<!-- Подключение скрипта-бандла слайдера Embla: -->
+<script src="sliders/embla-carousel-bundle.js"></script>
+
+<!-- Скрипт инициализации и настройки слайдера Embla: -->
+<script>
+	// Объект с параметрами для каждого слайдера:
+	const sliderOptions = {
+		// Настройки для базового слайдера:
+		'embla-base': {
+			align: 'start',// 'center' (default) | 'start' | 'end' | '0.5' выравнивание активного слайда.
+			loop: true,// зацикленная прокрутка.
+			// Подключение и настройка плагинов:
+			autoplay: {
+				delay: 9999,// задержка мс между автопрокруткой слайдов.
+				stopOnMouseEnter: true,// true остановит автопрокрутку при ховере. При включенной stopOnInteraction: true автопрокрутка уже не вернётся после снятия ховера!
+				stopOnInteraction: false,// false не останавливать при взаимодействии.
 			},
+		},
 
-			// Настройки для слайдера с выносом кнопок:
-			'embla-outside': {
-				align: 'start',// 'center' (default) | 'start' | 'end' | '0.5' выравнивание активного слайда.
-				loop: true,// зацикленная прокрутка.
+		// Настройки для слайдера с выносом кнопок:
+		'embla-outside': {
+			align: 'start',// 'center' (default) | 'start' | 'end' | '0.5' выравнивание активного слайда.
+			loop: true,// зацикленная прокрутка.
+		},
+
+		// Настройки для слайдера с кастомными кнопками:
+		'embla-custom': {
+			align: 'start',// 'center' (default) | 'start' | 'end' | '0.5' выравнивание активного слайда.
+			loop: true,// зацикленная прокрутка.
+		},
+
+		// Настройки для слайдера с картинками:
+		'embla-fullscreen': {
+			align: 'center',// 'center' (default) | 'start' | 'end' | '0.5' выравнивание активного слайда.
+			loop: true,// зацикленная прокрутка.
+			autoplay: {
+				delay: 700099,// задержка мс между автопрокруткой слайдов.
+				// stopOnMouseEnter: true,// true остановит автопрокрутку при ховере. При включенной stopOnInteraction: true автопрокрутка уже не вернётся после снятия ховера!
+				stopOnInteraction: false,// false не останавливать при взаимодействии.
 			},
+		},
 
-			// Настройки для слайдера с кастомными кнопками:
-			'embla-custom': {
-				align: 'start',// 'center' (default) | 'start' | 'end' | '0.5' выравнивание активного слайда.
-				loop: true,// зацикленная прокрутка.
+		// Настройки для слайдера с кастомными кнопками:
+		'embla-pictures': {
+			align: 'center',// 'center' (default) | 'start' | 'end' | '0.5' выравнивание активного слайда.
+			loop: true,// зацикленная прокрутка.
+		},
+
+		// Настройки для слайдера полные:
+		'embla-full': {
+			align: 'center',// 'center' (default) | 'start' | 'end' | '0.5' выравнивание активного слайда.
+			loop: false,// зацикленная прокрутка.
+			duration: 25,// длительность прокрутки 20-60 (25 default).
+			axis: 'x',// x | y ось прокрутки.
+			active: true,// возможность переключения карусели активной/неактивной в зависимости от медиа-запросов.
+			breakpoints: {'(min-width: 768px)': {active: false, loop: false}},// объект с параметрами, которые будут применяться для данной точки.
+			direction: 'ltr',// направление контента ltr или rtl
+			dragFree: true,// свободная прокрутка свайпом без привязок к слайдам.
+			dragThreshold: 10,// порог свайпа в px.
+			inViewThreshold: 0,// 0.5 | 50% процентная доля видимого слайда.
+			skipSnaps: true,// false (default) | true пропускать слайды при агрессивной прокрутке.
+			slides: 'custom-class',// классы элементов которые будут слайдами.
+			slidesToScroll: 2,// 1 (default) | 2 | auto количество слайдов за прокрутку.
+			startIndex: 2,// 0 (default) номер начального слайда.
+			watchDrag: true,// свайп мышью и тачем.
+			watchResize: true,// автоматически отслеживает изменение размера контейнера и слайдов и запускает reInit при изменении любого размера.
+			watchSlides: true,// автоматически отслеживает изменение размера контейнера и слайдов и запускает reInit при изменении любого размера.
+			// Подключение и настройка плагинов:
+			// Плагин для автоматической прокрутки слайдов с задержкой:
+			autoplay: {
+				delay: 9999,// задержка мс между автопрокруткой слайдов.
+				stopOnMouseEnter: true,// true остановит автопрокрутку при ховере. При включенной stopOnInteraction: true автопрокрутка уже не вернётся после снятия ховера!
+				// jump: true,// true сделает переходы мгновенными.
+				stopOnInteraction: false,// false не останавливать при взаимодействии.
+				// StopOnLastSnap: true,// true остановит автопрокрутку на последнем слайде.
 			},
-
-			// Настройки для слайдера с картинками:
-			'embla-fullscreen': {
-				align: 'center',// 'center' (default) | 'start' | 'end' | '0.5' выравнивание активного слайда.
-				loop: true,// зацикленная прокрутка.
-				autoplay: {
-					delay: 700099,// задержка мс между автопрокруткой слайдов.
-					// stopOnMouseEnter: true,// true остановит автопрокрутку при ховере. При включенной stopOnInteraction: true автопрокрутка уже не вернётся после снятия ховера!
-					stopOnInteraction: false,// false не останавливать при взаимодействии.
-				},
+			// Плагин для автоматического изменения высоты слайдера в зависимости от высоты текущего слайда:
+			autoHeight: {},
+			// Плагин для настройки имен классов, используемых Embla Carousel для добавления классов к элементам слайдера (например, для обозначения выбранного слайда или состояния перетаскивания):
+			classNames: {
+				selected: 'custom-class',// 'is-selected' (default).
+				draggable: 'custom-class',// 'is-draggable' (default).
+				dragging: 'custom-class',// 'is-dragging' (default).
 			},
-
-			// Настройки для слайдера с кастомными кнопками:
-			'embla-pictures': {
-				align: 'center',// 'center' (default) | 'start' | 'end' | '0.5' выравнивание активного слайда.
-				loop: true,// зацикленная прокрутка.
+			// Плагин для добавления поддержки прокрутки колесом мыши для переключения слайдов:
+			wheelGestures: {
+				wheelDraggingClass: 'custom-class',// 'is-wheel-dragging' (default).
+				forceWheelAxis: undefined,// undefined (default) | x | y .
+				target: undefined,// undefined (default).
 			},
+		},
+	};
 
-			// Настройки для слайдера полные:
-			'embla-full': {
-				align: 'center',// 'center' (default) | 'start' | 'end' | '0.5' выравнивание активного слайда.
-				loop: false,// зацикленная прокрутка.
-				duration: 25,// длительность прокрутки 20-60 (25 default).
-				axis: 'x',// x | y ось прокрутки.
-				active: true,// возможность переключения карусели активной/неактивной в зависимости от медиа-запросов.
-				breakpoints: {'(min-width: 768px)': {active: false, loop: false}},// объект с параметрами, которые будут применяться для данной точки.
-				direction: 'ltr',// направление контента ltr или rtl
-				dragFree: true,// свободная прокрутка свайпом без привязок к слайдам.
-				dragThreshold: 10,// порог свайпа в px.
-				inViewThreshold: 0,// 0.5 | 50% процентная доля видимого слайда.
-				skipSnaps: true,// false (default) | true пропускать слайды при агрессивной прокрутке.
-				slides: 'custom-class',// классы элементов которые будут слайдами.
-				slidesToScroll: 2,// 1 (default) | 2 | auto количество слайдов за прокрутку.
-				startIndex: 2,// 0 (default) номер начального слайда.
-				watchDrag: true,// свайп мышью и тачем.
-				watchResize: true,// автоматически отслеживает изменение размера контейнера и слайдов и запускает reInit при изменении любого размера.
-				watchSlides: true,// автоматически отслеживает изменение размера контейнера и слайдов и запускает reInit при изменении любого размера.
-				// Подключение и настройка плагинов:
-				// Плагин для автоматической прокрутки слайдов с задержкой:
-				autoplay: {
-					delay: 9999,// задержка мс между автопрокруткой слайдов.
-					stopOnMouseEnter: true,// true остановит автопрокрутку при ховере. При включенной stopOnInteraction: true автопрокрутка уже не вернётся после снятия ховера!
-					// jump: true,// true сделает переходы мгновенными.
-					stopOnInteraction: false,// false не останавливать при взаимодействии.
-					// StopOnLastSnap: true,// true остановит автопрокрутку на последнем слайде.
-				},
-				// Плагин для автоматического изменения высоты слайдера в зависимости от высоты текущего слайда:
-				autoHeight: {},
-				// Плагин для настройки имен классов, используемых Embla Carousel для добавления классов к элементам слайдера (например, для обозначения выбранного слайда или состояния перетаскивания):
-				classNames: {
-					selected: 'custom-class',// 'is-selected' (default).
-					draggable: 'custom-class',// 'is-draggable' (default).
-					dragging: 'custom-class',// 'is-dragging' (default).
-				},
-				// Плагин для добавления поддержки прокрутки колесом мыши для переключения слайдов:
-				wheelGestures: {
-					wheelDraggingClass: 'custom-class',// 'is-wheel-dragging' (default).
-					forceWheelAxis: undefined,// undefined (default) | x | y .
-					target: undefined,// undefined (default).
-				},
-			},
-		};
+	// Техническая часть слайдера:
+	const sliders = document.querySelectorAll('.embla');
 
-		// Техническая часть слайдера:
-		const sliders = document.querySelectorAll('.embla');
+	sliders.forEach(slider => {
+		const sliderName = slider.classList[1];// получаем название слайдера.
+		const options = sliderOptions[sliderName];// получаем параметры для текущего слайдера.
 
-		sliders.forEach(slider => {
-			const sliderName = slider.classList[1];// получаем название слайдера.
-			const options = sliderOptions[sliderName];// получаем параметры для текущего слайдера.
+		const viewportNode = slider.querySelector('.embla__viewport');
+		const prevButtonNode = slider.querySelector('.embla__prev');
+		const nextButtonNode = slider.querySelector('.embla__next');
+		const dotsNode = slider.querySelector('.embla__dots');
 
-			const viewportNode = slider.querySelector('.embla__viewport');
-			const prevButtonNode = slider.querySelector('.embla__prev');
-			const nextButtonNode = slider.querySelector('.embla__next');
-			const dotsNode = slider.querySelector('.embla__dots');
+		// Подключаем плагины:
+		const plugins = [];
+		// Подключаем плагин autoplay:
+		if (options.autoplay) {
+			plugins.push(EmblaCarouselAutoplay(options.autoplay));
+		}
+		// Подключаем плагин autoHeight:
+		if (options.autoHeight) {
+			plugins.push(EmblaCarouselAutoHeight(options.autoHeight));
+		}
+		// Подключаем плагин classNames:
+		if (options.classNames) {
+			plugins.push(EmblaCarouselClassNames(options.classNames));
+		}
+		// Подключаем плагин wheelGestures:
+		if (options.wheelGestures) {
+			plugins.push(EmblaCarouselWheelGestures(options.wheelGestures));
+		}
 
-			// Подключаем плагины:
-			const plugins = [];
-			// Подключаем плагин autoplay:
-			if (options.autoplay) {
-				plugins.push(EmblaCarouselAutoplay(options.autoplay));
-			}
-			// Подключаем плагин autoHeight:
-			if (options.autoHeight) {
-				plugins.push(EmblaCarouselAutoHeight(options.autoHeight));
-			}
-			// Подключаем плагин classNames:
-			if (options.classNames) {
-				plugins.push(EmblaCarouselClassNames(options.classNames));
-			}
-			// Подключаем плагин wheelGestures:
-			if (options.wheelGestures) {
-				plugins.push(EmblaCarouselWheelGestures(options.wheelGestures));
-			}
+		const embla = EmblaCarousel(viewportNode, options, plugins);
 
-			const embla = EmblaCarousel(viewportNode, options, plugins);
-
-			prevButtonNode.addEventListener('click', embla.scrollPrev, false);
-			nextButtonNode.addEventListener('click', embla.scrollNext, false);
+		prevButtonNode.addEventListener('click', embla.scrollPrev, false);
+		nextButtonNode.addEventListener('click', embla.scrollNext, false);
 
 
-			// Создание пагинации dots:
-			embla.slideNodes().forEach((_, index) => {
-				const dot = document.createElement('button');
-				dot.classList.add('embla__dot');
-				dot.addEventListener('click', () => {
-					embla.scrollTo(index);
-					if (embla.plugins().autoplay) {
-						embla.plugins().autoplay.stop();
-						embla.plugins().autoplay.play();
-					}
-				});
-				dotsNode.appendChild(dot);
+		// Создание пагинации dots:
+		embla.slideNodes().forEach((_, index) => {
+			const dot = document.createElement('button');
+			dot.classList.add('embla__dot');
+			dot.addEventListener('click', () => {
+				embla.scrollTo(index);
+				if (embla.plugins().autoplay) {
+					embla.plugins().autoplay.stop();
+					embla.plugins().autoplay.play();
+				}
 			});
-
-			// Обновление активного dot:
-			const updateDots = (selectedIndex) => {
-				const dotsArray = Array.from(dotsNode.querySelectorAll('.embla__dot'))
-				dotsArray.forEach((dot, index) => {
-					if (index === selectedIndex) {
-						dot.classList.add('embla__dot--selected')
-					} else {
-						dot.classList.remove('embla__dot--selected')
-					}
-				})
-			}
-
-			// Обновление активного dot при изменении выбранного слайда:
-			embla.on('select', () => updateDots(embla.selectedScrollSnap()));
-			updateDots(embla.selectedScrollSnap());
+			dotsNode.appendChild(dot);
 		});
-	</script>
+
+		// Обновление активного dot:
+		const updateDots = (selectedIndex) => {
+			const dotsArray = Array.from(dotsNode.querySelectorAll('.embla__dot'))
+			dotsArray.forEach((dot, index) => {
+				if (index === selectedIndex) {
+					dot.classList.add('embla__dot--selected')
+				} else {
+					dot.classList.remove('embla__dot--selected')
+				}
+			})
+		}
+
+		// Обновление активного dot при изменении выбранного слайда:
+		embla.on('select', () => updateDots(embla.selectedScrollSnap()));
+		updateDots(embla.selectedScrollSnap());
+	});
+</script>
 
 
 </body>

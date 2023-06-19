@@ -175,6 +175,19 @@ fieldset[disabled] {
 
 
 
-.template-grid {}
+.template-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(292px, 1fr));
+}
 
-.template-card {}
+.template-card {
+	padding: 50px 60px;
+	box-shadow: inset 0 0 0 1px grey;
+}
+
+.reverse-colors {
+	/* --color: var(--color-reverse);
+	--bg: var(--bg-reverse); */
+	color: var(--bg);
+	background-color: var(--color);
+}

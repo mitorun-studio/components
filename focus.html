@@ -9,20 +9,11 @@
 	<meta name="author" content="Oleg Mitorun">
 
 	<link rel="stylesheet" href="mitosite.css">
+	<link rel="stylesheet" href="components.css">
 	<meta name="theme-color" content="#d4e6f7">
 	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
 
 	<style>
-.template-grid {
-	grid-template-columns: repeat(auto-fit, minmax(292px, 1fr));
-	font-size: 30px;
-}
-
-.template-card.dark {
-	color: white;
-	background-color: hsl(210, 15%, 24%);
-}
-
 .focus-default *:focus {
 	outline-offset: initial;
 }
@@ -66,100 +57,104 @@
 <body>
 
 
-	<main class="container">
+	<main>
 
-		<h1>Фокус</h1>
-		<hr>
+		<section class="container section">
 
-		<h2>Фокус <code>:focus</code>по умолчанию</h2>
+			<h1>Фокус</h1>
 
-		<div class="template-grid focus-default">
-			<div class="template-card">
-				<a href="#">ссылка</a>
+
+			<h2>Фокус <code>:focus</code>по умолчанию</h2>
+
+			<div class="template-grid focus-default">
+				<div class="template-card">
+					<a href="#">ссылка</a>
+				</div>
+
+				<div class="template-card">
+					<button class="button" type="button">кнопка</button>
+				</div>
+
+				<div class="template-card reverse-colors">
+					<a href="#">ссылка</a>
+				</div>
+
+				<div class="template-card reverse-colors">
+					<button class="button" type="button">кнопка</button>
+				</div>
 			</div>
 
-			<div class="template-card">
-				<button class="button" type="button">кнопка</button>
+
+
+
+			<h2>Фокус с <code>:focus-visible</code></h2>
+
+			<div class="template-grid focus-visible">
+				<div class="template-card">
+					<a href="#">ссылка</a>
+				</div>
+
+				<div class="template-card">
+					<button class="button" type="button">кнопка</button>
+				</div>
+
+				<div class="template-card reverse-colors">
+					<a href="#">ссылка</a>
+				</div>
+
+				<div class="template-card reverse-colors">
+					<button class="button" type="button">кнопка</button>
+				</div>
 			</div>
 
-			<div class="template-card dark">
-				<a href="#">ссылка</a>
+
+
+
+			<h2>Фокус с <code>:focus-visible</code> и <code>box-shadow</code></h2>
+
+			<div class="template-grid focus-visible-shadow">
+				<div class="template-card">
+					<a href="#">ссылка</a>
+				</div>
+
+				<div class="template-card">
+					<button class="button" type="button">кнопка</button>
+				</div>
+
+				<div class="template-card reverse-colors">
+					<a href="#">ссылка</a>
+				</div>
+
+				<div class="template-card reverse-colors">
+					<button class="button" type="button">кнопка</button>
+				</div>
 			</div>
 
-			<div class="template-card dark">
-				<button class="button" type="button">кнопка</button>
-			</div>
-		</div>
 
 
 
+			<h2>Фокус с <code>:focus-within</code></h2>
+			<p>Стили для элемента если он сам в фокусе или любой из его потомков.</p>
 
-		<h2>Фокус с <code>:focus-visible</code></h2>
+			<div class="template-grid focus-within">
+				<div class="template-card">
+					<a href="#">ссылка</a>
+				</div>
 
-		<div class="template-grid focus-visible">
-			<div class="template-card">
-				<a href="#">ссылка</a>
-			</div>
+				<div class="template-card">
+					<button class="button" type="button">кнопка</button>
+				</div>
 
-			<div class="template-card">
-				<button class="button" type="button">кнопка</button>
-			</div>
+				<div class="template-card reverse-colors">
+					<a href="#">ссылка</a>
+				</div>
 
-			<div class="template-card dark">
-				<a href="#">ссылка</a>
-			</div>
-
-			<div class="template-card dark">
-				<button class="button" type="button">кнопка</button>
-			</div>
-		</div>
-
-
-
-
-		<h2>Фокус с <code>:focus-visible</code> и <code>box-shadow</code></h2>
-
-		<div class="template-grid focus-visible-shadow">
-			<div class="template-card">
-				<a href="#">ссылка</a>
+				<div class="template-card reverse-colors">
+					<button class="button" type="button">кнопка</button>
+				</div>
 			</div>
 
-			<div class="template-card">
-				<button class="button" type="button">кнопка</button>
-			</div>
-
-			<div class="template-card dark">
-				<a href="#">ссылка</a>
-			</div>
-
-			<div class="template-card dark">
-				<button class="button" type="button">кнопка</button>
-			</div>
-		</div>
-
-
-
-
-		<h2>Фокус с <code>:focus-within</code></h2>
-		<p>Стили для элемента если он сам в фокусе или любой из его потомков.</p>
-
-		<div class="template-grid focus-within">
-			<div class="template-card">
-				<a href="#">ссылка</a>
-			</div>
-
-			<div class="template-card">
-				<button class="button" type="button">кнопка</button>
-			</div>
-
-			<div class="template-card dark">
-				<a href="#">ссылка</a>
-			</div>
-
-			<div class="template-card dark">
-				<button class="button" type="button">кнопка</button>
-			</div>
-		</div>
+		</section>
 
 	</main>
 

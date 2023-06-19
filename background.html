@@ -9,6 +9,7 @@
 	<meta name="author" content="Oleg Mitorun">
 
 	<link rel="stylesheet" href="mitosite.css">
+	<link rel="stylesheet" href="components.css">
 	<meta name="theme-color" content="#d4e6f7">
 	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
 
@@ -94,52 +95,43 @@ section.container {
 <body>
 
 
-	<main class="container">
+	<main>
 
-		<h1>Компоненты</h1>
-		<hr>
+		<section class="container section">
 
-		<h2>Фон с image-set</h2>
-
-		<div class="image-set"></div>
-		<hr>
+			<h1>Компоненты</h1>
 
 
+			<h2>Фон с image-set</h2>
 
-
-		<h2>Растянуть фон контейнера до конца экрана</h2>
-
-		<p class="bg-fluid section-inverse">Этот параграф находится внутри контейнера, а его фон до краев экрана сделан хитрым способом. Этот мой способ, с помощью <code>border-image</code>.</p>
-		<br>
-
-		<p class="bg-fluid-2 section-inverse">Этот параграф находится внутри контейнера, а его фон до краев экрана сделан хитрым способом. Этот способ от Kevin Powell, с помощью <code>box-shadow и clip-path</code>.</p>
-		<p>Есть минус: на сафари при загрузке на секунду весь сайт закрывает тенью от этого блока!</p>
-		<br>
-		<hr><br>
+			<div class="image-set"></div>
 
 
 
 
+			<h2>Растянуть фон контейнера до конца экрана</h2>
 
-		<div class="template-grid">
-			<div class="template-card">
-				<p>Описание примера</p>
-				<!-- пример -->
-			</div>
-		</div>
+			<p class="bg-fluid section-inverse">Этот параграф находится внутри контейнера, а его фон до краев экрана сделан хитрым способом. Этот мой способ, с помощью <code>border-image</code>.</p>
 
 
-	</main>
+			<p class="bg-fluid-2 section-inverse">Этот параграф находится внутри контейнера, а его фон до краев экрана сделан хитрым способом. Этот способ от Kevin Powell, с помощью <code>box-shadow и clip-path</code>.</p>
+			<p>Есть минус: на сафари при загрузке на секунду весь сайт закрывает тенью от этого блока!</p>
+
+		</section>
 
 
-	<section class="container">
-		<h2>Фон на всю ширину окна с псевдоэлементом с<code>position: absolute;</code></h2>
-		<pre class="codefield4"><code>.menu {
+
+
+		<section class="container section">
+			<h2>Фон на всю ширину окна с псевдоэлементом с <code>position: absolute;</code></h2>
+			<pre class="codefield4"><code>.menu {
 display: flex;
 flex-wrap: wrap;
 <ins class="ins-plus">	justify-content: flex-end;</ins>
 }</code></pre>
-	</section>
+		</section>
+
+	</main>
 
 
 	<div style="height: 100vh;"></div>
