@@ -1,0 +1,313 @@
+<!doctype html><!-- Файл share.html -->
+<html lang="ru">
+
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Кнопка Поделиться – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<link rel="stylesheet" href="components.css">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+/*------------------------------------------------
+--- Компонент Поделиться: ------------------------
+------------------------------------------------*/
+
+.share {
+	position: relative;
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--margin-s);
+	align-items: center;
+}
+
+.share__list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--margin-xs);
+	align-items: center;
+}
+
+.share__link {
+	display: block;
+	width: 48px;
+	height: 48px;
+	background-position: 50%;
+	background-size: 60%;
+	background-repeat: no-repeat;
+	background-color: var(--grey-lightest);
+	border-radius: 99px;
+	/*transition: background-color 0.3s linear, color 0.3s linear;*/
+}
+
+.share__link.telegram {
+	background-image: url('/img/sprite.svg#telegram');
+}
+.share__link.vkontakte {
+	background-image: url('/img/sprite.svg#vkontakte');
+}
+.share__link.twitter {
+	background-image: url('/img/sprite.svg#twitter');
+}
+.share__link.odnoklassniki {
+	background-image: url('/img/sprite.svg#odnoklassniki');
+}
+.share__link.copy {
+	background-image: url('/img/sprite.svg#copy');
+}
+
+
+
+/* Конец компонента Поделиться. */
+
+
+
+
+/* Модификаторы */
+
+
+
+
+/* Всплывающее окно: */
+
+.share__popup {
+	display: none;
+	position: absolute;
+	width: fit-content;
+	top: 50px;
+	left: 0;
+	background-color: var(--bg);
+	border-radius: var(--border-radius-m);
+	box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.18), 0px 0px 4px rgba(0, 0, 0, 0.1);
+	padding-top: 8px;
+	padding-bottom: 8px;
+	z-index: 9999;
+}
+
+.show {
+	display: block;
+}
+
+
+
+	</style>
+
+</head>
+
+
+<body>
+
+
+	<main>
+		<section class="container">
+
+			<h1>Поделиться в соц. сетях</h1>
+
+
+
+			<h2>Поделиться №1 – видимый список</h2>
+
+			<div class="share">
+				<p class="share__text">Поделиться</p>
+
+
+				<ul class="share__list">
+					<li>
+						<a class="share__link vkontakte" href="#" target="_blank" title="vkontakte" aria-label="vkontakte"></a>
+					</li>
+
+					<li>
+						<a class="share__link telegram" href="#" target="_blank" title="telegram" aria-label="telegram"></a>
+					</li>
+
+					<li>
+						<a class="share__link odnoklassniki" href="#" target="_blank" title="odnoklassniki" aria-label="odnoklassniki"></a>
+					</li>
+
+					<li>
+						<a class="share__link twitter" href="#" target="_blank" title="twitter" aria-label="twitter"></a>
+					</li>
+
+					<li>
+						<button class="share__link copy" type="button" title="copy" aria-label="copy"></button>
+					</li>
+
+				</ul>
+			</div>
+
+
+
+
+			<h2>Поделиться №2 – попап</h2>
+
+			<div class="share">
+				<button class="share__button button" type="button">Поделиться</button>
+
+
+				<div class="share__popup">
+					<ul class="share__list">
+						<li>
+							<a class="share__link vkontakte" href="#" target="_blank" title="vkontakte" aria-label="vkontakte"></a>
+						</li>
+
+						<li>
+							<a class="share__link telegram" href="#" target="_blank" title="telegram" aria-label="telegram"></a>
+						</li>
+
+						<li>
+							<a class="share__link odnoklassniki" href="#" target="_blank" title="odnoklassniki" aria-label="odnoklassniki"></a>
+						</li>
+
+						<li>
+							<a class="share__link twitter" href="#" target="_blank" title="twitter" aria-label="twitter"></a>
+						</li>
+
+						<li>
+							<button class="share__link copy" type="button" title="copy" aria-label="copy"></button>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+
+
+
+
+			<h2>Поделиться №3 – список с попапом</h2>
+
+
+			<div class="share">
+				<ul class="share__list">
+
+					<li>
+						<a class="share__link vkontakte" href="#" target="_blank" title="vkontakte" aria-label="vkontakte"></a>
+					</li>
+
+					<li>
+						<a class="share__link telegram" href="#" target="_blank" title="telegram" aria-label="telegram"></a>
+					</li>
+
+					<li>
+						<button class="share__button button" type="button">Показать ещё</button>
+						<div class="share__popup">
+							<ul class="share__list">
+
+								<li>
+									<a class="share__link odnoklassniki" href="#" target="_blank" title="odnoklassniki" aria-label="odnoklassniki"></a>
+								</li>
+
+								<li>
+									<a class="share__link twitter" href="#" target="_blank" title="twitter" aria-label="twitter"></a>
+								</li>
+
+								<li>
+									<button class="share__link copy" type="button" title="copy" aria-label="copy"></button>
+								</li>
+							</ul>
+						</div>
+					</li>
+
+				</ul>
+			</div>
+
+		</section>
+
+	</main>
+
+
+
+
+	<div style="height: 100vh;"></div>
+
+
+
+
+	<!-- Скрипт компонента Поделиться: -->
+	<script>
+		// Выбираем элементы страницы:
+		const shareBtn = document.querySelectorAll('.share__button');
+		const sharePopup = document.querySelectorAll('.share__popup');
+		const copyLinkBtn = document.querySelectorAll('.share__link.copy');
+		const vkLink = document.querySelectorAll('.share__link.vkontakte');
+		const okLink = document.querySelectorAll('.share__link.odnoklassniki');
+		const twitterLink = document.querySelectorAll('.share__link.twitter');
+		const telegramLink = document.querySelectorAll('.share__link.telegram');
+
+		// Добавляем обработчик события click для кнопки "Поделиться":
+		shareBtn.forEach((button, index) => {
+			button.addEventListener('click', (event) => {
+				sharePopup[index].classList.toggle('show');
+				event.stopPropagation();
+			});
+		});
+
+		// Добавляем обработчик события click для ссылки "Скопировать ссылку":
+		copyLinkBtn.forEach((button) => {
+			button.addEventListener('click', () => {
+				const currentUrl = window.location.href;// получаем текущий URL страницы.
+				navigator.clipboard.writeText(currentUrl);// копируем текущий URL в буфер обмена.
+			});
+		});
+
+		// Добавляем обработчик события click для элемента document:
+		document.addEventListener('click', (event) => {
+			sharePopup.forEach((popup) => {
+				if (!popup.contains(event.target)) {
+					popup.classList.remove('show');
+				}
+			});
+		});
+
+		// Получаем текущий URL и заголовок страницы:
+		const currentUrl = window.location.href;
+		const currentTitle = document.title;
+
+		// Функция для добавления адреса социальной сети к каждой ссылке:
+		function addSocialLinks(links, socialUrl) {
+			links.forEach((link) => {
+				link.href = socialUrl;
+			});
+		}
+
+		// Создаем URL-адреса для каждой социальной сети:
+		addSocialLinks(vkLink, `https://vk.com/share.php?url=${encodeURIComponent(currentUrl)}&title=${encodeURIComponent(currentTitle)}`);
+		addSocialLinks(okLink, `https://connect.ok.ru/offer?url=${encodeURIComponent(currentUrl)}&title=${encodeURIComponent(currentTitle)}`);
+		addSocialLinks(twitterLink, `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(currentTitle)}`);
+		addSocialLinks(telegramLink, `https://t.me/share/url?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(currentTitle)}`);
+
+		// Функция обработки ссылок:
+		function linksHandler(social) {
+			social.forEach((link) => {
+				link.addEventListener('click', openShareWindow);
+			});
+		}
+
+		// Обработка события click для каждой ссылки:
+		linksHandler(vkLink);
+		linksHandler(okLink);
+		linksHandler(twitterLink);
+		linksHandler(telegramLink);
+
+		// Функция для открытия нового окна при нажатии на ссылку:
+		function openShareWindow(event) {
+			const url = event.target.href;// получаем URL-адрес ссылки.
+
+			// Вычисляем координаты центра экрана:
+			const left = (screen.width / 2) - (600 / 2);
+			const top = (screen.height / 2) - (400 / 2);
+
+			window.open(url, 'shareWindow', `width=600,height=400,left=${left},top=${top}`);// открываем новое окно с указанным URL-адресом.
+			event.preventDefault();// отменяем действие по умолчанию для ссылки.
+		}
+
+	</script>
+
+
+</body>
+
+</html>
