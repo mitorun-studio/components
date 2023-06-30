@@ -20,7 +20,7 @@
 .content {
 	--font-size-m: 17px;
 	display: grid;
-	row-gap: 1em;
+	row-gap: 1.2em;/* или calc(1em + 2px); */
 	max-width: 760px;
 	margin-right: auto;
 	margin-left: auto;
@@ -50,8 +50,36 @@
 .content h5,
 .content h6 {
 	margin-top: 1.5em;
-	margin-bottom: max(0.1em, 4px);
-	line-height: var(--line-height-xs);
+	margin-bottom: max(0.06em, 4px);
+	line-height: var(--line-height-xs, 1.2);
+}
+
+.content h1 {
+	font-size: clamp(26px, calc(22px + 1.5vw), 40px);
+}
+
+.content h2 {
+	font-size: clamp(24px, calc(21.2px + 0.9vw), 32px);
+}
+
+.content h3 {
+	font-size: clamp(22px, calc(20.8px + 0.6vw), 28px);
+	line-height: var(--line-height-s, 1.3);
+}
+
+.content h4 {
+	font-size: clamp(20px, calc(20.4px + 0.3vw), 24px);
+	line-height: var(--line-height-s, 1.3);
+}
+
+.content h5 {
+	font-size: var(--font-size-l, 19px);
+	line-height: var(--line-height-m, 1.5);
+}
+
+.content h6 {
+	font-size: var(--font-size-m, 16px);
+	line-height: var(--line-height-m, 1.5);
 }
 
 .content p {
@@ -83,7 +111,25 @@
 	display: grid;
 	row-gap: 0.5em;
 	padding-left: 30px;
+	list-style: auto;
 }
+
+/* .content :is(ol, ul) :is(ol, ul) */
+.content ul ul,
+.content ol ol,
+.content ul ol,
+.content ol ul {
+	margin-top: 0.5em;
+	/* margin-bottom: 0.5em; */
+}
+
+.list li,
+.content li {
+	font-size: var(--font-size-m);
+	line-height: var(--line-height-s, 1.3);
+}
+
+/* Кастомные маркеры списков: */
 
 .list ul,
 .content ul {
@@ -92,11 +138,28 @@
 	list-style-position: outside;/* outside | inside; */
 }
 
-.list li,
-.content li {
-	font-size: var(--font-size-m);
-	line-height: 1.3;
+/* .content ul,
+.content ol {
+	padding-left: 24px;
+	list-style: none;
 }
+
+.content ul li::before {
+	position: absolute;
+	margin-left: -24px;
+	content: '–';
+}
+
+.content ol {
+	counter-reset: list;
+}
+
+.content ol li::before {
+	position: absolute;
+	margin-left: -24px;
+	counter-increment: list;
+	content: counter(list) '.';
+} */
 
 /* .list ul li::marker,
 .content ul li::marker {
@@ -109,16 +172,6 @@
 	content: '₽ ';
 	font-size: 1em;
 } */
-
-.content img {
-	width: 100%;
-	max-width: 100%;
-	height: auto;
-	max-height: 600px;
-	/*aspect-ratio: 3/2;*/
-	object-fit: contain;
-	object-position: center center;
-}
 
 b,
 strong,
@@ -166,6 +219,40 @@ s,
 	}
 }
 
+.content img,
+.content video {
+	width: 100%;
+	max-width: 100%;
+	height: auto;
+	max-height: 600px;
+	/*aspect-ratio: 3/2;*/
+	object-fit: contain;
+	object-position: center center;
+	border: 1px solid var(--grey-light);
+}
+
+.content-block iframe {
+	display: block;
+	width: 100%;
+	border: none;
+}
+
+.content-block figure {
+	display: grid;
+	row-gap: 1em;
+	padding-block: 1em;
+	margin: 0;
+}
+
+.content-block figcaption {
+	text-align: center;
+	font-size: var(--font-size-s);
+}
+
+.content-block details {
+	overflow: auto;
+}
+
 /*--- Инлайновый код: -------------------*/
 
 kbd,
@@ -176,13 +263,14 @@ samp {
 	font-family: var(--font-family-mono, monospace);
 	direction: ltr;
 	white-space: pre-wrap;
-	word-wrap: break-word;
+	/* word-wrap: break-word; */
+	word-break: break-word;
 	unicode-bidi: bidi-override;
 }
 
 .kbd,
 .code,
-.content :not(pre) > code {
+.content:not(pre) > code {
 	margin-inline: 0.1em;
 	padding: 0.20em 0.26em;
 	font-weight: 440;
@@ -262,97 +350,6 @@ samp {
 	}
 }
 
-/*--- Элемент с названием языка кода: ----------*/
-
-.content pre > code[class*='language-'] {
-	padding-top: 1.4em;
-}
-
-.code-block code[class*='language-']::before,
-.content pre > code[class*='language-']::before {
-	/*content: attr(data-content);*/
-	position: absolute;
-
-	/* Вариант стилей №1: */
-	top: 0;
-	left: var(--container-padding);
-	padding: 0 0.7em;
-	font-size: var(--font-size-s);
-	color: var(--white);
-	background-color: hsl(224, 78%, 66%);
-	border-radius: 0 0 0.4em 0.4em;
-
-	/* Вариант стилей №2: */
-	/* top: 0;
-	right: 0.1em;
-	z-index: 9999;
-	width: fit-content;
-	font: 900 60px/0.8 var(--font-family);
-	text-align: right;
-	color: hsla(0, 0%, 50%, 0.09);
-	background-color: transparent; */
-
-	text-transform: uppercase;
-	pointer-events: none;
-}
-
-@media (width >= 576px) {
-	.code-block code[class*='language-']::before,
-	.content pre > code[class*='language-']::before {
-		left: 2.2em;
-	}
-}
-
-.language-html::before {
-	content: 'HTML';
-	background-color: hsl(8, 77%, 63%);
-}
-
-.language-md::before {
-	content: 'MD';
-	background-color: hsl(54, 85%, 63%);
-}
-
-.language-njk::before {
-	content: 'NJK';
-	background-color: hsl(287, 70%, 66%);
-}
-
-.language-css::before {
-	content: 'CSS';
-	background-color: hsl(134, 72%, 60%);
-}
-
-.language-js::before {
-	content: 'JS';
-	background-color: hsl(319, 78%, 69%);
-}
-
-.language-svg::before {
-	content: 'SVG';
-	background-color: hsl(256, 75%, 70%);
-}
-
-.language-php::before {
-	content: 'PHP';
-	background-color: hsl(39, 100%, 50%);
-}
-
-.language-mix::before {
-	content: 'MIX';
-	background-color: hsl(39, 100%, 50%);
-}
-
-.language-live::before {
-	content: 'Live';
-	background-color: hsl(39, 100%, 50%);
-}
-
-.language-shell::before {
-	content: 'Shell';
-	background-color: hsl(39, 100%, 50%);
-}
-
 /*--- Скроллбар для блока кода: ----------------*/
 
 .content pre > code::-webkit-scrollbar {
@@ -374,6 +371,11 @@ samp {
 	background-color: var(--grey-light);
 	/* border: 2px solid red; */
 }
+
+/*--- Конец базовых стилей Контента. ----------*/
+
+
+
 
 /*------------------------------------------------
 --- Компонент таблица: ------------------------
@@ -431,7 +433,113 @@ samp {
 
 /* Конец базового компонента таблицы. */
 
-/* Конец стилей для статей и типографики. */
+
+
+
+
+
+
+
+
+/*--- Тег с названием языка кода №1: ----------*/
+
+.content--code-block-tag-1 pre > code[class*='language-'] {
+	padding-top: 1.6em;
+}
+
+.code-block code[class*='language-']::before,
+.content--code-block-tag-1 pre > code[class*='language-']::before {
+	/*content: attr(data-content);*/
+	position: absolute;
+	top: 0;
+	left: var(--container-padding);
+	padding: 0 0.7em;
+	font-size: var(--font-size-s);
+	color: var(--white);
+	background-color: hsl(224, 78%, 66%);
+	border-radius: 0 0 0.4em 0.4em;
+	text-transform: uppercase;
+	pointer-events: none;
+}
+
+@media (width >= 576px) {
+	.code-block code[class*='language-']::before,
+	.content--code-block-tag-1 pre > code[class*='language-']::before {
+		left: 2.2em;
+	}
+}
+
+.language-html::before {
+	content: 'HTML';
+	background-color: hsl(8, 77%, 63%);
+}
+
+.language-md::before {
+	content: 'MD';
+	background-color: hsl(54, 85%, 63%);
+}
+
+.language-njk::before {
+	content: 'NJK';
+	background-color: hsl(287, 70%, 66%);
+}
+
+.language-css::before {
+	content: 'CSS';
+	background-color: hsl(134, 72%, 60%);
+}
+
+.language-js::before {
+	content: 'JS';
+	background-color: hsl(319, 78%, 69%);
+}
+
+.language-svg::before {
+	content: 'SVG';
+	background-color: hsl(256, 75%, 70%);
+}
+
+.language-php::before {
+	content: 'PHP';
+	background-color: hsl(39, 100%, 50%);
+}
+
+.language-mix::before {
+	content: 'MIX';
+	background-color: hsl(39, 100%, 50%);
+}
+
+.language-live::before {
+	content: 'Live';
+	background-color: hsl(39, 100%, 50%);
+}
+
+.language-shell::before {
+	content: 'Shell';
+	background-color: hsl(39, 100%, 50%);
+}
+
+/*--- Тег с названием языка кода №2: ----------*/
+
+.content--code-block-tag-2 pre > code[class*='language-']::before {
+	/*content: attr(data-content);*/
+	position: absolute;
+	top: 0;
+	right: 0.1em;
+	z-index: 9999;
+	width: fit-content;
+	font: 900 60px/0.8 var(--font-family);
+	text-align: right;
+	color: hsla(0, 0%, 50%, 0.09);
+	background-color: transparent;
+}
+
+
+
+
+
+
+
 
 
 
@@ -561,26 +669,26 @@ samp {
 		<p>В базовом примере отступы сделаны гридами-гапами. Для отступов нижними маржинами нужно добавить модификатор <code>.content--margin-bottom</code>.</p>
 		<hr>
 
-		<div class="content">
+		<div class="content content--code-block-tag-3">
 			<h1>Заголовок H1</h1>
 
+
+			<p>Это один параграф с обычным текстом. В нём может быть несколько предложений.</p>
+
+
 			<h2>Заголовок H2</h2>
+
+
+			<p>Это пример как можно<br>перенести на новую строку внутри одного параграфа. Нужно в месте переноса вставить тег br в угловых скобках.</p>
 
 
 			<p>aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa</p>
 
 
-			<p>Это один параграф с обычным текстом. В нём может быть несколько предложений.</p>
-
-
-			<p>Это пример как можно<br>перенести на новую строку внутри одного параграфа. Нужно в месте переноса вставить тег br в угловых скобках.</p>
-
 			<h3>Заголовок H3</h3>
 
 
-
 			<p>Это пример как вставить <a href="https://example.com">строчную ссылку</a> в текст.</p>
-
 
 
 			<h4>Заголовок H4</h4>
@@ -590,7 +698,7 @@ samp {
 			<p><img src="img/example.jpg" alt="alt картинки"></p>
 
 
-			<p><em>Курсивный текст</em> <strong>Жирный текст</strong> <strong><em>Курсивный и жирный текст</em></strong> <s>Зачёркнутый текст</s></p>
+			<p><em>Курсивный текст</em> или <strong>Жирный текст</strong> или <strong><em>Курсивный и жирный текст</em></strong> или <s>Зачёркнутый текст</s></p>
 
 
 			<h5>Заголовок H5</h5>
@@ -614,6 +722,34 @@ samp {
 				<li>Первый пункт нумерованного списка</li>
 				<li>Второй пункт нумерованного списка</li>
 				<li>Третий пункт нумерованного списка</li>
+			</ol>
+
+
+			<ul>
+				<li>
+					Первый пункт списка Первый пункт списка Первый пункт списка
+					<ul>
+						<li>Вложенный первый пункт списка</li>
+						<li>Вложенный второй пункт списка</li>
+						<li>Вложенный третий пункт списка</li>
+					</ul>
+				</li>
+				<li>Второй пункт списка Второй пункт списка Второй пункт списка</li>
+				<li>Третий пункт списка Третий пункт списка Третий пункт списка</li>
+			</ul>
+
+
+			<ol>
+				<li>Первый пункт списка Первый пункт списка Первый пункт списка</li>
+				<li>Второй пункт списка Второй пункт списка Второй пункт списка</li>
+				<li>
+					Третий пункт списка Третий пункт списка Третий пункт списка
+					<ol>
+						<li>Вложенный первый пункт списка</li>
+						<li>Вложенный второй пункт списка</li>
+						<li>Вложенный третий пункт списка</li>
+					</ol>
+				</li>
 			</ol>
 
 

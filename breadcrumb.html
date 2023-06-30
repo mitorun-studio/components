@@ -1,0 +1,112 @@
+<!doctype html><!-- Файл breadcrumb.html -->
+<html lang="ru">
+<head>
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Хлебные крошки – Компоненты Mitorun Studio</title>
+	<meta name="description" content="Описание компонента">
+	<meta name="author" content="Oleg Mitorun">
+
+	<link rel="stylesheet" href="mitosite.css">
+	<link rel="stylesheet" href="components.css">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="img/favicon.svg">
+
+	<style>
+/* Хлебные крошки breadcrumb: */
+
+.breadcrumb {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	margin-bottom: 60px;
+	padding-top: 30px;
+	font-size: var(--font-size-s);
+	color: var(--grey-light);
+}
+
+.breadcrumb li:not(:last-of-type)::after {
+	content: '';/*'/'*/
+	display: inline-block;
+	width: 0.7em;
+	aspect-ratio: 1/1;
+	margin-right: 9px;
+	margin-left: 9px;
+	background: url('/img/sprite.svg#arrow-simple') 50% / contain no-repeat;
+}
+
+.breadcrumb a,
+.breadcrumb span {
+	display: inline-block;
+	padding-top: 0.4em;
+	padding-bottom: 0.4em;
+	line-height: 1;
+	text-decoration: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 1px;
+	text-decoration-color: transparent;
+	transition: 0.17s linear;
+
+	/* обрезание длинного текста в 3 точки: */
+	max-width: 20em;
+	max-height: 1.4em;
+	white-space: nowrap;
+	/* overflow-wrap: normal;
+	word-break: normal; */
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.breadcrumb span {
+	color: var(--color-aqua);
+}
+
+.breadcrumb a:hover {
+	text-underline-offset: 6px;
+	text-decoration-color: initial;
+}
+	</style>
+</head>
+
+
+<body>
+
+
+	<main class="container">
+
+		<h1>Хлебные крошки</h1>
+
+
+		<h2>Хлебные крошки №1 базовые</h2>
+
+		<ol class="breadcrumb" aria-label="Хлебные крошки">
+			<li><a class href="/">Главная</a></li>
+			<li><a class href="/blog/">Программы</a></li>
+			<li><span aria-current="page">Текущая страница</span></li>
+		</ol>
+
+
+
+
+		<h2>Хлебные крошки №2 для Eleventy Navigation</h2>
+
+		<ol class="breadcrumb" aria-label="Хлебные крошки">
+			{% for item in collections.all | eleventyNavigationBreadcrumb(eleventyNavigation.key, { includeSelf: true }) %}
+			<li>
+				{% if item.url == page.url or item.disableBreadcrumbLink === true %}
+				<span>{{ item.title }}</span>
+				{% else %}
+				<a href="{{ item.url | url }}">{{ item.title }}</a>
+				{% endif %}
+			</li>
+			{% endfor %}
+		</ol>
+
+	</main>
+
+
+	<div style="height: 100vh;"></div>
+
+
+</body>
+</html>
