@@ -436,6 +436,19 @@
 
 
 /*------------------------------------------------
+--- Слайдер Embla №6 бегущая строка: -------------
+------------------------------------------------*/
+
+.embla-ticker .embla__prev,
+.embla-ticker .embla__next,
+.embla-ticker .embla__dots {
+	display: none;
+}
+
+
+
+
+/*------------------------------------------------
 --- Оформление слайдов для компонента: -----------
 ------------------------------------------------*/
 
@@ -516,6 +529,7 @@
 			<h1>Слайдер <a target="_blank" href="https://www.embla-carousel.com/">Embla</a></h1>
 
 			<p>Высота слайдера всегда(!) определяется высотой слайдов <code>.embla__slide.gallery__card</code>. Даже если нужно сделать полноэкранный слайдер, то эта высота назначается так: <code>.embla__slide {min-height: max(680px, 100vh); max-height: 1080px;}</code></p>
+			<p>Особенность: кажется нельзя у слайдера просто удалять теги кнопок в HTML – тогда другой слайдер на странице не работает, вместо этого можно через стили указать кнопкам <code>display: none;</code></p>
 
 
 			<h2>Слайдер №1 – базовый <code>.embla-base</code></h2>
@@ -681,6 +695,29 @@
 				<div class="embla__dots" aria-label="Кнопки для перехода по слайдам"></div>
 			</div>
 
+
+
+
+			<h2>Слайдер №6 – бегущая строка <code>.embla-ticker</code></h2>
+
+			<div class="embla embla-ticker">
+				<div class="embla__viewport">
+					<ul class="embla__container gallery">
+						<li class="embla__slide gallery__card">Slide 1</li>
+						<li class="embla__slide gallery__card">Slide 2</li>
+						<li class="embla__slide gallery__card">Slide 3</li>
+						<li class="embla__slide gallery__card">Slide 4</li>
+						<li class="embla__slide gallery__card">Slide 5</li>
+						<li class="embla__slide gallery__card">Slide 6</li>
+					</ul>
+				</div>
+
+				<!-- <button class="embla__prev" type="button" aria-label="Предыдущий слайд"></button>
+				<button class="embla__next" type="button" aria-label="Следующий слайд"></button> -->
+
+				<!-- <div class="embla__dots" aria-label="Кнопки для перехода по слайдам"></div> -->
+			</div>
+
 		</section>
 
 	</main>
@@ -717,17 +754,20 @@
 			},
 		},
 
+
 		// Настройки для слайдера с выносом кнопок:
 		'embla-outside': {
 			align: 'start',// 'center' (default) | 'start' | 'end' | '0.5' выравнивание активного слайда.
 			loop: true,// зацикленная прокрутка.
 		},
 
+
 		// Настройки для слайдера с кастомными кнопками:
 		'embla-custom': {
 			align: 'start',// 'center' (default) | 'start' | 'end' | '0.5' выравнивание активного слайда.
 			loop: true,// зацикленная прокрутка.
 		},
+
 
 		// Настройки для слайдера с картинками:
 		'embla-fullscreen': {
@@ -740,11 +780,26 @@
 			},
 		},
 
+
 		// Настройки для слайдера с кастомными кнопками:
 		'embla-pictures': {
 			align: 'center',// 'center' (default) | 'start' | 'end' | '0.5' выравнивание активного слайда.
 			loop: true,// зацикленная прокрутка.
 		},
+
+
+		// Настройки для слайдера - бегущей строки:
+		'embla-ticker': {
+			align: 'start',// 'center' (default) | 'start' | 'end' | '0.5' выравнивание активного слайда.
+			loop: true,// зацикленная прокрутка.
+			duration: 5000,// длительность прокрутки 20-60 (25 default).
+			autoplay: {
+				delay: 0,// задержка мс между автопрокруткой слайдов.
+				// stopOnMouseEnter: true,// true остановит автопрокрутку при ховере. При включенной stopOnInteraction: true автопрокрутка уже не вернётся после снятия ховера!
+				stopOnInteraction: false,// false не останавливать при взаимодействии.
+			},
+		},
+
 
 		// Настройки для слайдера полные:
 		'embla-full': {
