@@ -105,6 +105,32 @@
 	text-underline-offset: 0.18em;
 }
 
+b,
+strong,
+.b,
+.content strong {
+	font-weight: var(--font-weight-l, 600);
+}
+
+i,
+.i,
+.content em {
+	font-style: italic;
+	/* font-style: oblique 40deg; */
+}
+
+/* Элемент Зачёркнутый текст можно использовать как хак для стилизации маленького или серого текста: */
+s,
+.s,
+.content s {
+	font-size: var(--font-size-s);
+	text-decoration: line-through;
+	text-decoration-thickness: 0.08em;
+	text-decoration-color: red;
+	/* opacity: 0.6; */
+	color: var(--grey);
+}
+
 .list,
 .content ul,
 .content ol {
@@ -123,10 +149,24 @@
 	/* margin-bottom: 0.5em; */
 }
 
+.content ul ul,
+.content ol ul {
+	list-style-type: circle;
+}
+
 .list li,
 .content li {
 	font-size: var(--font-size-m);
 	line-height: var(--line-height-s, 1.3);
+}
+
+.list ul li:not([class])::marker,
+.content ul li:not([class])::marker {
+	/*content:"[" counter(list-item)"] "; пример изменения вида маркеров */
+	/*font-size: 90%; пример изменения размера маркеров */
+	/*font-weight: bold;*/
+	font-style: oblique;
+	color: var(--color-main);
 }
 
 /* Кастомные маркеры списков: */
@@ -136,64 +176,6 @@
 	list-style-type: disc;/* disc | circle | square | decimal | georgian | trad-chinese-informal | kannada | '–' | custom-counter-style | none; */
 	list-style-image: url('./img/ul.svg');
 	list-style-position: outside;/* outside | inside; */
-}
-
-/* .content ul,
-.content ol {
-	padding-left: 24px;
-	list-style: none;
-}
-
-.content ul li::before {
-	position: absolute;
-	margin-left: -24px;
-	content: '–';
-}
-
-.content ol {
-	counter-reset: list;
-}
-
-.content ol li::before {
-	position: absolute;
-	margin-left: -24px;
-	counter-increment: list;
-	content: counter(list) '.';
-} */
-
-/* .list ul li::marker,
-.content ul li::marker {
-	content: '✝ ';
-	font-size: 1em;
-}
-
-.list ol li::marker,
-.content ol li::marker {
-	content: '₽ ';
-	font-size: 1em;
-} */
-
-b,
-strong,
-.b,
-.content strong {
-	font-weight: var(--font-weight-l, 600);
-}
-
-i,
-.i,
-.content em {
-	font-style: italic;
-	/* font-style: oblique 40deg; */
-}
-
-s,
-.s,
-.content s {
-	text-decoration: line-through;
-	text-decoration-thickness: 0.08em;
-	text-decoration-color: red;
-	/* opacity: 0.6; */
 }
 
 .hr,
@@ -231,26 +213,59 @@ s,
 	border: 1px solid var(--grey-light);
 }
 
-.content-block iframe {
+/* Ниже стили блоков от Макеева, у себя их ещё не проверял: */
+
+.content iframe {
 	display: block;
 	width: 100%;
 	border: none;
 }
 
-.content-block figure {
+.content figure {
 	display: grid;
 	row-gap: 1em;
 	padding-block: 1em;
 	margin: 0;
 }
 
-.content-block figcaption {
+.content figcaption {
 	text-align: center;
 	font-size: var(--font-size-s);
 }
 
-.content-block details {
+.content details {
 	overflow: auto;
+}
+
+abbr[title] {
+	text-decoration: underline dotted;
+	/*cursor: help; этот курсор бывает закрывает первую букву во всплывашке */
+	text-decoration-skip-ink: none;/* указывает чтобы подчёркивания не обрывались если наезжают на букву */
+}
+
+sub,
+sup {
+	position: relative;
+	font-size: 0.75em;
+	line-height: 0;
+	vertical-align: baseline;
+}
+
+sub {
+	bottom: -0.25em;
+}
+
+sup {
+	top: -0.5em;
+}
+
+small {
+	font-size: 80%;
+}
+
+mark {
+	padding: 0.2em;
+	background-color: #fcf8e3;
 }
 
 /*--- Инлайновый код: -------------------*/
@@ -282,6 +297,14 @@ samp {
 	-webkit-box-decoration-break: clone;
 	box-decoration-break: clone;
 	hyphens: none;
+}
+
+.file,
+samp:not([class]) {
+	display: inline-block;
+	margin-inline: 0.1em;
+	padding-inline: 0.2em;
+	background: var(--grey-lightest);
 }
 
 /*--- Блок с кодом: ----------------------*/
@@ -688,17 +711,20 @@ samp {
 			<h3>Заголовок H3</h3>
 
 
-			<p>Это пример как вставить <a href="https://example.com">строчную ссылку</a> в текст.</p>
+			<p>Это пример как вставить строчную <a href="https://example.com">ссылку</a> в текст. Или <a href="https://example.com">Очень очень очень очень длиннющая ссылка которая должна переноситься на следующую строку</a>.</p>
 
 
 			<h4>Заголовок H4</h4>
 
 
-			<p>Ниже пример как вставить картинку в статью:</p>
+			<p>Ниже пример как вставить картинку в статью:</p>
 			<p><img src="img/example.jpg" alt="alt картинки"></p>
 
 
 			<p><em>Курсивный текст</em> или <strong>Жирный текст</strong> или <strong><em>Курсивный и жирный текст</em></strong> или <s>Зачёркнутый текст</s></p>
+
+
+			<p><s>Пример использования зачеркнутого текста как отдельного абзаца с уникальной стилизацией</s></p>
 
 
 			<h5>Заголовок H5</h5>
@@ -753,10 +779,6 @@ samp {
 			</ol>
 
 
-			<p>Разделительная черта:</p>
-
-			<hr>
-
 			<p>Следующий абзац за разделительной чертой.</p>
 
 
@@ -765,7 +787,7 @@ samp {
 			</blockquote>
 
 
-			<p>Вставка кода <code>inline-code</code> в строку. А это <code>Длинный предлинный или очень вытянутый-перевытяннутый кусок кода. А может не кусок, а лента.</code>, тут код закончился. <code>ДлинныйпредлинныйилиоченьвытянутыйперевытяннутыйкусоккодаАможетнекусокалента.</code></p>
+			<p>Вставка кода <code>inline-code</code> в строку. А это <code>Длинный предлинный или очень вытянутый-перевытяннутый кусок кода. А может не кусок, а лента.</code>, тут код закончился. <code>ДлинныйпредлинныйилиоченьвытянутыйперевытяннутыйкусоккодаАможетнекусокалентакодаперекода.</code></p>
 
 
 			<p>Вставка отдельного блока с кодом:</p>
@@ -784,6 +806,16 @@ samp {
 
 
 			<p>*Экранирование спецсимволов маркдауна (перед символом нужно добавить обратный слэш)*</p>
+
+
+			<h3>Комбинированные теги</h3>
+
+			<p>Что если ссылка будет также и <a href="https://example.com"><code>примером кода</code></a> в тексте.</p>
+
+
+			<p>Разделительная черта:</p>
+
+			<hr>
 
 
 			<p>Ниже пример добавления таблицы, но этот функционал поддерживается не везде:</p>

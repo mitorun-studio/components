@@ -36,21 +36,24 @@
 	color: var(--white);
 }
 
+/* Мой способ с border-image: */
 .bg-fluid {
-	/*background-color: grey;
+	background-color: var(--color);
 	border-style: solid;
-	border-image-source: linear-gradient(grey, grey);
+
+	/* Отдельные свойства border-image: */
+	border-image-source: linear-gradient(var(--color), var(--color));
 	border-image-slice: 1;
 	border-image-width: 100%;
 	border-image-outset: 0 100vw 0 100vw;
-	border-image-repeat: stretch;*/
+	border-image-repeat: stretch;
 
-	/*общее свойство: border-image: source | slice | width | outset | repeat;*/
-	background-color: grey;
-	border-style: solid;
-	border-image: linear-gradient(grey, grey) 1/100%/0 100vw 0 100vw;
+	/* Общие свойства border-image: source | slice | width | outset | repeat */
+	/* border-image: linear-gradient(grey, grey) 1 / 100% / 0 100vw 0 100vw; */
 }
 
+/* Способ от Kevin Powell:
+Имеет минус что при загрузке в сафари тёмный фон покрывает всю страницу! */
 .bg-fluid-2 {
 	background-color: var(--color);
 	box-shadow: 0 0 0 100vmax var(--color);

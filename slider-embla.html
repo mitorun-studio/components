@@ -169,35 +169,17 @@
 	/*display: grid;
 	place-content: center;*/
 	/*flex-basis: 290px;*/
-	width: 100%;
+	width: 100%;/* или clamp(260px, 77%, 320px) */
 	min-height: 150px;
 	margin-right: var(--margin-s);
 	padding: var(--margin-s);
 }
 
-@media (width >= 1040px) {
+@media (width >= 1140px) {
 	.gallery__card {
 		width: calc((100% - var(--margin-s) * 2) / 3);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -269,7 +251,7 @@
 ------------------------------------------------*/
 
 .embla-outside {
-	padding-bottom: 48px;
+	padding-bottom: 50px;
 }
 
 @media (width < 992px) {
@@ -279,14 +261,18 @@
 	}
 }
 
+.embla-outside .embla__dots {
+	inset: auto 0 0;
+}
+
 @media (width >= 992px) {
 	.embla-outside {
-		padding: 0 80px 60px;
+		padding: 0 80px 70px;
 	}
 
 	.embla-outside .embla__prev,
 	.embla-outside .embla__next {
-		bottom: calc(50% - 24px + 30px);/* (50% - половина высоты кнопки + половина padding-bottom) */
+		bottom: calc(50% - 24px + 35px);/* (50% - половина высоты кнопки + половина padding-bottom) */
 	}
 }
 
