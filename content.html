@@ -87,6 +87,7 @@
 	line-height: 1.5;
 }
 
+.link,
 .content a {
 	text-decoration: underline;
 	text-underline-offset: 0.26em;
@@ -96,13 +97,17 @@
 	transition: 0.15s linear;
 }
 
+.link:hover,
+.link:focus-visible,
 .content a:hover,
 .content a:focus-visible {
 	text-underline-offset: 0.32em;
 }
 
+.link:active,
 .content a:active {
 	text-underline-offset: 0.18em;
+	filter: brightness(0.9);
 }
 
 b,
@@ -304,21 +309,17 @@ samp:not([class]) {
 	display: inline-block;
 	margin-inline: 0.1em;
 	padding-inline: 0.2em;
-	background: var(--grey-lightest);
+	background: var(--bg-code);
 }
 
 /*--- Блок с кодом: ----------------------*/
-
-:root {
-	--bg-code: hsl(0, 0%, 94%);
-}
 
 .code-block,
 .content pre {
 	position: relative;
 	display: block;
 	font-size: var(--font-size-m);
-	background-color: var(--bg-code);
+	background-color: var(--bg-code-block);
 	overflow: auto;
 }
 
@@ -335,14 +336,14 @@ samp:not([class]) {
 	content: '';
 	position: absolute;
 	inset: 0 0 14px;
-	background-image: linear-gradient(to right, var(--bg-code) 2px, transparent var(--container-padding), transparent calc(100% - var(--container-padding)), var(--bg-code) calc(100% - 2px));
+	background-image: linear-gradient(to right, var(--bg-code-block) 2px, transparent var(--container-padding), transparent calc(100% - var(--container-padding)), var(--bg-code-block) calc(100% - 2px));
 	pointer-events: none;
 }
 
 @media (width >= 576px) {
 	.code-block::after,
 	.content pre::after {
-		background-image: linear-gradient(to right, var(--bg-code) 3px, transparent 1.8em, transparent calc(100% - 1.8em), var(--bg-code) calc(100% - 3px));
+		background-image: linear-gradient(to right, var(--bg-code-block) 3px, transparent 1.8em, transparent calc(100% - 1.8em), var(--bg-code-block) calc(100% - 3px));
 	}
 }
 
@@ -355,7 +356,6 @@ samp:not([class]) {
 	line-height: 1.2;
 	white-space: pre;
 	tab-size: 2;
-	/* background-color: var(--grey-lightest); */
 	overflow: auto;
 }
 
@@ -692,7 +692,7 @@ samp:not([class]) {
 		<p>В базовом примере отступы сделаны гридами-гапами. Для отступов нижними маржинами нужно добавить модификатор <code>.content--margin-bottom</code>.</p>
 		<hr>
 
-		<div class="content content--code-block-tag-3">
+		<div class="content content--code-block-tag-1">
 			<h1>Заголовок H1</h1>
 
 
